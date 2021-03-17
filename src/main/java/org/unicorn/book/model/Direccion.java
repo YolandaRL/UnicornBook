@@ -17,7 +17,7 @@ public class Direccion implements Serializable {
     private static final long serialVersionUID = -7361302534815017815L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_direccion")
     private Long id;
 

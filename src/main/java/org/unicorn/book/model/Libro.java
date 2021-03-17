@@ -18,7 +18,7 @@ public class Libro implements Serializable {
     private static final long serialVersionUID = -4739214424066830932L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_libro")
     private Long id;
 

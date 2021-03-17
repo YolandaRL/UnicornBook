@@ -14,7 +14,7 @@ public class Autor implements Serializable {
     private static final long serialVersionUID = 6690440353825378926L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_autor")
     private Long id;
 

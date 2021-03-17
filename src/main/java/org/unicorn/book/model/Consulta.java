@@ -18,7 +18,7 @@ public class Consulta implements Serializable {
     private static final long serialVersionUID = 7304051981479345163L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_consulta")
     private Long id;
 

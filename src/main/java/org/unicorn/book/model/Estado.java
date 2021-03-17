@@ -14,7 +14,7 @@ public class Estado implements Serializable {
     private static final long serialVersionUID = 5425510610884752179L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_estado")
     private Long id;
 

@@ -14,7 +14,7 @@ public class Editorial implements Serializable {
     private static final long serialVersionUID = -2707321631041381174L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_editorial")
     private Long id;
 

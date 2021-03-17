@@ -18,7 +18,7 @@ public class Encargo implements Serializable {
     private static final long serialVersionUID = -2921603864552360304L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_encargo")
     private Long id;
 

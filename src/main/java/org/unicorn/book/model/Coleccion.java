@@ -14,7 +14,7 @@ public class Coleccion implements Serializable {
     private static final long serialVersionUID = -8551031498586845139L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_coleccion")
     private Long id;
 
