@@ -10,4 +10,6 @@ import java.io.Serializable;
 public class UsuarioRol implements Serializable {
     private static final long serialVersionUID = 7135515275853642668L;
 
+    id_usuario
+    id_rol
 }

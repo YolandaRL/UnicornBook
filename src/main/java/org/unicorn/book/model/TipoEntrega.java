@@ -17,4 +17,23 @@ public class TipoEntrega implements Serializable {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_tipo_entrega")
     private Long id;
+
+    @Column(name = "tipo_entrega")
+    private String nombre;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

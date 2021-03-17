@@ -9,5 +9,6 @@ import java.io.Serializable;
 @Table(name = "libro_coleccion")
 public class LibroColeccion implements Serializable {
     private static final long serialVersionUID = -3366804597363193737L;
-
+    id_libro
+    id_coleccion
 }
