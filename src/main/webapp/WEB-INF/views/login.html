@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}"
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, _, ~{::#scripts})}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title id="title">Unicorn Book - Iniciar sesión</title>
+</head>
+
+<body>
+<div id="scripts">
+
+</div>
+<div class="page-content" id="content">
+    <div class="container">
+        <h1 class="form-heading">login Form</h1>
+        <div class="login-form">
+            <div class="main-div">
+                <div class="panel">
+                    <h2>Inicio de sesión</h2>
+                </div>
+                <form id="Login" th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <input name="username" class="form-control" id="inputEmail" placeholder="Usuario" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input name="password" class="form-control" id="inputPassword" placeholder="Contraseña" type="password">
+                    </div>
+                    <div class="forgot">
+                        <a href="reset.html">¿Has olvidado la contraseña?</a>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Iniciar sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -8,7 +8,7 @@ ${AnsiColor.BRIGHT_YELLOW}
 ##     ## ##  ####  ##  ##       ##     ## ##   ##   ##  ####       ##     ## ##     ## ##     ## ##  ##
 ##     ## ##   ###  ##  ##    ## ##     ## ##    ##  ##   ###       ##     ## ##     ## ##     ## ##   ##
  #######  ##    ## ####  ######   #######  ##     ## ##    ##       ########   #######   #######  ##    ##
-${AnsiColor.RED} ${application.title} Version ${AnsiColor.GREEN} (${application.version})
+${AnsiColor.RED} ${spring.application.name}
 ${AnsiColor.RED} Spring Boot Version ${AnsiColor.GREEN} ${spring-boot.formatted-version}
 ${AnsiColor.BRIGHT_RED}----------------------------------------------------------------------------------------------------------
 ${AnsiColor.BRIGHT_RED}----------------------------------------------------------------------------------------------------------
