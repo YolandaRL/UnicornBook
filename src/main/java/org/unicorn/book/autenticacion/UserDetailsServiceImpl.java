@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.unicorn.book.w.model.Rol;
-import org.unicorn.book.w.model.Usuario;
-import org.unicorn.book.w.repository.UsuarioRepository;
+import org.unicorn.book.app.usuario.model.Rol;
+import org.unicorn.book.app.usuario.model.Usuario;
+import org.unicorn.book.app.usuario.repository.UsuarioRepository;
 
 import java.util.ArrayList;
 import java.util.List;
