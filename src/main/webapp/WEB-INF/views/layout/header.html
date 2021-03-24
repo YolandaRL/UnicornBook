@@ -27,7 +27,7 @@
                     <a class="nav-link" th:href="@{/login}">INICIAR SESIÓN</a>
                 </li>
                 <li th:unless="${#authorization?.expression('isAuthenticated()')}" class="nav-item">
-                    <a class="nav-link btn btn-primary" style="background: white; color: #836aeb" href="#">REGÍSTRATE</a>
+                    <a class="nav-link btn btn-primary" style="background: white; color: #836aeb" th:href="@{/registro}">REGÍSTRATE</a>
                 </li>
                 <!-- Dropdown -->
                 <li th:if="${#authorization?.expression('isAuthenticated()')}" class="nav-item dropdown" >

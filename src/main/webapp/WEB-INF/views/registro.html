@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}"
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title id="title">Unicorn Book - Registrarse</title>
+</head>
+
+<body>
+<div id="links">
+    <!--<link rel="stylesheet" th:href="@{/resources/css/registro.css}">-->
+</div>
+<div id="scripts">
+
+</div>
+<div class="page-content" id="content">
+    <div class="container col-5">
+        <form method="post" th:action="@{/usuario/registro}" th:object="${registroForm}">
+            <fieldset>
+                <legend>Crear cuenta</legend>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group required">
+                            <input class="form-control" placeholder="Nombre de usuario" th:field="*{usuario}"
+                                   type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group required">
+                            <input class="form-control" placeholder="Contraseña" th:field="*{contrasena}"
+                                   type="password"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group required">
+                            <input class="form-control" placeholder="Repetir contraseña" th:field="*{repetirContrasena}"
+                                   type="password"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group required">
+                            <input class="form-control" placeholder="Nombre" th:field="*{nombre}" type="text"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group required">
+                            <input class="form-control" placeholder="Primer apellido" th:field="*{apellido1}"
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group required">
+                            <input class="form-control" placeholder="Segundo apellido" th:field="*{apellido2}"
+                                   type="text"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group required">
+                            <input class="form-control" placeholder="Teléfono" th:field="*{telefono1}" type="text"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Teléfono alternativo" th:field="*{telefono2}"
+                                   type="text"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group required">
+                            <input class="form-control" placeholder="Correo electrónico" th:field="*{correo}"
+                                   type="text"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Fecha de nacimiento (dd-mm-aaaa)"
+                                   th:field="*{fechaNacimiento}" aria-label="fecha-nacimiento" aria-describedby="fecha-nacimiento">
+                            <span class="input-group-text" id="fecha-nacimiento">
+                                <em class="fa fa-calendar"></em>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary w-100" type="submit">Crear mi cuenta</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

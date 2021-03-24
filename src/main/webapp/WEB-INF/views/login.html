@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html th:lang="${#locale.language}"
-      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, _, ~{::#scripts})}"
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}"
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -8,6 +8,9 @@
 </head>
 
 <body>
+<div id="links">
+    <link rel="stylesheet" th:href="@{/resources/css/login.css}">
+</div>
 <div id="scripts">
 
 </div>
@@ -26,8 +29,11 @@
                     <div class="form-group">
                         <input name="password" class="form-control" id="inputPassword" placeholder="Contraseña" type="password">
                     </div>
-                    <div class="forgot">
-                        <a href="reset.html">¿Has olvidado la contraseña?</a>
+                    <div class="forgot text-center">
+                        <a th:href="@{/recuperar-cuenta}">¿Has olvidado la contraseña?</a>
+                    </div>
+                    <div class="register text-center">
+                        <a th:href="@{/registro}">Regístrate</a>
                     </div>
                     <button class="btn btn-primary" type="submit">Iniciar sesión</button>
                 </form>
