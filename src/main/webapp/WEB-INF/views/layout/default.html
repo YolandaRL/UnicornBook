@@ -55,31 +55,54 @@
     </script>
     <script>
         jQuery(function () {
-            if (CONTEXT_ROOT !== URI) {
-                $("#banner").addClass("shrink");
-                $('.navbar-brand, .navbar-form').show();
-                $('.banner').hide();
-                $('nav').removeClass('nav-transparent');
-                $('nav').addClass('nav-colored');
-            }
-        });
-
-        $(document).on("scroll", function(){
-            if (CONTEXT_ROOT === URI) {
-                if($(document).scrollTop() > 86)
-                {
+            if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                if (CONTEXT_ROOT !== URI) {
                     $("#banner").addClass("shrink");
-                    $('.navbar-brand, .navbar-form').fadeIn("slow");
+                    $('.collapse-nav-bar-icon, .collapse-nav-bar-form').show();
+                    $('.banner').hide();
                     $('nav').removeClass('nav-transparent');
                     $('nav').addClass('nav-colored');
                 }
-            else
-                {
-                    $("#banner").removeClass("shrink");
-                    $('.navbar-brand, .navbar-form').hide();
-                    $('nav').addClass('nav-transparent');
-                    $('nav').removeClass('nav-colored');
+
+                $(document).on("scroll", function () {
+                    if (CONTEXT_ROOT === URI) {
+                        if ($(document).scrollTop() > 86) {
+                            $("#banner").addClass("shrink");
+                            $('.collapse-nav-bar-icon, .collapse-nav-bar-form').fadeIn("slow");
+                            $('nav').removeClass('nav-transparent');
+                            $('nav').addClass('nav-colored');
+                        } else {
+                            $("#banner").removeClass("shrink");
+                            $('.collapse-nav-bar-icon, .collapse-nav-bar-form').hide();
+                            $('nav').addClass('nav-transparent');
+                            $('nav').removeClass('nav-colored');
+                        }
+                    }
+                });
+            } else {
+                if (CONTEXT_ROOT !== URI) {
+                    $("#banner").addClass("shrink");
+                    $('.navbar-brand, .navbar-form').show();
+                    $('.banner').hide();
+                    $('nav').removeClass('nav-transparent');
+                    $('nav').addClass('nav-colored');
                 }
+
+                $(document).on("scroll", function () {
+                    if (CONTEXT_ROOT === URI) {
+                        if ($(document).scrollTop() > 86) {
+                            $("#banner").addClass("shrink");
+                            $('.navbar-brand, .navbar-form').fadeIn("slow");
+                            $('nav').removeClass('nav-transparent');
+                            $('nav').addClass('nav-colored');
+                        } else {
+                            $("#banner").removeClass("shrink");
+                            $('.navbar-brand, .navbar-form').hide();
+                            $('nav').addClass('nav-transparent');
+                            $('nav').removeClass('nav-colored');
+                        }
+                    }
+                });
             }
         });
     </script>
