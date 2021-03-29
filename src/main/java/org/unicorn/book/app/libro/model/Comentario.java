@@ -10,34 +10,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "comentario")
+@Table(name = "COMENTARIO")
 public class Comentario implements Serializable {
     private static final long serialVersionUID = 1650837254265550705L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_comentario")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "fecha_comentario")
+    @Column(name = "FECHA_COMENTARIO")
     private Date fechaComentario;
 
-    @Column(name = "hora_comentario")
+    @Column(name = "HORA_COMENTARIO")
+    @Temporal(TemporalType.TIME)
     private Date horaComentario;
 
-    @Column(name = "comentario")
+    @Column(name = "COMENTARIO")
     private String textoComentario;
 
-    @Column(name = "estrellas")
-    private Double estrellas;
+    @Column(name = "ESTRELLAS")
+    private Integer estrellas;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_estado")
+    @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
 
     public Long getId() {
@@ -72,11 +76,11 @@ public class Comentario implements Serializable {
         this.textoComentario = textoComentario;
     }
 
-    public Double getEstrellas() {
+    public Integer getEstrellas() {
         return estrellas;
     }
 
-    public void setEstrellas(Double estrellas) {
+    public void setEstrellas(Integer estrellas) {
         this.estrellas = estrellas;
     }
 

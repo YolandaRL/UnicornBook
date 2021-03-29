@@ -13,8 +13,8 @@ public class CustomUserDetailsImpl extends User {
     private String nombre;
     private String apellido1;
     private String apellido2;
-    private String telefono1;
-    private String telefono2;
+    private Long telefono1;
+    private Long telefono2;
     private Date fechaNacimiento;
 
     public CustomUserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -62,19 +62,19 @@ public class CustomUserDetailsImpl extends User {
         this.apellido2 = apellido2;
     }
 
-    public String getTelefono1() {
+    public Long getTelefono1() {
         return telefono1;
     }
 
-    public void setTelefono1(String telefono1) {
+    public void setTelefono1(Long telefono1) {
         this.telefono1 = telefono1;
     }
 
-    public String getTelefono2() {
+    public Long getTelefono2() {
         return telefono2;
     }
 
-    public void setTelefono2(String telefono2) {
+    public void setTelefono2(Long telefono2) {
         this.telefono2 = telefono2;
     }
 

@@ -8,67 +8,68 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "libro")
+@Table(name = "LIBRO")
 public class Libro implements Serializable {
     private static final long serialVersionUID = -4739214424066830932L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_libro")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "isbn")
+    @Column(name = "ISBN")
     private Long isbn;
 
-    @Column(name = "titulo")
+    @Column(name = "TITULO")
     private String titulo;
 
-    @Column(name = "subtitulo")
+    @Column(name = "SUBTITULO")
     private String subtitulo;
 
-    @Column(name = "sinopsis")
+    @Column(name = "SINOPSIS")
     private String sinopsis;
 
-    @Column(name = "paginas")
+    @Column(name = "PAGINAS")
     private Integer paginas;
 
-    @Column(name = "formato")
+    @Column(name = "FORMATO")
     private String formato;
 
-    @Column(name = "fecha_publicacion")
+    @Column(name = "FECHA_PUBLICACION")
     private Date fechaPublicacion;
 
-    @Column(name = "fecha_edicion")
+    @Column(name = "FECHA_EDICION")
     private Date fechaEdicion;
 
-    @Column(name = "fecha_disponible")
+    @Column(name = "FECHA_DISPONIBLE")
     private Date fechaDisponible;
 
-    @Column(name = "visible")
+    @Column(name = "VISIBLE")
     private boolean visible;
 
-    @Column(name = "idioma")
+    @Column(name = "IDIOMA")
     private String idioma;
 
-    @Column(name = "notas")
+    @Column(name = "NOTAS")
     private String notas;
 
-    @Column(name = "stock")
+    @Column(name = "STOCK")
     private Integer stock;
 
-    @Column(name = "precio")
+    @Column(name = "PRECIO")
     private Float precio;
 
-    @Column(name = "link_portada")
+    @Column(name = "LINK_PORTADA")
     private String linkPortada;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_editorial")
+    @JoinColumn(name = "ID_EDITORIAL")
     private Editorial editorial;
 
     public Long getId() {

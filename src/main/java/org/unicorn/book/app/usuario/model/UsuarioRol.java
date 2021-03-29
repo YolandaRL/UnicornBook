@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "usuario_rol")
+@Table(name = "USUARIO_ROL")
 public class UsuarioRol implements Serializable {
     private static final long serialVersionUID = 7135515275853642668L;
 
@@ -17,11 +17,11 @@ public class UsuarioRol implements Serializable {
     private UsuarioRolPk pk;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_USUARIO", insertable = false, updatable = false)
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_rol", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_ROL", insertable = false, updatable = false)
     private Rol rol;
 
     public UsuarioRolPk getPk() {

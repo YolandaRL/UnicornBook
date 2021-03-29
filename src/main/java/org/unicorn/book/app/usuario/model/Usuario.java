@@ -9,55 +9,56 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "USUARIO")
 public class Usuario implements Serializable {
     private static final long serialVersionUID = -5725589544729774593L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_usuario")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "usuario")
+    @Column(name = "USUARIO")
     private String usuario;
 
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "dni")
+    @Column(name = "DNI")
     private String dni;
 
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
 
-    @Column(name = "apellido1")
+    @Column(name = "APELLIDO1")
     private String apellido1;
 
-    @Column(name = "apellido2")
+    @Column(name = "APELLIDO2")
     private String apellido2;
 
-    @Column(name = "telefono1")
-    private String telefono1;
+    @Column(name = "TELEFONO1")
+    private Long telefono1;
 
-    @Column(name = "telefono2")
-    private String telefono2;
+    @Column(name = "TELEFONO2")
+    private Long telefono2;
 
-    @Column(name = "fecha_nacimiento")
+    @Column(name = "FECHA_NACIMIENTO")
     private Date fechaNacimiento;
 
     @JoinTable(
-            name = "usuario_rol",
-            joinColumns = @JoinColumn(name = "id_usuario", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "id_rol", nullable = false)
+            name = "USUARIO_ROL",
+            joinColumns = @JoinColumn(name = "ID_USUARIO", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "ID_ROL", nullable = false)
     )
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Rol> roles;
@@ -126,19 +127,19 @@ public class Usuario implements Serializable {
         this.apellido2 = apellido2;
     }
 
-    public String getTelefono1() {
+    public Long getTelefono1() {
         return telefono1;
     }
 
-    public void setTelefono1(String telefono1) {
+    public void setTelefono1(Long telefono1) {
         this.telefono1 = telefono1;
     }
 
-    public String getTelefono2() {
+    public Long getTelefono2() {
         return telefono2;
     }
 
-    public void setTelefono2(String telefono2) {
+    public void setTelefono2(Long telefono2) {
         this.telefono2 = telefono2;
     }
 

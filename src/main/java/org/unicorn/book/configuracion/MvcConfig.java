@@ -25,7 +25,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
        // super.addResourceHandlers(registry);
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/resources/**", "/manifest.json").addResourceLocations("/resources/", "/manifest.json");
     }
 
 

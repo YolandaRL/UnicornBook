@@ -9,18 +9,18 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "libro_autor")
+@Table(name = "LIBRO_AUTOR")
 public class LibroAutor implements Serializable {
     private static final long serialVersionUID = 1793275581468225401L;
     @EmbeddedId
     private LibroAutorPk pk;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_libro", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_LIBRO", insertable = false, updatable = false)
     private Libro libro;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_autor", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_AUTOR", insertable = false, updatable = false)
     private Autor autor;
 
     public LibroAutorPk getPk() {

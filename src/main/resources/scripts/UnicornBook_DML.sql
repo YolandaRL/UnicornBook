@@ -1,33 +1,50 @@
-INSERT INTO tipo_entrega (tipo_entrega) VALUES 
-('RECOGIDA EN TIENDA'),
-('ENVIO A DOMICILIO');
+INSERT INTO TIPO_ENTREGA (TIPO_ENTREGA)
+VALUES ('RECOGIDA EN TIENDA') ,
+    ('ENVIO A DOMICILIO');
 
-INSERT INTO tipo_operacion (tipo_operacion) VALUES 
-('CONSULTA'),
-('ENCARGO');
+INSERT INTO TIPO_OPERACION (TIPO_OPERACION)
+VALUES ('CONSULTA') ,
+    ('ENCARGO');
 
-INSERT INTO estado (estado) VALUES 
-/*tabla comentarios*/
-('PENDIENTE DE MODERAR'), 
-('RECHAZADO'), 
-('ACEPTADO'), /*tabla encargo*/
-/*tabla compra*/
-('PENDIENTE DE PAGO'),
-('LISTO PARA RECOGIDA'),
-('PENDIENTE DE ENVIO'),
-('ENVIADO'),
-('PROCESADO'),
-/*tabla consulta*/
-('ENVIADA'),
-('ABIERTA'),
-('FINALIZADA'),
-/*tabla encargo*/
-('PENDIENTE RECOGIDA'),
-('PENDIENTE DE PROCESAR'),
-('FINALIZADO');
+INSERT INTO ESTADO (ESTADO)
+VALUES
+/*TABLA COMENTARIOS*/
+    ('PENDIENTE DE MODERAR') ,
+    ('RECHAZADO')
+    ,
+    ('ACEPTADO')
+    ,
+/*TABLA ENCARGO*/
+/*TABLA COMPRA*/
+    ('PENDIENTE DE PAGO')
+    ,
+    ('LISTO PARA RECOGIDA')
+    ,
+    ('PENDIENTE DE ENVIO')
+    ,
+    ('ENVIADO')
+    ,
+    ('PROCESADO')
+    ,
+/*TABLA CONSULTA*/
+    ('ENVIADA')
+    ,
+    ('ABIERTA')
+    ,
+    ('FINALIZADA')
+    ,
+/*TABLA ENCARGO*/
+    ('PENDIENTE RECOGIDA')
+    ,
+    ('PENDIENTE DE PROCESAR')
+    ,
+    ('FINALIZADO');
 
-INSERT INTO rol (nombre_rol) VALUES 
-('ADMIN'),
-('CLIENTE'),
-('INVITADO');
+INSERT INTO ROL (NOMBRE_ROL)
+VALUES ('ADMIN') ,
+    ('CLIENTE')
+    ,
+    ('INVITADO');
 
+$2a$10$SahsZm1o4Ig.fsyqNE/
+fquGcp1MK7NtryVgxkEAvmYeer9N6KQ5M6

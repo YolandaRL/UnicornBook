@@ -8,50 +8,54 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "compra")
+@Table(name = "COMPRA")
 public class Compra implements Serializable {
     private static final long serialVersionUID = 3883639187176623693L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_compra")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "fecha_compra")
+    @Column(name = "FECHA_COMPRA")
     private Date fechaCompra;
 
-    @Column(name = "hora_compra")
+    @Column(name = "HORA_COMPRA")
+    @Temporal(TemporalType.TIME)
     private Date horaCompra;
 
-    @Column(name = "fecha_entrega")
+    @Column(name = "FECHA_ENTREGA")
     private Date fechaEntrega;
 
-    @Column(name = "metodo_pago")
+    @Column(name = "METODO_PAGO")
     private Double metodoPago;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_estado")
+    @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tipo_entrega")
+    @JoinColumn(name = "ID_TIPO_ENTREGA")
     private TipoEntrega tipoEntrega;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_direccion")
+    @JoinColumn(name = "ID_DIRECCION")
     private Direccion direccion;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tarjeta")
+    @JoinColumn(name = "ID_TARJETA")
     private Tarjeta tarjeta;
 
     public Long getId() {

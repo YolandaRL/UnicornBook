@@ -10,48 +10,49 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "direccion")
+@Table(name = "DIRECCION")
 public class Direccion implements Serializable {
     private static final long serialVersionUID = -7361302534815017815L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_direccion")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "nombre_personalizado")
+    @Column(name = "NOMBRE_PERSONALIZADO")
     private String nombrePersonalizado;
 
-    @Column(name = "nombre_receptor")
+    @Column(name = "NOMBRE_RECEPTOR")
     private String nombreReceptor;
 
-    @Column(name = "apellido1_receptor")
+    @Column(name = "APELLIDO1_RECEPTOR")
     private String nombre1Receptor;
 
-    @Column(name = "apellido2_receptor")
+    @Column(name = "APELLIDO2_RECEPTOR")
     private String nombre2Receptor;
 
-    @Column(name = "direccion")
+    @Column(name = "DIRECCION")
     private String textoDireccion;
 
-    @Column(name = "codigo_postal")
-    private Long codigoPostal;
+    @Column(name = "CODIGO_POSTAL")
+    private Integer codigoPostal;
 
-    @Column(name = "poblacion")
+    @Column(name = "POBLACION")
     private String poblacion;
 
-    @Column(name = "provincia")
+    @Column(name = "PROVINCIA")
     private String provincia;
 
-    @Column(name = "pais")
+    @Column(name = "PAIS")
     private String pais;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
     public Long getId() {
@@ -102,11 +103,11 @@ public class Direccion implements Serializable {
         this.textoDireccion = textoDireccion;
     }
 
-    public Long getCodigoPostal() {
+    public Integer getCodigoPostal() {
         return codigoPostal;
     }
 
-    public void setCodigoPostal(Long codigoPostal) {
+    public void setCodigoPostal(Integer codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 

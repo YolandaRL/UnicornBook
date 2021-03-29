@@ -5,23 +5,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tematica")
+@Table(name = "TEMATICA")
 public class Tematica implements Serializable {
     private static final long serialVersionUID = -7394652279387016203L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_tematica")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
 
-    @Column(name = "descripcion")
+    @Column(name = "DESCRIPCION")
     private String descripcion;
 
     public Long getId() {

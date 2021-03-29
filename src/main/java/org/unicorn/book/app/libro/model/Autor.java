@@ -5,32 +5,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "autor")
+@Table(name = "AUTOR")
 public class Autor implements Serializable {
     private static final long serialVersionUID = 6690440353825378926L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_autor")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
 
-    @Column(name = "apellido1")
+    @Column(name = "APELLIDO1")
     private String apellido1;
 
-    @Column(name = "apellido2")
+    @Column(name = "APELLIDO2")
     private String apellido2;
 
-    @Column(name = "biografia")
+    @Column(name = "BIOGRAFIA")
     private String biografia;
 
-    @Column(name = "link_foto")
+    @Column(name = "LINK_FOTO")
     private String linkFoto;
 
     public Long getId() {

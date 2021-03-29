@@ -1,17 +1,16 @@
-<nav xmlns:th="http://www.thymeleaf.org" class="navbar navbar-expand-md navbar-dark fixed-top nav-transparent" id="banner">
+<nav xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     class="navbar navbar-expand-md navbar-dark fixed-top nav-transparent" id="banner">
 
         <!-- Brand -->
         <a class="navbar-brand" th:href="@{/}" style="display: none;">
-            <img th:src="@{/resources/images/unicornbook_titulo.png}" height="100em">
+            <img th:src="@{/resources/images/unicornbook_titulo.png}" height="50vw">
         </a>
 
         <form class="navbar-form" th:action="@{/busquedas}" method="get"  style="display: none;">
             <div class="input-group">
                 <input type="text" th:value="${termino}" class="form-control form-control-lg" name="termino"
                        placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
-                <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-                </div>
+                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
             </div>
         </form>
 
@@ -23,14 +22,14 @@
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
-                <li th:unless="${#authorization?.expression('isAuthenticated()')}" class="nav-item">
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
                     <a class="nav-link" th:href="@{/login}">INICIAR SESIÓN</a>
                 </li>
-                <li th:unless="${#authorization?.expression('isAuthenticated()')}" class="nav-item">
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
                     <a class="nav-link btn btn-primary" style="background: white; color: #836aeb" th:href="@{/registro}">REGÍSTRATE</a>
                 </li>
                 <!-- Dropdown -->
-                <li th:if="${#authorization?.expression('isAuthenticated()')}" class="nav-item dropdown" >
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"
                         th:text="${#authentication.principal.username}">
                         Username
@@ -45,14 +44,13 @@
                 </li>
             </ul>
         </div>
-
 </nav>
 
 <div class="banner" xmlns:th="http://www.thymeleaf.org">
     <div class="container">
         <div class="banner-text">
             <div class="banner-heading text-center">
-                <img th:src="@{/resources/images/unicornbook_titulo.png}" height="200em">
+                <img th:src="@{/resources/images/unicornbook_titulo.png}" height="100vw">
             </div>
             <div class="banner-sub-heading text-center">
                 La plataforma de comercio online y comunidad lectora de las librerías independientes.
@@ -61,9 +59,7 @@
             <form th:action="@{/busquedas}" method="get">
                 <div class="input-group search-group">
                     <input type="text" class="form-control form-control-lg input-search" name="termino" placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary button-search" type="submit">Buscar</button>
-                    </div>
+                    <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
             </form>
         </div>

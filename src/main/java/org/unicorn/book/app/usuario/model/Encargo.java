@@ -10,56 +10,60 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "encargo")
+@Table(name = "ENCARGO")
 public class Encargo implements Serializable {
     private static final long serialVersionUID = -2921603864552360304L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_encargo")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "isbn")
+    @Column(name = "ISBN")
     private Long isbn;
 
-    @Column(name = "titulo")
+    @Column(name = "TITULO")
     private String titulo;
 
-    @Column(name = "cantidad")
+    @Column(name = "CANTIDAD")
     private Integer cantidad;
 
-    @Column(name = "fecha_encargo")
+    @Column(name = "FECHA_ENCARGO")
     private Date fechaEntrega;
 
-    @Column(name = "hora_encargo")
+    @Column(name = "HORA_ENCARGO")
+    @Temporal(TemporalType.TIME)
     private Date horaEncargo;
 
-    @Column(name = "fecha_fin")
+    @Column(name = "FECHA_FIN")
     private Date fechaFin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_estado")
+    @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tipo_entrega")
+    @JoinColumn(name = "ID_TIPO_ENTREGA")
     private TipoEntrega tipoEntrega;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_libro")
+    @JoinColumn(name = "ID_LIBRO")
     private Libro libro;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tipo_operacion")
+    @JoinColumn(name = "ID_TIPO_OPERACION")
     private TipoOperacion tipoOperacion;
 
     public Long getId() {

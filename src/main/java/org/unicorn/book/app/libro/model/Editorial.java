@@ -5,41 +5,42 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "editorial")
+@Table(name = "EDITORIAL")
 public class Editorial implements Serializable {
     private static final long serialVersionUID = -2707321631041381174L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_editorial")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
 
-    @Column(name = "direccion")
+    @Column(name = "DIRECCION")
     private String direccion;
 
-    @Column(name = "provincia")
+    @Column(name = "PROVINCIA")
     private String provincia;
 
-    @Column(name = "ccaa")
+    @Column(name = "CCAA")
     private String ccaa;
 
-    @Column(name = "telefono1")
+    @Column(name = "TELEFONO1")
     private Long telefono1;
 
-    @Column(name = "telefono2")
+    @Column(name = "TELEFONO2")
     private Long telefono2;
 
-    @Column(name = "enlace_web")
+    @Column(name = "ENLACE_WEB")
     private String enlaceWeb;
 
-    @Column(name = "descripcion")
+    @Column(name = "DESCRIPCION")
     private String descripcion;
 
     public Long getId() {

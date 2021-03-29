@@ -41,9 +41,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         us.setDni(u.getDni());
         us.setNombre(u.getNombre());
         us.setApellido1(u.getApellido1());
-        us.setApellido2(u.getTelefono2());
+        us.setApellido2(u.getApellido2());
         us.setTelefono1(u.getTelefono1());
-        us.setTelefono2(u.getTelefono2());
         us.setFechaNacimiento(u.getFechaNacimiento());
         return us;
     }

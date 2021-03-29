@@ -65,10 +65,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .jdbcAuthentication()
                 .passwordEncoder(this.passworEnconder())
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select usuario,password,activo from unicornbook.usuario where usuario = ?")
-                .authoritiesByUsernameQuery("select u.usuario,r.nombre_rol from usuario_rol ur " +
-                        "inner join usuario u on u.id_usuario = ur.id_usuario " +
-                        "inner join rol r on r.id_rol = ur.id_rol where u.usuario = ?");
+                .usersByUsernameQuery("SELECT USUARIO ,PASSWORD, ACTIVO FROM UNICORNBOOK.USUARIO WHERE USUARIO = ?")
+                .authoritiesByUsernameQuery("SELECT U.USUARIO,R.NOMBRE_ROL FROM USUARIO_ROL UR " +
+                        "INNER JOIN USUARIO U ON U.ID = UR.ID_USUARIO " +
+                        "INNER JOIN ROL R ON R.ID_ROL = UR.ID WHERE U.USUARIO = ?");
     }
 
 

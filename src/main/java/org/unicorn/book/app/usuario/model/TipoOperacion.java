@@ -9,16 +9,15 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tipo_operacion")
+@Table(name = "TIPO_OPERACION")
 public class TipoOperacion implements Serializable {
     private static final long serialVersionUID = -5129575253735745179L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_tipo_operacion")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "tipo_operacion")
+    @Column(name = "TIPO_OPERACION")
     private String nombre;
 
     public Long getId() {

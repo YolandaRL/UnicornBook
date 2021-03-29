@@ -10,39 +10,40 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tarjeta")
+@Table(name = "TARJETA")
 public class Tarjeta implements Serializable {
     private static final long serialVersionUID = -5868846461317082440L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_tarjeta")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "nombre_personalizado")
+    @Column(name = "NOMBRE_PERSONALIZADO")
     private String nombrePersonalizado;
 
-    @Column(name = "numero")
+    @Column(name = "NUMERO")
     private Long numero;
 
-    @Column(name = "tipo_tarjeta")
+    @Column(name = "TIPO_TARJETA")
     private String tipoTarjeta;
 
-    @Column(name = "mes_caducidad")
+    @Column(name = "MES_CADUCIDAD")
     private Integer mesCaducidad;
 
-    @Column(name = "ano_caducidad")
+    @Column(name = "ANO_CADUCIDAD")
     private Integer anoCaducidad;
 
-    @Column(name = "cvv")
+    @Column(name = "CVV")
     private Integer cvv;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
     public Long getId() {

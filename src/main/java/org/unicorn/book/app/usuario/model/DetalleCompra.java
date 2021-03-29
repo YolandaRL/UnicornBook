@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "detalle_compra")
+@Table(name = "DETALLE_COMPRA")
 public class DetalleCompra implements Serializable {
     private static final long serialVersionUID = 5282636708737363596L;
 
@@ -21,21 +21,21 @@ public class DetalleCompra implements Serializable {
     private DetalleCompraPk pk;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_compra", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_COMPRA", insertable = false, updatable = false)
     private Compra compra;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_libro", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_LIBRO", insertable = false, updatable = false)
     private Libro libro;
 
-    @Column(name = "cantidad")
+    @Column(name = "CANTIDAD")
     private Integer cantidad;
 
-    @Column(name = "porcentaje_descuento")
+    @Column(name = "PORCENTAJE_DESCUENTO", columnDefinition="decimal", precision=18, scale=3)
     private Double pocentajeDescuento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_comentario")
+    @JoinColumn(name = "ID_COMENTARIO")
     private Comentario comentario;
 
     public DetalleCompraPk getPk() {

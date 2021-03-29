@@ -9,16 +9,15 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "rol")
+@Table(name = "ROL")
 public class Rol implements Serializable {
     private static final long serialVersionUID = -6418520097494559841L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_rol")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "nombre_rol")
+    @Column(name = "NOMBRE_ROL")
     private String nombre;
 
     public Long getId() {
