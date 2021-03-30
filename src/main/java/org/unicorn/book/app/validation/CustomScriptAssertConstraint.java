@@ -1,8 +1,6 @@
-package org.unicorn.book.validation;
+package org.unicorn.book.app.validation;
 
 import org.hibernate.validator.internal.util.Contracts;
-import org.hibernate.validator.internal.util.logging.Log;
-import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.hibernate.validator.internal.util.logging.Messages;
 import org.springframework.stereotype.Component;
 

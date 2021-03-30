@@ -1,4 +1,4 @@
-package org.unicorn.book.pruebas.controller;
+package org.unicorn.book.app.libro.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

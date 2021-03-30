@@ -1,4 +1,4 @@
-package org.unicorn.book.validation;
+package org.unicorn.book.app.validation;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

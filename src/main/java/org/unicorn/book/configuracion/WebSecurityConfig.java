@@ -11,30 +11,35 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.unicorn.book.autenticacion.UserDetailsServiceImpl;
 
 import javax.sql.DataSource;
 
+/**
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl UserDetailsServiceImpl;
+    private final UserDetailsServiceImpl UserDetailsServiceImpl;
+    private final  DataSource dataSource;
 
-    @Autowired
-    private DataSource dataSource;
+    /**
+     *
+     * @param userDetailsServiceImpl
+     * @param dataSource
+     */
+    public WebSecurityConfig(org.unicorn.book.autenticacion.UserDetailsServiceImpl userDetailsServiceImpl,
+            DataSource dataSource) {
+        UserDetailsServiceImpl = userDetailsServiceImpl;
+        this.dataSource = dataSource;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/usuario/registro", "/registro", "/busquedas").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/", "/login", "/usuario/nuevo", "/busquedas").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/client/**").hasRole("CLIENT")
                 .anyRequest().authenticated()

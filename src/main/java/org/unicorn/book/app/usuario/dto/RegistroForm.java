@@ -1,7 +1,6 @@
-package org.unicorn.book.pruebas.dto;
+package org.unicorn.book.app.usuario.dto;
 
-import org.unicorn.book.validation.CustomScriptAssert;
-import org.unicorn.book.validation.NifNie;
+import org.unicorn.book.app.validation.CustomScriptAssert;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;

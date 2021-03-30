@@ -1,4 +1,4 @@
-package org.unicorn.book.pruebas.controller;
+package org.unicorn.book.app.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

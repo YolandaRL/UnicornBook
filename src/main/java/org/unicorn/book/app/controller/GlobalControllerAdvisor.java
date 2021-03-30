@@ -1,4 +1,4 @@
-package org.unicorn.book.pruebas.controller;
+package org.unicorn.book.app.controller;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;

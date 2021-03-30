@@ -1,4 +1,4 @@
-package org.unicorn.book.validation;
+package org.unicorn.book.app.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
