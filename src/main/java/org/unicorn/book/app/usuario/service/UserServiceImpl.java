@@ -13,6 +13,7 @@ import org.unicorn.book.app.usuario.model.Rol;
 import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.UsuarioRepository;
 import org.unicorn.book.app.usuario.dto.RegistroForm;
+import org.unicorn.book.autenticacion.AuthenticationUtils;
 import org.unicorn.book.autenticacion.CustomUserDetailsImpl;
 
 import javax.persistence.EntityManager;
@@ -54,29 +55,16 @@ public class UserServiceImpl implements UsuarioService {
         usuario.setRoles(roles);
         usuarioRepository.saveAndFlush(usuario);
 
-        this.autenticarUsuario(usuario.getUsuario(), usuario.getRoles());
+        AuthenticationUtils.login(usuario.getUsuario(), usuario.getRoles());
     }
 
-    private void autenticarUsuario(String username, List<Rol> roles) {
-        /*List<GrantedAuthority> authorities = new ArrayList<>();
-        roles.forEach(rol -> authorities.add((GrantedAuthority) rol::getNombre));
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, "******", authorities);
-        CustomUserDetailsImpl details = new CustomUserDetailsImpl(username, "******", authorities);
-        auth.setDetails(details);
-        SecurityContextHolder.getContext().setAuthentication(details);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof CustomUserDetailsImpl) {
-            System.out.println("si tio");
-        }*/
-    }
     /**
      *
      * @param username
      * @throws UsernameDuplicatedException
      */
     private void checkValidUsername(String username) throws UsernameDuplicatedException {
-        if (usuarioRepository.existsByUsuario(username)){
+        if (Boolean.TRUE.equals(usuarioRepository.existsByUsuario(username))){
             throw new UsernameDuplicatedException("El nombre de usuario ya existe");
         }
     }
@@ -87,7 +75,7 @@ public class UserServiceImpl implements UsuarioService {
      * @throws EmailDuplicatedException
      */
     private void checkValidEmail(String email) throws EmailDuplicatedException {
-        if (usuarioRepository.existsByEmail(email)) {
+        if (Boolean.TRUE.equals(usuarioRepository.existsByEmail(email))) {
             throw new EmailDuplicatedException("El correo electrónico ya existe");
         }
     }
