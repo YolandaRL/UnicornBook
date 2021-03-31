@@ -112,20 +112,18 @@ nav {
     color:#fff;
 }
 
-.btn-banner{
-    padding:5px 20px;
-    border-radius:10px;
-    font-weight:700;
-    line-height:1.5;
-    text-align:center;
-    color:#fff;
-    text-transform:uppercase;
+.btn-search {
+    text-align: center;
+    color: #fff;
+    background: palevioletred !important;
+    text-transform: uppercase;
 }
-.text-intro{
-    width:90%;
-    margin:auto;
-    text-align:center;
-    padding-top:30px;
+
+.text-intro {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    padding-top: 30px;
 }
 
 .search-group {

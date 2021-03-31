@@ -13,42 +13,44 @@
 </div>
 
 <div class="page-content" id="content">
-    <div class="container-full">
-        <div class="container d-flex justify-content-center">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Nombre remitente</th>
-                    <th scope="col">Vía</th>
-                    <th scope="col">Provincia</th>
-                    <th scope="col">Poblacion</th>
-                    <th scope="col">Código postal</th>
-                    <th scope="col">Edición</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${#lists.isEmpty(direcciones)}">
-                    <td class="text-center" colspan="6">Todavía no hay direcciones de usuario</td>
-                </tr>
-                <tr th:each="direccions:${direcciones}">
-                    <th scope="row">1</th>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>3</td>
-                    <td>
-                        <a class="btn-open-modal-direcciones">Editar</a>
-                        <a>Eliminar</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="container d-flex justify-content-center">
-            <button class="btn btn-primary btn-open-modal-direcciones" type="button">
-                <em class="fa fa-plus"></em>
-                <span>Añadir nueva dirección</span>
-            </button>
+    <div class="container">
+        <div class="justify-content-center">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nombre remitente</th>
+                        <th scope="col">Vía</th>
+                        <th scope="col">Provincia</th>
+                        <th scope="col">Poblacion</th>
+                        <th scope="col">Código postal</th>
+                        <th scope="col">Edición</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(direcciones)}">
+                        <td class="text-center" colspan="6">Todavía no hay direcciones de usuario</td>
+                    </tr>
+                    <tr th:each="direccions:${direcciones}">
+                        <th scope="row">1</th>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>
+                            <a class="btn-open-modal-direcciones">Editar</a>
+                            <a>Eliminar</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row justify-content-center">
+                <button class="btn btn-primary col-lg-3 col-md-6 col-sm-3 btn-open-modal-direcciones" type="button">
+                    <em class="fa fa-plus"></em>
+                    <span>Añadir nueva dirección</span>
+                </button>
+            </div>
         </div>
     </div>
     <div th:replace="usuario/modals/modal-direccion"></div>

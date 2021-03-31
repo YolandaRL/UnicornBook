@@ -8,24 +8,28 @@
 </head>
 
 <body>
-    <div class="page-content" id="content">
-        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
-            </ol>
-        </nav>
-        <div class="container col-5">
+<div class="page-content" id="content">
+    <nav aria-label="breadcrumb"
+         style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li aria-current="page" class="breadcrumb-item active">Library</li>
+        </ol>
+    </nav>
+    <div class="container">
+        <div class="justify-content-center">
             <form method="post" th:action="@{/usuario/nuevo}" th:object="${usuarioForm}">
                 <fieldset>
                     <legend>Crear cuenta</legend>
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="form-floating mb-3 required">
-                                <input id="usuario" class="form-control"
+                                <input aria-label="usuario" class="form-control"
+                                       id="usuario"
+                                       placeholder="Nombre de usuario"
                                        th:classappend="${#fields.hasErrors('usuario') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Nombre de usuario" th:field="*{usuario}" type="text"
-                                       aria-label="usuario"/>
+                                       th:field="*{usuario}"
+                                       type="text"/>
                                 <label for="usuario">Usuario</label>
                                 <span class="text-danger" th:if="${#fields.hasErrors('usuario')}"
                                       th:text="${#fields.errors('usuario')[0]}"></span>
@@ -33,46 +37,65 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-floating mb-3 required">
-                                <input id="nombre" class="form-control" th:classappend="${#fields.hasErrors('nombre') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Nombre" th:field="*{nombre}" type="text" aria-label="nombre"/>
+                                <input aria-label="nombre" class="form-control"
+                                       id="nombre"
+                                       placeholder="Nombre"
+                                       th:classappend="${#fields.hasErrors('nombre') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{nombre}" type="text"/>
                                 <label for="nombre">Nombre</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:text="${#fields.errors('nombre')[0]}"></span>
+                                <span class="text-danger" th:if="${#fields.hasErrors('nombre')}"
+                                      th:text="${#fields.errors('nombre')[0]}"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-floating mb-3 required">
-                                <input id="apellido1" class="form-control" th:classappend="${#fields.hasErrors('apellido1') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Primer apellido" th:field="*{apellido1}" type="text" aria-label="apellido1"/>
+                                <input aria-label="apellido1" class="form-control"
+                                       id="apellido1"
+                                       placeholder="Primer apellido"
+                                       th:classappend="${#fields.hasErrors('apellido1') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{apellido1}"
+                                       type="text"/>
                                 <label for="apellido1">Primer apellido</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('apellido1')}" th:text="${#fields.errors('apellido1')[0]}"></span>
+                                <span class="text-danger" th:if="${#fields.hasErrors('apellido1')}"
+                                      th:text="${#fields.errors('apellido1')[0]}"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-floating mb-3 required">
-                                <input id="apellido2" class="form-control" th:classappend="${#fields.hasErrors('apellido2') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Segundo apellido" th:field="*{apellido2}" type="text" aria-label="apellido2"/>
+                                <input aria-label="apellido2" class="form-control"
+                                       id="apellido2"
+                                       placeholder="Segundo apellido"
+                                       th:classappend="${#fields.hasErrors('apellido2') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{apellido2}"
+                                       type="text"/>
                                 <label for="apellido2">Segundo apellido</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('apellido2')}" th:text="${#fields.errors('apellido2')[0]}"></span>
+                                <span class="text-danger" th:if="${#fields.hasErrors('apellido2')}"
+                                      th:text="${#fields.errors('apellido2')[0]}"></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-floating mb-3 required">
-                                <input id="correo" class="form-control" th:classappend="${#fields.hasErrors('correo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Correo electrónico" th:field="*{correo}" type="text" aria-label="correo"/>
+                                <input aria-label="correo" class="form-control"
+                                       id="correo"
+                                       placeholder="Correo electrónico"
+                                       th:classappend="${#fields.hasErrors('correo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{correo}"
+                                       type="text"/>
                                 <label for="correo">Correo electrónico</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('correo')}" th:text="${#fields.errors('correo')[0]}"></span>
+                                <span class="text-danger" th:if="${#fields.hasErrors('correo')}"
+                                      th:text="${#fields.errors('correo')[0]}"></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="contrasena" class="form-control" id="contrasena"
                                        placeholder="Contraseña"
@@ -83,7 +106,7 @@
                                       th:text="${#fields.errors('contrasena')[0]}"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="repetirContrasena" class="form-control" id="repetirContrasena"
                                        placeholder="Repetir contraseña"
@@ -97,13 +120,15 @@
                     </div>
                 </fieldset>
 
-                <div class="row">
-                    <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
                         <button class="btn btn-primary w-100" type="submit">Crear mi cuenta</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+</div>
+</div>
 </body>
 </html>

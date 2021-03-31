@@ -11,13 +11,13 @@
 <div id="scripts"></div>
 
 <div class="page-content" id="content">
-    <div class="container-full">
-        <div class="container d-flex justify-content-center">
+    <div class="container">
+        <div class="justify-content-center">
             <form method="post" th:action="@{/usuario/perfil}" th:object="${usuarioForm}">
                 <fieldset>
                     <legend>Crear cuenta</legend>
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="usuario" class="form-control" id="usuario"
                                        placeholder="Nombre de usuario"
@@ -31,8 +31,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="nombre" class="form-control" id="nombre"
                                        placeholder="Nombre"
@@ -43,7 +43,7 @@
                                       th:text="${#fields.errors('nombre')[0]}"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="apellido1" class="form-control" id="apellido1"
                                        placeholder="Primer apellido"
@@ -54,7 +54,7 @@
                                       th:text="${#fields.errors('apellido1')[0]}"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="apellido2" class="form-control" id="apellido2"
                                        placeholder="Segundo apellido"
@@ -67,8 +67,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="correo" class="form-control" id="correo"
                                        placeholder="Correo electrónico"
@@ -81,8 +81,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
                             <div class="form-floating mb-3">
                                 <input aria-label="telefono1" class="form-control" id="telefono1"
                                        placeholder="Teléfono"
@@ -93,7 +93,7 @@
                                       th:text="${#fields.errors('telefono1')[0]}"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
                             <div class="form-floating mb-3">
                                 <input aria-label="telefono2" class="form-control" id="telefono2"
                                        placeholder="Teléfono alternativo"
@@ -106,8 +106,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-floating input-append date datepicker" data-date="12-02-2012"
                                  data-date-format="dd-mm-yyyy"
                                  id="dp3">
@@ -119,8 +119,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="contrasena" class="form-control" id="contrasena"
                                        placeholder="Contraseña"
@@ -131,7 +131,7 @@
                                       th:text="${#fields.errors('contrasena')[0]}"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
                             <div class="form-floating mb-3 required">
                                 <input aria-label="repetirContrasena" class="form-control" id="repetirContrasena"
                                        placeholder="Repetir contraseña"
@@ -145,8 +145,8 @@
                     </div>
                 </fieldset>
 
-                <div class="row">
-                    <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
                         <button class="btn btn-primary w-100" type="submit">Modificar</button>
                     </div>
                 </div>

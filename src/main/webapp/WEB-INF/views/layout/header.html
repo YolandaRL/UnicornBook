@@ -8,7 +8,7 @@
             <div class="input-group" >
                 <input type="text" th:value="${termino}" class="form-control form-control-lg" name="termino"
                        placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
-                <button class="btn btn-outline-secondary" type="submit">
+                <button class="btn btn-primary btn-search" type="submit">
                     <em class="fa fa-search"></em>
                 </button>
             </div>
@@ -35,7 +35,7 @@
             <div class="input-group" >
                 <input type="text" th:value="${termino}" class="form-control form-control-lg" name="termino"
                        placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
-                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                <button class="btn btn-primary btn-search" type="submit">Buscar</button>
             </div>
         </form>
         <ul class="navbar-nav ms-auto">
@@ -111,7 +111,7 @@
             <form th:action="@{/busquedas}" method="get">
                 <div class="input-group search-group">
                     <input type="text" class="form-control form-control-lg input-search" name="termino" placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
-                    <button class="btn btn-primary" type="submit">Buscar</button>
+                    <button class="btn btn-primary btn-search" type="submit">Buscar</button>
                 </div>
             </form>
         </div>
