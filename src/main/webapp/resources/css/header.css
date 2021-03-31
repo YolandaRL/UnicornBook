@@ -22,35 +22,54 @@ h1,h2,h3,h4,h5,h6{color:#323233;text-transform:uppercase;}
 .navbar {
     padding-left: 0 !important;
 }
-.navbar-brand  span{
-    color: #fed136;
-    font-size:25px;font-weight:700;letter-spacing:0.1em;
-    font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
-}
-.navbar-brand {
-    color: #fff;
-    font-size:25px;
-    font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
-    font-weight:700;
-    letter-spacing:0.1em;
+
+.navbar-brand span {
+    color: palevioletred;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;
 }
 
-.navbar-nav .nav-item .nav-link{
-    padding: 1.1em 1em!important;
+nav .fa {
+    color: blueviolet;
+    margin-right: 3px;
+}
+
+.navbar-brand {
+    color: #fff;
+    font-size: 25px;
+    font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.navbar-nav .nav-item .nav-link {
+    padding: 1.1em 1em !important;
     font-size: 120%;
     font-weight: 500;
     letter-spacing: 1px;
     color: #fff;
     font-family: 'Gothic A1', sans-serif;
 }
-.navbar-nav .nav-item .nav-link:hover{color:#fed136;}
-.navbar-expand-md .navbar-nav .dropdown-menu{
-    border-top:3px solid #fed136;
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: palevioletred;
 }
-.dropdown-item:hover{background-color:#fed136;color:#fff;}
-nav{-webkit-transition: padding-top .3s,padding-bottom .3s;
-    -moz-transition: padding-top .3s,padding-bottom .3s;
-    transition: padding-top .3s,padding-bottom .3s;
+
+.navbar-expand-md .navbar-nav .dropdown-menu {
+    width: 100%;
+}
+
+.dropdown-item:hover {
+    background-color: palevioletred;
+    color: #fff;
+}
+
+nav {
+    -webkit-transition: padding-top .3s, padding-bottom .3s;
+    -moz-transition: padding-top .3s, padding-bottom .3s;
+    transition: padding-top .3s, padding-bottom .3s;
     border: none;
 }
 

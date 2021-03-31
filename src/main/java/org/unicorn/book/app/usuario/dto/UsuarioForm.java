@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @CustomScriptAssert(lang = "javascript", script = "_this.repetirContrasena!=null&&_this.contrasena==_this.repetirContrasena", field = "repetirContrasena", message = "Las contraseñas indicadas no son iguales")
-public class RegistroForm {
+public class UsuarioForm {
 
     @NotEmpty(message = "El nombre de usuario es obligatorio")
     private String usuario;
@@ -20,11 +20,10 @@ public class RegistroForm {
     private String apellido1;
     @NotEmpty(message = "El segundo apellido es obligatorio")
     private String apellido2;
-   // @NifNie(message = "El DNI no tiene un formato correcto")
+    // @NifNie(message = "El DNI no tiene un formato correcto")
     private String dni;
-    @NotEmpty(message = "Es obligatorio indicar como mínimo un teléfono")
-    private String telefono1;
-    private String telefono2;
+    private Long telefono1;
+    private Long telefono2;
     @NotEmpty(message = "Es obligatorio indicar como mínimo un correo electrónico")
     private String correo;
     private Date fechaNacimiento;
@@ -85,19 +84,19 @@ public class RegistroForm {
         this.dni = dni;
     }
 
-    public String getTelefono1() {
+    public Long getTelefono1() {
         return telefono1;
     }
 
-    public void setTelefono1(String telefono1) {
+    public void setTelefono1(Long telefono1) {
         this.telefono1 = telefono1;
     }
 
-    public String getTelefono2() {
+    public Long getTelefono2() {
         return telefono2;
     }
 
-    public void setTelefono2(String telefono2) {
+    public void setTelefono2(Long telefono2) {
         this.telefono2 = telefono2;
     }
 

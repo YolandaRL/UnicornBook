@@ -1,9 +1,11 @@
 package org.unicorn.book.autenticacion;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.client.HttpClientErrorException;
 import org.unicorn.book.app.usuario.model.Rol;
 
 import java.util.ArrayList;
@@ -40,14 +42,11 @@ public class AuthenticationUtils {
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
-    /**
-     *
-     * @return
-     */
-    public static String getUsername() {
+    public static Long getIdUsuario() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof CustomUserDetailsImpl) {
-            return ((CustomUserDetailsImpl) authentication.getPrincipal()).getUsername();
+            CustomUserDetailsImpl userDetails = (CustomUserDetailsImpl) authentication.getPrincipal();
+            return userDetails.getId();
         }
         return null;
     }
@@ -66,27 +65,19 @@ public class AuthenticationUtils {
         return null;
     }
 
-    /**
-     *
-     * @return
-     */
-    public static String getDni() {
+    public static void isSameUserLogged(String username) {
+        boolean isSameUser = false;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof CustomUserDetailsImpl) {
-            return ((CustomUserDetailsImpl) authentication.getPrincipal()).getDni();
+            CustomUserDetailsImpl userDetails = (CustomUserDetailsImpl) authentication.getPrincipal();
+            if (username.equals(userDetails.getUsername())) {
+                isSameUser = true;
+            }
         }
-        return null;
-    }
 
-    /**
-     *
-     * @return
-     */
-    public static String getEmail() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof CustomUserDetailsImpl) {
-            return ((CustomUserDetailsImpl) authentication.getPrincipal()).getEmail();
+        if (!isSameUser) {
+            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED,
+                    "El usuario no tiene permisos para acceder a este recurso");
         }
-        return null;
     }
 }

@@ -37,6 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(value));
         }
         CustomUserDetailsImpl us = new CustomUserDetailsImpl(u.getUsuario(), u.getPassword(), authorities);
+        us.setId(u.getId());
         us.setEmail(u.getEmail());
         us.setDni(u.getDni());
         us.setNombre(u.getNombre());

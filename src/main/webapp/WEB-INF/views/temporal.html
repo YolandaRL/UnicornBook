@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}"
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Unicorn Book - Título</title>
+</head>
+<body>
+<div id="links"></div>
+<div id="scripts"></div>
+</body>
+<div class="page-content" id="content">
+    <div class="container-full">
+        Contenido aquí
+    </div>
+</div>
+</html>

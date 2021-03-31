@@ -40,62 +40,60 @@
         </form>
         <ul class="navbar-nav ms-auto">
             <li sec:authorize="!isAuthenticated()" class="nav-item">
-                <a class="nav-link btn btn-secondary" style="background: transparent" th:href="@{/login}">INICIAR SESIÓN</a>
+                <a class="nav-link btn btn-secondary" style="background: transparent" th:href="@{/login}">INICIAR
+                    SESIÓN</a>
             </li>
             <li sec:authorize="!isAuthenticated()" class="nav-item">
-                <a class="nav-link btn btn-primary" style="background: white; color: #836aeb" th:href="@{/usuario/nuevo}">REGÍSTRATE</a>
+                <a class="nav-link btn btn-primary" style="background: white; color: #836aeb"
+                   th:href="@{/usuario/nuevo}">REGÍSTRATE</a>
             </li>
             <!-- Dropdown -->
-            <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                   id="navbarDropdown" role="button"
-                   th:text="${#strings.toUpperCase(T(org.unicorn.book.autenticacion.AuthenticationUtils).getNomeCompreto())}">
-                    Username
-                </a>
-                <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
-                    <li>
-
-                        <a class="dropdown-item" href="#"><em class="fa fa-user"></em>Perfil</a>
-                    </li>
-                    <li>
-
-                        <a class="dropdown-item" href="#"><em class="fa fa-heart"></em>Intereses</a>
-                    </li>
-                    <li>
-
-                        <a class="dropdown-item" href="#"><em class="fa fa-shopping-cart"></em>Mis pedidos</a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-
-                        <a class="dropdown-item" href="#"><em class="fa fa-question-circle"></em>Historial de consultas</a>
-                    </li>
-                    <li>
-
-                        <a class="dropdown-item" href="#"><em class="fa fa-bookmark"></em>Historial de reservas</a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-
-                        <a class="dropdown-item" href="#"><em class="fa fa-map"></em>Mis direcciones</a>
-                    </li>
-                    <li>
-
-                        <a class="dropdown-item" href="#"><em class="fa fa-comments"></em>Comentarios</a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-
-                        <a class="dropdown-item" href="#"><em class="fa fa-sign-out"></em>Cerrar sesión</a>
-                    </li>
-                </ul>
-            </li>
+            <th:block sec:authorize="isAuthenticated()">
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       id="navbarDropdown" role="button"
+                       th:text="${#strings.toUpperCase(T(org.unicorn.book.autenticacion.AuthenticationUtils).getNomeCompreto())}">
+                        Username
+                    </a>
+                    <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/usuario/perfil}"><em class="fa fa-user"></em>Perfil</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/usuario/intereses}"><em class="fa fa-heart"></em>Intereses</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/usuario/pedidos}"><em class="fa fa-shopping-cart"></em>Mis
+                                pedidos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/usuario/consultas}"><em
+                                    class="fa fa-question-circle"></em>Historial de consultas</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/usuario/reservas}"><em class="fa fa-bookmark"></em>Historial
+                                de reservas</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/usuario/direcciones}"><em class="fa fa-map"></em>Mis
+                                direcciones</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/usuario/comentarios}"><em class="fa fa-comments"></em>Comentarios</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/logout}"><em class="fa fa-sign-out"></em>Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn" th:href="@{/usuario/cesta}"><em class="fa fa-shopping-cart"
+                                                                            style="color: white"></em></a>
+                </li>
+            </th:block>
         </ul>
     </div>
 </nav>

@@ -16,34 +16,19 @@
             </ol>
         </nav>
         <div class="container col-5">
-            <form method="post" th:action="@{/usuario/nuevo}" th:object="${registroForm}">
+            <form method="post" th:action="@{/usuario/nuevo}" th:object="${usuarioForm}">
                 <fieldset>
                     <legend>Crear cuenta</legend>
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3 required">
-                                <input id="usuario" class="form-control" th:classappend="${#fields.hasErrors('usuario') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Nombre de usuario" th:field="*{usuario}" type="text" aria-label="usuario"/>
+                                <input id="usuario" class="form-control"
+                                       th:classappend="${#fields.hasErrors('usuario') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       placeholder="Nombre de usuario" th:field="*{usuario}" type="text"
+                                       aria-label="usuario"/>
                                 <label for="usuario">Usuario</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('usuario')}" th:text="${#fields.errors('usuario')[0]}"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-3 required">
-                                <input id="contrasena" class="form-control" th:classappend="${#fields.hasErrors('contrasena') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Contraseña" th:field="*{contrasena}" type="password"  aria-label="contrasena"/>
-                                <label for="contrasena">Contraseña</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('contrasena')}" th:text="${#fields.errors('contrasena')[0]}"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating mb-3 required">
-                                <input id="repetirContrasena" class="form-control" th:classappend="${#fields.hasErrors('repetirContrasena') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Repetir contraseña" th:field="*{repetirContrasena}" type="password"  aria-label="repetirContrasena"/>
-                                <label for="repetirContrasena">Repetir contraseña</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('repetirContrasena')}" th:text="${#fields.errors('repetirContrasena')[0]}"></span>
+                                <span class="text-danger" th:if="${#fields.hasErrors('usuario')}"
+                                      th:text="${#fields.errors('usuario')[0]}"></span>
                             </div>
                         </div>
                     </div>
@@ -78,25 +63,6 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3 required">
-                                <input id="telefono1" class="form-control" th:classappend="${#fields.hasErrors('telefono1') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Teléfono" th:field="*{telefono1}" type="text" aria-label="telefono1"/>
-                                <label for="telefono1">Teléfono</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('telefono1')}" th:text="${#fields.errors('telefono1')[0]}"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input id="telefono2" class="form-control" th:classappend="${#fields.hasErrors('telefono2') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Teléfono alternativo" th:field="*{telefono2}" type="text" aria-label="telefono2"/>
-                                <label for="telefono2">Teléfono alternativo</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('telefono2')}" th:text="${#fields.errors('telefono2')[0]}"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-3 required">
                                 <input id="correo" class="form-control" th:classappend="${#fields.hasErrors('correo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                        placeholder="Correo electrónico" th:field="*{correo}" type="text" aria-label="correo"/>
                                 <label for="correo">Correo electrónico</label>
@@ -107,28 +73,28 @@
 
                     <div class="row">
                         <div class="col">
-                            <div class="form-floating input-append date datepicker" id="dp3" data-date="12-02-2012"
-                                 data-date-format="dd-mm-yyyy">
-                                <input class="form-control"  id="fechaNacimiento" size="16" type="text" value="12-02-2012">
-                                <span class="add-on"><em class="fa fa-calendar"></em></span>
-                                <label for="fechaNacimiento">Fecha nacimiento</label>
+                            <div class="form-floating mb-3 required">
+                                <input aria-label="contrasena" class="form-control" id="contrasena"
+                                       placeholder="Contraseña"
+                                       th:classappend="${#fields.hasErrors('contrasena') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{contrasena}" type="password"/>
+                                <label for="contrasena">Contraseña</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('contrasena')}"
+                                      th:text="${#fields.errors('contrasena')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3 required">
+                                <input aria-label="repetirContrasena" class="form-control" id="repetirContrasena"
+                                       placeholder="Repetir contraseña"
+                                       th:classappend="${#fields.hasErrors('repetirContrasena') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{repetirContrasena}" type="password"/>
+                                <label for="repetirContrasena">Repetir contraseña</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('repetirContrasena')}"
+                                      th:text="${#fields.errors('repetirContrasena')[0]}"></span>
                             </div>
                         </div>
                     </div>
-                    <!--<div class="row">
-                        <div class="col">
-                            <div class="input-group mb-3 date datepicker">
-                                <input id="fechaNacimiento" type="text" class="form-control" th:classappend="${#fields.hasErrors('fechaNacimiento') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       placeholder="Fecha de nacimiento (dd-mm-aaaa)" th:field="*{fechaNacimiento}"
-                                       aria-label="fecha-nacimiento" aria-describedby="fecha-nacimiento">
-                                <span class="input-group-text" id="fecha-nacimiento">
-                                    <em class="fa fa-calendar"></em>
-                                </span>
-                                <label for="fechaNacimiento">Fecha de nacimiento (dd-mm-aaaa)</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('fechaNacimiento')}" th:text="${#fields.errors('fechaNacimiento')[0]}"></span>
-                            </div>
-                        </div>
-                    </div>-->
                 </fieldset>
 
                 <div class="row">

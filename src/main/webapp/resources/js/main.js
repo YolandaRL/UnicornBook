@@ -8,13 +8,17 @@ jQuery(function () {
             transform = 90;
         }
         $(this).animate(
-            { deg: transform },
+            {deg: transform},
             {
                 duration: 600,
-                step: function(now) {
-                    $(this).css({ transform: 'rotate(' + now + 'deg)' });
+                step: function (now) {
+                    $(this).css({transform: 'rotate(' + now + 'deg)'});
                 }
             }
         );
+    });
+
+    $(document).on('click', '[data-dismiss="modal"]', function () {
+        $(this).closest('.modal').modal('hide');
     });
 });

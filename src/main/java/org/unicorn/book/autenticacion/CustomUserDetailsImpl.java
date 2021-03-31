@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 
 public class CustomUserDetailsImpl extends User {
+    private Long id;
     private String usuario;
     private String email;
     private String dni;
@@ -20,6 +21,14 @@ public class CustomUserDetailsImpl extends User {
     public CustomUserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.usuario = username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
