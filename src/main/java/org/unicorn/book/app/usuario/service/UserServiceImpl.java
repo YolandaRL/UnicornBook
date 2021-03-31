@@ -74,6 +74,7 @@ public class UserServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public UsuarioForm actualizarUsuario(UsuarioForm usuarioForm) {
         Usuario usuario = usuarioRepository.getOne(AuthenticationUtils.getIdUsuario());
 
