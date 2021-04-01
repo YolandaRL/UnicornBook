@@ -5,10 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
@@ -65,6 +71,13 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping(value = "/baja")
+    public String bajaUsuario(RedirectAttributes ra) {
+        usuarioService.bajaUsuario();
+        ra.addFlashAttribute("msgToastSuccess", "Su cuenta ha sido eliminado correctamente");
+        return "redirect:/";
+    }
+
     @GetMapping(value = "/perfil")
     public String obtienePerfilForm(ModelMap model) {
         model.addAttribute("usuarioForm", usuarioService.getFormularioUsuario());
@@ -83,13 +96,38 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/direcciones")
-    public String obtenerDirecciones() {
+    public String obtenerDirecciones(ModelMap model) {
+        model.addAttribute("direcciones", usuarioService.getDirecciones());
         return "usuario/mis-direcciones";
     }
 
-    @PostMapping(value = "/direcciones")
-    public String actualizaCreaDireccion() {
-        return "usuario/mis-direcciones";
+    @GetMapping(value = "/direccion/getForm")
+    public String getFormularioDireccion(@RequestParam(name = "id", required = false) Long id, ModelMap model) {
+        if (id != null) {
+            model.addAttribute("direccionForm", usuarioService.getDireccionFormEdicion(id));
+        } else {
+            model.addAttribute("direccionForm", new DireccionForm());
+        }
+        return "usuario/modals/modal-direccion :: modalDireccion";
+    }
+
+    @PostMapping(value = "/direccion")
+    public String actualizaCreaDireccion(@Valid @ModelAttribute("direccionForm") DireccionForm direccionForm,
+            BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            return "usuario/modals/modal-direccion :: modalDireccion";
+        }
+        model.addAttribute("error", false);
+        usuarioService.altaOActualizarDireccion(direccionForm);
+        model.addAttribute("direcciones", usuarioService.getDirecciones());
+        return "usuario/mis-direcciones :: direcciones-table";
+    }
+
+    @GetMapping(value = "/direccion/{id}/eliminar")
+    public String eliminarDireccion(@PathVariable("id") Long idDireccion, ModelMap model) {
+        usuarioService.eliminarDireccion(idDireccion);
+        return "redirect:/usuario/direcciones";
     }
 
     @GetMapping(value = "/intereses")

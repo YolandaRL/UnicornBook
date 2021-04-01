@@ -3,53 +3,45 @@ package org.unicorn.book.app.usuario.dto;
 import org.unicorn.book.app.validation.CustomScriptAssert;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@CustomScriptAssert(lang = "javascript", script = "_this.repetirContrasena!=null&&_this.contrasena==_this.repetirContrasena", field = "repetirContrasena", message = "Las contraseñas indicadas no son iguales")
 public class DireccionForm {
 
-    @NotEmpty(message = "El nombre de usuario es obligatorio")
-    private String usuario;
-    @NotEmpty(message = "La contraseña es obligatorio")
-    private String contrasena;
-    @NotEmpty(message = "Es necesario repetir la contraseña")
-    private String repetirContrasena;
-    @NotEmpty(message = "El nombre es obligatorio")
+    private Long id;
+    @NotEmpty(message = "Campo obligatorio")
+    private String nombrePersonalizado;
+    @NotEmpty(message = "Campo obligatorio")
     private String nombre;
-    @NotEmpty(message = "El primer apellido es obligatorio")
+    @NotEmpty(message = "Campo obligatorio")
     private String apellido1;
-    @NotEmpty(message = "El segundo apellido es obligatorio")
+    @NotEmpty(message = "Campo obligatorio")
     private String apellido2;
-    // @NifNie(message = "El DNI no tiene un formato correcto")
-    private String dni;
-    private String telefono1;
-    private String telefono2;
-    @NotEmpty(message = "Es obligatorio indicar como mínimo un correo electrónico")
-    private String correo;
-    private Date fechaNacimiento;
+    @NotEmpty(message = "Campo obligatorio")
+    private String direccion;
+    @NotNull(message = "Campo obligatorio")
+    private Integer codigoPostal;
+    @NotEmpty(message = "Campo obligatorio")
+    private String poblacion;
+    @NotEmpty(message = "Campo obligatorio")
+    private String provincia;
+    @NotEmpty(message = "Campo obligatorio")
+    private String pais;
 
-    public String getUsuario() {
-        return usuario;
+    public Long getId() {
+        return id;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getNombrePersonalizado() {
+        return nombrePersonalizado;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public String getRepetirContrasena() {
-        return repetirContrasena;
-    }
-
-    public void setRepetirContrasena(String repetirContrasena) {
-        this.repetirContrasena = repetirContrasena;
+    public void setNombrePersonalizado(String nombrePersonalizado) {
+        this.nombrePersonalizado = nombrePersonalizado;
     }
 
     public String getNombre() {
@@ -76,43 +68,43 @@ public class DireccionForm {
         this.apellido2 = apellido2;
     }
 
-    public String getDni() {
-        return dni;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getTelefono1() {
-        return telefono1;
+    public Integer getCodigoPostal() {
+        return codigoPostal;
     }
 
-    public void setTelefono1(String telefono1) {
-        this.telefono1 = telefono1;
+    public void setCodigoPostal(Integer codigoPostal) {
+        this.codigoPostal = codigoPostal;
     }
 
-    public String getTelefono2() {
-        return telefono2;
+    public String getPoblacion() {
+        return poblacion;
     }
 
-    public void setTelefono2(String telefono2) {
-        this.telefono2 = telefono2;
+    public void setPoblacion(String poblacion) {
+        this.poblacion = poblacion;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getProvincia() {
+        return provincia;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public String getPais() {
+        return pais;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 }

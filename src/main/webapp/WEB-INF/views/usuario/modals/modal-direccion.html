@@ -1,20 +1,153 @@
 <div aria-hidden="true" aria-labelledby="labelModalDireccion" class="modal" id="modalDireccion" role="dialog"
-     tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="labelModalDireccion">Dirección</h5>
-                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cerrar</button>
-                <button class="btn btn-primary" type="button">Guardar cambios</button>
-            </div>
+     tabindex="-1" xmlns:th="http://www.thymeleaf.org">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" th:fragment="modalDireccion">
+        <div class="modal-content" th:if="${direccionForm}">
+
+            <form id="formulario-direccion" method="post" th:action="@{/usuario/direccion}"
+                  th:object="${direccionForm}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModalDireccion">Dirección</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <th:block th:if="${error}">
+                        <div class="alert alert-danger">
+                            Error validando o formulario
+                        </div>
+                    </th:block>
+                    <fieldset>
+                        <legend></legend>
+                        <input th:field="*{id}" type="hidden"/>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="nombrePersonalizado" class="form-control"
+                                           id="nombrePersonalizado"
+                                           placeholder="Nombre personalizado"
+                                           th:classappend="${#fields.hasErrors('nombrePersonalizado') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{nombrePersonalizado}"
+                                           type="text"/>
+                                    <label for="nombrePersonalizado">Nombre personalizado</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('nombrePersonalizado')}"
+                                          th:text="${#fields.errors('nombrePersonalizado')[0]}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="nombre" class="form-control"
+                                           id="nombre"
+                                           placeholder="Nombre"
+                                           th:classappend="${#fields.hasErrors('nombre') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{nombre}" type="text"/>
+                                    <label for="nombre">Nombre</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('nombre')}"
+                                          th:text="${#fields.errors('nombre')[0]}"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="apellido1" class="form-control"
+                                           id="apellido1"
+                                           placeholder="Primer apellido"
+                                           th:classappend="${#fields.hasErrors('apellido1') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{apellido1}"
+                                           type="text"/>
+                                    <label for="apellido1">Primer apellido</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('apellido1')}"
+                                          th:text="${#fields.errors('apellido1')[0]}"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="apellido2" class="form-control"
+                                           id="apellido2"
+                                           placeholder="Segundo apellido"
+                                           th:classappend="${#fields.hasErrors('apellido2') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{apellido2}"
+                                           type="text"/>
+                                    <label for="apellido2">Segundo apellido</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('apellido2')}"
+                                          th:text="${#fields.errors('apellido2')[0]}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="direccion" class="form-control"
+                                           id="direccion"
+                                           placeholder="Nombre de la vía"
+                                           th:classappend="${#fields.hasErrors('direccion') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{direccion}"
+                                           type="text"/>
+                                    <label for="direccion">Nombre de la vía</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('direccion')}"
+                                          th:text="${#fields.errors('direccion')[0]}"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="codigoPostal" class="form-control"
+                                           id="codigoPostal"
+                                           placeholder="Código postal"
+                                           th:classappend="${#fields.hasErrors('codigoPostal') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{codigoPostal}"
+                                           type="text"/>
+                                    <label for="codigoPostal">Código postal</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('codigoPostal')}"
+                                          th:text="${#fields.errors('codigoPostal')[0]}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="poblacion" class="form-control" id="poblacion"
+                                           placeholder="Población"
+                                           th:classappend="${#fields.hasErrors('poblacion') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{poblacion}" type="text"/>
+                                    <label for="poblacion">Población</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('poblacion')}"
+                                          th:text="${#fields.errors('poblacion')[0]}"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="provincia" class="form-control" id="provincia"
+                                           placeholder="Provincia"
+                                           th:classappend="${#fields.hasErrors('provincia') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{provincia}" type="text"/>
+                                    <label for="provincia">Provincia</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('provincia')}"
+                                          th:text="${#fields.errors('provincia')[0]}"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="pais" class="form-control" id="pais"
+                                           placeholder="País"
+                                           th:classappend="${#fields.hasErrors('pais') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{pais}" type="text"/>
+                                    <label for="pais">País</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('pais')}"
+                                          th:text="${#fields.errors('pais')[0]}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Cerrar</button>
+                    <button class="btn btn-primary" id="btn-confirmar-direccion" type="button">Guardar cambios</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

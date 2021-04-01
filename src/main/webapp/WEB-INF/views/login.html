@@ -14,26 +14,30 @@
             <form method="post" th:action="@{/login}">
                 <fieldset>
                     <legend>Iniciar sesión</legend>
-                    <div class="alert alert-danger" role="alert" th:if="${param.error}">
-                        Invalid username and password.
-                    </div>
-                    <div class="alert alert-success" role="alert" th:if="${param.logout}">
-                        You have been logged out.
-                    </div>
                     <div class="row justify-content-center">
                         <div class="col-lg-3 col-md-6 col-sm-12">
-                            <div class="form-floating mb-3 required">
-                                <input class="form-control" id="username" name="username"
-                                       placeholder="Nombre de usuario"
-                                       type="text"/>
-                                <label for="username">Usuario</label>
+                            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                                Nombre de usuario o contraseña incorrectos
+                            </div>
+                            <div class="alert alert-success" role="alert" th:if="${param.logout}">
+                                Se ha cerrado sesión correctamente
                             </div>
                         </div>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input class="form-control" id="username" name="username"
+                                           placeholder="Nombre de usuario"
+                                           type="text"/>
+                                    <label for="username">Usuario</label>
+                                </div>
+                            </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="form-floating required">
-                                <input class="form-control" id="password" name="password" placeholder="Constraseña"
+                                <input class="form-control password" id="password" name="password"
+                                       placeholder="Constraseña"
                                        type="password"/>
                                 <label for="password">Contraseña</label>
                             </div>

@@ -3,9 +3,11 @@ package org.unicorn.book.app.usuario.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
+import org.unicorn.book.app.usuario.model.Direccion;
 import org.unicorn.book.app.usuario.model.Rol;
 import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.DireccionRepository;
@@ -58,6 +60,11 @@ public class UserServiceImpl implements UsuarioService {
     }
 
     @Override
+    public void bajaUsuario() {
+        // TODO Eliminar usuario y todas las relaciones
+    }
+
+    @Override
     public UsuarioForm getFormularioUsuario() {
         Usuario usuario = usuarioRepository.getOne(AuthenticationUtils.getIdUsuario());
         UsuarioForm form = new UsuarioForm();
@@ -95,12 +102,71 @@ public class UserServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void altaOActualizarDireccion() {
-
+    public List<DireccionForm> getDirecciones() {
+        List<Direccion> direccions = entityManager.find(Usuario.class, AuthenticationUtils.getIdUsuario())
+                .getDirecciones();
+        List<DireccionForm> direccionForms = new ArrayList<>();
+        direccions.forEach(d -> {
+            DireccionForm f = new DireccionForm();
+            f.setId(d.getId());
+            f.setNombrePersonalizado(d.getNombrePersonalizado());
+            f.setNombre(d.getNombreReceptor());
+            f.setApellido1(d.getNombre1Receptor());
+            f.setApellido2(d.getNombre2Receptor());
+            f.setProvincia(d.getProvincia());
+            f.setPoblacion(d.getPoblacion());
+            f.setCodigoPostal(d.getCodigoPostal());
+            f.setPais(d.getPais());
+            f.setDireccion(d.getTextoDireccion());
+            direccionForms.add(f);
+        });
+        return direccionForms;
     }
 
     @Override
+    public DireccionForm getDireccionFormEdicion(Long id) {
+        Direccion d = entityManager.find(Direccion.class, id);
+        DireccionForm f = new DireccionForm();
+        f.setId(d.getId());
+        f.setNombrePersonalizado(d.getNombrePersonalizado());
+        f.setNombre(d.getNombreReceptor());
+        f.setApellido1(d.getNombre1Receptor());
+        f.setApellido2(d.getNombre2Receptor());
+        f.setProvincia(d.getProvincia());
+        f.setPoblacion(d.getPoblacion());
+        f.setCodigoPostal(d.getCodigoPostal());
+        f.setPais(d.getPais());
+        f.setDireccion(d.getTextoDireccion());
+        return f;
+    }
+
+    @Override
+    @Transactional
+    public void altaOActualizarDireccion(DireccionForm form) {
+        Direccion direccion;
+        if (form.getId() == null) {
+            direccion = new Direccion();
+            direccion.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+
+        } else {
+            direccion = entityManager.find(Direccion.class, form.getId());
+        }
+        direccion.setNombrePersonalizado(form.getNombrePersonalizado());
+        direccion.setNombreReceptor(form.getNombre());
+        direccion.setNombre1Receptor(form.getApellido1());
+        direccion.setNombre2Receptor(form.getApellido2());
+        direccion.setTextoDireccion(form.getDireccion());
+        direccion.setPoblacion(form.getPoblacion());
+        direccion.setProvincia(form.getProvincia());
+        direccion.setPais(form.getPais());
+        direccion.setCodigoPostal(form.getCodigoPostal());
+        entityManager.persist(direccion);
+    }
+
+    @Override
+    @Transactional
     public void eliminarDireccion(Long idDireccion) {
+        entityManager.remove(entityManager.getReference(Direccion.class, idDireccion));
     }
 
     /**

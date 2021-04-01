@@ -1,0 +1,20 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <div aria-atomic="true" aria-live="assertive"
+         class="toast align-items-center text-white bg-primary border-0 top-0 end-0"
+         id="message-toast-success" role="alert" style="float: left" th:fragment="message-toast-success(message)">
+        <div class="d-flex">
+            <div class="toast-body" th:text="${message}"></div>
+            <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    type="button"></button>
+        </div>
+    </div>
+    <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-white bg-primary border-0"
+         id="message-toast-danger" role="alert" th:fragment="message-toast-danger(message)">
+        <div class="d-flex">
+            <div class="toast-body" th:text="${message}">
+            </div>
+            <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    type="button"></button>
+        </div>
+    </div>
+</div>

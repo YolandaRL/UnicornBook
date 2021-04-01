@@ -1,5 +1,7 @@
 package org.unicorn.book.app.usuario.model;
 
+import org.unicorn.book.app.usuario.dto.DireccionForm;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -55,13 +59,13 @@ public class Usuario implements Serializable {
     @Column(name = "FECHA_NACIMIENTO")
     private Date fechaNacimiento;
 
-    @JoinTable(
-            name = "USUARIO_ROL",
-            joinColumns = @JoinColumn(name = "ID_USUARIO", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "ID_ROL", nullable = false)
-    )
+    @JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "ID_USUARIO", nullable = false), inverseJoinColumns = @JoinColumn(name = "ID_ROL", nullable = false))
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Rol> roles;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID")
+    private List<Direccion> direcciones;
 
     public Long getId() {
         return id;
@@ -157,5 +161,13 @@ public class Usuario implements Serializable {
 
     public void setRoles(List<Rol> roles) {
         this.roles = roles;
+    }
+
+    public List<Direccion> getDirecciones() {
+        return direcciones;
+    }
+
+    public void setDirecciones(List<Direccion> direcciones) {
+        this.direcciones = direcciones;
     }
 }

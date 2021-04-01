@@ -15,31 +15,40 @@
 <div class="page-content" id="content">
     <div class="container">
         <div class="justify-content-center">
-            <div class="table-responsive">
-                <table class="table table-striped">
+            <div class="table-responsive" id="direcciones">
+                <table class="table table-striped" th:fragment="direcciones-table">
                     <thead>
                     <tr>
-                        <th scope="col">Nombre remitente</th>
-                        <th scope="col">Vía</th>
-                        <th scope="col">Provincia</th>
-                        <th scope="col">Poblacion</th>
-                        <th scope="col">Código postal</th>
-                        <th scope="col">Edición</th>
+                        <th class="text-center" scope="col">Alias</th>
+                        <th class="text-center" scope="col">Nombre remitente</th>
+                        <th class="text-center" scope="col">Vía</th>
+                        <th class="text-center" scope="col">Código postal</th>
+                        <th class="text-center" scope="col">Provincia</th>
+                        <th class="text-center" scope="col">Poblacion</th>
+                        <th class="text-center" scope="col">País</th>
+                        <th class="text-center" scope="col">Edición</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:if="${#lists.isEmpty(direcciones)}">
-                        <td class="text-center" colspan="6">Todavía no hay direcciones de usuario</td>
+                        <td class="text-center" colspan="8">Todavía no hay direcciones de usuario</td>
                     </tr>
-                    <tr th:each="direccions:${direcciones}">
-                        <th scope="row">1</th>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>3</td>
-                        <td>
-                            <a class="btn-open-modal-direcciones">Editar</a>
-                            <a>Eliminar</a>
+                    <tr th:each="d:${direcciones}">
+                        <td class="text-center"><span th:text="${d.nombrePersonalizado}"></span></td>
+                        <td class="text-center"><span th:text="|${d.nombre} ${d.apellido1} ${d.apellido2}|"></span></td>
+                        <td class="text-center"><span th:text="${d.direccion}"></span></td>
+                        <td class="text-center"><span th:text="${d.codigoPostal}"></span></td>
+                        <td class="text-center"><span th:text="${d.provincia}"></span></td>
+                        <td class="text-center"><span th:text="${d.poblacion}"></span></td>
+                        <td class="text-center"><span th:text="${d.pais}"></span></td>
+
+                        <td class="text-center">
+                            <button class="dropdown-item btn-open-modal-direcciones" th:data-id="${d.id}">
+                                <em class="fa fa-pencil-alt"></em>
+                            </button>
+                            <a class="dropdown-item" th:href="@{/usuario/direccion/__${d.id}__/eliminar}">
+                                <em class="fa fa-trash-alt"></em>
+                            </a>
                         </td>
                     </tr>
                     </tbody>
