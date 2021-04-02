@@ -24,6 +24,9 @@
 </style>
 <div class="page-content" id="content">
     <div class="container">
+        <div class="row text-center mb-5">
+            <h3>Novedades</h3>
+        </div>
         <!-- NOVEDADES -->
         <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleCaptions">
             <div class="carousel-indicators">
@@ -59,7 +62,9 @@
             </button>
         </div>
 
-        <!-- MUESTRA -->
+        <div class="row text-center mt-xl-5 mb-5">
+            <h3>Los 20 libros más vendidos</h3>
+        </div>
         <div class="row">
             <div class="col col-lg-3 col-md-3 col-sm-1 mb-3" th:each="libro, stat:${listMuestreo}">
                 <div class="card border-0 h-100">
