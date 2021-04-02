@@ -7,7 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -71,6 +74,18 @@ public class Libro implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_EDITORIAL")
     private Editorial editorial;
+
+    @JoinTable(name = "LIBRO_AUTOR", joinColumns = @JoinColumn(name = "ID_LIBRO", nullable = false), inverseJoinColumns = @JoinColumn(name = "ID_AUTOR", nullable = false))
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Autor autor;
+
+    @JoinTable(name = "LIBRO_COLECCION", joinColumns = @JoinColumn(name = "ID_LIBRO", nullable = false), inverseJoinColumns = @JoinColumn(name = "ID_COLECCION", nullable = false))
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Coleccion coleccion;
+
+    @JoinTable(name = "LIBRO_TEMATICA", joinColumns = @JoinColumn(name = "ID_LIBRO", nullable = false), inverseJoinColumns = @JoinColumn(name = "ID_TEMATICA", nullable = false))
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Tematica tematica;
 
     public Long getId() {
         return id;
@@ -206,5 +221,13 @@ public class Libro implements Serializable {
 
     public void setEditorial(Editorial editorial) {
         this.editorial = editorial;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 }
