@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}"
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Unicorn Book - Título</title>
+</head>
+<body>
+<div id="links"></div>
+<div id="scripts"></div>
+
+<div class="page-content" id="content">
+    <div class="container-full">
+        <div class="d-flex justify-content-center">
+            <div class="container">
+                <nav aria-label="breadcrumb"
+                     style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;); background: transparent;">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="simple-link" th:href="@{/}">Inicio</a></li>
+                        <li aria-current="page" class="breadcrumb-item active"><a class="simple-link"
+                                                                                  th:href="@{/libro/__${libro.id}__}"
+                                                                                  th:text="${libro.titulo}"></a></li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img alt="Portada" class="card-img- shadow-lg mt-0 mb-5 bg-dark rounded"
+                             style="height: 35vh; margin: auto" th:src="${libro.linkPortada}">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col">
+                                <h1 th:text="${libro.titulo}"></h1>
+                                <h4><strong th:text="${libro.subtitulo}"></strong></h4>
+                                <h6><strong th:text="${libro.autorNombre}"></strong></h6>
+                                <div class="mb-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p th:text="${libro.sinopsis}"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <ul>
+                                    <li><strong>Colección: </strong><span th:text="${libro.coleccionNombre}"></span>
+                                    </li>
+                                    <!--<li><strong>Temática: </strong>
+                                        <th:block th:each="tematica, iter:${libro.tematicas}">
+                                            <span th:text="${tematica.nombre}"></span>
+                                            <span th:if="${iter.index!=#lists.size(libro.tematicas)-1}">, </span>
+                                        </th:block>
+                                    </li>-->
+                                    <li><strong>Editorial: </strong><span th:text="${libro.editorialNombre}"></span>
+                                    </li>
+
+                                    <li><strong>Fecha disponibilidad: </strong><span
+                                            th:text="${#dates.format(libro.fechaDisponible, 'dd-MM-yyyy')}"></span></li>
+                                    <li><strong>Fecha publicación: </strong><span
+                                            th:text="${#dates.format(libro.fechaPublicacion, 'dd-MM-yyyy')}"></span>
+                                    </li>
+                                    <li><strong>Fecha edición: </strong><span
+                                            th:text="${#dates.format(libro.fechaEdicion, 'dd-MM-yyyy')}"></span></li>
+
+                                    <li><strong>Formato: </strong><span th:text="${libro.formato}"></span></li>
+                                    <li><strong>Nº páginas: </strong><span th:text="${libro.paginas}"></span></li>
+                                    <li><strong>Idioma: </strong><span th:text="${libro.idioma}"></span></li>
+                                    <li><strong>Notas: </strong><span th:text="${libro.notas}"></span></li>
+                                </ul>
+                                <p th:text="${libro.isbn}"></p>
+                                <p th:text="${libro.stock}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 justify-content-center">
+                        <p th:text="${libro.precio}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -15,17 +15,26 @@
 <div class="page-content" id="content">
     <div class="container">
         <div class="justify-content-center">
+            <div class="row justify-content-center" th:if="${exito}">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="alert alert-success" role="alert">
+                        Datos de perfíl actualizados correctamente
+                    </div>
+                </div>
+            </div>
             <form method="post" th:action="@{/usuario/perfil}" th:object="${usuarioForm}">
+                <input th:field="*{id}" type="hidden"/>
                 <fieldset>
                     <legend>Perfil</legend>
                     <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-floating mb-3 required">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
                                 <input aria-label="usuario" class="form-control" id="usuario"
                                        placeholder="Nombre de usuario"
                                        readonly
                                        th:classappend="${#fields.hasErrors('usuario') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                        th:field="*{usuario}" type="text"/>
+                                <em class="fa fa-user"></em>
                                 <label for="usuario">Usuario</label>
                                 <span class="text-danger" th:if="${#fields.hasErrors('usuario')}"
                                       th:text="${#fields.errors('usuario')[0]}"></span>
@@ -71,11 +80,12 @@
 
                     <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-floating mb-3 required">
+                            <div class="form-floating inner-addon right-addon mb-3 required">
                                 <input aria-label="correo" class="form-control" id="correo"
                                        placeholder="Correo electrónico"
                                        th:classappend="${#fields.hasErrors('correo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                        th:field="*{correo}" type="text"/>
+                                <em class="fa fa-envelope"></em>
                                 <label for="correo">Correo electrónico</label>
                                 <span class="text-danger" th:if="${#fields.hasErrors('correo')}"
                                       th:text="${#fields.errors('correo')[0]}"></span>
@@ -85,22 +95,24 @@
 
                     <div class="row justify-content-center">
                         <div class="col-lg-3 col-md-3 col-sm-12">
-                            <div class="form-floating mb-3">
+                            <div class="form-floating inner-addon right-addon mb-3">
                                 <input aria-label="telefono1" class="form-control" id="telefono1"
                                        placeholder="Teléfono"
                                        th:classappend="${#fields.hasErrors('telefono1') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                        th:field="*{telefono1}" type="text"/>
+                                <em class="fa fa-phone"></em>
                                 <label for="telefono1">Teléfono</label>
                                 <span class="text-danger" th:if="${#fields.hasErrors('telefono1')}"
                                       th:text="${#fields.errors('telefono1')[0]}"></span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-12">
-                            <div class="form-floating mb-3">
+                            <div class="form-floating inner-addon right-addon mb-3">
                                 <input aria-label="telefono2" class="form-control" id="telefono2"
                                        placeholder="Teléfono alternativo"
                                        th:classappend="${#fields.hasErrors('telefono2') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                        th:field="*{telefono2}" type="text"/>
+                                <em class="fa fa-phone"></em>
                                 <label for="telefono2">Teléfono alternativo</label>
                                 <span class="text-danger" th:if="${#fields.hasErrors('telefono2')}"
                                       th:text="${#fields.errors('telefono2')[0]}"></span>
@@ -109,36 +121,52 @@
                     </div>
 
                     <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-floating input-append date datepicker" data-date="12-02-2012"
-                                 data-date-format="dd-mm-yyyy"
-                                 id="dp3">
-                                <input class="form-control" id="fechaNacimiento" size="16" type="text"
-                                       value="12-02-2012">
-                                <span class="add-on"><em class="fa fa-calendar"></em></span>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating inner-addon right-addon mb-3">
+                                <input class="form-control date-picker" id="fechaNacimiento"
+                                       th:classappend="${#fields.hasErrors('fechaNacimiento') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{fechaNacimiento}"
+                                       type="text">
+                                <em class="fa fa-calendar-alt"></em>
                                 <label for="fechaNacimiento">Fecha nacimiento</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('fechaNacimiento')}"
+                                      th:text="${#fields.errors('fechaNacimiento')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating inner-addon right-addon mb-3">
+                                <input class="form-control" id="dni"
+                                       th:classappend="${#fields.hasErrors('dni') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{dni}"
+                                       type="text">
+                                <em class="fa fa-id-card"></em>
+                                <label for="dni">DNI</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('dni')}"
+                                      th:text="${#fields.errors('dni')[0]}"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col-lg-3 col-md-3 col-sm-12">
-                            <div class="form-floating mb-3 required">
+                            <div class="form-floating inner-addon right-addon mb-3 required">
                                 <input aria-label="contrasena" class="form-control" id="contrasena"
                                        placeholder="Contraseña"
                                        th:classappend="${#fields.hasErrors('contrasena') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                        th:field="*{contrasena}" type="password"/>
+                                <em class="fa fa-key"></em>
                                 <label for="contrasena">Contraseña</label>
                                 <span class="text-danger" th:if="${#fields.hasErrors('contrasena')}"
                                       th:text="${#fields.errors('contrasena')[0]}"></span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-12">
-                            <div class="form-floating mb-3 required">
+                            <div class="form-floating inner-addon right-addon mb-3 required">
                                 <input aria-label="repetirContrasena" class="form-control" id="repetirContrasena"
                                        placeholder="Repetir contraseña"
                                        th:classappend="${#fields.hasErrors('repetirContrasena') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                        th:field="*{repetirContrasena}" type="password"/>
+                                <em class="fa fa-key"></em>
                                 <label for="repetirContrasena">Repetir contraseña</label>
                                 <span class="text-danger" th:if="${#fields.hasErrors('repetirContrasena')}"
                                       th:text="${#fields.errors('repetirContrasena')[0]}"></span>
@@ -156,7 +184,7 @@
 
             <div class="row justify-content-center mt-5">
                 <div class="col-lg-6 col-md-12 col-sm-12">
-                    <button class="btn btn-danger w-100 btn-open-modal-baja" type="button">Eliminar cuenta</button>
+                    <a class="text-danger text-center w-100 btn-open-modal-baja" type="button">Eliminar cuenta</a>
                 </div>
             </div>
         </div>

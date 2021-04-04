@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface LibroRepository extends JpaRepository<Libro, Long> {
 
+    LibroView findLibroById(Long id);
+
     List<LibroView> findTop3ByVisibleIsTrueOrderByFechaDisponibleDesc();
 
     List<LibroView> findTop20ByVisibleIsTrueOrderByFechaDisponibleDesc();

@@ -12,6 +12,8 @@ public interface LibroService {
 
     Page<LibroDto> findLibros(BusquedaSimpleFilter filtro, Pageable pageable);
 
+    LibroView getLibro(Long id);
+
     List<LibroView> getNovedades();
 
     List<LibroView> getMuestraLibros();

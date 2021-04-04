@@ -34,6 +34,11 @@ public class LibroServiceImpl implements LibroService {
     }
 
     @Override
+    public LibroView getLibro(Long id) {
+        return libroRepository.findLibroById(id);
+    }
+
+    @Override
     public List<LibroView> getNovedades() {
         return libroRepository.findTop3ByVisibleIsTrueOrderByFechaDisponibleDesc();
     }

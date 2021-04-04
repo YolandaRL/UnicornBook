@@ -24,11 +24,12 @@
 </style>
 <div class="page-content" id="content">
     <div class="container">
-        <div class="row text-center mb-5">
+        <div class="row text-center mb-0">
             <h3>Novedades</h3>
+            <hr class="legend-separator">
         </div>
         <!-- NOVEDADES -->
-        <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleCaptions">
+        <div class="carousel slide carousel-dark" data-bs-ride="carousel" id="carouselExampleCaptions">
             <div class="carousel-indicators">
                 <div class="carousel-indicators">
                     <button data-bs-target="#carouselExampleCaptions" th:aria-current="${stat.index==0}"
@@ -42,11 +43,10 @@
             <div class="carousel-inner">
                 <div class="carousel-item" th:classappend="${stat.index==0}?'active':''"
                      th:each="libro, stat:${listNovedades}">
-                    <img alt="..." class="d-block" style="height: 50vh;
+                    <img alt="..." class="row d-block" style="height: 50vh;
    margin: auto" th:src="${libro.linkPortada}">
-                    <div class="carousel-caption d-none d-md-block" style="color: white; font-size: 4em">
+                    <div class="row carousel-caption d-none d-md-block" style="color: white; font-size: 4em">
                         <h5 th:text="${libro.titulo}"></h5>
-                        <p th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|"></p>
                     </div>
                 </div>
             </div>
@@ -62,20 +62,22 @@
             </button>
         </div>
 
-        <div class="row text-center mt-xl-5 mb-5">
+        <div class="row text-center mt-xl-5 mb-0">
             <h3>Los 20 libros más vendidos</h3>
+            <hr class="legend-separator">
         </div>
         <div class="row">
-            <div class="col col-lg-3 col-md-3 col-sm-1 mb-3" th:each="libro, stat:${listMuestreo}">
-                <div class="card border-0 h-100">
-                    <img alt="Portada" class="card-img-top shadow-lg mb-5 bg-white rounded"
-                         style="width: 25vh;margin: auto" th:src="${libro.linkPortada}">
+            <div class="col col-lg-3 col-md-3 col-sm-1 mb-3 justify-content-center"
+                 th:each="libro, stat:${listMuestreo}">
+                <div class="card text-center border-0 h-100 card-link"
+                     th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
+                    <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
+                         style="height: 25vh; margin: auto" th:src="${libro.linkPortada}">
                     <div class="card-body">
-                        <h5 class="card-title text-center">
-                            <a th:href="@{/libro/__${libro.id}__}" th:text="${libro.titulo}"></a>
-                        </h5>
+                        <h5 class="card-title text-center" th:text="${libro.titulo}"></h5>
                         <p class="card-text text-center" th:text="${libro.subtitulo}">Autor</p>
-
+                        <!-- FIXME <p class="text-center" th:text="${libro.autor}"></p>-->
+                        <p class="text-center" th:text="${libro.isbn}"></p>
                         <div class="mb-2 text-center">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>

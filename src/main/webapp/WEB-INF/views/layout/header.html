@@ -1,11 +1,12 @@
 <nav xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-     class="navbar navbar-expand-md navbar-dark fixed-top nav-transparent" id="banner">
+     class="principal-navbar navbar navbar-expand-md navbar-dark fixed-top nav-transparent" id="banner">
 
     <!-- Toggler/collapsibe Button -->
     <div class="navbar-toggler container-fluid">
-        <img class="collapse-nav-bar-icon" th:src="@{/resources/images/unicornbook_logo.png}" height="50vw" style="display: none;"/>
-        <form class="collapse-nav-bar-form" th:action="@{/busquedas}" method="get"  style="display: none; width: 65%">
-            <div class="input-group" >
+        <img class="collapse-nav-bar-icon" th:src="@{/resources/images/unicornbook_logo.png}" height="50vw"
+             style="display: none;"/>
+        <form class="collapse-nav-bar-form" th:action="@{/busquedas}" method="get" style="display: none; width: 65%">
+            <div class="input-group">
                 <input type="text" th:value="${termino}" class="form-control form-control-lg" name="termino"
                        placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
                 <button class="btn btn-primary btn-search" type="submit">
@@ -28,7 +29,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <!-- Brand -->
         <a class="navbar-brand" th:href="@{/}" style="display: none;">
-            <img th:src="@{/resources/images/unicornbook_titulo.png}" height="50vw"/>
+            <img height="100vw" th:src="@{/resources/images/unicornbook_logo.png}"/>
         </a>
 
         <form class="navbar-form" th:action="@{/busquedas}" method="get"  style="display: none; width: 40%">
@@ -40,11 +41,11 @@
         </form>
         <ul class="navbar-nav ms-auto">
             <li sec:authorize="!isAuthenticated()" class="nav-item">
-                <a class="nav-link btn btn-secondary" style="background: transparent" th:href="@{/login}">INICIAR
+                <a class="nav-link btn btn-secondary m-3" style="background: transparent" th:href="@{/login}">INICIAR
                     SESIÓN</a>
             </li>
             <li sec:authorize="!isAuthenticated()" class="nav-item">
-                <a class="nav-link btn btn-primary" style="background: white; color: #836aeb"
+                <a class="nav-link btn btn-primary m-3" style="background: white; color: #836aeb"
                    th:href="@{/usuario/nuevo}">REGÍSTRATE</a>
             </li>
             <!-- Dropdown -->
@@ -99,11 +100,11 @@
     </div>
 </nav>
 
-<div class="banner shadow-lg mb-5 bg-white" xmlns:th="http://www.thymeleaf.org">
+<div class="banner shadow-lg bg-white" xmlns:th="http://www.thymeleaf.org">
     <div class="container">
         <div class="banner-text">
             <div class="banner-heading text-center">
-                <img th:src="@{/resources/images/unicornbook_titulo.png}" height="100vw">
+                <img class="banner-heading-icon" th:src="@{/resources/images/unicornbook_titulo.png}">
             </div>
             <div class="banner-sub-heading text-center">
                 La plataforma de comercio online y comunidad lectora de las librerías independientes.

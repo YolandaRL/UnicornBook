@@ -1,18 +1,23 @@
 package org.unicorn.book.app.usuario.dto;
 
 import org.unicorn.book.app.validation.CustomScriptAssert;
+import org.unicorn.book.app.validation.NifNie;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
-@CustomScriptAssert(lang = "javascript", script = "_this.repetirContrasena!=null&&_this.contrasena==_this.repetirContrasena", field = "repetirContrasena", message = "Las contraseñas indicadas no son iguales")
+@CustomScriptAssert.List({
+        @CustomScriptAssert(lang = "javascript", script = "_this.id==null?_this.contrasena!=null:true", field = "contrasena", message = "Las contraseña es obligatoria"),
+        @CustomScriptAssert(lang = "javascript", script = "_this.id==null?_this.repetirContrasena!=null:true", field = "repetirContrasena", message = "Las contraseñas indicadas no son iguales"),
+        @CustomScriptAssert(lang = "javascript", script = "_this.repetirContrasena!=null&&_this.contrasena==_this.repetirContrasena", field = "repetirContrasena", message = "Las contraseñas indicadas no son iguales")
+
+})
 public class UsuarioForm {
 
+    private Long id;
     @NotEmpty(message = "El nombre de usuario es obligatorio")
     private String usuario;
-    @NotEmpty(message = "La contraseña es obligatorio")
     private String contrasena;
-    @NotEmpty(message = "Es necesario repetir la contraseña")
     private String repetirContrasena;
     @NotEmpty(message = "El nombre es obligatorio")
     private String nombre;
@@ -20,13 +25,21 @@ public class UsuarioForm {
     private String apellido1;
     @NotEmpty(message = "El segundo apellido es obligatorio")
     private String apellido2;
-    // @NifNie(message = "El DNI no tiene un formato correcto")
+    @NifNie(message = "El DNI no tiene un formato correcto")
     private String dni;
     private Long telefono1;
     private Long telefono2;
     @NotEmpty(message = "Es obligatorio indicar como mínimo un correo electrónico")
     private String correo;
     private Date fechaNacimiento;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsuario() {
         return usuario;

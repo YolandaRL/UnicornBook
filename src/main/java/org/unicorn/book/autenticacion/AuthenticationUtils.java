@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.client.HttpClientErrorException;
 import org.unicorn.book.app.usuario.model.Rol;
+import org.unicorn.book.app.usuario.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class AuthenticationUtils {
      * @param username
      * @param roles
      */
-    public static void login(String username, List<Rol> roles) {
+    public static void login(Usuario usuario, List<Rol> roles) {
 
         if (!"org.unicorn.book.app.usuario.service.UserServiceImpl"
                 .equals(Thread.currentThread().getStackTrace()[2].getClassName()) || !"altaUsuario"
@@ -37,7 +38,12 @@ public class AuthenticationUtils {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         roles.forEach(rol -> authorities.add(rol::getNombre));
-        CustomUserDetailsImpl details = new CustomUserDetailsImpl(username, "******", authorities);
+        CustomUserDetailsImpl details = new CustomUserDetailsImpl(usuario.getUsuario(), "******", authorities);
+        details.setId(usuario.getId());
+        details.setNombre(usuario.getNombre());
+        details.setApellido1(usuario.getApellido1());
+        details.setApellido2(usuario.getApellido2());
+        details.setEmail(usuario.getEmail());
         Authentication auth = new UsernamePasswordAuthenticationToken(details, "******", authorities);
         SecurityContextHolder.getContext().setAuthentication(auth);
     }

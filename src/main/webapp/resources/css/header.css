@@ -2,9 +2,7 @@
     font-family: aloja-font;
     src: url(/resources/fonts/Aloja-Light.otf);
 }
-.page-content {
-    margin-top: 5%;
-}
+
 .body{
     font-family: 'aloja-font', sans-serif;
     font-size:16px;
@@ -13,7 +11,6 @@ p{
     color:#6c6c6f;
     font-size:1em;
 }
-h1,h2,h3,h4,h5,h6{color:#323233;text-transform:uppercase;}
 
 .navbar-collapse.collapse.show {
     height: 100vh !important;
@@ -93,26 +90,34 @@ nav {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#32bbf1', endColorstr='#a649e9', GradientType=1 );
 }
 .banner-text{
-    padding:100px 0 150px 0;
+    padding: 100px 0 150px 0;
 }
-.banner-heading{
+
+.banner-heading {
     font-family: 'Lobster', cursive;
     font-size: 75px;
     font-weight: 700;
     line-height: 100px;
     margin-bottom: 30px;
-    color:#fff;
+    color: #fff;
 }
-.banner-sub-heading{
-    font-family: 'Libre Baskerville', serif;
+
+.banner-heading-icon {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+}
+
+.banner-sub-heading {
     font-size: 30px;
     font-weight: 300;
     line-height: 30px;
     margin-bottom: 50px;
-    color:#fff;
+    color: #fff;
 }
 
 .btn-search {
+    border: 0;
     text-align: center;
     color: #fff;
     background: palevioletred !important;

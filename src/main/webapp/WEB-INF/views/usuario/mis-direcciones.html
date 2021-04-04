@@ -16,12 +16,12 @@
     <div class="container">
         <div class="justify-content-center">
             <div class="table-responsive" id="direcciones">
-                <table class="table table-striped" th:fragment="direcciones-table">
+                <table class="table table-striped table-hover" th:fragment="direcciones-table">
                     <thead>
                     <tr>
                         <th class="text-center" scope="col">Alias</th>
                         <th class="text-center" scope="col">Nombre remitente</th>
-                        <th class="text-center" scope="col">Vía</th>
+                        <th class="text-center" scope="col">Dirección</th>
                         <th class="text-center" scope="col">Código postal</th>
                         <th class="text-center" scope="col">Provincia</th>
                         <th class="text-center" scope="col">Poblacion</th>
@@ -43,11 +43,9 @@
                         <td class="text-center"><span th:text="${d.pais}"></span></td>
 
                         <td class="text-center">
-                            <button class="dropdown-item btn-open-modal-direcciones" th:data-id="${d.id}">
-                                <em class="fa fa-pencil-alt"></em>
-                            </button>
-                            <a class="dropdown-item" th:href="@{/usuario/direccion/__${d.id}__/eliminar}">
-                                <em class="fa fa-trash-alt"></em>
+                            <a class="a-link-icon fa fa-pencil-alt btn-open-modal-direcciones" th:data-id="${d.id}">
+                            </a>
+                            <a class="a-link-icon fa fa-trash-alt" th:href="@{/usuario/direccion/__${d.id}__/eliminar}">
                             </a>
                         </td>
                     </tr>

@@ -1,5 +1,8 @@
 package org.unicorn.book.app.libro.dto;
 
+import java.util.Date;
+import java.util.List;
+
 public interface LibroView {
 
     Long getId();
@@ -10,8 +13,33 @@ public interface LibroView {
 
     String getSubtitulo();
 
+    String getSinopsis();
+
     Float getPrecio();
+
+    String getIdioma();
+
+    String getFormato();
+
+    String getNotas();
+
+    Integer getStock();
+
+    Integer getPaginas();
+
+    Date getFechaPublicacion();
+
+    Date getFechaEdicion();
+
+    Date getFechaDisponible();
 
     String getLinkPortada();
 
+    String getAutorNombre();
+
+    String getEditorialNombre();
+
+    String getColeccionNombre();
+
+    //List<TematicaView> getTematicas();
 }

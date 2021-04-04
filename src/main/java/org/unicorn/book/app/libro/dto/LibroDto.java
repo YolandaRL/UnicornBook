@@ -6,6 +6,9 @@ public class LibroDto {
     private Long isbn;
     private String titulo;
     private String subtitulo;
+    private String sipnosis;
+    private String editorial;
+    private String autor;
     private Float precio;
     private String linkPortada;
 
@@ -39,6 +42,30 @@ public class LibroDto {
 
     public void setSubtitulo(String subtitulo) {
         this.subtitulo = subtitulo;
+    }
+
+    public String getSipnosis() {
+        return sipnosis;
+    }
+
+    public void setSipnosis(String sipnosis) {
+        this.sipnosis = sipnosis;
+    }
+
+    public String getEditorial() {
+        return editorial;
+    }
+
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     public Float getPrecio() {

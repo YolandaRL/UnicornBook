@@ -14,38 +14,55 @@
     <div class="container">
         <div class="row text-center mb-5">
             <h3>
-                <span th:text="${listadoLibros.totalElements}"></span> títulos para "<span th:text="${termino}"></span>"
+                <span th:text="${listadoLibros.totalElements}"></span> títulos para <strong>"<span
+                    th:text="${termino}"></span>"</strong>
             </h3>
+            <hr class="legend-separator">
         </div>
         <div class="row">
-            <div class="col col-lg-3 col-md-3 col-sm-1 mb-3" th:each="libro, stat:${listadoLibros}">
-                <div class="card border-0 h-100">
-                    <img alt="Portada" class="card-img-top shadow-lg mb-5 bg-white rounded"
-                         style="width: 25vh;margin: auto" th:src="${libro.linkPortada}">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                            <a th:href="@{/libro/__${libro.id}__}" th:text="${libro.titulo}"></a>
-                        </h5>
-                        <p class="card-text text-center" th:text="${libro.subtitulo}">Autor</p>
-
-                        <div class="mb-2 text-center">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+            <div class="col-lg-12 col-md-12 col-sm-12 m-0 justify-content-center"
+                 th:each="libro, stat:${listadoLibros}">
+                <div class="card m-0 border-0 card-link" th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
+                    <div class="row g-0 pl-5 pr-5">
+                        <div class="col-md-3 justify-content-center">
+                            <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
+                                 style="height: 25vh; margin: auto" th:src="${libro.linkPortada}">
+                            <div class="mb-2 text-center">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                         </div>
-                        <h5 class="mb-0 text-primary text-center"
-                            th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">Precio</h5>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${libro.titulo}"></h5>
+                                <p th:text="${libro.autor}"></p>
+                                <p class="card-text"
+                                   th:text="${#strings.length(libro.sipnosis)>200 ? #strings.substring(libro.sipnosis,0,200) + '...' : libro.sipnosis}"></p>
+                                <p th:text="|${libro.editorial} / ${libro.isbn}|"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-body">
+                                <h5 class="mb-0 text-primary text-center"
+                                    th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">
+                                    Precio</h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <hr class="m-1">
             </div>
         </div>
-        <nav aria-label="Page navigation example" style="background: transparent !important;">
-            <ul class="pagination justify-content-end">
+        <nav aria-label="Page navigation example" class="bg-transparent mt-5">
+            <ul class="pagination justify-content-start">
                 <li class="page-item" th:classappend="${listadoLibros.first} ? 'disabled' : ''">
                     <a aria-disabled="true" class="page-link" tabindex="-1"
-                       th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number-1}|}">Anterior</a>
+                       th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number-1}|}">
+                        <
+                    </a>
                 </li>
                 <li class="page-item" th:classappend="${listadoLibros.number==i}?'active':''"
                     th:each="i:${#numbers.sequence(0, listadoLibros.totalPages - 1)}">
@@ -54,7 +71,9 @@
                 </li>
                 <li class="page-item" th:classappend="${listadoLibros.last} ? 'disabled' : ''">
                     <a class="page-link"
-                       th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number+1}|}">Siguiente</a>
+                       th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number+1}|}">
+                        >
+                    </a>
                 </li>
             </ul>
         </nav>

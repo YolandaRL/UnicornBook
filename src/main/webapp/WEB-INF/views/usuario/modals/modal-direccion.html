@@ -8,7 +8,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="labelModalDireccion">Dirección</h5>
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                        <span aria-hidden="true">&times;</span>
+                        <em class="fa fa-times"></em>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -86,7 +86,7 @@
                                            th:classappend="${#fields.hasErrors('direccion') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                            th:field="*{direccion}"
                                            type="text"/>
-                                    <label for="direccion">Nombre de la vía</label>
+                                    <label for="direccion">Dirección</label>
                                     <span class="text-danger" th:if="${#fields.hasErrors('direccion')}"
                                           th:text="${#fields.errors('direccion')[0]}"></span>
                                 </div>

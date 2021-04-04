@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "LIBRO")
@@ -84,8 +85,8 @@ public class Libro implements Serializable {
     private Coleccion coleccion;
 
     @JoinTable(name = "LIBRO_TEMATICA", joinColumns = @JoinColumn(name = "ID_LIBRO", nullable = false), inverseJoinColumns = @JoinColumn(name = "ID_TEMATICA", nullable = false))
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Tematica tematica;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Tematica> tematicas;
 
     public Long getId() {
         return id;
@@ -229,5 +230,21 @@ public class Libro implements Serializable {
 
     public void setAutor(Autor autor) {
         this.autor = autor;
+    }
+
+    public Coleccion getColeccion() {
+        return coleccion;
+    }
+
+    public void setColeccion(Coleccion coleccion) {
+        this.coleccion = coleccion;
+    }
+
+    public List<Tematica> getTematicas() {
+        return tematicas;
+    }
+
+    public void setTematicas(List<Tematica> tematicas) {
+        this.tematicas = tematicas;
     }
 }

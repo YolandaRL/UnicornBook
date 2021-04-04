@@ -67,7 +67,7 @@ public class UsuarioController {
                 result.rejectValue("correo", "correo", e.getMessage());
                 return "registro";
             }
-            return "index";
+            return "redirect:/";
         }
     }
 
@@ -90,6 +90,7 @@ public class UsuarioController {
         if (result.hasErrors()) {
             return "usuario/perfil";
         } else {
+            model.addAttribute("exito", true);
             model.addAttribute("usuarioForm", usuarioService.actualizarUsuario(usuarioForm));
         }
         return "usuario/perfil";

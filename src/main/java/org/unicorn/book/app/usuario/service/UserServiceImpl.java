@@ -1,8 +1,11 @@
 package org.unicorn.book.app.usuario.service;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
+import org.unicorn.book.app.usuario.UsuarioMapper;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
@@ -25,6 +28,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UsuarioService {
 
+    private static final UsuarioMapper MAPPER = Mappers.getMapper(UsuarioMapper.class);
     private final UsuarioRepository usuarioRepository;
     private final DireccionRepository direccionRepository;
     private final EntityManager entityManager;
@@ -44,19 +48,13 @@ public class UserServiceImpl implements UsuarioService {
         this.checkValidUsername(usuarioForm.getUsuario());
         this.checkValidEmail(usuarioForm.getCorreo());
 
-        Usuario usuario = new Usuario();
-        usuario.setNombre(usuarioForm.getNombre());
-        usuario.setApellido1(usuarioForm.getApellido1());
-        usuario.setApellido2(usuarioForm.getApellido2());
-        usuario.setEmail(usuarioForm.getCorreo());
-        usuario.setUsuario(usuarioForm.getUsuario());
-        usuario.setPassword(pass.encode(usuarioForm.getContrasena()));
+        Usuario usuario = MAPPER.toUsuario(usuarioForm);
         List<Rol> roles = new ArrayList<>();
         roles.add(entityManager.getReference(Rol.class, 3L));
         usuario.setRoles(roles);
         usuarioRepository.saveAndFlush(usuario);
 
-        AuthenticationUtils.login(usuario.getUsuario(), usuario.getRoles());
+        AuthenticationUtils.login(usuario, usuario.getRoles());
     }
 
     @Override
@@ -67,27 +65,16 @@ public class UserServiceImpl implements UsuarioService {
     @Override
     public UsuarioForm getFormularioUsuario() {
         Usuario usuario = usuarioRepository.getOne(AuthenticationUtils.getIdUsuario());
-        UsuarioForm form = new UsuarioForm();
-        form.setUsuario(usuario.getUsuario());
-        form.setNombre(usuario.getNombre());
-        form.setApellido1(usuario.getApellido1());
-        form.setApellido2(usuario.getApellido2());
-        form.setDni(usuario.getDni());
-        form.setCorreo(usuario.getEmail());
-        form.setFechaNacimiento(usuario.getFechaNacimiento());
-        form.setTelefono1(usuario.getTelefono1());
-        form.setTelefono2(usuario.getTelefono2());
-        return form;
+        return MAPPER.toUsuarioForm(usuario);
     }
 
     @Override
     @Transactional
     public UsuarioForm actualizarUsuario(UsuarioForm usuarioForm) {
-        Usuario usuario = usuarioRepository.getOne(AuthenticationUtils.getIdUsuario());
-
-        if (usuarioForm.getContrasena() != usuarioForm.getRepetirContrasena() || pass
-                .encode(usuarioForm.getContrasena()).equals(usuario.getPassword())) {
-            // lanzar excepcion
+        Usuario usuario = usuarioRepository.getOne(usuarioForm.getId());
+        if (!StringUtils.isEmpty(usuarioForm.getContrasena()) && usuarioForm.getContrasena()
+                .equals(usuarioForm.getRepetirContrasena())) {
+            usuario.setPassword(pass.encode(usuarioForm.getContrasena()));
         }
 
         usuario.setNombre(usuarioForm.getNombre());
@@ -97,6 +84,7 @@ public class UserServiceImpl implements UsuarioService {
         usuario.setTelefono1(usuarioForm.getTelefono1());
         usuario.setTelefono2(usuarioForm.getTelefono2());
         usuario.setDni(usuarioForm.getDni());
+        usuario.setFechaNacimiento(usuarioForm.getFechaNacimiento());
         usuarioRepository.save(usuario);
         return this.getFormularioUsuario();
     }
@@ -107,18 +95,7 @@ public class UserServiceImpl implements UsuarioService {
                 .getDirecciones();
         List<DireccionForm> direccionForms = new ArrayList<>();
         direccions.forEach(d -> {
-            DireccionForm f = new DireccionForm();
-            f.setId(d.getId());
-            f.setNombrePersonalizado(d.getNombrePersonalizado());
-            f.setNombre(d.getNombreReceptor());
-            f.setApellido1(d.getNombre1Receptor());
-            f.setApellido2(d.getNombre2Receptor());
-            f.setProvincia(d.getProvincia());
-            f.setPoblacion(d.getPoblacion());
-            f.setCodigoPostal(d.getCodigoPostal());
-            f.setPais(d.getPais());
-            f.setDireccion(d.getTextoDireccion());
-            direccionForms.add(f);
+            direccionForms.add(MAPPER.toDireccionForm(d));
         });
         return direccionForms;
     }
@@ -126,18 +103,7 @@ public class UserServiceImpl implements UsuarioService {
     @Override
     public DireccionForm getDireccionFormEdicion(Long id) {
         Direccion d = entityManager.find(Direccion.class, id);
-        DireccionForm f = new DireccionForm();
-        f.setId(d.getId());
-        f.setNombrePersonalizado(d.getNombrePersonalizado());
-        f.setNombre(d.getNombreReceptor());
-        f.setApellido1(d.getNombre1Receptor());
-        f.setApellido2(d.getNombre2Receptor());
-        f.setProvincia(d.getProvincia());
-        f.setPoblacion(d.getPoblacion());
-        f.setCodigoPostal(d.getCodigoPostal());
-        f.setPais(d.getPais());
-        f.setDireccion(d.getTextoDireccion());
-        return f;
+        return MAPPER.toDireccionForm(d);
     }
 
     @Override

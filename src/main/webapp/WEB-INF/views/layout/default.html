@@ -13,18 +13,21 @@
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/images/favicon/favicon.ico}">
 
     <title th:replace="${title}">Plantilla</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+          integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous">
     <!-- Bootstrap core CSS
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     <link rel="stylesheet" th:href="@{/resources/css/header.css}">
     <link rel="stylesheet" th:href="@{/resources/css/footer.css}">
     <link rel="stylesheet" th:href="@{/resources/css/custom.css}">
-    <link rel="stylesheet" th:href="@{/resources/css/datepicker.css}">
+    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 
-    <th:block th:replace="${links}" />
+
+    <th:block th:replace="${links}"/>
 </head>
 <body>
     <header th:replace="~{layout/header}"></header>
@@ -44,11 +47,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script crossorigin="anonymous" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+            integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+            crossorigin="anonymous"></script>
 
     <th:block th:replace="${scripts}"/>
-    <script th:src="@{/resources/js/bootstrap-datepicker.es.js}"></script>
-    <script th:src="@{/resources/js/bootstrap-datepicker.js}"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script th:src="@{/resources/js/main.js}"></script>
     <script type="text/javascript">
         CONTEXT_ROOT = '[[@{/}]]';
@@ -56,14 +62,16 @@
     </script>
     <script>
         jQuery(function () {
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 
                 if (CONTEXT_ROOT !== URI) {
                     $("#banner").addClass("shrink");
                     $('.collapse-nav-bar-icon, .collapse-nav-bar-form').show();
                     $('.banner').hide();
-                    $('nav').removeClass('nav-transparent');
-                    $('nav').addClass('nav-colored');
+                    $('.principal-navbar').removeClass('nav-transparent');
+                    $('.principal-navbar').addClass('nav-colored');
+                    $('.principal-navbar').addClass('shadow-lg');
+
                 }
 
                 $(document).on("scroll", function () {
@@ -71,13 +79,16 @@
                         if ($(document).scrollTop() > 86) {
                             $("#banner").addClass("shrink");
                             $('.collapse-nav-bar-icon, .collapse-nav-bar-form').fadeIn("slow");
-                            $('nav').removeClass('nav-transparent');
-                            $('nav').addClass('nav-colored');
+                            $('.principal-navbar').removeClass('nav-transparent');
+                            $('.principal-navbar').addClass('nav-colored');
+                            $('.principal-navbar').addClass('shadow-lg');
+
                         } else {
                             $("#banner").removeClass("shrink");
                             $('.collapse-nav-bar-icon, .collapse-nav-bar-form').hide();
-                            $('nav').addClass('nav-transparent');
-                            $('nav').removeClass('nav-colored');
+                            $('.principal-navbar').addClass('nav-transparent');
+                            $('.principal-navbar').removeClass('nav-colored');
+                            $('.principal-navbar').removeClass('shadow-lg');
                         }
                     }
                 });
@@ -86,8 +97,10 @@
                     $("#banner").addClass("shrink");
                     $('.navbar-brand, .navbar-form').show();
                     $('.banner').hide();
-                    $('nav').removeClass('nav-transparent');
-                    $('nav').addClass('nav-colored');
+                    $('.principal-navbar').removeClass('nav-transparent');
+                    $('.principal-navbar').addClass('nav-colored');
+                    $('.principal-navbar').addClass('shadow-lg');
+
                 }
 
                 $(document).on("scroll", function () {
@@ -95,13 +108,15 @@
                         if ($(document).scrollTop() > 86) {
                             $("#banner").addClass("shrink");
                             $('.navbar-brand, .navbar-form').fadeIn("slow");
-                            $('nav').removeClass('nav-transparent');
-                            $('nav').addClass('nav-colored');
+                            $('.principal-navbar').removeClass('nav-transparent');
+                            $('.principal-navbar').addClass('shadow-lg');
+                            $('.principal-navbar').addClass('nav-colored');
                         } else {
                             $("#banner").removeClass("shrink");
                             $('.navbar-brand, .navbar-form').hide();
-                            $('nav').addClass('nav-transparent');
-                            $('nav').removeClass('nav-colored');
+                            $('.principal-navbar').addClass('nav-transparent');
+                            $('.principal-navbar').removeClass('shadow-lg');
+                            $('.principal-navbar').removeClass('nav-colored');
                         }
                     }
                 });

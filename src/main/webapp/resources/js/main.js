@@ -1,7 +1,31 @@
 jQuery(function () {
-    //$('.datepicker').datepicker();
 
-    $(document).on('click','#btn-toggle', function () {
+    $('.date-picker').datepicker({
+        dateFormat: "dd-mm-yy",
+        autoSize: true,
+        selectOtherMonths: true,
+        showAnim: "slideDown",
+        prevText: "Anterior",
+        nextText: "Siguiente",
+        dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
+        dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"],
+        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+
+    });
+
+    $(document).on('click', '.trigger-data-picker', function () {
+        $(this).closest('div').find('.date-picker').focus();
+    });
+
+    $('input').each(function () {
+        if ($(this).val() === undefined) {
+            $(this).val('');
+        }
+    });
+
+    $(document).on('click', '#btn-toggle', function () {
         console.log($(this).css('transform'));
         let transform = 0;
         if ($(this).css('transform') !== 'matrix(6.12323e-17, 1, -1, 6.12323e-17, 0, 0)') {

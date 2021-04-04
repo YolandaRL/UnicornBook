@@ -16,11 +16,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target( { METHOD, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = NifNieConstraint.class)
-@NotEmpty(message = "ERROR_VACIO")
 @Documented
 public @interface NifNie {
 
-    String message() default "DNI ou NIF non válidos";
+    String message() default "DNI ou NIF no válidos";
 
     Class<?>[] groups() default {};
 
