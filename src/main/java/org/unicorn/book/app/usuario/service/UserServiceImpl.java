@@ -4,22 +4,29 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import org.thymeleaf.util.StringUtils;
 import org.unicorn.book.app.usuario.UsuarioMapper;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
+import org.unicorn.book.app.usuario.model.Compra;
 import org.unicorn.book.app.usuario.model.Direccion;
 import org.unicorn.book.app.usuario.model.Rol;
 import org.unicorn.book.app.usuario.model.Usuario;
+import org.unicorn.book.app.usuario.model.UsuarioRol;
+import org.unicorn.book.app.usuario.repository.CompraRepository;
+import org.unicorn.book.app.usuario.repository.ConsultaRepository;
 import org.unicorn.book.app.usuario.repository.DireccionRepository;
+import org.unicorn.book.app.usuario.repository.EncargoRepository;
 import org.unicorn.book.app.usuario.repository.UsuarioRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -30,14 +37,20 @@ public class UserServiceImpl implements UsuarioService {
 
     private static final UsuarioMapper MAPPER = Mappers.getMapper(UsuarioMapper.class);
     private final UsuarioRepository usuarioRepository;
-    private final DireccionRepository direccionRepository;
+    private static final String ANONYMOUS_FICTITIOUS_USER = "ffef234b-0d70-49a4-abb9";
+    private final CompraRepository compraRepository;
+    private final EncargoRepository encargoRepository;
     private final EntityManager entityManager;
     private final PasswordEncoder pass;
+    private final ConsultaRepository consultaRepository;
 
-    public UserServiceImpl(UsuarioRepository usuarioRepository, DireccionRepository direccionRepository,
-            EntityManager entityManager, PasswordEncoder pass) {
+    public UserServiceImpl(UsuarioRepository usuarioRepository, CompraRepository compraRepository,
+            EncargoRepository encargoRepository, ConsultaRepository consultaRepository, EntityManager entityManager,
+            PasswordEncoder pass) {
         this.usuarioRepository = usuarioRepository;
-        this.direccionRepository = direccionRepository;
+        this.compraRepository = compraRepository;
+        this.encargoRepository = encargoRepository;
+        this.consultaRepository = consultaRepository;
         this.entityManager = entityManager;
         this.pass = pass;
     }
@@ -49,8 +62,9 @@ public class UserServiceImpl implements UsuarioService {
         this.checkValidEmail(usuarioForm.getCorreo());
 
         Usuario usuario = MAPPER.toUsuario(usuarioForm);
+        usuario.setPassword(pass.encode(usuarioForm.getContrasena()));
         List<Rol> roles = new ArrayList<>();
-        roles.add(entityManager.getReference(Rol.class, 3L));
+        roles.add(entityManager.getReference(Rol.class, 2L));
         usuario.setRoles(roles);
         usuarioRepository.saveAndFlush(usuario);
 
@@ -58,8 +72,18 @@ public class UserServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public void bajaUsuario() {
-        // TODO Eliminar usuario y todas las relaciones
+        Usuario usuario = usuarioRepository.getOne(AuthenticationUtils.getIdUsuario());
+        Usuario userAnonimo = usuarioRepository.findByUsuario(ANONYMOUS_FICTITIOUS_USER);
+        if (ObjectUtils.isEmpty(userAnonimo)) {
+            userAnonimo = usuarioRepository.saveAndFlush(this.crearUsuarioAnonimo());
+        }
+
+        compraRepository.updateUsuario(usuario, userAnonimo);
+        encargoRepository.updateUsuario(usuario, userAnonimo);
+        consultaRepository.updateUsuario(usuario, userAnonimo);
+        usuarioRepository.delete(usuario);
     }
 
     @Override
@@ -72,8 +96,7 @@ public class UserServiceImpl implements UsuarioService {
     @Transactional
     public UsuarioForm actualizarUsuario(UsuarioForm usuarioForm) {
         Usuario usuario = usuarioRepository.getOne(usuarioForm.getId());
-        if (!StringUtils.isEmpty(usuarioForm.getContrasena()) && usuarioForm.getContrasena()
-                .equals(usuarioForm.getRepetirContrasena())) {
+        if (!StringUtils.isEmpty(usuarioForm.getContrasena()) && usuarioForm.getContrasena().equals(usuarioForm.getRepetirContrasena())) {
             usuario.setPassword(pass.encode(usuarioForm.getContrasena()));
         }
 
@@ -91,8 +114,7 @@ public class UserServiceImpl implements UsuarioService {
 
     @Override
     public List<DireccionForm> getDirecciones() {
-        List<Direccion> direccions = entityManager.find(Usuario.class, AuthenticationUtils.getIdUsuario())
-                .getDirecciones();
+        List<Direccion> direccions = entityManager.find(Usuario.class, AuthenticationUtils.getIdUsuario()).getDirecciones();
         List<DireccionForm> direccionForms = new ArrayList<>();
         direccions.forEach(d -> {
             direccionForms.add(MAPPER.toDireccionForm(d));
@@ -146,7 +168,6 @@ public class UserServiceImpl implements UsuarioService {
     }
 
     /**
-     *
      * @param email
      * @throws EmailDuplicatedException
      */
@@ -154,5 +175,13 @@ public class UserServiceImpl implements UsuarioService {
         if (Boolean.TRUE.equals(usuarioRepository.existsByEmail(email))) {
             throw new EmailDuplicatedException("El correo electrónico ya existe");
         }
+    }
+
+    private Usuario crearUsuarioAnonimo() {
+        Usuario userAnonimo = new Usuario();
+        userAnonimo.setUsuario(ANONYMOUS_FICTITIOUS_USER);
+        userAnonimo.setPassword(pass.encode(UUID.randomUUID().toString()));
+        userAnonimo.setEmail(ANONYMOUS_FICTITIOUS_USER);
+        return userAnonimo;
     }
 }

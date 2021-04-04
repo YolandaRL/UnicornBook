@@ -16,18 +16,17 @@ public class NifNieConstraint implements ConstraintValidator<NifNie, String> {
     }
 
     public boolean isValid(String nifnie, ConstraintValidatorContext constraintContext) {
-        if(StringUtils.isEmpty(nifnie)) {
-            return false;
-        }else {
+        if (!StringUtils.isEmpty(nifnie)) {
             nifnie = nifnie.toUpperCase();
             if (nifnie.startsWith("X") || nifnie.startsWith("Y") || nifnie.startsWith("Z")) {
                 String caracteresNie = "XYZ";
-                String modificadorNie = String.valueOf(caracteresNie.indexOf(nifnie.substring(0,1)));
+                String modificadorNie = String.valueOf(caracteresNie.indexOf(nifnie.substring(0, 1)));
                 return validate(nifnie.substring(1), modificadorNie);
             } else {
                 return validate(nifnie, "");
             }
         }
+        return true;
     }
 
     private boolean validate(String nif, String modificadorNie) {
@@ -35,7 +34,6 @@ public class NifNieConstraint implements ConstraintValidator<NifNie, String> {
         Matcher m = nifPattern.matcher(nif);
         if (m.matches()) {
             String letra = m.group(2);
-            //Extraer letra del NIF
             String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
             int dni = StringUtils.isEmpty(modificadorNie) ? Integer.parseInt(m.group(1)) :
                     Integer.parseInt(modificadorNie.concat(m.group(1)));

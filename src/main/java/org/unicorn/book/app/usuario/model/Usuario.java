@@ -2,6 +2,7 @@ package org.unicorn.book.app.usuario.model;
 
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -63,9 +64,13 @@ public class Usuario implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Rol> roles;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID")
     private List<Direccion> direcciones;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID")
+    private List<Tarjeta> tarjetas;
 
     public Long getId() {
         return id;
@@ -169,5 +174,13 @@ public class Usuario implements Serializable {
 
     public void setDirecciones(List<Direccion> direcciones) {
         this.direcciones = direcciones;
+    }
+
+    public List<Tarjeta> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<Tarjeta> tarjetas) {
+        this.tarjetas = tarjetas;
     }
 }

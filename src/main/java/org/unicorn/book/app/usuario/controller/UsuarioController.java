@@ -72,10 +72,11 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/baja")
-    public String bajaUsuario(RedirectAttributes ra) {
+    public String bajaUsuario(RedirectAttributes ra, HttpServletRequest httpServletRequest) {
         usuarioService.bajaUsuario();
         ra.addFlashAttribute("msgToastSuccess", "Su cuenta ha sido eliminado correctamente");
-        return "redirect:/";
+        httpServletRequest.getSession().invalidate();
+        return "redirect:/logout";
     }
 
     @GetMapping(value = "/perfil")
