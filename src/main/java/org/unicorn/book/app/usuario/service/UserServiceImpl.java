@@ -8,12 +8,14 @@ import org.springframework.util.ObjectUtils;
 import org.thymeleaf.util.StringUtils;
 import org.unicorn.book.app.usuario.UsuarioMapper;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
+import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
 import org.unicorn.book.app.usuario.model.Compra;
 import org.unicorn.book.app.usuario.model.Direccion;
 import org.unicorn.book.app.usuario.model.Rol;
+import org.unicorn.book.app.usuario.model.Tarjeta;
 import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.model.UsuarioRol;
 import org.unicorn.book.app.usuario.repository.CompraRepository;
@@ -155,6 +157,48 @@ public class UserServiceImpl implements UsuarioService {
     @Transactional
     public void eliminarDireccion(Long idDireccion) {
         entityManager.remove(entityManager.getReference(Direccion.class, idDireccion));
+    }
+
+    @Override
+    public List<TarjetaForm> getTarjetas() {
+        List<Tarjeta> Tarjetas = entityManager.find(Usuario.class, AuthenticationUtils.getIdUsuario()).getTarjetas();
+        List<TarjetaForm> tarjetaForms = new ArrayList<>();
+        Tarjetas.forEach(t -> {
+            tarjetaForms.add(MAPPER.toTarjetaForm(t));
+        });
+        return tarjetaForms;
+    }
+
+    @Override
+    public TarjetaForm getTarjetaFormEdicion(Long id) {
+        Tarjeta d = entityManager.find(Tarjeta.class, id);
+        return MAPPER.toTarjetaForm(d);
+    }
+
+    @Override
+    @Transactional
+    public void altaOActualizarTarjeta(TarjetaForm form) {
+        Tarjeta tarjeta;
+        if (form.getId() == null) {
+            tarjeta = new Tarjeta();
+            tarjeta.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+
+        } else {
+            tarjeta = entityManager.find(Tarjeta.class, form.getId());
+        }
+        tarjeta.setNombrePersonalizado(form.getNombrePersonalizado());
+        tarjeta.setNumero(form.getNumero());
+        tarjeta.setMesCaducidad(form.getMesCaducidad());
+        tarjeta.setAnoCaducidad(form.getAnoCaducidad());
+        tarjeta.setTipoTarjeta(form.getTipoTarjeta());
+        tarjeta.setCvv(form.getCvv());
+        entityManager.persist(tarjeta);
+    }
+
+    @Override
+    @Transactional
+    public void eliminarTarjeta(Long idTarjeta) {
+        entityManager.remove(entityManager.getReference(Tarjeta.class, idTarjeta));
     }
 
     /**

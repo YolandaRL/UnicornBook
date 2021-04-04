@@ -1,0 +1,117 @@
+<div aria-hidden="true" aria-labelledby="labelModalTarjeta" class="modal" id="modalTarjeta" role="dialog"
+     tabindex="-1" xmlns:th="http://www.thymeleaf.org">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" th:fragment="modalTarjeta">
+        <div class="modal-content" th:if="${tarjetaForm}">
+
+            <form id="formulario-tarjeta" method="post" th:action="@{/usuario/tarjeta}"
+                  th:object="${tarjetaForm}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModalTarjeta">Tarjeta</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <em class="fa fa-times"></em>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <th:block th:if="${error}">
+                        <div class="alert alert-danger">
+                            Error validando el formulario
+                        </div>
+                    </th:block>
+                    <fieldset>
+                        <legend></legend>
+                        <input th:field="*{id}" type="hidden"/>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="nombrePersonalizado" class="form-control"
+                                           id="nombrePersonalizado"
+                                           placeholder="Nombre personalizado"
+                                           th:classappend="${#fields.hasErrors('nombrePersonalizado') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{nombrePersonalizado}"
+                                           type="text"/>
+                                    <label for="nombrePersonalizado">Nombre personalizado</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('nombrePersonalizado')}"
+                                          th:text="${#fields.errors('nombrePersonalizado')[0]}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="numero" class="form-control"
+                                           id="numero"
+                                           placeholder="Número"
+                                           th:classappend="${#fields.hasErrors('numero') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{numero}"
+                                           type="text"/>
+                                    <label for="numero">Número</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('numero')}"
+                                          th:text="${#fields.errors('numero')[0]}"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="tipoTarjeta" class="form-control"
+                                           id="tipoTarjeta"
+                                           placeholder="Tipo"
+                                           th:classappend="${#fields.hasErrors('tipoTarjeta') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{tipoTarjeta}"
+                                           type="text"/>
+                                    <label for="tipoTarjeta">Tipo</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('tipoTarjeta')}"
+                                          th:text="${#fields.errors('tipoTarjeta')[0]}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="mesCaducidad" class="form-control"
+                                           id="mesCaducidad"
+                                           placeholder="Mes caducidad"
+                                           th:classappend="${#fields.hasErrors('mesCaducidad') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{mesCaducidad}" type="text"/>
+                                    <label for="mesCaducidad">Mes caducidad</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('mesCaducidad')}"
+                                          th:text="${#fields.errors('mesCaducidad')[0]}"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="anoCaducidad" class="form-control"
+                                           id="anoCaducidad"
+                                           placeholder="Año caducidad"
+                                           th:classappend="${#fields.hasErrors('anoCaducidad') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{anoCaducidad}"
+                                           type="text"/>
+                                    <label for="anoCaducidad">Año caducidad</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('anoCaducidad')}"
+                                          th:text="${#fields.errors('anoCaducidad')[0]}"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-floating mb-3 required">
+                                    <input aria-label="cvv" class="form-control"
+                                           id="cvv"
+                                           placeholder="CVE"
+                                           th:classappend="${#fields.hasErrors('cvv') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                           th:field="*{cvv}"
+                                           type="text"/>
+                                    <label for="cvv">CVE</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('cvv')}"
+                                          th:text="${#fields.errors('cvv')[0]}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Cerrar</button>
+                    <button class="btn btn-primary" id="btn-confirmar-tarjeta" type="button">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

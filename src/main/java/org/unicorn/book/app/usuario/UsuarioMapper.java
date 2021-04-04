@@ -3,8 +3,10 @@ package org.unicorn.book.app.usuario;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
+import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.model.Direccion;
+import org.unicorn.book.app.usuario.model.Tarjeta;
 import org.unicorn.book.app.usuario.model.Usuario;
 
 @Mapper
@@ -33,4 +35,9 @@ public interface UsuarioMapper {
     @Mapping(target = "apellido2", source = "nombre2Receptor")
     @Mapping(target = "apellido1", source = "nombre1Receptor")
     DireccionForm toDireccionForm(Direccion srd);
+
+    @Mapping(target = "usuario", source = "")
+    Tarjeta toTarjeta(TarjetaForm src);
+
+    TarjetaForm toTarjetaForm(Tarjeta src);
 }

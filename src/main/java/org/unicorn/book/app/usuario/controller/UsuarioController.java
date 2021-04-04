@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
+import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
@@ -130,6 +131,41 @@ public class UsuarioController {
     public String eliminarDireccion(@PathVariable("id") Long idDireccion, ModelMap model) {
         usuarioService.eliminarDireccion(idDireccion);
         return "redirect:/usuario/direcciones";
+    }
+
+    @GetMapping(value = "/tarjetas")
+    public String obtenerTarjetas(ModelMap model) {
+        model.addAttribute("tarjetas", usuarioService.getTarjetas());
+        return "usuario/mis-tarjetas";
+    }
+
+    @GetMapping(value = "/tarjeta/getForm")
+    public String getFormularioTarjeta(@RequestParam(name = "id", required = false) Long id, ModelMap model) {
+        if (id != null) {
+            model.addAttribute("tarjetaForm", usuarioService.getTarjetaFormEdicion(id));
+        } else {
+            model.addAttribute("tarjetaForm", new TarjetaForm());
+        }
+        return "usuario/modals/modal-tarjeta :: modalTarjeta";
+    }
+
+    @PostMapping(value = "/tarjeta")
+    public String actualizaCreaTarjeta(@Valid @ModelAttribute("tarjetaForm") TarjetaForm tarjetaForm,
+            BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            return "usuario/modals/modal-tarjeta :: modalTarjeta";
+        }
+        model.addAttribute("error", false);
+        usuarioService.altaOActualizarTarjeta(tarjetaForm);
+        model.addAttribute("tarjetas", usuarioService.getTarjetas());
+        return "usuario/mis-tarjetas :: tarjetas-table";
+    }
+
+    @GetMapping(value = "/tarjeta/{id}/eliminar")
+    public String eliminarTarjeta(@PathVariable("id") Long idTarjeta, ModelMap model) {
+        usuarioService.eliminarTarjeta(idTarjeta);
+        return "redirect:/usuario/tarjetas";
     }
 
     @GetMapping(value = "/intereses")
