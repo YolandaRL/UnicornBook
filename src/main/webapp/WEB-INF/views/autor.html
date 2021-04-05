@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}"
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title id="title" th:text="|Unicorn Book - ${autor.nombre} ${autor.apellido1} ${autor.apellido2}|">Unicorn Book -
+        Autor</title>
+</head>
+<body>
+<div id="links"></div>
+<div id="scripts"></div>
+
+<div class="page-content" id="content">
+    <div class="container-full">
+        <div class="d-flex justify-content-center">
+            <div class="container">
+                <nav aria-label="breadcrumb"
+                     style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;); background: transparent;">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="simple-link" th:href="@{/}">Inicio</a></li>
+                        <li aria-current="page" class="breadcrumb-item active"><a class="simple-link"
+                                                                                  th:href="@{/autor/__${autor.id}__}"
+                                                                                  th:text="${autor.nombre}"></a></li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img alt="Portada" class="card-img- shadow-lg mt-0 mb-5 bg-dark rounded"
+                             style="height: 35vh; margin: auto" th:src="${autor.linkFoto}">
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                                <h1 th:text="|${autor.nombre} ${autor.apellido1} ${autor.apellido2}|"></h1>
+                                <p th:text="${autor.biografia}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-center mt-xl-5 mb-0">
+                    <h3>Libros relacionados</h3>
+                    <hr class="legend-separator">
+                </div>
+                <div class="row">
+                    <div class="col col-lg-3 col-md-3 col-sm-1 mb-3 justify-content-center"
+                         th:each="libro, stat:${autor.libros}">
+                        <div class="card text-center border-0 h-100 card-link"
+                             th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
+                            <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
+                                 style="height: 25vh; margin: auto" th:src="${libro.linkPortada}">
+                            <div class="card-body">
+                                <h5 class="card-title text-center" th:text="${libro.titulo}"></h5>
+                                <p class="card-text text-center" th:text="${libro.subtitulo}">Autor</p>
+                                <p class="text-center" th:text="${libro.isbn}"></p>
+                                <div class="mb-2 text-center">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h5 class="mb-0 text-primary text-center"
+                                    th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">
+                                    Precio</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

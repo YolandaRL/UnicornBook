@@ -35,6 +35,8 @@ public interface LibroView {
 
     String getLinkPortada();
 
+    Long getAutorId();
+
     String getAutorNombre();
 
     String getEditorialNombre();

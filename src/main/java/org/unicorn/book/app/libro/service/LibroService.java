@@ -2,6 +2,7 @@ package org.unicorn.book.app.libro.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.unicorn.book.app.libro.dto.AutorView;
 import org.unicorn.book.app.libro.dto.LibroDto;
 import org.unicorn.book.app.libro.dto.LibroView;
 import org.unicorn.book.app.libro.filter.BusquedaSimpleFilter;
@@ -17,4 +18,6 @@ public interface LibroService {
     List<LibroView> getNovedades();
 
     List<LibroView> getMuestraLibros();
+
+    AutorView getAutor(Long id);
 }

@@ -3,6 +3,7 @@ package org.unicorn.book.app.libro.controller;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +53,12 @@ public class BusquedaController {
     public String get(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("libro", libroService.getLibro(id));
         return "libro";
+    }
+
+    @GetMapping("/autor/{id}")
+    private String getLibro(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("autor", libroService.getAutor(id));
+        return "autor";
     }
 
 }

@@ -33,7 +33,13 @@
                             <div class="col">
                                 <h1 th:text="${libro.titulo}"></h1>
                                 <h4><strong th:text="${libro.subtitulo}"></strong></h4>
-                                <h6><strong th:text="${libro.autorNombre}"></strong></h6>
+                                <h6>
+                                    <strong>
+                                        <a class="link-primary" th:href="@{/autor/__${libro.autorId}__}">
+                                            <span th:text="${libro.autorNombre}"></span> <em class="fa fa-link"></em>
+                                        </a>
+                                    </strong>
+                                </h6>
                                 <div class="mb-2">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>

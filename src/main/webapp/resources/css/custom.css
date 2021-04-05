@@ -53,6 +53,14 @@ legend {
     box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
+.link-primary {
+    color: #db7093 !important;
+}
+
+.link-primary:hover {
+    color: #d23b6d !important;
+}
+
 .simple-link {
     color: #949393;
     text-decoration: none;

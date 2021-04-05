@@ -2,12 +2,18 @@ package org.unicorn.book.app.libro.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "AUTOR")
@@ -33,6 +39,10 @@ public class Autor implements Serializable {
 
     @Column(name = "LINK_FOTO")
     private String linkFoto;
+
+    @JoinTable(name = "LIBRO_AUTOR", joinColumns = @JoinColumn(name = "ID_AUTOR", nullable = false), inverseJoinColumns = @JoinColumn(name = "ID_LIBRO", nullable = false))
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Libro> libros;
 
     public Long getId() {
         return id;
@@ -80,5 +90,13 @@ public class Autor implements Serializable {
 
     public void setLinkFoto(String linkFoto) {
         this.linkFoto = linkFoto;
+    }
+
+    public Set<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(Set<Libro> libros) {
+        this.libros = libros;
     }
 }
