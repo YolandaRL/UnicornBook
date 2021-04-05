@@ -1,5 +1,6 @@
 package org.unicorn.book.app.usuario.dto;
 
+import org.unicorn.book.app.validation.CorreoElectronico;
 import org.unicorn.book.app.validation.CustomScriptAssert;
 import org.unicorn.book.app.validation.NifNie;
 
@@ -29,7 +30,8 @@ public class UsuarioForm {
     private String dni;
     private Long telefono1;
     private Long telefono2;
-    @NotEmpty(message = "Es obligatorio indicar como mínimo un correo electrónico")
+    @NotEmpty(message = "El correo electrónico no es válido")
+    @CorreoElectronico
     private String correo;
     private Date fechaNacimiento;
 
