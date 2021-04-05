@@ -22,19 +22,11 @@ public class AuthenticationUtils {
      * ya que las únicas validaciones necesarias se han realizado previamente al guardado en BDD.
      * El proceso de autenticación consiste en crear el objeto personalizado de detalles de usuario <p>CustomUserDetails.class</p>
      * y añadirlo al contexto de seguridad de scring.
-     * Nota: este proceso es peligroso por lo que si que se valida que sea invocado exclusivamente desde el servicio UserService y el método altaUsuario.
      *
      * @param username
      * @param roles
      */
     public static void login(Usuario usuario, List<Rol> roles) {
-
-        if (!"org.unicorn.book.app.usuario.service.UserServiceImpl"
-                .equals(Thread.currentThread().getStackTrace()[2].getClassName()) || !"altaUsuario"
-                .equals(Thread.currentThread().getStackTrace()[2].getMethodName())) {
-            throw new UnsupportedOperationException(
-                    "Error autenticando al usuario. Invocación desde un lugar no permitido");
-        }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         roles.forEach(rol -> authorities.add(rol::getNombre));

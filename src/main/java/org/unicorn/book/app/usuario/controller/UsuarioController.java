@@ -88,7 +88,7 @@ public class UsuarioController {
 
     @PostMapping(value = "/perfil")
     public String actualizaPerfil(@Valid @ModelAttribute("usuarioForm") UsuarioForm usuarioForm, BindingResult result,
-            ModelMap model) {
+            ModelMap model, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "usuario/perfil";
         } else {

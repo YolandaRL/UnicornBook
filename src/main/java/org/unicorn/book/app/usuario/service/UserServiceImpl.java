@@ -110,7 +110,10 @@ public class UserServiceImpl implements UsuarioService {
         usuario.setTelefono2(usuarioForm.getTelefono2());
         usuario.setDni(usuarioForm.getDni());
         usuario.setFechaNacimiento(usuarioForm.getFechaNacimiento());
-        usuarioRepository.save(usuario);
+        usuario = usuarioRepository.save(usuario);
+
+        // Se invoca al login para actualizar los datos del contexto
+        AuthenticationUtils.login(usuario, usuario.getRoles());
         return this.getFormularioUsuario();
     }
 
