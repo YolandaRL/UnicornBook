@@ -26,7 +26,7 @@
                 <input th:field="*{id}" type="hidden"/>
                 <fieldset>
                     <div class="row text-center mb-0">
-                        <h3>Perfil</h3>
+                        <h3>Perfíl</h3>
                         <hr class="legend-separator">
                     </div>
                     <div class="row justify-content-center">
@@ -44,7 +44,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-floating inner-addon right-addon mb-3 required">
+                                <input aria-label="correo" class="form-control" id="correo"
+                                       placeholder="Correo electrónico" readonly
+                                       th:classappend="${#fields.hasErrors('correo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{correo}" type="text"/>
+                                <em class="fa fa-envelope"></em>
+                                <label for="correo">Correo electrónico</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('correo')}"
+                                      th:text="${#fields.errors('correo')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row text-center mt-3 mb-0">
+                        <h3>Datos de usuario</h3>
+                        <hr class="legend-separator">
+                    </div>
                     <div class="row justify-content-center">
                         <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-floating mb-3 required">
@@ -77,21 +95,6 @@
                                 <label for="apellido2">Segundo apellido</label>
                                 <span class="text-danger" th:if="${#fields.hasErrors('apellido2')}"
                                       th:text="${#fields.errors('apellido2')[0]}"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-floating inner-addon right-addon mb-3 required">
-                                <input aria-label="correo" class="form-control" id="correo"
-                                       placeholder="Correo electrónico"
-                                       th:classappend="${#fields.hasErrors('correo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                       th:field="*{correo}" type="text"/>
-                                <em class="fa fa-envelope"></em>
-                                <label for="correo">Correo electrónico</label>
-                                <span class="text-danger" th:if="${#fields.hasErrors('correo')}"
-                                      th:text="${#fields.errors('correo')[0]}"></span>
                             </div>
                         </div>
                     </div>
@@ -150,6 +153,10 @@
                         </div>
                     </div>
 
+                    <div class="row text-center mt-5 mb-0">
+                        <h3>Segurida</h3>
+                        <hr class="legend-separator">
+                    </div>
                     <div class="row justify-content-center">
                         <div class="col-lg-3 col-md-3 col-sm-12">
                             <div class="form-floating inner-addon right-addon mb-3 required">
