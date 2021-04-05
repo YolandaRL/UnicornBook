@@ -25,7 +25,10 @@
             <form method="post" th:action="@{/usuario/perfil}" th:object="${usuarioForm}">
                 <input th:field="*{id}" type="hidden"/>
                 <fieldset>
-                    <legend>Perfil</legend>
+                    <div class="row text-center mb-0">
+                        <h3>Perfil</h3>
+                        <hr class="legend-separator">
+                    </div>
                     <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-floating mb-3 inner-addon right-addon required">
