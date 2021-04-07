@@ -12,10 +12,6 @@ p{
     font-size:1em;
 }
 
-.navbar-collapse {
-    height: 100vh !important;
-}
-
 .navbar {
     padding-left: 0 !important;
 }
