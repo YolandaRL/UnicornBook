@@ -2,7 +2,7 @@
      class="principal-navbar navbar navbar-expand-md navbar-dark fixed-top nav-transparent" id="banner">
 
     <!-- Toggler/collapsibe Button -->
-    <div class="navbar-toggler container-fluid">
+    <div class="navbar-toggler container-fluid border-0">
         <img class="collapse-nav-bar-icon" th:src="@{/resources/images/unicornbook_logo.png}" height="50vw"
              style="display: none;"/>
         <form class="collapse-nav-bar-form" th:action="@{/busquedas}" method="get" style="display: none; width: 65%">
@@ -96,8 +96,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn" th:href="@{/usuario/cesta}"><em class="fa fa-shopping-cart"
-                                                                            style="color: white"></em></a>
+                    <a aria-controls="mi-cesta-container" class="nav-link btn"
+                       data-bs-target="#mi-cesta-container" data-bs-toggle="offcanvas" role="button">
+                        <em aria-controls="mi-cesta-container" class="fa fa-shopping-cart"
+                            data-bs-target="#mi-cesta-container"
+                            data-bs-toggle="offcanvas" style="color: white"></em>
+                    </a>
                 </li>
             </th:block>
         </ul>
