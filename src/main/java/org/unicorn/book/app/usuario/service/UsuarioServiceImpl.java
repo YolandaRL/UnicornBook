@@ -12,15 +12,12 @@ import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
-import org.unicorn.book.app.usuario.model.Compra;
 import org.unicorn.book.app.usuario.model.Direccion;
 import org.unicorn.book.app.usuario.model.Rol;
 import org.unicorn.book.app.usuario.model.Tarjeta;
 import org.unicorn.book.app.usuario.model.Usuario;
-import org.unicorn.book.app.usuario.model.UsuarioRol;
 import org.unicorn.book.app.usuario.repository.CompraRepository;
 import org.unicorn.book.app.usuario.repository.ConsultaRepository;
-import org.unicorn.book.app.usuario.repository.DireccionRepository;
 import org.unicorn.book.app.usuario.repository.EncargoRepository;
 import org.unicorn.book.app.usuario.repository.UsuarioRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
@@ -35,7 +32,7 @@ import java.util.UUID;
  */
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService {
 
     private static final UsuarioMapper MAPPER = Mappers.getMapper(UsuarioMapper.class);
     private final UsuarioRepository usuarioRepository;
@@ -46,7 +43,7 @@ public class UserServiceImpl implements UsuarioService {
     private final PasswordEncoder pass;
     private final ConsultaRepository consultaRepository;
 
-    public UserServiceImpl(UsuarioRepository usuarioRepository, CompraRepository compraRepository,
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, CompraRepository compraRepository,
             EncargoRepository encargoRepository, ConsultaRepository consultaRepository, EntityManager entityManager,
             PasswordEncoder pass) {
         this.usuarioRepository = usuarioRepository;

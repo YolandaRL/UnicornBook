@@ -1,12 +1,22 @@
-<div xmlns:th="http://www.thymeleaf.org" aria-labelledby="mi-cesta-container-label" class="offcanvas offcanvas-end" id="mi-cesta-container" tabindex="-1">
-    <div th:fragment="cesta-simplificada"class="offcanvas-header">
+<div xmlns:th="http://www.thymeleaf.org" aria-labelledby="mi-cesta-container-label" class="offcanvas offcanvas-end"
+     id="mi-cesta-container" tabindex="-1">
+    <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="mi-cesta-container-label">Mi carrito</h5>
         <button aria-label="Close" class="btn-close text-reset" data-bs-dismiss="offcanvas" type="button"></button>
     </div>
-    <div class="offcanvas-body">
-        <div>
-            No hay libros en tu carrito
+    <div class="separator"></div>
+    <div id="cesta-simplificada">
+        <div class="offcanvas-body" th:fragment="cesta-simplificada">
+            <div th:if="${#lists.isEmpty(productos)}">
+                No hay libros en tu carrito
+            </div>
+            <div th:unless="${#lists.isEmpty(productos)}">
+                jejeje
+            </div>
+            <div th:unless="${#lists.isEmpty(productos)}">
+                <p th:each="p:${productos}" th:text="${p.libroTitulo}"></p>
+            </div>
         </div>
-        <div class="separator"></div>
     </div>
+</div>
 </div>

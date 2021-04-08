@@ -48,6 +48,10 @@ jQuery(function () {
     $(document).on('click', '[data-dismiss="modal"]', function () {
         $(this).closest('.modal').modal('hide');
     });
+
+    $(document).on('click', '.cesta', function () {
+        $('#cesta-simplificada').load(CONTEXT_ROOT + 'usuario/carrito/get');
+    });
 });
 
 function showLoader() {

@@ -306,17 +306,17 @@ CREATE TABLE CONSULTA
         ON DELETE CASCADE
 );
 
-CREATE TABLE CESTA (
-    ID_SESSION       VARCHAR(50)    NOT NULL,
-    ID_USUARIO       BIGINT(19),
-    ID_LIBRO         BIGINT(19)     NOT NULL,
-    CANTIDAD         INT            NOT NULL,
-    FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO (ID)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    FOREIGN KEY (ID_LIBRO) REFERENCES LIBRO (ID)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+CREATE TABLE CESTA(
+                      ID_USUARIO BIGINT(19),
+                      ID_LIBRO   BIGINT(19) NOT NULL,
+                      CANTIDAD   INT        NOT NULL,
+                      PRIMARY KEY (ID_USUARIO, ID_LIBRO),
+                      FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO (ID)
+                          ON UPDATE CASCADE
+                          ON DELETE CASCADE,
+                      FOREIGN KEY (ID_LIBRO) REFERENCES LIBRO (ID)
+                          ON UPDATE CASCADE
+                          ON DELETE CASCADE
 );
 
 /*

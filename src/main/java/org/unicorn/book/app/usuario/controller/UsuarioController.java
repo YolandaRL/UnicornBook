@@ -17,6 +17,7 @@ import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
+import org.unicorn.book.app.usuario.service.CestaService;
 import org.unicorn.book.app.usuario.service.UsuarioService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,13 +30,11 @@ public class UsuarioController {
     private static Logger LOGGER = LoggerFactory.getLogger(UsuarioController.class);
 
     private final UsuarioService usuarioService;
+    private final CestaService cestaService;
 
-    /**
-     *
-     * @param usuarioService
-     */
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, CestaService cestaService) {
         this.usuarioService = usuarioService;
+        this.cestaService = cestaService;
     }
 
     @ModelAttribute(name = "registroForm")
@@ -164,6 +163,19 @@ public class UsuarioController {
     public String eliminarTarjeta(@PathVariable("id") Long idTarjeta, ModelMap model) {
         usuarioService.eliminarTarjeta(idTarjeta);
         return "redirect:/usuario/tarjetas";
+    }
+
+    @GetMapping("/carrito/get")
+    public String getCarrito(ModelMap model) {
+        model.addAttribute("productos", cestaService.getCarritoCompra());
+        return "usuario/mi-cesta/mi-cesta-simplificado :: cesta-simplificada";
+    }
+
+    @PostMapping("/carrito/update")
+    public String actualizarCarrito(ModelMap model, @RequestParam("idLibro") Long id,
+            @RequestParam("cantidad") Integer cantidad) {
+
+        return "usuario/mi-cesta/mi-cesta-simplificado :: cesta-simplificada";
     }
 
     @GetMapping(value = "/pedidos")
