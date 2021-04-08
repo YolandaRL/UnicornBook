@@ -1,5 +1,5 @@
 jQuery(function () {
-
+    showSpinner();
     $('.date-picker').datepicker({
         dateFormat: "dd-mm-yy",
         autoSize: true,
@@ -46,3 +46,11 @@ jQuery(function () {
         $(this).closest('.modal').modal('hide');
     });
 });
+
+function showSpinner() {
+    $('#page-loader').remove();
+    $('body').append('<div id="page-loader" class="fade-in-animation" style="z-index: 9000 !important"><div class="dot"></div><div class="dot"></div></div>');
+}
+function hideSpinner() {
+    $('#page-loader').attr("class", "fade-out-animation");
+}

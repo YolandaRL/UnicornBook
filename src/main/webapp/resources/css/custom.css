@@ -262,3 +262,45 @@ hr.legend-separator {
 
 }
 */
+
+#page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(17,132,185,.9);
+    z-index: 100;
+}
+
+#page-loader:after {
+    content: "";
+    opacity: .7;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 70px;
+    width: 70px;
+    margin-top: -35px;
+    margin-left: -35px;
+    background-image: url(../images/loader/loader1.png);
+    background-size: 100% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    -webkit-animation: big-o 1.3s infinite linear;
+    -o-animation: big-o 1.3s infinite linear;
+    animation: big-o 1.3s infinite linear;
+}
+
+.fade-in-animation, .wizard .tab-content .tab-pane.active {
+    display: block!important;
+    -webkit-animation: fade-in .4s linear 0s forwards;
+    -o-animation: fade-in .4s linear 0s forwards;
+    animation: fade-in .4s linear 0s forwards;
+}
+
+.fade-out-animation {
+    -webkit-animation: fade-out .4s linear 0s forwards;
+    -o-animation: fade-out .4s linear 0s forwards;
+    animation: fade-out .4s linear 0s forwards;
+}

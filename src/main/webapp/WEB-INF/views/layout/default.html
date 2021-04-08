@@ -30,6 +30,10 @@
     <th:block th:replace="${links}"/>
 </head>
 <body>
+    <div id="page-loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
     <header th:replace="~{layout/header}"></header>
     <div th:replace="usuario/mi-cesta/mi-cesta-simplificado"></div>
 
