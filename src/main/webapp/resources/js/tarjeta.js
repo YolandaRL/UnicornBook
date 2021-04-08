@@ -13,7 +13,7 @@ $(function () {
     });
 
     $(document).on('click', '#btn-confirmar-tarjeta', function () {
-
+        showLoader();
         $.ajax({
             url: CONTEXT_ROOT + 'usuario/tarjeta',
             type: "POST",
@@ -28,6 +28,8 @@ $(function () {
                     $('#modalTarjeta').modal('hide');
 
                 }
+            }, complete: function () {
+                hideLoader();
             }
         });
     });

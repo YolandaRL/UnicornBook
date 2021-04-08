@@ -13,7 +13,7 @@ $(function () {
     });
 
     $(document).on('click', '#btn-confirmar-direccion', function () {
-
+        showLoader();
         $.ajax({
             url: CONTEXT_ROOT + 'usuario/direccion',
             type: "POST",
@@ -28,6 +28,8 @@ $(function () {
                     $('#modalDireccion').modal('hide');
 
                 }
+            }, complete: function () {
+                hideLoader();
             }
         });
     });
