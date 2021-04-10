@@ -48,7 +48,7 @@ public class ContactoServiceImpl implements ContactoService {
 
     @Override
     public List<EncargoView> getEncargos() {
-        return encargoRepository.findAllByUsuarioIdOrderByFechaConsultaAsc(AuthenticationUtils.getIdUsuario());
+        return encargoRepository.findAllByUsuarioIdOrderByHoraEncargoAsc(AuthenticationUtils.getIdUsuario());
     }
 
     @Override

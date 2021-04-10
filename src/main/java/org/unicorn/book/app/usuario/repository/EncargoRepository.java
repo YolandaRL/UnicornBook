@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface EncargoRepository extends JpaRepository<Encargo, Long> {
 
-    List<EncargoView> findAllByUsuarioIdOrderByFechaConsultaAsc(Long usuarioId);
+    List<EncargoView> findAllByUsuarioIdOrderByHoraEncargoAsc(Long usuarioId);
 
     @Modifying
     @Query("UPDATE Encargo c SET c.usuario = :usuarioAnonimo WHERE c.usuario = :usuarioActual")

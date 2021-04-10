@@ -16,7 +16,7 @@ public interface EncargoView {
 
     Date getFechaEntrega();
 
-    Date getFechaEncargo();
+    Date getHoraEncargo();
 
     Date getFechaFin();
 
