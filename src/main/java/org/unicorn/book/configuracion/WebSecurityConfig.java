@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl UserDetailsServiceImpl;
-    private final  DataSource dataSource;
+    private final DataSource dataSource;
 
     /**
      *
@@ -40,7 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/", "/acceso", "/usuario/nuevo", "/busquedas", "/libro/**", "/autor/**")
                 .permitAll().antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/client/**").hasRole("CLIENT")
-                .anyRequest().authenticated().and().formLogin().loginPage("/acceso").failureUrl("/acceso?error")
+                .anyRequest().authenticated().and().formLogin().loginPage("/acceso").defaultSuccessUrl("/", true)
+                .failureUrl("/acceso?error")
                 //.defaultSuccessUrl("/dashboard").successHandler(successHandler)
                 .usernameParameter("username").passwordParameter("password").and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion"))
