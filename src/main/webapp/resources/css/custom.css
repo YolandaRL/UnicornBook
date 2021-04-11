@@ -34,6 +34,20 @@ legend {
     line-height: 2em;*/
 }
 
+.btn-terceary {
+    border: 2px solid #db7093 !important;
+    background: #454545 !important;
+    color: #db7093 !important;
+    box-shadow: 11px 11px 11px rgba(33, 33, 33, .2) !important;
+}
+
+.btn-terceary:hover {
+    border: 2px solid #454545 !important;
+    background: #db7093 !important;
+    color: #454545 !important;
+    box-shadow: 11px 11px 11px rgba(33, 33, 33, .2) !important;
+}
+
 .btn-primary, .btn-secondary:hover {
     border: 2px solid #db7093 !important;
     background: #db7093 !important;

@@ -55,9 +55,10 @@
                                     <em class="fa fa-shopping-basket"></em>
                                     <span>Añadir al carrito</span>
                                 </button>
-                                <button class="btn btn-secondary" th:if="${libro.stock == null || libro.stock == 0}">
+                                <a class="btn btn-secondary" th:href="@{/contacto?tipo=encargo&libro=__${libro.id}__}"
+                                   th:if="${libro.stock == null || libro.stock == 0}">
                                     <span>Encargar</span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

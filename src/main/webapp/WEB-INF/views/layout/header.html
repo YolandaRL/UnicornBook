@@ -50,6 +50,10 @@
             </li>
             <!-- Dropdown -->
             <th:block sec:authorize="isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-terceary" style="background: transparent"
+                       th:href="@{/contacto}">CONTACTO</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
                        id="navbarDropdown" role="button"

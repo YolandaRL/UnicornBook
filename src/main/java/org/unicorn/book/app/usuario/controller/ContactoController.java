@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.unicorn.book.app.libro.service.LibroService;
 import org.unicorn.book.app.usuario.dto.ConsultaForm;
 import org.unicorn.book.app.usuario.dto.EncargoForm;
 import org.unicorn.book.app.usuario.dto.TablaMaestraView;
@@ -23,9 +24,11 @@ import java.util.List;
 public class ContactoController {
 
     private final ContactoService contactoService;
+    private final LibroService libroService;
 
-    public ContactoController(ContactoService contactoService) {
+    public ContactoController(ContactoService contactoService, LibroService libroService) {
         this.contactoService = contactoService;
+        this.libroService = libroService;
     }
 
     @ModelAttribute("tiposOperacion")
@@ -49,9 +52,13 @@ public class ContactoController {
     }
 
     @GetMapping()
-    public String getContacto(@RequestParam(name = "tipo", required = false) TipoOperacion tipo, ModelMap model) {
+    public String getContacto(@RequestParam(name = "tipo", required = false) TipoOperacion tipo,
+            @RequestParam(name = "libro", required = false) Long libroId, ModelMap model) {
         if (tipo != null) {
             model.addAttribute("tipoOperacion", tipo.getId());
+        }
+        if (libroId != null) {
+            model.addAttribute("libro", libroService.getLibro(libroId));
         }
         return "usuario/contacto";
     }
@@ -75,7 +82,7 @@ public class ContactoController {
         model.addAttribute("error", false);
         contactoService.nuevoEncargo(encargoForm);
         model.addAttribute("encargos", contactoService.getEncargos());
-        return "redirect:/usuario/mis-encargos";
+        return "redirect:/contacto/encargos";
     }
 
     @GetMapping(value = "/consultas")
@@ -99,6 +106,6 @@ public class ContactoController {
         model.addAttribute("error", false);
         contactoService.nuevaConsulta(consultaForm);
         model.addAttribute("consultas", contactoService.getConsultas());
-        return "redirect:/usuario/mis-consultas";
+        return "redirect:/contacto/consultas";
     }
 }
