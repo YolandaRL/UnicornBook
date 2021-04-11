@@ -53,7 +53,7 @@ public class ContactoController {
     @GetMapping(value = "/encargos")
     public String getEncargos(ModelMap model) {
         model.addAttribute("encargos", contactoService.getEncargos());
-        return "usuario/mi-encargos";
+        return "usuario/mis-encargos";
     }
 
     @PostMapping(value = "/encargo")

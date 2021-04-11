@@ -1,4 +1,7 @@
 jQuery(function () {
+
+    $('[data-bs-toggle="popover"]').popover({trigger: "hover"});
+    
     $('.date-picker').datepicker({
         dateFormat: "dd-mm-yy",
         autoSize: true,
