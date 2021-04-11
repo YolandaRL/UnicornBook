@@ -1,24 +1,26 @@
 package org.unicorn.book.app.usuario.dto;
 
+import org.unicorn.book.app.validation.CustomScriptAssert;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@CustomScriptAssert(lang = "javascript", script = "_this.tipoEntragaId==-1?_this.tipoEntragaId:true", field = "tipoEntragaId", message = "Seleccione una opción")
 public class EncargoForm {
 
     private final TipoOperacion tipoOperacion;
 
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Campo obligatorio")
     private Long isbn;
 
-    @NotNull
+    @NotNull(message = "Campo obligatorio")
     private Integer cantidad;
 
-    @NotEmpty
+    @NotEmpty(message = "Campo obligatorio")
     private String titulo;
 
-    @NotNull
     private Long tipoEntragaId;
 
     private Long idLibro;

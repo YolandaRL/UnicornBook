@@ -74,8 +74,8 @@ public class ContactoServiceImpl implements ContactoService {
         encargo.setHoraEncargo(date);
         encargo.setFechaFin(new Date(date.getTime() + 2592000000L));
         encargo.setTipoEntrega(entityManager.getReference(TipoEntrega.class, encargoForm.getTipoEntragaId()));
-        encargo.setTipoOperacion(
-                entityManager.getReference(TipoOperacion.class, encargoForm.getTipoOperacion().getId()));
+        encargo.setTipoOperacion(entityManager
+                .getReference(TipoOperacion.class, org.unicorn.book.app.usuario.dto.TipoOperacion.ENCARGO.getId()));
         encargo.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
         //fixme encargo.setEstado("");
         encargoRepository.save(encargo);
@@ -90,8 +90,8 @@ public class ContactoServiceImpl implements ContactoService {
         consulta.setFechaConsulta(date);
         consulta.setHoraConsulta(date);
         consulta.setFechaFin(new Date(date.getTime() + 2592000000L));
-        consulta.setTipoOperacion(
-                entityManager.getReference(TipoOperacion.class, consultaForm.getTipoOperacion().getId()));
+        consulta.setTipoOperacion(entityManager
+                .getReference(TipoOperacion.class, org.unicorn.book.app.usuario.dto.TipoOperacion.CONSULTA.getId()));
         consulta.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
         // FIXME consulta.setEstado();
         consultaRepository.save(consulta);

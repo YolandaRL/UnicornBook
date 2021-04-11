@@ -2,6 +2,7 @@ package org.unicorn.book.configuracion;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -24,12 +25,15 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry)
-    {
-       // super.addResourceHandlers(registry);
-        registry.addResourceHandler("/resources/**", "/manifest.json").addResourceLocations("/resources/", "/manifest.json");
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**", "/manifest.json")
+                .addResourceLocations("/resources/", "/manifest.json");
     }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToEnumConverter());
+    }
 
     @Bean
     public ThymeleafViewResolver thymeleafViewResolver() {

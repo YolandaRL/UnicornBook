@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.unicorn.book.app.usuario.dto.ConsultaForm;
 import org.unicorn.book.app.usuario.dto.EncargoForm;
 import org.unicorn.book.app.usuario.dto.TablaMaestraView;
+import org.unicorn.book.app.usuario.dto.TipoOperacion;
 import org.unicorn.book.app.usuario.service.ContactoService;
 
 import javax.validation.Valid;
@@ -46,7 +49,10 @@ public class ContactoController {
     }
 
     @GetMapping()
-    public String getContacto(ModelMap model) {
+    public String getContacto(@RequestParam(name = "tipo", required = false) TipoOperacion tipo, ModelMap model) {
+        if (tipo != null) {
+            model.addAttribute("tipoOperacion", tipo.getId());
+        }
         return "usuario/contacto";
     }
 
@@ -58,15 +64,18 @@ public class ContactoController {
 
     @PostMapping(value = "/encargo")
     public String nuevoEncargo(@Valid @ModelAttribute("encargoForm") EncargoForm encargoForm, BindingResult result,
-            ModelMap model) {
+            ModelMap model, RedirectAttributes ra) {
         if (result.hasErrors()) {
-            model.addAttribute("error", true);
-            return "usuario/contacto";
+            ra.addFlashAttribute("error", true);
+            ra.addFlashAttribute("tipoOperacion", TipoOperacion.ENCARGO.getId());
+            ra.addFlashAttribute("encargoForm", encargoForm);
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.encargoForm", result);
+            return "redirect:/contacto";
         }
         model.addAttribute("error", false);
         contactoService.nuevoEncargo(encargoForm);
         model.addAttribute("encargos", contactoService.getEncargos());
-        return "usuario/mis-encargos";
+        return "redirect:/usuario/mis-encargos";
     }
 
     @GetMapping(value = "/consultas")
@@ -77,14 +86,19 @@ public class ContactoController {
 
     @PostMapping(value = "/consulta")
     public String nuevaConsulta(@Valid @ModelAttribute("consultaForm") ConsultaForm consultaForm, BindingResult result,
-            ModelMap model) {
+            ModelMap model, RedirectAttributes ra) {
+
         if (result.hasErrors()) {
-            model.addAttribute("error", true);
-            return "usuario/contacto";
+            ra.addFlashAttribute("error", true);
+            ra.addFlashAttribute("tipoOperacion", TipoOperacion.CONSULTA.getId());
+            ra.addFlashAttribute("consultaForm", consultaForm);
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.consultaForm", result);
+
+            return "redirect:/contacto";
         }
         model.addAttribute("error", false);
         contactoService.nuevaConsulta(consultaForm);
         model.addAttribute("consultas", contactoService.getConsultas());
-        return "usuario/mis-consultas";
+        return "redirect:/usuario/mis-consultas";
     }
 }

@@ -9,22 +9,22 @@ public class ConsultaForm {
 
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Campo obligatorio")
     private String nombre;
 
-    @NotEmpty
+    @NotEmpty(message = "Campo obligatorio")
     private String apellido1;
 
-    @NotEmpty
+    @NotEmpty(message = "Campo obligatorio")
     private String apellido2;
 
-    @NotEmpty
+    @NotEmpty(message = "Campo obligatorio")
     private String email;
 
-    @NotNull
+    @NotNull(message = "Campo obligatorio")
     private Long telefono;
 
-    @NotEmpty
+    @NotEmpty(message = "Campo obligatorio")
     private String detalleConsulta;
 
     public ConsultaForm() {
