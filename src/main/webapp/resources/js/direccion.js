@@ -1,5 +1,9 @@
 $(function () {
 
+    $(document).on('click', '#eliminar-direccion', function () {
+        showLoader();
+    });
+
     $(document).on('click', '.btn-open-modal-direcciones', function () {
         let id = $(this).data('id');
         let params = '';

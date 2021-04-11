@@ -22,7 +22,7 @@
                         <input th:field="*{id}" type="hidden"/>
                         <div class="row justify-content-center">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-floating mb-3 required">
+                                <div class="form-floating mb-3 required inner-addon right-addon">
                                     <input aria-label="nombrePersonalizado" class="form-control"
                                            id="nombrePersonalizado"
                                            placeholder="Nombre personalizado"
@@ -30,6 +30,7 @@
                                            th:field="*{nombrePersonalizado}"
                                            type="text"/>
                                     <label for="nombrePersonalizado">Nombre personalizado</label>
+                                    <em class="fa fa-hashtag"></em>
                                     <span class="text-danger" th:if="${#fields.hasErrors('nombrePersonalizado')}"
                                           th:text="${#fields.errors('nombrePersonalizado')[0]}"></span>
                                 </div>

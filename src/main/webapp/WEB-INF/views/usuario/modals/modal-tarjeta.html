@@ -22,7 +22,7 @@
                         <input th:field="*{id}" type="hidden"/>
                         <div class="row justify-content-center">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-floating mb-3 required">
+                                <div class="form-floating mb-3 required inner-addon right-addon">
                                     <input aria-label="nombrePersonalizado" class="form-control"
                                            id="nombrePersonalizado"
                                            placeholder="Nombre personalizado"
@@ -30,6 +30,7 @@
                                            th:field="*{nombrePersonalizado}"
                                            type="text"/>
                                     <label for="nombrePersonalizado">Nombre personalizado</label>
+                                    <em class="fa fa-hashtag"></em>
                                     <span class="text-danger" th:if="${#fields.hasErrors('nombrePersonalizado')}"
                                           th:text="${#fields.errors('nombrePersonalizado')[0]}"></span>
                                 </div>
@@ -72,7 +73,8 @@
                                            id="mesCaducidad"
                                            placeholder="Mes caducidad"
                                            th:classappend="${#fields.hasErrors('mesCaducidad') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                           th:field="*{mesCaducidad}" type="text"/>
+                                           max="12" maxlength="2" min="1" minlength="1" th:field="*{mesCaducidad}"
+                                           type="number"/>
                                     <label for="mesCaducidad">Mes caducidad</label>
                                     <span class="text-danger" th:if="${#fields.hasErrors('mesCaducidad')}"
                                           th:text="${#fields.errors('mesCaducidad')[0]}"></span>
@@ -82,10 +84,10 @@
                                 <div class="form-floating mb-3 required">
                                     <input aria-label="anoCaducidad" class="form-control"
                                            id="anoCaducidad"
-                                           placeholder="Año caducidad"
+                                           max="2100" min="2021" placeholder="Año caducidad"
                                            th:classappend="${#fields.hasErrors('anoCaducidad') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                            th:field="*{anoCaducidad}"
-                                           type="text"/>
+                                           type="number"/>
                                     <label for="anoCaducidad">Año caducidad</label>
                                     <span class="text-danger" th:if="${#fields.hasErrors('anoCaducidad')}"
                                           th:text="${#fields.errors('anoCaducidad')[0]}"></span>
@@ -95,11 +97,11 @@
                                 <div class="form-floating mb-3 required">
                                     <input aria-label="cvv" class="form-control"
                                            id="cvv"
-                                           placeholder="CVE"
+                                           max="999" min="000" placeholder="CVE"
                                            th:classappend="${#fields.hasErrors('cvv') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                            th:field="*{cvv}"
                                            type="text"/>
-                                    <label for="cvv">CVE</label>
+                                    <label for="cvv">CVV</label>
                                     <span class="text-danger" th:if="${#fields.hasErrors('cvv')}"
                                           th:text="${#fields.errors('cvv')[0]}"></span>
                                 </div>

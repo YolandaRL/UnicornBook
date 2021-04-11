@@ -164,7 +164,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         List<Tarjeta> Tarjetas = entityManager.find(Usuario.class, AuthenticationUtils.getIdUsuario()).getTarjetas();
         List<TarjetaForm> tarjetaForms = new ArrayList<>();
         Tarjetas.forEach(t -> {
-            tarjetaForms.add(MAPPER.toTarjetaForm(t));
+            TarjetaForm form = MAPPER.toTarjetaForm(t);
+            form.setNumero(form.getNumero().replaceAll("^([\\d]{4})([\\d]{4})([\\d]{4})([\\d]{4})", "$1 $2 $3 $4"));
+            tarjetaForms.add(form);
         });
         return tarjetaForms;
     }
@@ -172,7 +174,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public TarjetaForm getTarjetaFormEdicion(Long id) {
         Tarjeta d = entityManager.find(Tarjeta.class, id);
-        return MAPPER.toTarjetaForm(d);
+        TarjetaForm form = MAPPER.toTarjetaForm(d);
+        form.setNumero(form.getNumero().replaceAll("^([\\d]{4})([\\d]{4})([\\d]{4})([\\d]{4})", "$1 $2 $3 $4"));
+        return form;
     }
 
     @Override
@@ -187,11 +191,11 @@ public class UsuarioServiceImpl implements UsuarioService {
             tarjeta = entityManager.find(Tarjeta.class, form.getId());
         }
         tarjeta.setNombrePersonalizado(form.getNombrePersonalizado());
-        tarjeta.setNumero(form.getNumero());
-        tarjeta.setMesCaducidad(form.getMesCaducidad());
-        tarjeta.setAnoCaducidad(form.getAnoCaducidad());
+        tarjeta.setNumero(Long.parseLong(form.getNumero().replaceAll(" ", "")));
+        tarjeta.setMesCaducidad(Integer.parseInt(form.getMesCaducidad()));
+        tarjeta.setAnoCaducidad(Integer.parseInt(form.getAnoCaducidad()));
         tarjeta.setTipoTarjeta(form.getTipoTarjeta());
-        tarjeta.setCvv(form.getCvv());
+        tarjeta.setCvv(Integer.parseInt(form.getCvv()));
         entityManager.persist(tarjeta);
     }
 

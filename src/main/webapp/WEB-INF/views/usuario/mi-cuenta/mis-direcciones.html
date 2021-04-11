@@ -49,7 +49,8 @@
                         <td class="text-center">
                             <a class="a-link-icon fa fa-pencil-alt btn-open-modal-direcciones" th:data-id="${d.id}">
                             </a>
-                            <a class="a-link-icon fa fa-trash-alt" th:href="@{/usuario/direccion/__${d.id}__/eliminar}">
+                            <a class="a-link-icon fa fa-trash-alt" id="eliminar-direccion"
+                               th:href="@{/usuario/direccion/__${d.id}__/eliminar}">
                             </a>
                         </td>
                     </tr>

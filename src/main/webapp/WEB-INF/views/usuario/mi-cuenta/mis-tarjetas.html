@@ -26,9 +26,8 @@
                         <th class="text-center" scope="col">Alias</th>
                         <th class="text-center" scope="col">Número</th>
                         <th class="text-center" scope="col">Tipo</th>
-                        <th class="text-center" scope="col">Mes caducidad</th>
-                        <th class="text-center" scope="col">Año caducidad</th>
-                        <th class="text-center" scope="col">CVE</th>
+                        <th class="text-center" scope="col">Caducidad</th>
+                        <th class="text-center" scope="col">CVV</th>
                         <th class="text-center" scope="col">Edición</th>
 
                     </tr>
@@ -41,15 +40,17 @@
                         <td class="text-center"><span th:text="${t.nombrePersonalizado}"></span></td>
                         <td class="text-center"><span th:text="${t.numero}"></span></td>
                         <td class="text-center"><span th:text="${t.tipoTarjeta}"></span></td>
-                        <td class="text-center"><span th:text="${t.mesCaducidad}"></span></td>
-                        <td class="text-center"><span th:text="${t.anoCaducidad}"></span></td>
-                        <td class="text-center"><span th:text="${t.cvv}"></span></td>
+                        <td class="text-center"><span
+                                th:text="|${#numbers.formatInteger(t.mesCaducidad, 2)}/${#strings.substring(t.anoCaducidad, 2, 4)}|"></span>
+                        </td>
+                        <td class="text-center"><span th:text="${#numbers.formatInteger(t.cvv, 3)}"></span></td>
 
 
                         <td class="text-center">
                             <a class="a-link-icon fa fa-pencil-alt btn-open-modal-tarjetas" th:data-id="${t.id}">
                             </a>
-                            <a class="a-link-icon fa fa-trash-alt" th:href="@{/usuario/tarjeta/__${t.id}__/eliminar}">
+                            <a class="a-link-icon fa fa-trash-alt" id="eliminar-tarjeta"
+                               th:href="@{/usuario/tarjeta/__${t.id}__/eliminar}">
                             </a>
                         </td>
                     </tr>

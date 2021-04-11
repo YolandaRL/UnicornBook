@@ -183,16 +183,6 @@ public class UsuarioController {
         return "usuario/mis-pedidos";
     }
 
-    @GetMapping(value = "/consultas")
-    public String consultas() {
-        return "usuario/mis-consultas";
-    }
-
-    @GetMapping(value = "/reservas")
-    public String reservas() {
-        return "usuario/mis-reservas";
-    }
-
     @GetMapping(value = "/comentarios")
     public String comentarios() {
         return "usuario/mis-comentarios";
