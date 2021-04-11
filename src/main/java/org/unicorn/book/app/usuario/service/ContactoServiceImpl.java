@@ -1,12 +1,19 @@
 package org.unicorn.book.app.usuario.service;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.unicorn.book.app.usuario.ContactoMapper;
 import org.unicorn.book.app.usuario.dto.ConsultaForm;
 import org.unicorn.book.app.usuario.dto.ConsultaView;
 import org.unicorn.book.app.usuario.dto.EncargoForm;
 import org.unicorn.book.app.usuario.dto.EncargoView;
 import org.unicorn.book.app.usuario.dto.TablaMaestraView;
+import org.unicorn.book.app.usuario.model.Consulta;
+import org.unicorn.book.app.usuario.model.Encargo;
+import org.unicorn.book.app.usuario.model.TipoEntrega;
+import org.unicorn.book.app.usuario.model.TipoOperacion;
+import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.ConsultaRepository;
 import org.unicorn.book.app.usuario.repository.EncargoRepository;
 import org.unicorn.book.app.usuario.repository.TipoEntregaRepository;
@@ -14,11 +21,14 @@ import org.unicorn.book.app.usuario.repository.TipoOperacionRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 public class ContactoServiceImpl implements ContactoService {
+
+    private final ContactoMapper MAPPER_INSTANCE = Mappers.getMapper(ContactoMapper.class);
 
     private final TipoOperacionRepository tipoOperacionRepository;
     private final TipoEntregaRepository tipoEntregaRepository;
@@ -59,12 +69,32 @@ public class ContactoServiceImpl implements ContactoService {
     @Override
     @Transactional
     public EncargoForm nuevoEncargo(EncargoForm encargoForm) {
-        return null;
+        Encargo encargo = MAPPER_INSTANCE.toEncargo(encargoForm);
+        Date date = new Date();
+        encargo.setHoraEncargo(date);
+        encargo.setFechaFin(new Date(date.getTime() + 2592000000L));
+        encargo.setTipoEntrega(entityManager.getReference(TipoEntrega.class, encargoForm.getTipoEntragaId()));
+        encargo.setTipoOperacion(
+                entityManager.getReference(TipoOperacion.class, encargoForm.getTipoOperacion().getId()));
+        encargo.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+        //fixme encargo.setEstado("");
+        encargoRepository.save(encargo);
+        return encargoForm;
     }
 
     @Override
     @Transactional
     public ConsultaForm nuevaConsulta(ConsultaForm consultaForm) {
-        return null;
+        Consulta consulta = MAPPER_INSTANCE.toConsulta(consultaForm);
+        Date date = new Date();
+        consulta.setFechaConsulta(date);
+        consulta.setHoraConsulta(date);
+        consulta.setFechaFin(new Date(date.getTime() + 2592000000L));
+        consulta.setTipoOperacion(
+                entityManager.getReference(TipoOperacion.class, consultaForm.getTipoOperacion().getId()));
+        consulta.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+        // FIXME consulta.setEstado();
+        consultaRepository.save(consulta);
+        return consultaForm;
     }
 }
