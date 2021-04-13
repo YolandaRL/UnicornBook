@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
+import org.unicorn.book.app.usuario.service.CestaService;
 import org.unicorn.book.app.usuario.service.UsuarioService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,13 +30,11 @@ public class UsuarioController {
     private static Logger LOGGER = LoggerFactory.getLogger(UsuarioController.class);
 
     private final UsuarioService usuarioService;
+    private final CestaService cestaService;
 
-    /**
-     *
-     * @param usuarioService
-     */
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, CestaService cestaService) {
         this.usuarioService = usuarioService;
+        this.cestaService = cestaService;
     }
 
     @ModelAttribute(name = "registroForm")
@@ -48,25 +45,25 @@ public class UsuarioController {
     @GetMapping(value = "/nuevo")
     public String vistaFormularioRegistro(HttpServletRequest request, ModelMap model) {
         model.addAttribute("usuarioForm", new UsuarioForm());
-        return "registro";
+        return "usuario/registro";
     }
 
     @PostMapping(value = "/nuevo")
     public String submitFormularioRegistro(@Valid @ModelAttribute("registroForm") UsuarioForm usuarioForm,
             BindingResult result) {
         if (result.hasErrors()) {
-            return "registro";
+            return "usuario/registro";
         } else {
             try {
                 usuarioService.altaUsuario(usuarioForm);
             } catch (UsernameDuplicatedException e) {
                 LOGGER.error(e.getMessage(), e);
                 result.rejectValue("usuario", "usuario", e.getMessage());
-                return "registro";
+                return "usuario/registro";
             } catch (EmailDuplicatedException e) {
                 LOGGER.error(e.getMessage(), e);
                 result.rejectValue("correo", "correo", e.getMessage());
-                return "registro";
+                return "usuario/registro";
             }
             return "redirect:/";
         }
@@ -83,25 +80,25 @@ public class UsuarioController {
     @GetMapping(value = "/perfil")
     public String obtienePerfilForm(ModelMap model) {
         model.addAttribute("usuarioForm", usuarioService.getFormularioUsuario());
-        return "usuario/perfil";
+        return "usuario/mi-cuenta/mi-perfil";
     }
 
     @PostMapping(value = "/perfil")
     public String actualizaPerfil(@Valid @ModelAttribute("usuarioForm") UsuarioForm usuarioForm, BindingResult result,
             ModelMap model, HttpServletRequest request) {
         if (result.hasErrors()) {
-            return "usuario/perfil";
+            return "usuario/mi-cuenta/mi-perfil";
         } else {
             model.addAttribute("exito", true);
             model.addAttribute("usuarioForm", usuarioService.actualizarUsuario(usuarioForm));
         }
-        return "usuario/perfil";
+        return "usuario/mi-cuenta/mi-perfil";
     }
 
     @GetMapping(value = "/direcciones")
     public String obtenerDirecciones(ModelMap model) {
         model.addAttribute("direcciones", usuarioService.getDirecciones());
-        return "usuario/mis-direcciones";
+        return "usuario/mi-cuenta/mis-direcciones";
     }
 
     @GetMapping(value = "/direccion/getForm")
@@ -124,7 +121,7 @@ public class UsuarioController {
         model.addAttribute("error", false);
         usuarioService.altaOActualizarDireccion(direccionForm);
         model.addAttribute("direcciones", usuarioService.getDirecciones());
-        return "usuario/mis-direcciones :: direcciones-table";
+        return "usuario/mi-cuenta/mis-direcciones :: direcciones-table";
     }
 
     @GetMapping(value = "/direccion/{id}/eliminar")
@@ -136,7 +133,7 @@ public class UsuarioController {
     @GetMapping(value = "/tarjetas")
     public String obtenerTarjetas(ModelMap model) {
         model.addAttribute("tarjetas", usuarioService.getTarjetas());
-        return "usuario/mis-tarjetas";
+        return "usuario/mi-cuenta/mis-tarjetas";
     }
 
     @GetMapping(value = "/tarjeta/getForm")
@@ -159,7 +156,7 @@ public class UsuarioController {
         model.addAttribute("error", false);
         usuarioService.altaOActualizarTarjeta(tarjetaForm);
         model.addAttribute("tarjetas", usuarioService.getTarjetas());
-        return "usuario/mis-tarjetas :: tarjetas-table";
+        return "usuario/mi-cuenta/mis-tarjetas :: tarjetas-table";
     }
 
     @GetMapping(value = "/tarjeta/{id}/eliminar")
@@ -168,9 +165,17 @@ public class UsuarioController {
         return "redirect:/usuario/tarjetas";
     }
 
-    @GetMapping(value = "/intereses")
-    public String intereses() {
-        return "usuario/intereses";
+    @GetMapping("/carrito/get")
+    public String getCarrito(ModelMap model) {
+        model.addAttribute("productos", cestaService.getCarritoCompra());
+        return "usuario/mi-cesta/mi-cesta-simplificado :: cesta-simplificada";
+    }
+
+    @PostMapping("/carrito/update")
+    public String actualizarCarrito(ModelMap model, @RequestParam("idLibro") Long id,
+            @RequestParam("cantidad") Integer cantidad) {
+
+        return "usuario/mi-cesta/mi-cesta-simplificado :: cesta-simplificada";
     }
 
     @GetMapping(value = "/pedidos")
@@ -178,18 +183,8 @@ public class UsuarioController {
         return "usuario/mis-pedidos";
     }
 
-    @GetMapping(value = "/consultas")
-    public String consultas() {
-        return "usuario/historial-consultas";
-    }
-
-    @GetMapping(value = "/reservas")
-    public String reservas() {
-        return "usuario/historial-reservas";
-    }
-
     @GetMapping(value = "/comentarios")
     public String comentarios() {
-        return "usuario/comentarios";
+        return "usuario/mis-comentarios";
     }
 }

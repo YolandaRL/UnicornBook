@@ -50,6 +50,10 @@
             </li>
             <!-- Dropdown -->
             <th:block sec:authorize="isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-terceary" style="background: transparent"
+                       th:href="@{/contacto}">CONTACTO</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
                        id="navbarDropdown" role="button"
@@ -61,19 +65,16 @@
                             <a class="dropdown-item" th:href="@{/usuario/perfil}"><em class="fa fa-user"></em>Perfil</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" th:href="@{/usuario/intereses}"><em class="fa fa-heart"></em>Intereses</a>
-                        </li>
-                        <li>
                             <a class="dropdown-item" th:href="@{/usuario/pedidos}"><em class="fa fa-shopping-cart"></em>Mis
                                 pedidos</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" th:href="@{/usuario/consultas}"><em
+                            <a class="dropdown-item" th:href="@{/contacto/consultas}"><em
                                     class="fa fa-question-circle"></em>Historial de consultas</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" th:href="@{/usuario/reservas}"><em class="fa fa-bookmark"></em>Historial
-                                de reservas</a>
+                            <a class="dropdown-item" th:href="@{/contacto/encargos}"><em class="fa fa-bookmark"></em>Historial
+                                de encargos</a>
                         </li>
                         <li>
                             <a class="dropdown-item" th:href="@{/usuario/direcciones}"><em class="fa fa-map"></em>Mis
@@ -90,15 +91,15 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" th:href="@{/logout}"><em class="fa fa-sign-out-alt"></em>Cerrar
+                            <a class="dropdown-item" th:href="@{/cerrar-sesion}"><em class="fa fa-sign-out-alt"></em>Cerrar
                                 sesión</a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a aria-controls="mi-cesta-container" class="nav-link btn"
+                    <a aria-controls="mi-cesta-container" class="nav-link btn cesta"
                        data-bs-target="#mi-cesta-container" data-bs-toggle="offcanvas" role="button">
-                        <em aria-controls="mi-cesta-container" class="fa fa-shopping-cart"
+                        <em aria-controls="mi-cesta-container" class="fa fa-shopping-cart cesta"
                             data-bs-target="#mi-cesta-container"
                             data-bs-toggle="offcanvas" style="color: white"></em>
                     </a>

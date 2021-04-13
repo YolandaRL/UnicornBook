@@ -1,5 +1,7 @@
 jQuery(function () {
-    showSpinner();
+
+    $('[data-bs-toggle="popover"]').popover({trigger: "hover"});
+    
     $('.date-picker').datepicker({
         dateFormat: "dd-mm-yy",
         autoSize: true,
@@ -13,6 +15,10 @@ jQuery(function () {
         monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
 
+    });
+
+    $(document).on('submit', 'form', function () {
+        showLoader();
     });
 
     $(document).on('click', '.trigger-data-picker', function () {
@@ -45,12 +51,16 @@ jQuery(function () {
     $(document).on('click', '[data-dismiss="modal"]', function () {
         $(this).closest('.modal').modal('hide');
     });
+
+    $(document).on('click', '.cesta', function () {
+        $('#cesta-simplificada').load(CONTEXT_ROOT + 'usuario/carrito/get');
+    });
 });
 
-function showSpinner() {
-    $('#page-loader').remove();
-    $('body').append('<div id="page-loader" class="fade-in-animation" style="z-index: 9000 !important"><div class="dot"></div><div class="dot"></div></div>');
+function showLoader() {
+    $('#loader-container').addClass('fade-in').removeClass('fade-out');
 }
-function hideSpinner() {
-    $('#page-loader').attr("class", "fade-out-animation");
+
+function hideLoader() {
+    $('#loader-container').addClass('fade-out').removeClass('fade-in');
 }

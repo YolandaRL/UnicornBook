@@ -3,15 +3,11 @@ package org.unicorn.book.app.libro.controller;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.unicorn.book.app.libro.filter.BusquedaSimpleFilter;
 import org.unicorn.book.app.libro.service.LibroService;
@@ -34,7 +30,7 @@ public class BusquedaController {
         model.addAttribute("termino", termino);
         model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
 
-        return "busquedas";
+        return "libro/busquedas";
     }
 
     @PostMapping("/busquedas")
@@ -46,19 +42,19 @@ public class BusquedaController {
         model.addAttribute("termino", termino);
         model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
 
-        return "busquedas";
+        return "libro/busquedas";
     }
 
     @GetMapping("/libro/{id}")
     public String get(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("libro", libroService.getLibro(id));
-        return "libro";
+        return "libro/libro";
     }
 
     @GetMapping("/autor/{id}")
     private String getLibro(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("autor", libroService.getAutor(id));
-        return "autor";
+        return "libro/autor";
     }
 
 }

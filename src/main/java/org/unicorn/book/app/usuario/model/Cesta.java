@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Table(name = "CESTA")
 public class Cesta implements Serializable {
 
-    private static final long serialVersionUID = 8191500089955444295L;
     @EmbeddedId
     private CestaPk pk;
 

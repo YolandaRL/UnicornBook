@@ -10,6 +10,7 @@ public class LibroDto {
     private String editorial;
     private String autor;
     private Float precio;
+    private Integer stock;
     private String linkPortada;
 
     public Long getId() {
@@ -82,5 +83,13 @@ public class LibroDto {
 
     public void setLinkPortada(String linkPortada) {
         this.linkPortada = linkPortada;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }

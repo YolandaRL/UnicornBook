@@ -1,5 +1,35 @@
 $(function () {
 
+    $(document).on('click', '#eliminar-tarjeta', function () {
+        showLoader();
+    });
+
+    $(document).on('input', '#numero', function (e) {
+        if ($(this).val().length < 19) {
+            e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+        } else {
+            e.target.value = e.target.value.substring(0, 19);
+        }
+    });
+
+    $(document).on('input', '#mesCaducidad', function (e) {
+        if ($(this).val().length >= 2) {
+            e.target.value = e.target.value.substring(0, 2);
+        }
+    });
+
+    $(document).on('input', '#anoCaducidad', function (e) {
+        if ($(this).val().length >= 4) {
+            e.target.value = e.target.value.substring(0, 4);
+        }
+    });
+
+    $(document).on('input', '#cvv', function (e) {
+        if ($(this).val().length >= 3) {
+            e.target.value = e.target.value.substring(0, 3);
+        }
+    });
+
     $(document).on('click', '.btn-open-modal-tarjetas', function () {
         let id = $(this).data('id');
         let params = '';
@@ -13,7 +43,7 @@ $(function () {
     });
 
     $(document).on('click', '#btn-confirmar-tarjeta', function () {
-
+        showLoader();
         $.ajax({
             url: CONTEXT_ROOT + 'usuario/tarjeta',
             type: "POST",
@@ -28,6 +58,8 @@ $(function () {
                     $('#modalTarjeta').modal('hide');
 
                 }
+            }, complete: function () {
+                hideLoader();
             }
         });
     });

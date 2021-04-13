@@ -307,7 +307,6 @@ CREATE TABLE CONSULTA
 );
 
 CREATE TABLE CESTA(
-    -- ID_SESSION       VARCHAR(50)    NOT NULL,
                       ID_USUARIO BIGINT(19),
                       ID_LIBRO   BIGINT(19) NOT NULL,
                       CANTIDAD   INT        NOT NULL,

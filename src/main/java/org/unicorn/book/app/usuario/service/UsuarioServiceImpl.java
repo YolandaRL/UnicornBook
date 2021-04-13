@@ -12,15 +12,12 @@ import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
-import org.unicorn.book.app.usuario.model.Compra;
 import org.unicorn.book.app.usuario.model.Direccion;
 import org.unicorn.book.app.usuario.model.Rol;
 import org.unicorn.book.app.usuario.model.Tarjeta;
 import org.unicorn.book.app.usuario.model.Usuario;
-import org.unicorn.book.app.usuario.model.UsuarioRol;
 import org.unicorn.book.app.usuario.repository.CompraRepository;
 import org.unicorn.book.app.usuario.repository.ConsultaRepository;
-import org.unicorn.book.app.usuario.repository.DireccionRepository;
 import org.unicorn.book.app.usuario.repository.EncargoRepository;
 import org.unicorn.book.app.usuario.repository.UsuarioRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
@@ -35,7 +32,7 @@ import java.util.UUID;
  */
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService {
 
     private static final UsuarioMapper MAPPER = Mappers.getMapper(UsuarioMapper.class);
     private final UsuarioRepository usuarioRepository;
@@ -46,7 +43,7 @@ public class UserServiceImpl implements UsuarioService {
     private final PasswordEncoder pass;
     private final ConsultaRepository consultaRepository;
 
-    public UserServiceImpl(UsuarioRepository usuarioRepository, CompraRepository compraRepository,
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, CompraRepository compraRepository,
             EncargoRepository encargoRepository, ConsultaRepository consultaRepository, EntityManager entityManager,
             PasswordEncoder pass) {
         this.usuarioRepository = usuarioRepository;
@@ -167,7 +164,9 @@ public class UserServiceImpl implements UsuarioService {
         List<Tarjeta> Tarjetas = entityManager.find(Usuario.class, AuthenticationUtils.getIdUsuario()).getTarjetas();
         List<TarjetaForm> tarjetaForms = new ArrayList<>();
         Tarjetas.forEach(t -> {
-            tarjetaForms.add(MAPPER.toTarjetaForm(t));
+            TarjetaForm form = MAPPER.toTarjetaForm(t);
+            form.setNumero(form.getNumero().replaceAll("^([\\d]{4})([\\d]{4})([\\d]{4})([\\d]{4})", "$1 $2 $3 $4"));
+            tarjetaForms.add(form);
         });
         return tarjetaForms;
     }
@@ -175,7 +174,9 @@ public class UserServiceImpl implements UsuarioService {
     @Override
     public TarjetaForm getTarjetaFormEdicion(Long id) {
         Tarjeta d = entityManager.find(Tarjeta.class, id);
-        return MAPPER.toTarjetaForm(d);
+        TarjetaForm form = MAPPER.toTarjetaForm(d);
+        form.setNumero(form.getNumero().replaceAll("^([\\d]{4})([\\d]{4})([\\d]{4})([\\d]{4})", "$1 $2 $3 $4"));
+        return form;
     }
 
     @Override
@@ -190,11 +191,11 @@ public class UserServiceImpl implements UsuarioService {
             tarjeta = entityManager.find(Tarjeta.class, form.getId());
         }
         tarjeta.setNombrePersonalizado(form.getNombrePersonalizado());
-        tarjeta.setNumero(form.getNumero());
-        tarjeta.setMesCaducidad(form.getMesCaducidad());
-        tarjeta.setAnoCaducidad(form.getAnoCaducidad());
+        tarjeta.setNumero(Long.parseLong(form.getNumero().replaceAll(" ", "")));
+        tarjeta.setMesCaducidad(Integer.parseInt(form.getMesCaducidad()));
+        tarjeta.setAnoCaducidad(Integer.parseInt(form.getAnoCaducidad()));
         tarjeta.setTipoTarjeta(form.getTipoTarjeta());
-        tarjeta.setCvv(form.getCvv());
+        tarjeta.setCvv(Integer.parseInt(form.getCvv()));
         entityManager.persist(tarjeta);
     }
 

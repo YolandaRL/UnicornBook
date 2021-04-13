@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl UserDetailsServiceImpl;
-    private final  DataSource dataSource;
+    private final DataSource dataSource;
 
     /**
      *
@@ -38,22 +38,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/login", "/usuario/nuevo", "/busquedas", "/libro/**", "/autor/**")
-                .permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/client/**").hasRole("CLIENT")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error")
+        http.authorizeRequests().antMatchers("/", "/acceso", "/usuario/nuevo", "/busquedas", "/libro/**", "/autor/**")
+                .permitAll().antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/client/**").hasRole("CLIENT")
+                .anyRequest().authenticated().and().formLogin().loginPage("/acceso").defaultSuccessUrl("/", true)
+                .failureUrl("/acceso?error")
                 //.defaultSuccessUrl("/dashboard").successHandler(successHandler)
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/access-denied");
+                .usernameParameter("username").passwordParameter("password").and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion"))
+                .logoutSuccessUrl("/acceso?cerrar-sesion").and().exceptionHandling().accessDeniedPage("/access-denied");
 
     }
 

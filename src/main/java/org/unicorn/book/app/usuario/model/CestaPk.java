@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Embeddable
 public class CestaPk implements Serializable {
-    private static final long serialVersionUID = 9167121289514032428L;
+    private static final long serialVersionUID = 5921992679630906845L;
     @Column(name = "ID_USUARIO", nullable = false, updatable = false)
     private Long idUsuario;
 

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}"
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Unicorn Book - Contacto</title>
+</head>
+<body>
+<div id="links"></div>
+<div id="scripts">
+    <script th:src="@{/resources/js/contacto.js}"></script>
+</div>
+
+<div class="page-content" id="content">
+    <div class="container">
+        <div class="justify-content-center">
+            <div class="row text-center mb-0">
+                <h3>Contacto</h3>
+                <hr class="legend-separator">
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-floating mb-3 required">
+                        <select class="form-control" id="tipoOperacionGlobal" th:disabled="${tipoOperacion!=null}">
+                            <option value="-1">Seleccione una opción</option>
+                            <option th:each="tipo:${tiposOperacion}"
+                                    th:selected="${tipoOperacion!=null && tipoOperacion==tipo.id}"
+                                    th:text="${tipo.nombre}" th:value="${tipo.id}"></option>
+                        </select>
+                        <label for="tipoOperacionGlobal">Tipo de contacto</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <form id="formConsulta" method="post" th:action="@{/contacto/consulta}"
+                  th:object="${consultaForm}" th:style="${tipoOperacion==1 ? 'display: block;' : 'display: none;'}">
+                <input th:field="*{id}" type="hidden"/>
+                <fieldset>
+                    <div class="row text-center mb-0">
+                        <h5>Consulta</h5>
+                        <hr class="legend-separator">
+                    </div>
+                    <div class="row justify-content-center" th:if="${error}">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="alert alert-danger" role="alert">
+                                Faltan datos obligatorios para realizar la consulta
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="nombre" class="form-control" id="nombre"
+                                       placeholder="Nombre"
+                                       th:classappend="${#fields.hasErrors('nombre') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{nombre}" type="text"/>
+                                <label for="nombre">Nombre</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('nombre')}"
+                                      th:text="${#fields.errors('nombre')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="usuario" class="form-control" id="apellido1"
+                                       placeholder="Primer apellido"
+                                       th:classappend="${#fields.hasErrors('apellido1') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{apellido1}" type="text"/>
+                                <label for="apellido1">Primer apellido</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('apellido1')}"
+                                      th:text="${#fields.errors('apellido1')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="apellido2" class="form-control" id="apellido2"
+                                       placeholder="Segundo apellido"
+                                       th:classappend="${#fields.hasErrors('apellido2') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{apellido2}" type="text"/>
+                                <label for="apellido2">Segundo apellido</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('apellido2')}"
+                                      th:text="${#fields.errors('apellido2')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="email" class="form-control" id="email"
+                                       placeholder="Correo electrónico"
+                                       th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{email}" type="text"/>
+                                <label for="email">Correo electrónico</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('email')}"
+                                      th:text="${#fields.errors('email')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="telefono" class="form-control" id="telefono"
+                                       placeholder="Teléfono"
+                                       th:classappend="${#fields.hasErrors('telefono') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{telefono}" type="text"/>
+                                <label for="telefono">Teléfono</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('telefono')}"
+                                      th:text="${#fields.errors('telefono')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <textarea aria-label="detalleConsulta" class="form-control" id="detalleConsulta"
+                                          placeholder="Consulta"
+                                          rows="3"
+                                          th:classappend="${#fields.hasErrors('detalleConsulta') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                          th:field="*{detalleConsulta}" type="text"></textarea>
+                                <label for="email">Consulta</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('detalleConsulta')}"
+                                      th:text="${#fields.errors('detalleConsulta')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <button class="btn btn-primary w-100" type="submit">Confirmar</button>
+                    </div>
+                </div>
+            </form>
+
+            <form id="formEncargo" method="post" th:action="@{/contacto/encargo}"
+                  th:object="${encargoForm}" th:style="${tipoOperacion==2 ? 'display: block;' : 'display: none;'}">
+                <input th:field="*{id}" type="hidden"/>
+                <input th:fied="*{idLibro}" type="hidden">
+                <fieldset>
+                    <div class="row text-center mb-0">
+                        <h5>Encargo</h5>
+                        <hr class="legend-separator">
+                    </div>
+                    <div class="row justify-content-center" th:if="${error}">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="alert alert-danger" role="alert">
+                                Faltan datos obligatorios para realizar el encargo
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="titulo" class="form-control" id="titulo"
+                                       placeholder="Título"
+                                       name="titulo"
+                                       th:classappend="${#fields.hasErrors('titulo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:readonly="${libro!=null}"
+                                       th:value="${libro!=null?libro.titulo:encargoForm.titulo}"
+                                       type="text"/>
+
+                                <label for="titulo">Título</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('titulo')}"
+                                      th:text="${#fields.errors('titulo')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="isbn" class="form-control" id="isbn"
+                                       placeholder="ISBN"
+                                       name="isbn"
+                                       th:classappend="${#fields.hasErrors('isbn') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:readonly="${libro!=null}"
+                                       th:value="${libro!=null?libro.isbn:encargoForm.isbn}"
+                                       type="text"/>
+
+                                <label for="isbn">ISBN</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('isbn')}"
+                                      th:text="${#fields.errors('isbn')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="cantidad" class="form-control" id="cantidad"
+                                       placeholder="Cantidad"
+                                       th:classappend="${#fields.hasErrors('cantidad') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{cantidad}" type="text"/>
+
+                                <label for="cantidad">Cantidad</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('cantidad')}"
+                                      th:text="${#fields.errors('cantidad')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <select aria-label="tipoEntragaId" class="form-control" id="tipoEntragaId"
+                                        placeholder="Tipo de entrega"
+                                        th:classappend="${#fields.hasErrors('tipoEntragaId') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                        th:field="*{tipoEntragaId}">
+                                    <option value="-1">Seleccione una opción</option>
+                                    <option th:each="t:${tipoEntrega}" th:text="${t.nombre}"
+                                            th:value="${t.id}"></option>
+                                </select>
+                                <label for="tipoEntragaId">Tipo de entrega</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('tipoEntragaId')}"
+                                      th:text="${#fields.errors('tipoEntragaId')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <button class="btn btn-primary w-100" type="submit">Confirmar</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

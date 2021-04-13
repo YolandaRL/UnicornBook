@@ -1,23 +1,28 @@
 package org.unicorn.book.app.usuario.dto;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 public class TarjetaForm {
 
     private Long id;
     @NotEmpty(message = "Campo obligatorio")
     private String nombrePersonalizado;
-    @NotNull(message = "Campo obligatorio")
-    private Long numero;
+    @NotEmpty(message = "Campo obligatorio")
+    @Length(min = 19, max = 19, message = "Campo obligatorio")
+    private String numero;
     @NotEmpty(message = "Campo obligatorio")
     private String tipoTarjeta;
-    @NotNull(message = "Campo obligatorio")
-    private Integer mesCaducidad;
-    @NotNull(message = "Campo obligatorio")
-    private Integer anoCaducidad;
-    @NotNull(message = "Campo obligatorio")
-    private Integer cvv;
+    @NotEmpty(message = "Campo obligatorio")
+    @Length(min = 1, max = 2, message = "Campo obligatorio")
+    private String mesCaducidad;
+    @NotEmpty(message = "Campo obligatorio")
+    @Length(min = 4, max = 4, message = "Campo obligatorio")
+    private String anoCaducidad;
+    @NotEmpty(message = "Campo obligatorio")
+    @Length(min = 2, max = 3, message = "Campo obligatorio")
+    private String cvv;
 
     public Long getId() {
         return id;
@@ -35,11 +40,11 @@ public class TarjetaForm {
         this.nombrePersonalizado = nombrePersonalizado;
     }
 
-    public Long getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(Long numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -51,27 +56,27 @@ public class TarjetaForm {
         this.tipoTarjeta = tipoTarjeta;
     }
 
-    public Integer getMesCaducidad() {
+    public String getMesCaducidad() {
         return mesCaducidad;
     }
 
-    public void setMesCaducidad(Integer mesCaducidad) {
+    public void setMesCaducidad(String mesCaducidad) {
         this.mesCaducidad = mesCaducidad;
     }
 
-    public Integer getAnoCaducidad() {
+    public String getAnoCaducidad() {
         return anoCaducidad;
     }
 
-    public void setAnoCaducidad(Integer anoCaducidad) {
+    public void setAnoCaducidad(String anoCaducidad) {
         this.anoCaducidad = anoCaducidad;
     }
 
-    public Integer getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(Integer cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 }
