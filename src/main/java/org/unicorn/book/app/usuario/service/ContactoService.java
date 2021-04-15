@@ -5,6 +5,7 @@ import org.unicorn.book.app.usuario.dto.ConsultaView;
 import org.unicorn.book.app.usuario.dto.EncargoForm;
 import org.unicorn.book.app.usuario.dto.EncargoView;
 import org.unicorn.book.app.usuario.dto.TablaMaestraView;
+import org.unicorn.book.app.usuario.exception.LibroConStockException;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public interface ContactoService {
      * @param consultaForm
      * @return
      */
-    EncargoForm nuevoEncargo(EncargoForm consultaForm);
+    EncargoForm nuevoEncargo(EncargoForm consultaForm) throws LibroConStockException;
 
     /**
      * @param consultaForm
