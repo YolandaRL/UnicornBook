@@ -85,6 +85,15 @@ legend {
     text-decoration: underline;
 }
 
+.simple-link-secondary {
+    color: #949393;
+    text-decoration: none;
+}
+
+.simple-link-secondary:hover {
+    color: #949393;
+}
+
 .ui-datepicker {
     border: 0 !important;
     margin: 0 !important;
