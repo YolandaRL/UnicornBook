@@ -42,11 +42,16 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item" th:classappend="${stat.index==0}?'active':''"
-                     th:each="libro, stat:${listNovedades}">
-                    <img alt="..." class="row d-block" style="height: 50vh;
+                     th:each="libro, stat:${listNovedades}" th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <img alt="..." class="row d-block" style="height: 35vh;
    margin: auto" th:src="${libro.linkPortada}">
-                    <div class="row carousel-caption d-none d-md-block" style="color: white; font-size: 4em">
-                        <h5 th:text="${libro.titulo}"></h5>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-md-12">
+                            <h5 th:text="${libro.titulo}"></h5>
+                            <p th:text="${#strings.abbreviate(libro.sinopsis, 150)}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,7 +68,7 @@
         </div>
 
         <div class="row text-center mt-xl-5 mb-0">
-            <h3>Los 20 libros más vendidos</h3>
+            <h3>Los 10 libros más vendidos</h3>
             <hr class="legend-separator">
         </div>
         <div class="row">

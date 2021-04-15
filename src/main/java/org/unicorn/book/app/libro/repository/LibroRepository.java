@@ -22,7 +22,7 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
 
     List<LibroView> findTop3ByVisibleIsTrueOrderByFechaDisponibleDesc();
 
-    List<LibroView> findTop20ByVisibleIsTrueOrderByFechaDisponibleDesc();
+    List<LibroView> findTop10ByVisibleIsTrueOrderByFechaDisponibleDesc();
 
     Page<Libro> findAll(Specification<Libro> specification, Pageable pageable);
 }
