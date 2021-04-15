@@ -13,9 +13,13 @@
 <div class="page-content" id="content">
     <div class="container">
         <div class="row text-center mb-5">
-            <h3>
+            <h3 th:if="${listadoLibros.totalPages!=0}">
                 <span th:text="${listadoLibros.totalElements}"></span> títulos para <strong>"<span
                     th:text="${termino}"></span>"</strong>
+            </h3>
+            <h3 th:if="${listadoLibros.totalPages==0}">
+                <span>¿No encuentras lo que estás buscando? Encárganoslo <a class="title-link"
+                                                                            th:href="@{/contacto?tipo=encargo}">aquí</a></span>
             </h3>
             <hr class="legend-separator">
         </div>
@@ -66,7 +70,7 @@
                 <hr class="m-1">
             </div>
         </div>
-        <nav aria-label="Page navigation example" class="bg-transparent mt-5">
+        <nav aria-label="Page navigation example" class="bg-transparent mt-5" th:if="${listadoLibros.totalPages!=0}">
             <ul class="pagination justify-content-start">
                 <li class="page-item" th:classappend="${listadoLibros.first} ? 'disabled' : ''">
                     <a aria-disabled="true" class="page-link" tabindex="-1"

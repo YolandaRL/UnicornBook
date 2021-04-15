@@ -85,6 +85,17 @@ legend {
     text-decoration: underline;
 }
 
+.title-link {
+    color: palevioletred;
+    text-decoration: underline;
+
+}
+
+.title-link:hover {
+    color: #A649E9;
+    text-decoration: underline;
+}
+
 .simple-link-secondary {
     color: #949393;
     text-decoration: none;
@@ -134,7 +145,7 @@ legend {
 
 .ui-state-highlight {
     color: white !important;
-    background: linear-gradient(135deg, rgba(50, 187, 241, 1) 0%, rgba(166, 73, 233, 1) 68%, rgba(166, 73, 233, 1) 100%) !important;
+    background: linear-gradient(135deg, rgba(50, 187, 241, 1) 0%, rgb(166, 73, 233) 68%, rgba(166, 73, 233, 1) 100%) !important;
 }
 
 .ui-state-active {
