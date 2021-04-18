@@ -37,7 +37,7 @@ public class UsuarioController {
         this.cestaService = cestaService;
     }
 
-    @ModelAttribute(name = "registroForm")
+    @ModelAttribute(name = "usuarioForm")
     public UsuarioForm getRegistroForm() {
         return new UsuarioForm();
     }
@@ -80,29 +80,33 @@ public class UsuarioController {
     @GetMapping(value = "/perfil")
     public String obtienePerfilForm(ModelMap model) {
         model.addAttribute("usuarioForm", usuarioService.getFormularioUsuario());
-        return "usuario/mi-cuenta/mi-perfil";
+        model.addAttribute("activeTab", "perfil");
+        return "usuario/mi-cuenta/index";
     }
 
     @PostMapping(value = "/perfil")
     public String actualizaPerfil(@Valid @ModelAttribute("usuarioForm") UsuarioForm usuarioForm, BindingResult result,
             ModelMap model, HttpServletRequest request) {
+        model.addAttribute("activeTab", "perfil");
         if (result.hasErrors()) {
-            return "usuario/mi-cuenta/mi-perfil";
+            return "usuario/mi-cuenta/index";
         } else {
             model.addAttribute("exito", true);
             model.addAttribute("usuarioForm", usuarioService.actualizarUsuario(usuarioForm));
         }
-        return "usuario/mi-cuenta/mi-perfil";
+        return "usuario/mi-cuenta/index";
     }
 
     @GetMapping(value = "/direcciones")
     public String obtenerDirecciones(ModelMap model) {
         model.addAttribute("direcciones", usuarioService.getDirecciones());
-        return "usuario/mi-cuenta/mis-direcciones";
+        model.addAttribute("activeTab", "direcciones");
+        return "usuario/mi-cuenta/index";
     }
 
     @GetMapping(value = "/direccion/getForm")
     public String getFormularioDireccion(@RequestParam(name = "id", required = false) Long id, ModelMap model) {
+        model.addAttribute("activeTab", "direcciones");
         if (id != null) {
             model.addAttribute("direccionForm", usuarioService.getDireccionFormEdicion(id));
         } else {
@@ -114,6 +118,7 @@ public class UsuarioController {
     @PostMapping(value = "/direccion")
     public String actualizaCreaDireccion(@Valid @ModelAttribute("direccionForm") DireccionForm direccionForm,
             BindingResult result, ModelMap model) {
+        model.addAttribute("activeTab", "direcciones");
         if (result.hasErrors()) {
             model.addAttribute("error", true);
             return "usuario/modals/modal-direccion :: modalDireccion";
@@ -133,11 +138,13 @@ public class UsuarioController {
     @GetMapping(value = "/tarjetas")
     public String obtenerTarjetas(ModelMap model) {
         model.addAttribute("tarjetas", usuarioService.getTarjetas());
-        return "usuario/mi-cuenta/mis-tarjetas";
+        model.addAttribute("activeTab", "tarjetas");
+        return "usuario/mi-cuenta/index";
     }
 
     @GetMapping(value = "/tarjeta/getForm")
     public String getFormularioTarjeta(@RequestParam(name = "id", required = false) Long id, ModelMap model) {
+        model.addAttribute("activeTab", "tarjetas");
         if (id != null) {
             model.addAttribute("tarjetaForm", usuarioService.getTarjetaFormEdicion(id));
         } else {
@@ -149,18 +156,19 @@ public class UsuarioController {
     @PostMapping(value = "/tarjeta")
     public String actualizaCreaTarjeta(@Valid @ModelAttribute("tarjetaForm") TarjetaForm tarjetaForm,
             BindingResult result, ModelMap model) {
+        model.addAttribute("activeTab", "tarjetas");
         if (result.hasErrors()) {
             model.addAttribute("error", true);
             return "usuario/modals/modal-tarjeta :: modalTarjeta";
         }
         model.addAttribute("error", false);
         usuarioService.altaOActualizarTarjeta(tarjetaForm);
-        model.addAttribute("tarjetas", usuarioService.getTarjetas());
+
         return "usuario/mi-cuenta/mis-tarjetas :: tarjetas-table";
     }
 
     @GetMapping(value = "/tarjeta/{id}/eliminar")
-    public String eliminarTarjeta(@PathVariable("id") Long idTarjeta, ModelMap model) {
+    public String eliminarTarjeta(@PathVariable("id") Long idTarjeta) {
         usuarioService.eliminarTarjeta(idTarjeta);
         return "redirect:/usuario/tarjetas";
     }

@@ -48,7 +48,11 @@ legend {
     box-shadow: 11px 11px 11px rgba(33, 33, 33, .2) !important;
 }
 
-.btn-primary, .btn-secondary:hover {
+.nav-pills .nav-link {
+    color: #db7093 !important;
+}
+
+.nav-pills .nav-link.active, .btn-primary, .btn-secondary:hover {
     border: 2px solid #db7093 !important;
     background: #db7093 !important;
     color: #ffffff !important;
