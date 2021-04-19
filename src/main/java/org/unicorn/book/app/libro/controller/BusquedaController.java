@@ -30,7 +30,6 @@ public class BusquedaController {
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
         BusquedaSimpleFilter filter = new BusquedaSimpleFilter();
         filter.setTermino(termino);
-
         Sort.Direction directionSort = StringUtils.isEmpty(direction) || direction.equals("desc") ?
                 Sort.Direction.DESC :
                 Sort.Direction.ASC;
