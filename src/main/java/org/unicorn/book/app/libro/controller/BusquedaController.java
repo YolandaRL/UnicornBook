@@ -8,11 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.unicorn.book.app.libro.dto.MaestroView;
 import org.unicorn.book.app.libro.filter.BusquedaSimpleFilter;
 import org.unicorn.book.app.libro.service.LibroService;
+
+import java.util.List;
 
 @Controller
 public class BusquedaController {
@@ -21,6 +25,31 @@ public class BusquedaController {
 
     public BusquedaController(LibroService libroService) {
         this.libroService = libroService;
+    }
+
+    @ModelAttribute("filtro")
+    public BusquedaSimpleFilter filtro() {
+        return new BusquedaSimpleFilter();
+    }
+
+    @ModelAttribute("listAutores")
+    public List<MaestroView> autores() {
+        return libroService.getAllAutores();
+    }
+
+    @ModelAttribute("listTematicas")
+    public List<MaestroView> tematicas() {
+        return libroService.getAllTematicas();
+    }
+
+    @ModelAttribute("listColecciones")
+    public List<MaestroView> colecciones() {
+        return libroService.getAllColecciones();
+    }
+
+    @ModelAttribute("listEditoriales")
+    public List<MaestroView> editoriales() {
+        return libroService.getAllEditoriales();
     }
 
     @GetMapping("/busquedas")
@@ -54,6 +83,14 @@ public class BusquedaController {
         model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
 
         return "libro/busquedas";
+    }
+
+    @PostMapping("/busqueda-avanzada")
+    public String busquedaAvanzada(@ModelAttribute("filtro") BusquedaSimpleFilter filter, ModelMap model,
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
+        model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
+
+        return "libro/busquedas :: resultados";
     }
 
     @GetMapping("/libro/{id}")

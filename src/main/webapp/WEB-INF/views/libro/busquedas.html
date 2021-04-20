@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html th:lang="${#locale.language}"
-      xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}">
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title id="title">Unicorn Book - Inicio</title>
@@ -9,107 +9,226 @@
 
 <body>
 <div id="links"></div>
-<div id="scripts"></div>
+<div id="scripts">
+    <script th:src="@{/resources/js/busquedas.js}"></script>
+</div>
 <div class="page-content" id="content">
     <div class="container">
         <div class="row text-center mb-5">
-            <h3 th:if="${listadoLibros.totalPages!=0}">
-                <span th:text="${listadoLibros.totalElements}"></span> títulos para <strong>"<span
-                    th:text="${termino}"></span>"</strong>
-            </h3>
+            <h6>Los resultados de tu búsqueda de:</h6>
+            <h3 th:if="${listadoLibros.totalPages!=0}"><strong>"<span th:text="${termino}"></span>"</strong></h3>
             <h3 th:if="${listadoLibros.totalPages==0}">
                 <span>¿No encuentras lo que estás buscando? Encárganoslo <a class="title-link"
                                                                             th:href="@{/contacto?tipo=encargo}">aquí</a></span>
             </h3>
             <hr class="legend-separator">
         </div>
-        <div class="row" th:if="${listadoLibros.totalPages!=0}">
-            <div class="col-lg-12 col-md-12 col-sm-12 m-0 justify-content-end">
-                <div class="dropdown d-flex justify-content-end">
-                    <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                            id="dropdownMenuButton1" type="button">
-                        <em class="fa fa-sort"></em>Ordenación
-                    </button>
-                    <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
-                        <li><a class="dropdown-item"
-                               th:href="@{/busquedas?termino=__${termino}__&orden=precio&direction=asc}">Precio
-                            ascendente</a></li>
-                        <li><a class="dropdown-item"
-                               th:href="@{/busquedas?termino=__${termino}__&orden=precio&direction=desc}">Precio
-                            descendente</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 justify-content-center"
-                 th:each="libro, stat:${listadoLibros}">
-                <div class="card m-0 border-0 card-link" th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
-                    <div class="row g-0 pl-5 pr-5">
-                        <div class="col-md-3 d-flex justify-content-center">
-                            <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
-                                 style="height: 25vh; margin: auto" th:src="${libro.linkPortada}">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${libro.titulo}"></h5>
-                                <p th:text="${libro.autor}"></p>
-                                <div class="mb-2">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+    </div>
+
+    <div class="row container-advanced-search d-flex justify-content-center pt-3 pb-3"
+         th:if="${listadoLibros.totalPages!=0}">
+        <div class="col-lg-8 col-md-10 col-sm-12 m-0">
+            <form id="advanced-search" th:object="${filtro}">
+                <input th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}"
+                       type="hidden"/>
+                <div class="dropdown d-flex justify-content-start">
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownTematicas" type="button">
+                            Temáticas
+                        </button>
+                        <div aria-labelledby="dropdownTematicas" class="dropdown-menu-advanced-search dropdown-menu p-0"
+                             style="width: 10vw">
+                            <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <p style="font-size: 1em"><span class="countSelections">0</span> seleccionados
+                                        </p>
+                                    </div>
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <button class="seleccion-global">TODO</button>
+                                    </div>
                                 </div>
-                                <p class="card-text"
-                                   th:text="${#strings.length(libro.sipnosis)>200 ? #strings.substring(libro.sipnosis,0,200) + '...' : libro.sipnosis}"></p>
-                                <p th:text="|${libro.editorial} / ${libro.isbn}|"></p>
+                                <p class="nameSelections" style="font-size: 0.75em"></p>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card-body h-50 d-flex align-items-end justify-content-center justify-content-center">
-                                <h5 class="mb-0 text-primary text-center"
-                                    th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">
-                                    Precio</h5>
-                            </div>
-                            <div class="card-body h-50 d-flex align-items-start justify-content-center justify-content-center">
-                                <button class="btn btn-primary" th:if="${libro.stock != null && libro.stock > 0}">
-                                    <em class="fa fa-shopping-basket"></em>
-                                    <span>Añadir al carrito</span>
-                                </button>
-                                <a class="btn btn-secondary" th:href="@{/contacto?tipo=encargo&libro=__${libro.id}__}"
-                                   th:if="${libro.stock == null || libro.stock == 0}">
-                                    <span>Encargar</span>
-                                </a>
+                            <div class="dropdown-divider m-0"></div>
+                            <div class="dropdown-item mb-2" th:each="tematica:${listTematicas}">
+                                <input class="d-none" th:field="*{tematicas}" th:value="${tematica.id}"
+                                       type="checkbox"/>
+                                <span th:text="${tematica.nombre}"></span>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownAutores" type="button">
+                            Autores
+                        </button>
+                        <div aria-labelledby="dropdownAutores" class="dropdown-menu-advanced-search dropdown-menu p-0"
+                             style="width: 10vw">
+                            <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
+                                <p style="font-size: 1em"><span class="countSelections">0</span> seleccionados</p>
+                                <p class="nameSelections" style="font-size: 0.75em"></p>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div class="dropdown-item  mb-2" th:each="autor:${listAutores}">
+                                <input class="d-none" th:field="*{autores}" th:value="${autor.id}" type="checkbox"/>
+                                <span th:text="${autor.nombre}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownColecciones" type="button">
+                            Colecciones
+                        </button>
+                        <div aria-labelledby="dropdownColecciones"
+                             class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
+                            <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
+                                <p style="font-size: 1em"><span class="countSelections">0</span> seleccionados</p>
+                                <p class="nameSelections" style="font-size: 0.75em"></p>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div class="dropdown-item mb-2" th:each="coleccion:${listColecciones}">
+                                <input class="d-none" th:field="*{colecciones}" th:value="${coleccion.id}"
+                                       type="checkbox"/>
+                                <span th:text="${coleccion.nombre}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownEditoriales" type="button">
+                            Editoriales
+                        </button>
+                        <div aria-labelledby="dropdownEditoriales"
+                             class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
+                            <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
+                                <p style="font-size: 1em"><span class="countSelections">0</span> seleccionados</p>
+                                <p class="nameSelections" style="font-size: 0.75em"></p>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div class="dropdown-item mb-2" th:each="editorial:${listEditoriales}">
+                                <input class="d-none" th:field="*{editoriales}" th:value="${editorial.id}"
+                                       type="checkbox"/>
+                                <span th:text="${editorial.nombre}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="dropdown d-flex justify-content-end">
+                            <button aria-expanded="false" class="btn btn-secondary dropdown-toggle"
+                                    data-bs-toggle="dropdown"
+                                    id="dropdownMenuButton1" type="button">
+                                <em class="fa fa-sort"></em>Clasificación
+                            </button>
+                            <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                       th:href="@{/busquedas?termino=__${termino}__&orden=precio&direction=asc}">Precio
+                                    ascendente</a></li>
+                                <li><a class="dropdown-item"
+                                       th:href="@{/busquedas?termino=__${termino}__&orden=precio&direction=desc}">Precio
+                                    descendente</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <hr class="m-1">
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="resultados">
+            <div th:fragment="resultados">
+                <div class="row text-center mt-5 mb-5">
+                    <h6 th:if="${listadoLibros.totalPages!=0}">
+                        <span th:text="${listadoLibros.totalElements}"></span> <span> títulos encontrados</span>
+                    </h6>
+                    <h3 th:if="${listadoLibros.totalPages==0}">
+                <span>¿No encuentras lo que estás buscando? Encárganoslo <a class="title-link"
+                                                                            th:href="@{/contacto?tipo=encargo}">aquí</a></span>
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-3 justify-content-center"
+                         th:each="libro, stat:${listadoLibros}">
+                        <div class="card m-0 border-0 card-link"
+                             th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
+                            <div class="row g-0 pl-5 pr-5">
+                                <div class="col-md-3 d-flex justify-content-center">
+                                    <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
+                                         style="height: 25vh; margin: auto" th:src="${libro.linkPortada}">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${libro.titulo}"></h5>
+                                        <p th:text="${libro.autor}"></p>
+                                        <div class="mb-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <p class="card-text"
+                                           th:text="${#strings.length(libro.sipnosis)>200 ? #strings.substring(libro.sipnosis,0,200) + '...' : libro.sipnosis}"></p>
+                                        <p th:text="|${libro.editorial} / ${libro.isbn}|"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card-body h-50 d-flex align-items-end justify-content-center justify-content-center">
+                                        <h5 class="mb-0 text-primary text-center"
+                                            th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">
+                                            Precio</h5>
+                                    </div>
+                                    <div class="card-body h-50 d-flex align-items-start justify-content-center justify-content-center">
+                                        <button class="btn btn-primary"
+                                                th:if="${libro.stock != null && libro.stock > 0}">
+                                            <em class="fa fa-shopping-basket"></em>
+                                            <span>Añadir al carrito</span>
+                                        </button>
+                                        <a class="btn btn-secondary"
+                                           th:href="@{/contacto?tipo=encargo&libro=__${libro.id}__}"
+                                           th:if="${libro.stock == null || libro.stock == 0}">
+                                            <span>Encargar</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-1">
+                    </div>
+                </div>
+                <nav aria-label="Page navigation example" class="bg-transparent mt-5"
+                     th:if="${listadoLibros.totalPages!=0}">
+                    <ul class="pagination justify-content-start">
+                        <li class="page-item" th:classappend="${listadoLibros.first} ? 'disabled' : ''">
+                            <a aria-disabled="true" class="page-link" tabindex="-1"
+                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number-1}&orden=${orden}&direction=${direction}|}">
+                                <
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${listadoLibros.number==i}?'active':''"
+                            th:each="i:${#numbers.sequence(0, listadoLibros.totalPages - 1)}">
+                            <a class="page-link"
+                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${i}&orden=${orden}&direction=${direction}|}"
+                               th:text="${i+1}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${listadoLibros.last} ? 'disabled' : ''">
+                            <a class="page-link"
+                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number+1}&orden=${orden}&direction=${direction}|}">
+                                >
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        <nav aria-label="Page navigation example" class="bg-transparent mt-5" th:if="${listadoLibros.totalPages!=0}">
-            <ul class="pagination justify-content-start">
-                <li class="page-item" th:classappend="${listadoLibros.first} ? 'disabled' : ''">
-                    <a aria-disabled="true" class="page-link" tabindex="-1"
-                       th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number-1}&orden=${orden}&direction=${direction}|}">
-                        <
-                    </a>
-                </li>
-                <li class="page-item" th:classappend="${listadoLibros.number==i}?'active':''"
-                    th:each="i:${#numbers.sequence(0, listadoLibros.totalPages - 1)}">
-                    <a class="page-link"
-                       th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${i}&orden=${orden}&direction=${direction}|}"
-                       th:text="${i+1}"></a>
-                </li>
-                <li class="page-item" th:classappend="${listadoLibros.last} ? 'disabled' : ''">
-                    <a class="page-link"
-                       th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number+1}&orden=${orden}&direction=${direction}|}">
-                        >
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </div>
 </div>
 </body>

@@ -8,11 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.unicorn.book.app.libro.dto.AutorView;
 import org.unicorn.book.app.libro.dto.LibroDto;
 import org.unicorn.book.app.libro.dto.LibroView;
+import org.unicorn.book.app.libro.dto.MaestroView;
 import org.unicorn.book.app.libro.filter.BusquedaSimpleFilter;
 import org.unicorn.book.app.libro.mapper.LibroMapper;
 import org.unicorn.book.app.libro.model.Libro;
 import org.unicorn.book.app.libro.repository.AutorRepository;
+import org.unicorn.book.app.libro.repository.ColeccionRepository;
+import org.unicorn.book.app.libro.repository.EditorialRepository;
 import org.unicorn.book.app.libro.repository.LibroRepository;
+import org.unicorn.book.app.libro.repository.TematicaRepository;
 import org.unicorn.book.app.libro.specifications.BusquedaSimpleSpecifications;
 
 import java.util.List;
@@ -25,10 +29,18 @@ public class LibroServiceImpl implements LibroService {
 
     private final LibroRepository libroRepository;
     private final AutorRepository autorRepository;
+    private final TematicaRepository tematicaRepository;
+    private final ColeccionRepository coleccionRepository;
+    private final EditorialRepository editorialRepository;
 
-    public LibroServiceImpl(LibroRepository libroRepository, AutorRepository autorRepository) {
+    public LibroServiceImpl(LibroRepository libroRepository, AutorRepository autorRepository,
+            TematicaRepository tematicaRepository, ColeccionRepository coleccionRepository,
+            EditorialRepository editorialRepository) {
         this.libroRepository = libroRepository;
         this.autorRepository = autorRepository;
+        this.tematicaRepository = tematicaRepository;
+        this.coleccionRepository = coleccionRepository;
+        this.editorialRepository = editorialRepository;
     }
 
     @Override
@@ -55,5 +67,25 @@ public class LibroServiceImpl implements LibroService {
     @Override
     public AutorView getAutor(Long id) {
         return autorRepository.findAutorById(id);
+    }
+
+    @Override
+    public List<MaestroView> getAllAutores() {
+        return autorRepository.findAllByNombreIsNotNull();
+    }
+
+    @Override
+    public List<MaestroView> getAllTematicas() {
+        return tematicaRepository.findAllByNombreIsNotNull();
+    }
+
+    @Override
+    public List<MaestroView> getAllColecciones() {
+        return coleccionRepository.findAllByNombreIsNotNull();
+    }
+
+    @Override
+    public List<MaestroView> getAllEditoriales() {
+        return editorialRepository.findAllByNombreIsNotNull();
     }
 }

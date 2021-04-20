@@ -39,8 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/acceso", "/usuario/nuevo", "/busquedas", "/libro/**", "/autor/**", "/contacto",
-                        "/contacto/consulta", "/contacto/encargo")
+                .antMatchers("/", "/acceso", "/usuario/nuevo", "/busquedas", "/busqueda-avanzada", "/libro/**",
+                        "/autor/**", "/contacto", "/contacto/consulta", "/contacto/encargo")
                 .permitAll().antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/client/**").hasRole("CLIENT")
                 .anyRequest().authenticated().and().formLogin().loginPage("/acceso").defaultSuccessUrl("/", true)
                 .failureUrl("/acceso?error")
