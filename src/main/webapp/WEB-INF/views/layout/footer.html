@@ -1,4 +1,22 @@
-<section class="d-flex align-items-center justify-content-center row" id="footer">
+<section class="d-flex align-items-center justify-content-center row" id="footer" xmlns:th="http://www.thymeleaf.org">
+    <div class="col-lg-3 col-md-6 col-sm-6 text-center text-white">
+        Síguenos:
+        <a class="simple-link-secondary mr-3" href="https://www.facebook.com/unicornBook">
+            <img th:src="@{/resources/images/facebook.svg}" width="20em"/>
+        </a>
+        <a class="simple-link-secondary mr-3" href="https://www.instagram.com/unicornBook">
+            <img th:src="@{/resources/images/instagram.svg}" width="20em"/>
+        </a>
+        <a class="simple-link-secondary mr-3" href="https://www.twitter.com/unicornBook">
+            <img th:src="@{/resources/images/twitter.svg}" width="20em"/>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 text-center text-white">
+        <span class="ml-lg-5 mr-lg-5">Consultas y encargos
+                <a class="ml-auto simple-link" style="text-decoration: underline !important;"
+                   th:href="@{/contacto}">aquí</a>
+            </span>
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
         <p class="h6">© 2021 Todos los derechos reservados. <a class="text-green ml-2"
                                                                href="https://www.unicornbook.com" target="_blank">www.unicornbook.com</a>

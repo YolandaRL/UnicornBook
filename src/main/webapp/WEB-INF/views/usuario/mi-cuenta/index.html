@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}"
+      th:replace="~{layout/default :: layout (~{::#title}, ~{::#content}, ~{::#links}, ~{::#scripts})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Unicorn Book - Mi cuenta</title>
+</head>
+<body>
+<div id="links"></div>
+<div id="scripts">
+    <script th:src="@{/resources/js/perfil.js}"></script>
+    <script th:src="@{/resources/js/direccion.js}"></script>
+    <script th:src="@{/resources/js/tarjeta.js}"></script>
+</div>
+
+<div class="page-content" id="content">
+    <div class="container">
+        <div class="">
+            <ul class="nav nav-pills justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" th:classappend="${activeTab=='perfil'}?'active'"
+                       th:href="@{/usuario/perfil}">Perfil</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" th:classappend="${activeTab=='direcciones'}?'active'"
+                       th:href="@{/usuario/direcciones}">Direcciones</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" th:classappend="${activeTab=='tarjetas'}?'active'"
+                       th:href="@{/usuario/tarjetas}">Tarjetas</a>
+                </li>
+            </ul>
+            <div class="tab-content mt-5" id="myTabContent">
+                <div aria-labelledby="perfil-tab" class="tab-pane fade" id="perfil" role="tabpanel"
+                     th:classappend="${activeTab=='perfil'}?'show active'">
+                    <div th:replace="usuario/mi-cuenta/mi-perfil"></div>
+                </div>
+                <div aria-labelledby="direcciones-tab" class="tab-pane fade" id="direcciones" role="tabpanel"
+                     th:classappend="${activeTab=='direcciones'}?'show active'">
+                    <div th:replace="usuario/mi-cuenta/mis-direcciones"></div>
+                </div>
+                <div aria-labelledby="tarjetas-tab" class="tab-pane fade" id="tarjetas" role="tabpanel"
+                     th:classappend="${activeTab=='tarjetas'}?'show active'">
+                    <div th:replace="usuario/mi-cuenta/mis-tarjetas"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div th:replace="usuario/modals/modal-confirmacion-baja"></div>
+    <div th:replace="usuario/modals/modal-direccion"></div>
+    <div th:replace="usuario/modals/modal-tarjeta"></div>
+</div>
+</body>
+</html>

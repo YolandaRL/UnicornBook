@@ -1,27 +1,31 @@
 package org.unicorn.book.app.usuario.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import org.unicorn.book.app.validation.CustomScriptAssert;
+import org.unicorn.book.autenticacion.AuthenticationUtils;
 
+import javax.validation.constraints.NotEmpty;
+
+@CustomScriptAssert.List({
+        @CustomScriptAssert(lang = "javascript", script = "_this.idUsuario==null?_this.nombre!='':true", field = "nombre", message = "Campo oblicatorio"),
+        @CustomScriptAssert(lang = "javascript", script = "_this.idUsuario==null?_this.apellido1!='':true", field = "apellido1", message = "Campo oblicatorio"),
+        @CustomScriptAssert(lang = "javascript", script = "_this.idUsuario==null&&_this.telefono==null?_this.email!='':true", field = "email", message = "Campo oblicatorio"),
+        @CustomScriptAssert(lang = "javascript", script = "_this.idUsuario==null&&_this.email==null?_this.telefono!=null:true", field = "telefono", message = "Campo oblicatorio"), })
 public class ConsultaForm {
+
+    private final Long idUsuario = AuthenticationUtils.getIdUsuario();
 
     private final TipoOperacion tipoOperacion;
 
     private Long id;
 
-    @NotEmpty(message = "Campo obligatorio")
     private String nombre;
 
-    @NotEmpty(message = "Campo obligatorio")
     private String apellido1;
 
-    @NotEmpty(message = "Campo obligatorio")
     private String apellido2;
 
-    @NotEmpty(message = "Campo obligatorio")
     private String email;
 
-    @NotNull(message = "Campo obligatorio")
     private Long telefono;
 
     @NotEmpty(message = "Campo obligatorio")
@@ -37,6 +41,10 @@ public class ConsultaForm {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
     public TipoOperacion getTipoOperacion() {

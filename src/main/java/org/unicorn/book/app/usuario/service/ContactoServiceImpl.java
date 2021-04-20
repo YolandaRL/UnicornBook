@@ -3,12 +3,14 @@ package org.unicorn.book.app.usuario.service;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.unicorn.book.app.libro.repository.LibroRepository;
 import org.unicorn.book.app.usuario.ContactoMapper;
 import org.unicorn.book.app.usuario.dto.ConsultaForm;
 import org.unicorn.book.app.usuario.dto.ConsultaView;
 import org.unicorn.book.app.usuario.dto.EncargoForm;
 import org.unicorn.book.app.usuario.dto.EncargoView;
 import org.unicorn.book.app.usuario.dto.TablaMaestraView;
+import org.unicorn.book.app.usuario.exception.LibroConStockException;
 import org.unicorn.book.app.usuario.model.Consulta;
 import org.unicorn.book.app.usuario.model.Encargo;
 import org.unicorn.book.app.usuario.model.TipoEntrega;
@@ -34,15 +36,17 @@ public class ContactoServiceImpl implements ContactoService {
     private final TipoEntregaRepository tipoEntregaRepository;
     private final ConsultaRepository consultaRepository;
     private final EncargoRepository encargoRepository;
+    private final LibroRepository libroRepository;
     private final EntityManager entityManager;
 
     public ContactoServiceImpl(TipoOperacionRepository tipoOperacionRepository,
             TipoEntregaRepository tipoEntregaRepository, ConsultaRepository consultaRepository,
-            EncargoRepository encargoRepository, EntityManager entityManager) {
+            EncargoRepository encargoRepository, LibroRepository libroRepository, EntityManager entityManager) {
         this.tipoOperacionRepository = tipoOperacionRepository;
         this.tipoEntregaRepository = tipoEntregaRepository;
         this.consultaRepository = consultaRepository;
         this.encargoRepository = encargoRepository;
+        this.libroRepository = libroRepository;
         this.entityManager = entityManager;
     }
 
@@ -68,7 +72,13 @@ public class ContactoServiceImpl implements ContactoService {
 
     @Override
     @Transactional
-    public EncargoForm nuevoEncargo(EncargoForm encargoForm) {
+    public EncargoForm nuevoEncargo(EncargoForm encargoForm) throws LibroConStockException {
+        Long libroView = libroRepository.libroConStockByIsbn(encargoForm.getIsbn());
+
+        if (libroView != null) {
+            throw new LibroConStockException("Imposible realizar encargo, hay stock para el libro");
+        }
+
         Encargo encargo = MAPPER_INSTANCE.toEncargo(encargoForm);
         Date date = new Date();
         encargo.setHoraEncargo(date);
@@ -76,7 +86,9 @@ public class ContactoServiceImpl implements ContactoService {
         encargo.setTipoEntrega(entityManager.getReference(TipoEntrega.class, encargoForm.getTipoEntragaId()));
         encargo.setTipoOperacion(entityManager
                 .getReference(TipoOperacion.class, org.unicorn.book.app.usuario.dto.TipoOperacion.ENCARGO.getId()));
-        encargo.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+        if (AuthenticationUtils.getIdUsuario() != null) {
+            encargo.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+        }
         //fixme encargo.setEstado("");
         encargoRepository.save(encargo);
         return encargoForm;
@@ -92,7 +104,9 @@ public class ContactoServiceImpl implements ContactoService {
         consulta.setFechaFin(new Date(date.getTime() + 2592000000L));
         consulta.setTipoOperacion(entityManager
                 .getReference(TipoOperacion.class, org.unicorn.book.app.usuario.dto.TipoOperacion.CONSULTA.getId()));
-        consulta.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+        if (AuthenticationUtils.getIdUsuario() != null) {
+            consulta.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+        }
         // FIXME consulta.setEstado();
         consultaRepository.save(consulta);
         return consultaForm;

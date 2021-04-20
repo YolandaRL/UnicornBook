@@ -49,7 +49,7 @@ public class LibroServiceImpl implements LibroService {
 
     @Override
     public List<LibroView> getMuestraLibros() {
-        return libroRepository.findTop20ByVisibleIsTrueOrderByFechaDisponibleDesc();
+        return libroRepository.findTop10ByVisibleIsTrueOrderByFechaDisponibleDesc();
     }
 
     @Override

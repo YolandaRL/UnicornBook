@@ -15,6 +15,14 @@
 <div class="page-content" id="content">
     <div class="container">
         <div class="justify-content-center">
+            <div class="row justify-content-center" th:if="${message}">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="alert alert-success" role="alert">
+                        <span th:text="${message}"></span>
+                    </div>
+                </div>
+            </div>
+
             <div class="row text-center mb-0">
                 <h3>Contacto</h3>
                 <hr class="legend-separator">
@@ -22,7 +30,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="form-floating mb-3 required">
-                        <select class="form-control" id="tipoOperacionGlobal" th:disabled="${tipoOperacion!=null}">
+                        <select class="form-control" id="tipoOperacionGlobal">
                             <option value="-1">Seleccione una opción</option>
                             <option th:each="tipo:${tiposOperacion}"
                                     th:selected="${tipoOperacion!=null && tipoOperacion==tipo.id}"
@@ -45,11 +53,11 @@
                     <div class="row justify-content-center" th:if="${error}">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="alert alert-danger" role="alert">
-                                Faltan datos obligatorios para realizar la consulta
+                                <span th:text="${error}"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center" th:if="${consultaForm.idUsuario == null}">
                         <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-floating mb-3 inner-addon right-addon required">
                                 <input aria-label="nombre" class="form-control" id="nombre"
@@ -84,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center" th:if="${consultaForm.idUsuario == null}">
                         <div class="col-lg-3 col-md-3 col-sm-12">
                             <div class="form-floating mb-3 inner-addon right-addon required">
                                 <input aria-label="email" class="form-control" id="email"
@@ -113,7 +121,7 @@
                             <div class="form-floating mb-3 inner-addon right-addon required">
                                 <textarea aria-label="detalleConsulta" class="form-control" id="detalleConsulta"
                                           placeholder="Consulta"
-                                          rows="3"
+                                          rows="10" style="height: 150px"
                                           th:classappend="${#fields.hasErrors('detalleConsulta') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                           th:field="*{detalleConsulta}" type="text"></textarea>
                                 <label for="email">Consulta</label>
@@ -126,7 +134,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <button class="btn btn-primary w-100" type="submit">Confirmar</button>
+                        <button class="btn btn-primary w-100" type="submit">Enviar consulta</button>
                     </div>
                 </div>
             </form>
@@ -143,7 +151,66 @@
                     <div class="row justify-content-center" th:if="${error}">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="alert alert-danger" role="alert">
-                                Faltan datos obligatorios para realizar el encargo
+                                <span th:text="${error}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center" th:if="${encargoForm.idUsuario == null}">
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="nombre" class="form-control" id="nombre"
+                                       placeholder="Nombre"
+                                       th:classappend="${#fields.hasErrors('nombre') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{nombre}" type="text"/>
+                                <label for="nombre">Nombre</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('nombre')}"
+                                      th:text="${#fields.errors('nombre')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="usuario" class="form-control" id="apellido1"
+                                       placeholder="Primer apellido"
+                                       th:classappend="${#fields.hasErrors('apellido1') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{apellido1}" type="text"/>
+                                <label for="apellido1">Primer apellido</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('apellido1')}"
+                                      th:text="${#fields.errors('apellido1')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="apellido2" class="form-control" id="apellido2"
+                                       placeholder="Segundo apellido"
+                                       th:classappend="${#fields.hasErrors('apellido2') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{apellido2}" type="text"/>
+                                <label for="apellido2">Segundo apellido</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('apellido2')}"
+                                      th:text="${#fields.errors('apellido2')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center" th:if="${encargoForm.idUsuario == null}">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="email" class="form-control" id="email"
+                                       placeholder="Correo electrónico"
+                                       th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{email}" type="text"/>
+                                <label for="email">Correo electrónico</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('email')}"
+                                      th:text="${#fields.errors('email')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <input aria-label="telefono" class="form-control" id="telefono"
+                                       placeholder="Teléfono"
+                                       th:classappend="${#fields.hasErrors('telefono') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{telefono}" type="text"/>
+                                <label for="telefono">Teléfono</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('telefono')}"
+                                      th:text="${#fields.errors('telefono')[0]}"></span>
                             </div>
                         </div>
                     </div>
@@ -210,11 +277,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-floating mb-3 inner-addon right-addon required">
+                                <textarea aria-label="notas" class="form-control" id="notas" placeholder="Notas"
+                                          rows="10"
+                                          style="height: 150px"
+                                          th:classappend="${#fields.hasErrors('notas') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                          th:field="*{notas}" type="text"></textarea>
+                                <label for="email">Notas</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('notas')}"
+                                      th:text="${#fields.errors('notas')[0]}"></span>
+                            </div>
+                        </div>
+                    </div>
                 </fieldset>
 
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <button class="btn btn-primary w-100" type="submit">Confirmar</button>
+                        <button class="btn btn-primary w-100" type="submit">Enviar encargo</button>
                     </div>
                 </div>
             </form>

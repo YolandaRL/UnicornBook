@@ -14,7 +14,9 @@ import org.unicorn.book.app.usuario.dto.ConsultaForm;
 import org.unicorn.book.app.usuario.dto.EncargoForm;
 import org.unicorn.book.app.usuario.dto.TablaMaestraView;
 import org.unicorn.book.app.usuario.dto.TipoOperacion;
+import org.unicorn.book.app.usuario.exception.LibroConStockException;
 import org.unicorn.book.app.usuario.service.ContactoService;
+import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -77,12 +79,25 @@ public class ContactoController {
             ra.addFlashAttribute("tipoOperacion", TipoOperacion.ENCARGO.getId());
             ra.addFlashAttribute("encargoForm", encargoForm);
             ra.addFlashAttribute("org.springframework.validation.BindingResult.encargoForm", result);
+            model.addAttribute("error", "Faltan datos obligatorios para realizar la consulta");
+
             return "redirect:/contacto";
         }
-        model.addAttribute("error", false);
-        contactoService.nuevoEncargo(encargoForm);
+        try {
+            contactoService.nuevoEncargo(encargoForm);
+        } catch (LibroConStockException e) {
+            model.addAttribute("error", "El libro indicado se encuentra con stock en la librería");
+            model.addAttribute("tipoOperacion", TipoOperacion.ENCARGO.getId());
+            return "usuario/contacto";
+        }
         model.addAttribute("encargos", contactoService.getEncargos());
-        return "redirect:/contacto/encargos";
+
+        if (AuthenticationUtils.getIdUsuario() == null) {
+            model.addAttribute("message", "Enviada petición de encargo con éxito");
+            return "usuario/contacto";
+        } else {
+            return "redirect:/contacto/encargos";
+        }
     }
 
     @GetMapping(value = "/consultas")
@@ -100,12 +115,18 @@ public class ContactoController {
             ra.addFlashAttribute("tipoOperacion", TipoOperacion.CONSULTA.getId());
             ra.addFlashAttribute("consultaForm", consultaForm);
             ra.addFlashAttribute("org.springframework.validation.BindingResult.consultaForm", result);
-
+            model.addAttribute("error", "Faltan campos obligatorios para realizar la consulta");
             return "redirect:/contacto";
         }
-        model.addAttribute("error", false);
+
         contactoService.nuevaConsulta(consultaForm);
         model.addAttribute("consultas", contactoService.getConsultas());
-        return "redirect:/contacto/consultas";
+        if (AuthenticationUtils.getIdUsuario() == null) {
+            model.addAttribute("message", "Consulta enviada con éxito");
+            return "usuario/contacto";
+        } else {
+            return "redirect:/contacto/consultas";
+        }
+
     }
 }
