@@ -17,20 +17,23 @@ jQuery(function () {
     $(document).on('click', '.seleccion-global', function () {
         showLoader();
         let context = $(this).closest('.dropdown-advanced-search');
-        let activos = $('.dropdown-item.active', context).length;
+        let activos = $('.dropdown-item.active', context);
         let inputs = $('input', context);
-        if (activos !== undefined && activos > 0) {
+        if ((activos.length !== undefined && activos.length > 0)
+            && $('.dropdown-item', context).length === activos.length) {
             $(this).text('TODO');
             activos.removeClass('active');
+            $('button', context).removeClass('active');
             inputs.prop('checked', false);
         } else {
             $(this).text('BORRAR');
-            console.log($('.dropdown-item', context));
             $('.dropdown-item', context).each(function () {
                 $(this).addClass('active');
+                $('button', context).addClass('active');
             });
             inputs.prop('checked', true);
         }
+        updateInfoFilter(context)
         submitFilter();
     });
 });
