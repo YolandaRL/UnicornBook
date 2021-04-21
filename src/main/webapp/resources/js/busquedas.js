@@ -3,14 +3,18 @@ jQuery(function () {
     $(document).on("click", '.dropdown-menu-advanced-search .dropdown-item', function () {
         showLoader();
         let checkbox = $('input', $(this).closest('div'));
+        let icon = $('em', $(this).closest('div'));
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
             checkbox.prop('checked', false);
+            icon.addClass('d-none');
         } else {
             $(this).addClass('active');
             checkbox.prop('checked', true);
+            icon.removeClass('d-none');
         }
         updateInfoFilter($(this).closest('.dropdown-advanced-search'));
+        updateValuesInputs();
         submitFilter();
     });
 
@@ -33,7 +37,7 @@ jQuery(function () {
             });
             inputs.prop('checked', true);
         }
-        updateInfoFilter(context)
+        updateInfoFilter(context);
         submitFilter();
     });
 });
@@ -41,7 +45,7 @@ jQuery(function () {
 function updateInfoFilter(context) {
     let totalElements = $('.active', context).length;
     let names = [];
-    $('.active span', context).each(function () {
+    $('.active .name', context).each(function () {
         names.push($(this).text());
     });
 
@@ -56,18 +60,36 @@ function updateInfoFilter(context) {
     }
 }
 
+function updateValuesInputs() {
+    $('.dropdown-advanced-search').each(function () {
+        let values = [];
+        $('input.simulate-value', this).each(function () {
+            if ($(this).is(':checked')) {
+                values.push($(this).val());
+            }
+        });
+        if (values.length > 0) {
+            $('.form-value', this).prop('disabled', false);
+            $('.form-value', this).val(values.join(','));
+        } else {
+            $('.form-value', this).prop('disabled', true);
+        }
+    });
+}
+
 function submitFilter() {
-    $.ajax({
+    $('#advanced-search').submit();
+    /*$.ajax({
         url: CONTEXT_ROOT + 'busqueda-avanzada',
         headers: {
             'X-CSRF-Token': $('[name*=_csrf]').val()
         },
-        type: "POST",
+        type: "GET",
         data: $('#advanced-search').serialize(),
         success: function (fragment) {
             $('#resultados').html(fragment);
         }, complete: function () {
             hideLoader();
         }
-    });
+    });*/
 }

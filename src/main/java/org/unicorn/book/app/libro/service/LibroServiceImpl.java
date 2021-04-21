@@ -71,21 +71,21 @@ public class LibroServiceImpl implements LibroService {
 
     @Override
     public List<MaestroView> getAllAutores() {
-        return autorRepository.findAllByNombreIsNotNull();
+        return autorRepository.findAllAutores();
     }
 
     @Override
     public List<MaestroView> getAllTematicas() {
-        return tematicaRepository.findAllByNombreIsNotNull();
+        return tematicaRepository.findAllTematicas();
     }
 
     @Override
     public List<MaestroView> getAllColecciones() {
-        return coleccionRepository.findAllByNombreIsNotNull();
+        return coleccionRepository.findAllColecciones();
     }
 
     @Override
     public List<MaestroView> getAllEditoriales() {
-        return editorialRepository.findAllByNombreIsNotNull();
+        return editorialRepository.findAllEditoriales();
     }
 }

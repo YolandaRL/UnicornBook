@@ -5,7 +5,8 @@
     <div class="navbar-toggler container-fluid border-0">
         <img class="collapse-nav-bar-icon" th:src="@{/resources/images/unicornbook_logo.png}" height="50vw"
              style="display: none;"/>
-        <form class="collapse-nav-bar-form" th:action="@{/busquedas}" method="get" style="display: none; width: 65%">
+        <form class="collapse-nav-bar-form" method="get" style="display: none; width: 65%" th:action="@{/busquedas}"
+              th:object="${filtro}">
             <div class="input-group">
                 <input type="text" th:value="${termino}" class="form-control form-control-lg" name="termino"
                        placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
@@ -32,8 +33,9 @@
             <img height="100vw" th:src="@{/resources/images/unicornbook_logo.png}"/>
         </a>
 
-        <form class="navbar-form" th:action="@{/busquedas}" method="get"  style="display: none; width: 40%">
-            <div class="input-group" >
+        <form class="navbar-form" method="get" style="display: none; width: 40%" th:action="@{/busquedas}"
+              th:object="${filtro}">
+            <div class="input-group">
                 <input type="text" th:value="${termino}" class="form-control form-control-lg" name="termino"
                        placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
                 <button class="btn btn-primary btn-search" type="submit">Buscar</button>
@@ -107,9 +109,10 @@
                 La plataforma de comercio online y comunidad lectora de las librerías independientes.
                 Más de un millón de libros comercializados en España y dónde conseguirlos.
             </div>
-            <form th:action="@{/busquedas}" method="get">
+            <form method="get" th:action="@{/busquedas}" th:object="${filtro}">
                 <div class="input-group search-group">
-                    <input type="text" class="form-control form-control-lg input-search" name="termino" placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
+                    <input type="text" class="form-control form-control-lg input-search" name="termino"
+                           placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
                     <button class="btn btn-primary btn-search" type="submit">Buscar</button>
                 </div>
             </form>

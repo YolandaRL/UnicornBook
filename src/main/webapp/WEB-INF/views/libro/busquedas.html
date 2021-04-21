@@ -13,7 +13,7 @@
     <script th:src="@{/resources/js/busquedas.js}"></script>
 </div>
 <div class="page-content" id="content">
-    <div class="container">
+    <div class="container" th:if="${!#strings.isEmpty(termino)}">
         <div class="row text-center mb-5">
             <h6>Los resultados de tu búsqueda de:</h6>
             <h3 th:if="${listadoLibros.totalPages!=0}"><strong>"<span th:text="${termino}"></span>"</strong></h3>
@@ -25,26 +25,30 @@
         </div>
     </div>
 
-    <div class="row container-advanced-search d-flex justify-content-center pt-3 pb-3"
-         th:if="${listadoLibros.totalPages!=0}">
+    <div class="row container-advanced-search d-flex justify-content-center pt-3 pb-3">
         <div class="col-lg-8 col-md-10 col-sm-12 m-0">
-            <form id="advanced-search" th:object="${filtro}">
-                <input th:name="${_csrf.parameterName}"
+            <form id="advanced-search" method="get" th:action="@{/busquedas}" th:object="${filtro}">
+                <!--<input th:name="${_csrf.parameterName}"
                        th:value="${_csrf.token}"
-                       type="hidden"/>
+                       type="hidden"/>-->
+                <input name="termino" th:value="${termino}" type="hidden"/>
                 <div class="dropdown d-flex justify-content-start">
                     <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
                         <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
                                 data-bs-toggle="dropdown"
+                                th:classappend="${!#lists.isEmpty(filtro.tematicas)} ? 'items-selected'"
                                 id="dropdownTematicas" type="button">
                             Temáticas
                         </button>
+                        <input class="form-value" name="tematicas" type="hidden"/>
                         <div aria-labelledby="dropdownTematicas" class="dropdown-menu-advanced-search dropdown-menu p-0"
                              style="width: 10vw">
                             <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
                                 <div class="row">
                                     <div class="col-8">
-                                        <p style="font-size: 1em"><span class="countSelections">0</span> seleccionados
+                                        <p style="font-size: 1em"><span class="countSelections"
+                                                                        th:text="${#lists.size(filtro.tematicas)}">0</span>
+                                            seleccionados
                                         </p>
                                     </div>
                                     <div class="col-4 d-flex justify-content-end">
@@ -52,28 +56,38 @@
                                         </button>
                                     </div>
                                 </div>
-                                <p class="nameSelections" style="font-size: 0.75em"></p>
+                                <p class="nameSelections" style="font-size: 0.75em">
+                                </p>
                             </div>
                             <div class="dropdown-divider m-0"></div>
-                            <div class="dropdown-item mb-2" th:each="tematica:${listTematicas}">
-                                <input class="d-none" th:field="*{tematicas}" th:value="${tematica.id}"
-                                       type="checkbox"/>
-                                <span th:text="${tematica.nombre}"></span>
+                            <div class="dropdown-item mb-2"
+                                 th:classappend="${#lists.contains(filtro.tematicas, tematica.id)} ? 'active'"
+                                 th:each="tematica:${listTematicas}">
+                                <input class="d-none simulate-value"
+                                       th:checked="${#lists.contains(filtro.tematicas, tematica.id)}"
+                                       th:value="${tematica.id}" type="checkbox"/>
+                                <span class="name" th:text="${tematica.nombre}"></span><span
+                                    th:text="| (${tematica.ocurrencias})|"></span>
+                                <em class="float-end mt-1 fa fa-times d-none"></em>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
                         <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
                                 data-bs-toggle="dropdown"
+                                th:classappend="${!#lists.isEmpty(filtro.autores)} ? 'items-selected'"
                                 id="dropdownAutores" type="button">
                             Autores
                         </button>
+                        <input class="form-value" name="autores" type="hidden"/>
                         <div aria-labelledby="dropdownAutores" class="dropdown-menu-advanced-search dropdown-menu p-0"
                              style="width: 10vw">
                             <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
                                 <div class="row">
                                     <div class="col-8">
-                                        <p style="font-size: 1em"><span class="countSelections">0</span> seleccionados
+                                        <p style="font-size: 1em"><span class="countSelections"
+                                                                        th:text="${#lists.size(filtro.autores)}">0</span>
+                                            seleccionados
                                         </p>
                                     </div>
                                     <div class="col-4 d-flex justify-content-end">
@@ -84,24 +98,34 @@
                                 <p class="nameSelections" style="font-size: 0.75em"></p>
                             </div>
                             <div class="dropdown-divider m-0"></div>
-                            <div class="dropdown-item  mb-2" th:each="autor:${listAutores}">
-                                <input class="d-none" th:field="*{autores}" th:value="${autor.id}" type="checkbox"/>
-                                <span th:text="${autor.nombre}"></span>
+                            <div class="dropdown-item  mb-2"
+                                 th:classappend="${#lists.contains(filtro.autores, autor.id)} ? 'active'"
+                                 th:each="autor:${listAutores}">
+                                <input class="d-none simulate-value"
+                                       th:checked="${#lists.contains(filtro.autores, autor.id)}" th:value="${autor.id}"
+                                       type="checkbox"/>
+                                <span class="name" th:text="${autor.nombre}"></span><span
+                                    th:text="| (${autor.ocurrencias})|"></span>
+                                <em class="float-end mt-1 fa fa-times d-none"></em>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
                         <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
                                 data-bs-toggle="dropdown"
+                                th:classappend="${!#lists.isEmpty(filtro.colecciones)} ? 'items-selected'"
                                 id="dropdownColecciones" type="button">
                             Colecciones
                         </button>
+                        <input class="form-value" name="colecciones" type="hidden"/>
                         <div aria-labelledby="dropdownColecciones"
                              class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
                             <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
                                 <div class="row">
                                     <div class="col-8">
-                                        <p style="font-size: 1em"><span class="countSelections">0</span> seleccionados
+                                        <p style="font-size: 1em"><span class="countSelections"
+                                                                        th:text="${#lists.size(filtro.colecciones)}">0</span>
+                                            seleccionados
                                         </p>
                                     </div>
                                     <div class="col-4 d-flex justify-content-end">
@@ -112,25 +136,35 @@
                                 <p class="nameSelections" style="font-size: 0.75em"></p>
                             </div>
                             <div class="dropdown-divider m-0"></div>
-                            <div class="dropdown-item mb-2" th:each="coleccion:${listColecciones}">
-                                <input class="d-none" th:field="*{colecciones}" th:value="${coleccion.id}"
+                            <div class="dropdown-item mb-2"
+                                 th:classappend="${#lists.contains(filtro.colecciones, coleccion.id)} ? 'active'"
+                                 th:each="coleccion:${listColecciones}">
+                                <input class="d-none simulate-value"
+                                       th:checked="${#lists.contains(filtro.colecciones, coleccion.id)}"
+                                       th:value="${coleccion.id}"
                                        type="checkbox"/>
-                                <span th:text="${coleccion.nombre}"></span>
+                                <span class="name" th:text="${coleccion.nombre}"></span><span
+                                    th:text="| (${coleccion.ocurrencias})|"></span>
+                                <em class="float-end mt-1 fa fa-times d-none"></em>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
                         <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
                                 data-bs-toggle="dropdown"
+                                th:classappend="${!#lists.isEmpty(filtro.editoriales)} ? 'items-selected'"
                                 id="dropdownEditoriales" type="button">
                             Editoriales
                         </button>
+                        <input class="form-value" name="editoriales" type="hidden"/>
                         <div aria-labelledby="dropdownEditoriales"
                              class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
                             <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
                                 <div class="row">
                                     <div class="col-8">
-                                        <p style="font-size: 1em"><span class="countSelections">0</span> seleccionados
+                                        <p style="font-size: 1em"><span class="countSelections"
+                                                                        th:text="${#lists.size(filtro.editoriales)}">0</span>
+                                            seleccionados
                                         </p>
                                     </div>
                                     <div class="col-4 d-flex justify-content-end">
@@ -141,10 +175,16 @@
                                 <p class="nameSelections" style="font-size: 0.75em"></p>
                             </div>
                             <div class="dropdown-divider m-0"></div>
-                            <div class="dropdown-item mb-2" th:each="editorial:${listEditoriales}">
-                                <input class="d-none" th:field="*{editoriales}" th:value="${editorial.id}"
+                            <div class="dropdown-item mb-2"
+                                 th:classappend="${#lists.contains(filtro.editoriales, editorial.id)} ? 'active'"
+                                 th:each="editorial:${listEditoriales}">
+                                <input class="d-none simulate-value"
+                                       th:checked="${#lists.contains(filtro.editoriales, editorial.id)}"
+                                       th:value="${editorial.id}"
                                        type="checkbox"/>
-                                <span th:text="${editorial.nombre}"></span>
+                                <span class="name" th:text="${editorial.nombre}"></span><span
+                                    th:text="| (${editorial.ocurrencias})|"></span>
+                                <em class="float-end mt-1 fa fa-times d-none"></em>
                             </div>
                         </div>
                     </div>
@@ -182,7 +222,7 @@
                                                                             th:href="@{/contacto?tipo=encargo}">aquí</a></span>
                     </h3>
                 </div>
-                <div class="row">
+                <div class="row" th:if="${listadoLibros.totalPages!=0}">
                     <div class="col-lg-12 col-md-12 col-sm-12 mt-3 justify-content-center"
                          th:each="libro, stat:${listadoLibros}">
                         <div class="card m-0 border-0 card-link"
@@ -237,19 +277,19 @@
                     <ul class="pagination justify-content-start">
                         <li class="page-item" th:classappend="${listadoLibros.first} ? 'disabled' : ''">
                             <a aria-disabled="true" class="page-link" tabindex="-1"
-                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number-1}&orden=${orden}&direction=${direction}|}">
+                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number-1}|}">
                                 <
                             </a>
                         </li>
                         <li class="page-item" th:classappend="${listadoLibros.number==i}?'active':''"
                             th:each="i:${#numbers.sequence(0, listadoLibros.totalPages - 1)}">
                             <a class="page-link"
-                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${i}&orden=${orden}&direction=${direction}|}"
+                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${i}|}"
                                th:text="${i+1}"></a>
                         </li>
                         <li class="page-item" th:classappend="${listadoLibros.last} ? 'disabled' : ''">
                             <a class="page-link"
-                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number+1}&orden=${orden}&direction=${direction}|}">
+                               th:href="@{|/busquedas?termino=${termino!=null?termino:''}&page=${listadoLibros.number+1}|}">
                                 >
                             </a>
                         </li>

@@ -1,6 +1,7 @@
 package org.unicorn.book.app.libro.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.unicorn.book.app.libro.dto.AutorView;
 import org.unicorn.book.app.libro.dto.MaestroView;
@@ -13,6 +14,7 @@ public interface AutorRepository extends JpaRepository<Autor, Long> {
 
     AutorView findAutorById(Long id);
 
-    List<MaestroView> findAllByNombreIsNotNull();
+    @Query("SELECT x.id AS id, x.nombre AS nombre, " + "(SELECT COUNT (l) FROM LibroAutor l WHERE l.autor.id = x.id ) AS ocurrencias FROM Autor x")
+    List<MaestroView> findAllAutores();
 
 }
