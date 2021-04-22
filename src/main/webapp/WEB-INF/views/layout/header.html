@@ -36,11 +36,18 @@
 
         <form class="navbar-form" method="get" style="display: none; width: 40%" th:action="@{/busquedas}"
               th:object="${filtro}">
-            <div class="input-group">
-                <input class="form-control form-control-lg" name="termino" th:value="${filtro}? ${filtro.termino}"
-                       type="text"
-                       placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
-                <button class="btn btn-primary btn-search" type="submit">Buscar</button>
+            <div class="row">
+                <div class="col-10">
+                    <div class="input-group">
+                        <input aria-label="Text input with checkbox" class="form-control form-control-lg" name="termino"
+                               placeholder="Título, autor, isbn..."
+                               th:value="${filtro}? ${filtro.termino}" type="text">
+                        <button class="btn btn-primary btn-search" type="submit">Buscar</button>
+                    </div>
+                </div>
+                <div class="col-2 d-flex align-items-center justify-content-center">
+                    <a class="link-primary" th:href="@{/busquedas}" type="button">Búsqueda avanzada</a>
+                </div>
             </div>
         </form>
         <ul class="navbar-nav ms-auto">
@@ -118,6 +125,9 @@
                     <button class="btn btn-primary btn-search" type="submit">Buscar</button>
                 </div>
             </form>
+            <p class="text-center mt-5">
+                <a class="link-primary" th:href="@{/busquedas}" type="button">Búsqueda avanzada</a>
+            </p>
         </div>
     </div>
 </div>

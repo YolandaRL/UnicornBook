@@ -29,10 +29,10 @@
             <hr class="legend-separator">
         </div>
         <!-- NOVEDADES -->
-        <div class="carousel slide carousel-dark" data-bs-ride="carousel" id="carouselExampleCaptions">
+        <div class="carousel slide carousel-dark" data-bs-ride="carousel" id="carouselNovedades">
             <div class="carousel-indicators">
                 <div class="carousel-indicators">
-                    <button data-bs-target="#carouselExampleCaptions" th:aria-current="${stat.index==0}"
+                    <button data-bs-target="#carouselNovedades" th:aria-current="${stat.index==0}"
                             th:class="${stat.index==0}?'active':''"
                             th:data-bs-slide-to="${stat.index}"
                             th:each="libro, stat:${listNovedades}"
@@ -40,10 +40,10 @@
                 </div>
 
             </div>
-            <div class="carousel-inner">
+            <div class="carousel-inner col-10 mx-auto">
                 <div class="carousel-item" th:classappend="${stat.index==0}?'active':''"
                      th:each="libro, stat:${listNovedades}" th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
-                    <div class="row d-flex align-items-center">
+                    <div class="row d-flex align-items-cente">
                         <div class="col-lg-3 col-md-3 col-sm-12">
                             <img alt="..." class="row d-block" style="height: 35vh;
    margin: auto" th:src="${libro.linkPortada}">
@@ -55,13 +55,13 @@
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleCaptions"
+            <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselNovedades"
                     type="button">
                 <span aria-hidden="true" class="carousel-control-prev-icon" style="color: black"></span>
-                <span class="visually-hidden" style="color: black">Previous</span>
+                <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleCaptions"
-                    style="color: black" type="button">
+            <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselNovedades"
+                    type="button">
                 <span aria-hidden="true" class="carousel-control-next-icon" style="color: black"></span>
                 <span class="visually-hidden" style="color: black">Next</span>
             </button>
@@ -90,6 +90,13 @@
                         </div>
                         <h5 class="mb-0 text-primary text-center"
                             th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">Precio</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-lg-6 col-md-6 col-sm-6 mb-3 d-flex align-items-center justify-content-center">
+                <div class="card text-center border-0 h-100">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a class="btn btn-primary" th:href="@{/busquedas}" type="button">Búsqueda avanzada</a>
                     </div>
                 </div>
             </div>
