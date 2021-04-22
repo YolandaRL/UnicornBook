@@ -94,7 +94,7 @@ function updateValuesInputs() {
         });
         if (values.length > 0) {
             $('.form-value', this).prop('disabled', false);
-            $('.form-value', this).val(values.join(';'));
+            $('.form-value', this).val(values.join(','));
         } else {
             $('.form-value', this).prop('disabled', true);
         }
