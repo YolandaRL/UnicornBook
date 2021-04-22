@@ -1,23 +1,22 @@
-package org.unicorn.book.app.usuario.model;
+package org.unicorn.book.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ESTADO")
-public class Estado implements Serializable {
-    private static final long serialVersionUID = 5425510610884752179L;
+@Table(name = "APP_COMPONENTE")
+public class Componente implements Serializable {
+
+    private static final long serialVersionUID = 9198898962405197652L;
 
     @Id
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "ESTADO")
+    @Column(name = "NOMBRE")
     private String nombre;
 
     public Long getId() {

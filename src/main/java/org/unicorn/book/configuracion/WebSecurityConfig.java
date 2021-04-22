@@ -59,15 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.userDetailsService(UserDetailsServiceImpl)
-             .and()
-        .jdbcAuthentication()
-                .passwordEncoder(this.passworEnconder())
-                .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT USUARIO ,PASSWORD, ACTIVO FROM UNICORNBOOK.USUARIO WHERE USUARIO = ?")
-                .authoritiesByUsernameQuery("SELECT U.USUARIO,R.NOMBRE_ROL FROM USUARIO_ROL UR " +
-                        "INNER JOIN USUARIO U ON U.ID = UR.ID_USUARIO " +
-                        "INNER JOIN ROL R ON R.ID_ROL = UR.ID WHERE U.USUARIO = ?");
+        auth.userDetailsService(UserDetailsServiceImpl).and().jdbcAuthentication()
+                .passwordEncoder(this.passworEnconder()).dataSource(dataSource)
+                .usersByUsernameQuery("SELECT USUARIO ,PASSWORD, ACTIVO FROM USUARIO WHERE USUARIO = ?")
+                .authoritiesByUsernameQuery(
+                        "SELECT U.USUARIO,R.NOMBRE_ROL FROM USUARIO_ROL UR " + "INNER JOIN USUARIO U ON U.ID = UR.ID_USUARIO " + "INNER JOIN ROL R ON UR.ID_ROL = R.ID WHERE U.USUARIO = ?");
     }
 
 

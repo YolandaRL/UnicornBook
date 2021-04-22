@@ -3,7 +3,10 @@ package org.unicorn.book.app.usuario.service;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.unicorn.book.app.enums.ComponenteEnum;
 import org.unicorn.book.app.libro.repository.LibroRepository;
+import org.unicorn.book.app.model.Estado;
+import org.unicorn.book.app.respository.EstadoRepository;
 import org.unicorn.book.app.usuario.ContactoMapper;
 import org.unicorn.book.app.usuario.dto.ConsultaForm;
 import org.unicorn.book.app.usuario.dto.ConsultaView;
@@ -38,16 +41,19 @@ public class ContactoServiceImpl implements ContactoService {
     private final EncargoRepository encargoRepository;
     private final LibroRepository libroRepository;
     private final EntityManager entityManager;
+    private final EstadoRepository estadoRepository;
 
     public ContactoServiceImpl(TipoOperacionRepository tipoOperacionRepository,
             TipoEntregaRepository tipoEntregaRepository, ConsultaRepository consultaRepository,
-            EncargoRepository encargoRepository, LibroRepository libroRepository, EntityManager entityManager) {
+            EncargoRepository encargoRepository, LibroRepository libroRepository, EntityManager entityManager,
+            EstadoRepository estadoRepository) {
         this.tipoOperacionRepository = tipoOperacionRepository;
         this.tipoEntregaRepository = tipoEntregaRepository;
         this.consultaRepository = consultaRepository;
         this.encargoRepository = encargoRepository;
         this.libroRepository = libroRepository;
         this.entityManager = entityManager;
+        this.estadoRepository = estadoRepository;
     }
 
     @Override
@@ -89,7 +95,7 @@ public class ContactoServiceImpl implements ContactoService {
         if (AuthenticationUtils.getIdUsuario() != null) {
             encargo.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
         }
-        //fixme encargo.setEstado("");
+        encargo.setEstado(estadoRepository.findTopByComponenteId(ComponenteEnum.ENCARGO.getId()));
         encargoRepository.save(encargo);
         return encargoForm;
     }
@@ -107,7 +113,8 @@ public class ContactoServiceImpl implements ContactoService {
         if (AuthenticationUtils.getIdUsuario() != null) {
             consulta.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
         }
-        // FIXME consulta.setEstado();
+        Estado es = estadoRepository.findTopByComponenteId(ComponenteEnum.CONSULTA.getId());
+        consulta.setEstado(es);
         consultaRepository.save(consulta);
         return consultaForm;
     }

@@ -29,7 +29,7 @@
                         <th class="text-center" scope="col">Fecha fin</th>
                         <th class="text-center" scope="col">Estado</th>
                         <th class="text-center" scope="col">Fecha de entrega</th>
-                        <th class="text-center" scope="col">Acciones</th>
+                        <!--<th class="text-center" scope="col">Acciones</th>-->
 
                     </tr>
                     </thead>
@@ -48,12 +48,12 @@
                         <td class="text-center"><span th:text="${e.estadoNombre}"></span></td>
                         <td class="text-center"><span th:text="${#dates.format(e.fechaEntrega, 'dd-MM-yyyy')}"></span>
                         </td>
-
-                        <td class="text-center">
-                            <a class="a-link-icon fa fa-trash-alt" id="cancelar-encargo"
-                               th:href="@{/contacto/encargo/__${e.id}__/cancelar}">
-                            </a>
-                        </td>
+                        <!--
+                                                <td class="text-center">
+                                                    <a class="a-link-icon fa fa-trash-alt" id="cancelar-encargo"
+                                                       th:href="@{/contacto/encargo/__${e.id}__/cancelar}">
+                                                    </a>
+                                                </td>-->
                     </tr>
                     </tbody>
                 </table>

@@ -1,6 +1,7 @@
 package org.unicorn.book.app.usuario.model;
 
 import org.unicorn.book.app.libro.model.Libro;
+import org.unicorn.book.app.model.Estado;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
