@@ -282,7 +282,7 @@
                                             </div>
                                             <p class="card-text"
                                                th:text="${#strings.length(libro.sipnosis)>200 ? #strings.substring(libro.sipnosis,0,200) + '...' : libro.sipnosis}"></p>
-                                            <p th:text="|${libro.editorial} / ${libro.isbn}|"></p>
+                                            <p th:text="|Editorial: ${libro.editorial}|"></p>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
