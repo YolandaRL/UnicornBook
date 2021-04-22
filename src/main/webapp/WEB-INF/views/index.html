@@ -29,10 +29,10 @@
             <hr class="legend-separator">
         </div>
         <!-- NOVEDADES -->
-        <div class="carousel slide carousel-dark" data-bs-ride="carousel" id="carouselNovedades">
+        <div class="carousel card-link slide carousel-dark p-1" data-bs-ride="carousel" id="carouselExampleCaptions">
             <div class="carousel-indicators">
                 <div class="carousel-indicators">
-                    <button data-bs-target="#carouselNovedades" th:aria-current="${stat.index==0}"
+                    <button data-bs-target="#carouselExampleCaptions" th:aria-current="${stat.index==0}"
                             th:class="${stat.index==0}?'active':''"
                             th:data-bs-slide-to="${stat.index}"
                             th:each="libro, stat:${listNovedades}"
@@ -40,10 +40,10 @@
                 </div>
 
             </div>
-            <div class="carousel-inner col-10 mx-auto">
-                <div class="carousel-item" th:classappend="${stat.index==0}?'active':''"
+            <div class="carousel-inner">
+                <div class="carousel-item card-link" th:classappend="${stat.index==0}?'active':''"
                      th:each="libro, stat:${listNovedades}" th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
-                    <div class="row d-flex align-items-cente">
+                    <div class="row d-flex align-items-center">
                         <div class="col-lg-3 col-md-3 col-sm-12">
                             <img alt="..." class="row d-block" style="height: 35vh;
    margin: auto" th:src="${libro.linkPortada}">
@@ -55,16 +55,18 @@
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselNovedades"
+            <!--
+            <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleCaptions"
                     type="button">
                 <span aria-hidden="true" class="carousel-control-prev-icon" style="color: black"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden" style="color: black">Previous</span>
             </button>
-            <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselNovedades"
-                    type="button">
+            <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleCaptions"
+                    style="color: black" type="button">
                 <span aria-hidden="true" class="carousel-control-next-icon" style="color: black"></span>
                 <span class="visually-hidden" style="color: black">Next</span>
             </button>
+            -->
         </div>
 
         <div class="row text-center mt-xl-5 mb-0">

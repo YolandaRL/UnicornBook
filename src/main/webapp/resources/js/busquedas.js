@@ -146,6 +146,7 @@ function configurePrecioRange() {
         stop: function (event, ui) {
             precio.val(ui.values[0] + "-" + ui.values[1]);
             precio.prop('disabled', ui.values[0] === precioMinimoActual && ui.values[1] === precioMaximoActual);
+            updateValuesInputs();
             submitFilter();
         }
     });
