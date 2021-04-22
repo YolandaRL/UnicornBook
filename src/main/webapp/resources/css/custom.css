@@ -3,6 +3,13 @@
     margin-bottom: 2em;
 }
 
+.ui-corner-all.ui-state-default {
+    background: #db7093 !important;
+}
+
+#amount {
+    color: #db7093 !important;
+}
 
 @media only screen and (min-width: 600px) {
     /* For tablets: */

@@ -9,7 +9,7 @@ import org.unicorn.book.app.libro.dto.AutorView;
 import org.unicorn.book.app.libro.dto.LibroDto;
 import org.unicorn.book.app.libro.dto.LibroView;
 import org.unicorn.book.app.libro.dto.MaestroView;
-import org.unicorn.book.app.libro.filter.BusquedaSimpleFilter;
+import org.unicorn.book.app.libro.filter.BusquedaFilter;
 import org.unicorn.book.app.libro.mapper.LibroMapper;
 import org.unicorn.book.app.libro.model.Libro;
 import org.unicorn.book.app.libro.repository.AutorRepository;
@@ -17,7 +17,7 @@ import org.unicorn.book.app.libro.repository.ColeccionRepository;
 import org.unicorn.book.app.libro.repository.EditorialRepository;
 import org.unicorn.book.app.libro.repository.LibroRepository;
 import org.unicorn.book.app.libro.repository.TematicaRepository;
-import org.unicorn.book.app.libro.specifications.BusquedaSimpleSpecifications;
+import org.unicorn.book.app.libro.specifications.BusquedaSpecifications;
 
 import java.util.List;
 
@@ -44,8 +44,8 @@ public class LibroServiceImpl implements LibroService {
     }
 
     @Override
-    public Page<LibroDto> findLibros(BusquedaSimpleFilter filtro, Pageable pageable) {
-        Page<Libro> libros = libroRepository.findAll(new BusquedaSimpleSpecifications(filtro), pageable);
+    public Page<LibroDto> findLibros(BusquedaFilter filtro, Pageable pageable) {
+        Page<Libro> libros = libroRepository.findAll(new BusquedaSpecifications(filtro), pageable);
         return libros.map(MAPPER::libroToDTO);
     }
 
@@ -67,6 +67,16 @@ public class LibroServiceImpl implements LibroService {
     @Override
     public AutorView getAutor(Long id) {
         return autorRepository.findAutorById(id);
+    }
+
+    @Override
+    public Integer getMinimoPrecio() {
+        return libroRepository.getMinimoPrecio();
+    }
+
+    @Override
+    public Integer getMaximoPrecio() {
+        return libroRepository.getMaximoPrecio();
     }
 
     @Override

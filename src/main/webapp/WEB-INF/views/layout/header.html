@@ -8,7 +8,8 @@
         <form class="collapse-nav-bar-form" method="get" style="display: none; width: 65%" th:action="@{/busquedas}"
               th:object="${filtro}">
             <div class="input-group">
-                <input type="text" th:value="${termino}" class="form-control form-control-lg" name="termino"
+                <input class="form-control form-control-lg" name="termino" th:value="${filtro}? ${filtro.termino}"
+                       type="text"
                        placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
                 <button class="btn btn-primary btn-search" type="submit">
                     <em class="fa fa-search"></em>
@@ -36,7 +37,8 @@
         <form class="navbar-form" method="get" style="display: none; width: 40%" th:action="@{/busquedas}"
               th:object="${filtro}">
             <div class="input-group">
-                <input type="text" th:value="${termino}" class="form-control form-control-lg" name="termino"
+                <input class="form-control form-control-lg" name="termino" th:value="${filtro}? ${filtro.termino}"
+                       type="text"
                        placeholder="Título, autor, isbn..." aria-label="Text input with checkbox">
                 <button class="btn btn-primary btn-search" type="submit">Buscar</button>
             </div>

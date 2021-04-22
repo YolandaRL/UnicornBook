@@ -3,13 +3,17 @@ package org.unicorn.book.app.libro.filter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusquedaSimpleFilter {
+public class BusquedaFilter {
 
     private String termino;
     private List<Long> tematicas;
     private List<Long> colecciones;
     private List<Long> autores;
     private List<Long> editoriales;
+    private String precio;
+    private String orden;
+    private String direccion;
+    private Integer page;
 
     public String getTermino() {
         return termino;
@@ -49,5 +53,37 @@ public class BusquedaSimpleFilter {
 
     public void setEditoriales(List<Long> editoriales) {
         this.editoriales = editoriales;
+    }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    public String getOrden() {
+        return orden;
+    }
+
+    public void setOrden(String orden) {
+        this.orden = orden;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
     }
 }

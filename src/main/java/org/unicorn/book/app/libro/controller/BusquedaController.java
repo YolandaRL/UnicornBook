@@ -1,15 +1,17 @@
 package org.unicorn.book.app.libro.controller;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.unicorn.book.app.libro.dto.MaestroView;
-import org.unicorn.book.app.libro.filter.BusquedaSimpleFilter;
+import org.unicorn.book.app.libro.filter.BusquedaFilter;
 import org.unicorn.book.app.libro.service.LibroService;
 
 import java.util.List;
@@ -24,8 +26,8 @@ public class BusquedaController {
     }
 
     @ModelAttribute("filtro")
-    public BusquedaSimpleFilter filtro() {
-        return new BusquedaSimpleFilter();
+    public BusquedaFilter filtro() {
+        return new BusquedaFilter();
     }
 
     @ModelAttribute("listAutores")
@@ -49,42 +51,23 @@ public class BusquedaController {
     }
 
     @GetMapping("/busquedas")
-    public String busquedaSimple(ModelMap model, @ModelAttribute("filtro") BusquedaSimpleFilter filter,
+    public String busquedaSimple(ModelMap model, @ModelAttribute("filtro") BusquedaFilter filter,
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
+        if (!StringUtils.isEmpty(filter.getOrden())) {
+            Sort.Direction d = StringUtils.isEmpty(filter.getDireccion()) || filter.getDireccion().equals("asc") ?
+                    Sort.Direction.ASC :
+                    Sort.Direction.DESC;
+            Integer page = filter.getPage() == null ? 0 : filter.getPage();
+            pageable = PageRequest.of(page, 20, d, filter.getOrden());
+        }
         model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
         model.addAttribute("filtro", filter);
+        model.addAttribute("precioMinimo", libroService.getMinimoPrecio());
+        model.addAttribute("precioMaximo", libroService.getMaximoPrecio());
+
         return "libro/busquedas";
     }
 
-    @GetMapping("/busqueda-avanzada")
-    public String busquedaAvanzada(ModelMap model, @ModelAttribute("filtro") BusquedaSimpleFilter filter,
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
-        model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
-        model.addAttribute("filtro", filter);
-        return "libro/busquedas :: resultados";
-    }
-
-    /*
-        @PostMapping("/busquedas")
-        public String post(ModelMap model, @RequestParam(value = "termino", required = false) String termino,
-                @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
-            BusquedaSimpleFilter filter = new BusquedaSimpleFilter();
-            filter.setTermino(termino);
-
-            model.addAttribute("termino", termino);
-            model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
-
-            return "libro/busquedas";
-        }
-
-        @PostMapping("/busqueda-avanzada")
-        public String busquedaAvanzada(@ModelAttribute("filtro") BusquedaSimpleFilter filter, ModelMap model,
-                @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
-            model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
-
-            return "libro/busquedas :: resultados";
-        }
-    */
     @GetMapping("/libro/{id}")
     public String get(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("libro", libroService.getLibro(id));

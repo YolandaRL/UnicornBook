@@ -1,5 +1,28 @@
 jQuery(function () {
 
+    changeTextClasificacion();
+    configurePrecioRange();
+
+    $(document).on('click', '.clasificacion-link', function () {
+        let context = $(this).closest('ul');
+        let inputOrden = $('input[name="orden"]', context);
+        let inputDireccion = $('input[name="direccion"]', context);
+        inputOrden.val($(this).data('orden'));
+        inputOrden.prop('disabled', false);
+        inputDireccion.val($(this).data('direccion'));
+        inputDireccion.prop('disabled', false);
+        updateValuesInputs();
+        submitFilter();
+    });
+
+    $(document).on('click', '.page-link', function (e) {
+        e.preventDefault()
+        $('input', $('.page-item')).prop('disabled', true);
+        $('input', $(this).closest('.page-item')).prop('disabled', false);
+        updateValuesInputs();
+        submitFilter();
+    });
+
     $(document).on("click", '.dropdown-menu-advanced-search .dropdown-item', function () {
         showLoader();
         let checkbox = $('input', $(this).closest('div'));
@@ -38,6 +61,7 @@ jQuery(function () {
             inputs.prop('checked', true);
         }
         updateInfoFilter(context);
+        updateValuesInputs();
         submitFilter();
     });
 });
@@ -79,17 +103,50 @@ function updateValuesInputs() {
 
 function submitFilter() {
     $('#advanced-search').submit();
-    /*$.ajax({
-        url: CONTEXT_ROOT + 'busqueda-avanzada',
-        headers: {
-            'X-CSRF-Token': $('[name*=_csrf]').val()
-        },
-        type: "GET",
-        data: $('#advanced-search').serialize(),
-        success: function (fragment) {
-            $('#resultados').html(fragment);
-        }, complete: function () {
-            hideLoader();
+}
+
+function changeTextClasificacion() {
+    let containerClasificacion = $('#clasificacion');
+    let context = $('.active', containerClasificacion);
+    if (context !== undefined && context.length > 0) {
+        $('#text-clasificacion', containerClasificacion).text(context.first().text());
+    }
+}
+
+function configurePrecioRange() {
+    let precioMinimoActual = parseInt($('#precioMinimo').val());
+    let precioMaximoActual = parseInt($('#precioMaximo').val());
+
+    let precio = $('input[name="precio"]');
+    let filtroMinimo;
+    let filtroMaximo;
+
+    console.log(precio.val() !== undefined && precio.val() !== '');
+    if (precio.val() !== undefined && precio.val() !== '') {
+        filtroMinimo = parseInt(precio.val().split('-')[0]);
+        filtroMaximo = parseInt(precio.val().split('-')[1]);
+    } else {
+        filtroMinimo = precioMinimoActual;
+        filtroMaximo = precioMaximoActual;
+    }
+
+    $("#range-advanced-search").slider({
+        range: true,
+        min: precioMinimoActual,
+        max: precioMaximoActual,
+        values: [filtroMinimo, filtroMaximo],
+        slide: function (event, ui) {
+            $("#amount").text(ui.values[0] + "€ - " + ui.values[1] + "€");
         }
-    });*/
+    });
+    $("#amount").text($("#range-advanced-search").slider("values", 0) +
+        "€ - " + $("#range-advanced-search").slider("values", 1) + "€");
+
+    $("#range-advanced-search").slider({
+        stop: function (event, ui) {
+            precio.val(ui.values[0] + "-" + ui.values[1]);
+            precio.prop('disabled', ui.values[0] === precioMinimoActual && ui.values[1] === precioMaximoActual);
+            submitFilter();
+        }
+    });
 }

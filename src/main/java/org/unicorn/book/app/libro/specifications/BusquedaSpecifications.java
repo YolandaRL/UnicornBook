@@ -2,7 +2,7 @@ package org.unicorn.book.app.libro.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.ObjectUtils;
-import org.unicorn.book.app.libro.filter.BusquedaSimpleFilter;
+import org.unicorn.book.app.libro.filter.BusquedaFilter;
 import org.unicorn.book.app.libro.model.Libro;
 import org.unicorn.book.app.libro.model.LibroAutor;
 import org.unicorn.book.app.libro.model.LibroColeccion;
@@ -18,13 +18,13 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusquedaSimpleSpecifications implements Specification<Libro> {
+public class BusquedaSpecifications implements Specification<Libro> {
 
     public static final String PERCENT = "%";
-    private final BusquedaSimpleFilter filter;
+    private final BusquedaFilter filter;
     private final List<Predicate> predicates = new ArrayList<>();
 
-    public BusquedaSimpleSpecifications(BusquedaSimpleFilter filter) {
+    public BusquedaSpecifications(BusquedaFilter filter) {
         this.filter = filter;
     }
 
@@ -63,6 +63,11 @@ public class BusquedaSimpleSpecifications implements Specification<Libro> {
 
         if (!filter.getEditoriales().isEmpty()) {
             predicates.add(root.get("editorial").get("id").in(new ArrayList<>(filter.getEditoriales())));
+        }
+
+        if (!ObjectUtils.isEmpty(filter.getPrecio()) && filter.getPrecio().split("-").length == 2) {
+            String[] precio = filter.getPrecio().split("-");
+            predicates.add(cb.between(root.get("precio"), Float.parseFloat(precio[0]), Float.parseFloat(precio[1])));
         }
 
         return cb.and(predicates.toArray(new Predicate[] {}));

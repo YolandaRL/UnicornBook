@@ -25,4 +25,10 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
     List<LibroView> findTop10ByVisibleIsTrueOrderByFechaDisponibleDesc();
 
     Page<Libro> findAll(Specification<Libro> specification, Pageable pageable);
+
+    @Query("SELECT max(l.precio) FROM Libro l")
+    Integer getMaximoPrecio();
+
+    @Query("SELECT min(l.precio) FROM Libro l")
+    Integer getMinimoPrecio();
 }

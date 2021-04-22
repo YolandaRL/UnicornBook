@@ -6,13 +6,13 @@ import org.unicorn.book.app.libro.dto.AutorView;
 import org.unicorn.book.app.libro.dto.LibroDto;
 import org.unicorn.book.app.libro.dto.LibroView;
 import org.unicorn.book.app.libro.dto.MaestroView;
-import org.unicorn.book.app.libro.filter.BusquedaSimpleFilter;
+import org.unicorn.book.app.libro.filter.BusquedaFilter;
 
 import java.util.List;
 
 public interface LibroService {
 
-    Page<LibroDto> findLibros(BusquedaSimpleFilter filtro, Pageable pageable);
+    Page<LibroDto> findLibros(BusquedaFilter filtro, Pageable pageable);
 
     LibroView getLibro(Long id);
 
@@ -21,6 +21,10 @@ public interface LibroService {
     List<LibroView> getMuestraLibros();
 
     AutorView getAutor(Long id);
+
+    Integer getMinimoPrecio();
+
+    Integer getMaximoPrecio();
 
     List<MaestroView> getAllAutores();
 
