@@ -49,7 +49,7 @@ public class UsuarioController {
     }
 
     @PostMapping(value = "/nuevo")
-    public String submitFormularioRegistro(@Valid @ModelAttribute("registroForm") UsuarioForm usuarioForm,
+    public String submitFormularioRegistro(@Valid @ModelAttribute("usuarioForm") UsuarioForm usuarioForm,
             BindingResult result) {
         if (result.hasErrors()) {
             return "usuario/registro";
@@ -74,7 +74,7 @@ public class UsuarioController {
         usuarioService.bajaUsuario();
         ra.addFlashAttribute("msgToastSuccess", "Su cuenta ha sido eliminado correctamente");
         httpServletRequest.getSession().invalidate();
-        return "redirect:/logout";
+        return "redirect:/cerrar-sesison";
     }
 
     @GetMapping(value = "/perfil")
@@ -163,6 +163,7 @@ public class UsuarioController {
         }
         model.addAttribute("error", false);
         usuarioService.altaOActualizarTarjeta(tarjetaForm);
+        model.addAttribute("tarjetas", usuarioService.getTarjetas());
 
         return "usuario/mi-cuenta/mis-tarjetas :: tarjetas-table";
     }
