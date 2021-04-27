@@ -174,8 +174,14 @@ public class UsuarioController {
         return "redirect:/usuario/tarjetas";
     }
 
-    @GetMapping("/carrito/get")
+    @GetMapping("/carrito")
     public String getCarrito(ModelMap model) {
+        model.addAttribute("productos", cestaService.getCarritoCompra());
+        return "usuario/mi-cesta/mi-cesta";
+    }
+
+    @GetMapping("/carrito/get")
+    public String getCarritoSimplificado(ModelMap model) {
         model.addAttribute("productos", cestaService.getCarritoCompra());
         return "usuario/mi-cesta/mi-cesta-simplificado :: cesta-simplificada";
     }
