@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface CestaService {
 
+    Integer countCarrito();
+
     List<CestaView> getCarritoCompra();
 
-    CestaView addLibroCarritoCompra(Long idLibro, Integer cantidad);
+    List<CestaView> addLibroCarritoCompra(Long idLibro, Integer cantidad);
 }

@@ -8,5 +8,7 @@ public interface CestaView {
 
     String getLibroLinkPortada();
 
+    Float getLibroPrecio();
+
     Integer getCantidad();
 }

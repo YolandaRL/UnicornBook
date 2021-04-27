@@ -11,12 +11,39 @@
                 No hay libros en tu carrito
             </div>
             <div th:unless="${#lists.isEmpty(productos)}">
-                jejeje
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 justify-content-center"
+                     th:each="p:${productos}">
+                    <div class="card m-0 border-0">
+                        <div class="row g-0 pl-5 pr-5">
+                            <div class="col-md-3 d-flex justify-content-center">
+                                <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
+                                     style="height: 10vh; margin: auto" th:src="${p.libroLinkPortada}">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${p.libroTitulo}"></h5>
+                                    <!--
+                                    <input type="number" min="1" max="5" th:value="${p.cantidad}" th:data-id="${p.libroId}" class="carrito-libro-cantidad"/>
+                                    -->
+                                    <span th:text="|x${p.cantidad}|"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card-body h-50 d-flex align-items-end justify-content-center justify-content-center">
+                                    <h5 class="mb-0 text-primary text-center"
+                                        th:text="|${#numbers.formatDecimal(p.libroPrecio*p.cantidad, 0, 'POINT', 2, 'COMMA')} €|">
+                                        Precio</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div th:unless="${#lists.isEmpty(productos)}">
-                <p th:each="p:${productos}" th:text="${p.libroTitulo}"></p>
+            <div class="offcanvas-footer">
+                <button>Confirmar compra</button>
             </div>
         </div>
     </div>
+
 </div>
 </div>

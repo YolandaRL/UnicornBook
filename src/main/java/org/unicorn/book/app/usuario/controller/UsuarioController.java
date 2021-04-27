@@ -180,11 +180,12 @@ public class UsuarioController {
         return "usuario/mi-cesta/mi-cesta-simplificado :: cesta-simplificada";
     }
 
-    @PostMapping("/carrito/update")
+    @PostMapping("/carrito/add")
     public String actualizarCarrito(ModelMap model, @RequestParam("idLibro") Long id,
-            @RequestParam("cantidad") Integer cantidad) {
-
-        return "usuario/mi-cesta/mi-cesta-simplificado :: cesta-simplificada";
+            @RequestParam(name = "cantidad", required = false) Integer cantidad) {
+        model.addAttribute("productos", cestaService.addLibroCarritoCompra(id, cantidad));
+        model.addAttribute("offcanvasCarrito", true);
+        return "redirect:/libro/" + id;
     }
 
     @GetMapping(value = "/pedidos")

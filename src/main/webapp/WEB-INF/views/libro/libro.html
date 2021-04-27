@@ -8,7 +8,10 @@
 </head>
 <body>
 <div id="links"></div>
-<div id="scripts"></div>
+<div id="scripts">
+    <script th:src="@{/resources/js/carrito.js}"></script>
+
+</div>
 
 <div class="page-content" id="content">
     <div class="container-full">
@@ -88,15 +91,24 @@
                                 th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">
                                 Precio</h5>
                         </div>
-                        <div class="card-body h-50 d-flex align-items-start justify-content-center justify-content-center">
-                            <button class="btn btn-primary" th:if="${libro.stock != null && libro.stock > 0}">
-                                <em class="fa fa-shopping-basket"></em>
-                                <span>Añadir al carrito</span>
-                            </button>
-                            <a class="btn btn-secondary" th:href="@{/contacto?tipo=encargo&libro=__${libro.id}__}"
-                               th:if="${libro.stock == null || libro.stock == 0}">
-                                <span>Encargar</span>
-                            </a>
+                        <div class="card-body h-50 d-flex align-items-start justify-content-center justify-content-center" th:with="conStock=${libro.stock != null && libro.stock > 0}">
+                            <div class="p-1">
+                                <form id="addLibroCarrito" th:action="@{/usuario/carrito/add}" method="post">
+                                    <input type="number" class="form-control" name="cantidad" min="1" max="5" th:default="1"/>
+                                    <input type="hidden" name="idLibro" th:value="${libro.id}"/>
+                                    <button type="submit" class="btn btn-primary mr-5" th:disabled="${!conStock}">
+                                        <em class="fa fa-shopping-basket"></em>
+                                        <span th:if="${conStock}">Añadir al carrito</span>
+                                        <span th:unless="${conStock}">Sin stock</span>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="p-1" th:unless="${conStock}">
+                                <a class="btn btn-secondary"
+                                   th:href="@{/contacto?tipo=encargo&libro=__${libro.id}__}">
+                                    <span>Encargar</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

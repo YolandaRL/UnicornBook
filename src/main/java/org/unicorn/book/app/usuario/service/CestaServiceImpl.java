@@ -2,7 +2,11 @@ package org.unicorn.book.app.usuario.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.unicorn.book.app.libro.model.Libro;
 import org.unicorn.book.app.usuario.dto.CestaView;
+import org.unicorn.book.app.usuario.model.Cesta;
+import org.unicorn.book.app.usuario.model.CestaPk;
+import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.CestaRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
 
@@ -22,13 +26,34 @@ public class CestaServiceImpl implements CestaService {
     }
 
     @Override
-    public List<CestaView> getCarritoCompra() {
-        List<CestaView> d = cestaRepository.findAllByUsuarioId(AuthenticationUtils.getIdUsuario());
-        return d;
+    public Integer countCarrito() {
+        List<CestaView> carrito = this.getCarritoCompra();
+        return carrito.stream().map(CestaView::getCantidad).reduce(0, Integer::sum);
     }
 
     @Override
-    public CestaView addLibroCarritoCompra(Long idLibro, Integer cantidad) {
-        return null;
+    public List<CestaView> getCarritoCompra() {
+        return cestaRepository.findAllByUsuarioId(AuthenticationUtils.getIdUsuario());
+    }
+
+    @Override
+    @Transactional
+    public List<CestaView> addLibroCarritoCompra(Long idLibro, Integer cantidad) {
+        CestaPk pk = new CestaPk();
+        pk.setIdUsuario(AuthenticationUtils.getIdUsuario());
+        pk.setIdLibro(idLibro);
+        Cesta cesta = entityManager.find(Cesta.class, pk);
+
+        if (cesta == null) {
+            cesta = new Cesta();
+            cesta.setLibro(entityManager.getReference(Libro.class, idLibro));
+            cesta.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+            cesta.setPk(pk);
+            cesta.setCantidad(cantidad==null || cantidad==0 ? 1 : cantidad);
+        } else {
+            cesta.setCantidad(cantidad==null || cantidad==0 ? cesta.getCantidad() + 1 : cesta.getCantidad() + cantidad);
+        }
+        cestaRepository.save(cesta);
+        return this.getCarritoCompra();
     }
 }
