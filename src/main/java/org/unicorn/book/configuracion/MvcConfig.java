@@ -33,7 +33,6 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToEnumConverter());
-        registry.addConverter(new LongListConverter());
     }
 
     @Bean
