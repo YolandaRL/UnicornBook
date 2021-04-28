@@ -2,12 +2,8 @@ package org.unicorn.book.app.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.unicorn.book.app.libro.service.LibroService;
-import org.unicorn.book.app.usuario.service.CestaService;
-import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,19 +11,9 @@ import javax.servlet.http.HttpSession;
 public class InicioController {
 
     private final LibroService libroService;
-    private final CestaService cestaService;
 
-    public InicioController(LibroService libroService, CestaService cestaService) {
+    public InicioController(LibroService libroService) {
         this.libroService = libroService;
-        this.cestaService = cestaService;
-    }
-
-    @ModelAttribute("countCarrito")
-    public Integer countLibrosCarrito() {
-        if (!ObjectUtils.isEmpty(AuthenticationUtils.getIdUsuario())) {
-            return cestaService.countCarrito();
-        }
-        return 0;
     }
 
     @GetMapping("/")

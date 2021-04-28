@@ -11,4 +11,6 @@ public interface CestaService {
     List<CestaView> getCarritoCompra();
 
     List<CestaView> addLibroCarritoCompra(Long idLibro, Integer cantidad);
+
+    void eliminarLibro(Long idLibro);
 }

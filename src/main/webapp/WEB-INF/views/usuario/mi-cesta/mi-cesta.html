@@ -13,29 +13,204 @@
 <div class="page-content" id="content">
     <div class="container">
         <div class="justify-content-center">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">1 Productos</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2 Envío</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">3 Pago</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-confirmar-tab" data-bs-toggle="pill" data-bs-target="#ppills-confirmar" type="button" role="tab" aria-controls="pills-confirmar" aria-selected="false">4 Confirmar</button>
-                </li>
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-                <div class="tab-pane fade" id="pills-confirmar" role="tabpanel" aria-labelledby="pills-confirmar-tab">...</div>
+            <div th:if="${#lists.isEmpty(productos)}" class="text-center">
+                <h3>Todavía no has añadido libros a tu cesta</h3>
+            </div>
+            <div th:unless="${#lists.isEmpty(productos)}">
+                <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="cesta-tab" data-bs-toggle="pill" data-bs-target="#cesta" type="button" role="tab" aria-controls="cesta" aria-selected="true">1 Productos</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="direccion-tab" data-bs-toggle="pill" data-bs-target="#direccion" type="button" role="tab" aria-controls="direccion" aria-selected="false">2 Envío</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pago-tab" data-bs-toggle="pill" data-bs-target="#pago" type="button" role="tab" aria-controls="pago" aria-selected="false">3 Pago</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="confirmacion-tab" data-bs-toggle="pill" data-bs-target="#confirmacion" type="button" role="tab" aria-controls="confirmacion" aria-selected="false">4 Confirmar</button>
+                    </li>
+                </ul>
+                <form id="compra-form" th:action="@{/usuario/comprar}" method="post">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="cesta" role="tabpanel" aria-labelledby="cesta-tab">
+                            <div id="libros">
+                                <div class="row justify-content-center" th:each="p:${productos}">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
 
+                                        <div class="card m-0 border-0">
+                                            <div class="row g-0 pl-5 pr-5">
+                                                <div class="col-md-3 d-flex justify-content-center">
+                                                    <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
+                                                         style="height: 10vh; margin: auto" th:src="${p.libroLinkPortada}">
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title" th:text="${p.libroTitulo}"></h5>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <label class="input-group-text" for="inputGroupSelect01">Cantidad</label>
+                                                            </div>
+                                                            <select class="custom-select actualizar-carrito" name="cantidad" id="inputGroupSelect01">
+                                                                <option th:each="i: ${#numbers.sequence(1, p.libroStock)}" th:data-id-libro="${p.libroId}" th:value="${i}" th:text="|x${i}|"
+                                                                        th:selected="${p.cantidad==i}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5 d-flex align-items-center justify-content-center">
+                                                    <div class="card-body">
+                                                        <h4 class="mb-0 text-primary text-center"
+                                                            th:text="|${#numbers.formatDecimal(p.libroPrecio*p.cantidad, 0, 'POINT', 2, 'COMMA')} €|">
+                                                            Precio</h4>
+                                                        <p class="font-italic text-center" th:text="|(${#numbers.formatDecimal(p.libroPrecio, 0, 'POINT', 2, 'COMMA')}€ und.)|"></p>
+                                                        <p class="text-center cesta-eliminar-libro">
+                                                            <a class="mt-3 text-danger" th:href="@{/usuario/cesta/eliminar/__${p.libroId}__}">Eliminar</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="d-flex justify-content-end">
+                                            <h3 class="card-title text-right" th:text="|Total: ${#numbers.formatDecimal(totalCarrito, 0, 'POINT', 2, 'COMMA')} €|"></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5 row justify-content-center">
+                                <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-end">
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#direccion-tab"><span>Siguiente </span><em class="fa fa-arrow-right"></em></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="direccion" role="tabpanel" aria-labelledby="direccion-tab">
+                            <input type="hidden" name="idDireccion"/>
+                            <div class="row justify-content-center mb-3">
+                                <div class="alert-not-null col-lg-6 col-md-6 col-sm-12 alert alert-danger" style="display: none">
+                                    Es necesario indicar una dirección de envío para continuar
+                                </div>
+                            </div>
+                            <div class="row justify-content-center mb-5">
+                                <div class="col-lg-4 col-md-4 col-sm-8">
+                                    <div class="form-floating mb-3 required">
+                                        <select class="form-control" id="direcciones">
+                                            <option value="-1">Seleccione una opción</option>
+                                            <option th:each="i:${direcciones}"
+                                                    th:text="${i.nombrePersonalizado}" th:value="${i.id}" th:data-id="|#direccion-${i.id}|"></option>
+                                        </select>
+                                        <label for="direcciones">Direcciones</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4">
+                                    <button class="mt-1 btn btn-primary text-center">
+                                        <em class="fa fa-plus"></em>
+                                        <span> Nueva direccion</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div th:id="|direccion-${i.id}|" class="detalle-direcciones d-none" th:each="i:${direcciones}">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <strong><em class="fa fa-hashtag"></em><span th:text="${i.nombrePersonalizado}"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Destinatario: </span><strong><span th:text="|${i.nombre} ${i.apellido1} ${i.apellido2}|"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Direccion: </span><strong><span th:text="|${i.direccion}, ${i.codigoPostal}, ${i.provincia}, ${i.pais}|"></span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5 row justify-content-center">
+                                <div class="col-lg-3 col-md-3 col-sm-6 justify-content-start">
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#cesta-tab"><em class="fa fa-arrow-left"></em> <span>Atrás</span></a>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#pago-tab" data-prev-action="validate" data-not-null="idDireccion"><span>Siguiente </span><em class="fa fa-arrow-right"></em></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pago" role="tabpanel" aria-labelledby="pago-tab">
+                            <input type="hidden" name="idTarjeta"/>
+                            <div class="row justify-content-center mb-3">
+                                <div class="alert-not-null col-lg-6 col-md-6 col-sm-12 alert alert-danger" style="display: none">
+                                    Es necesario indicar una tarjeta de pago para continuar
+                                </div>
+                            </div>
+                            <div class="row justify-content-center mb-5">
+                                <div class="col-lg-4 col-md-4 col-sm-8">
+                                    <div class="form-floating mb-3 required">
+                                        <select class="form-control" id="tarjetas">
+                                            <option value="-1">Seleccione una opción</option>
+                                            <option th:each="i:${tarjetas}"
+                                                    th:text="'**** **** **** ' + ${#strings.substring(i.numero, 15, 19)}" th:value="${i.id}"></option>
+                                        </select>
+                                        <label for="tarjetas">Tarjetas</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4">
+                                    <button class="mt-1 btn btn-primary text-center">
+                                        <em class="fa fa-plus"></em>
+                                        <span> Nueva tarjeta</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-5 row justify-content-center">
+                                <div class="col-lg-3 col-md-3 col-sm-6 justify-content-start">
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#direccion-tab"><em class="fa fa-arrow-left"></em> <span>Atrás</span></a>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#confirmacion-tab" data-prev-action="validate" data-not-null="idTarjeta"><span>Siguiente </span><em class="fa fa-arrow-right"></em></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="confirmacion" role="tabpanel" aria-labelledby="confirmacion-tab">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <h4>Datos de entrega</h4>
+                                </div>
+                            </div>
+                            <div id="resumen-direccion"></div>
+                            <div class="mt-3 row justify-content-center">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <h4>Datos de pago</h4>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div id="resumen-pago"></div>
+                                </div>
+                            </div>
+                            <div class="mt-3 row justify-content-center">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <h4>Libros</h4>
+                                </div>
+                            </div>
+                            <div id="resumen-libros"></div>
+                            <div class="mt-5 row justify-content-center">
+                                <div class="col-lg-3 col-md-3 col-sm-6 justify-content-start">
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#direccion-tab"><em class="fa fa-arrow-left"></em><span>Atrás</span></a>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
+                                    <a class="btn btn-primary"><em class="fa fa-check"></em><span> Confirmar compra </span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+    <div th:replace="usuario/modals/modal-direccion"></div>
+    <div th:replace="usuario/modals/modal-tarjeta"></div>
 </div>
 </body>
 </html>

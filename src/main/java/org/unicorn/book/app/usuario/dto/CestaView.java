@@ -10,5 +10,7 @@ public interface CestaView {
 
     Float getLibroPrecio();
 
+    Integer getLibroStock();
+
     Integer getCantidad();
 }

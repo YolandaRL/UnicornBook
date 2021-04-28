@@ -51,9 +51,19 @@ public class CestaServiceImpl implements CestaService {
             cesta.setPk(pk);
             cesta.setCantidad(cantidad==null || cantidad==0 ? 1 : cantidad);
         } else {
-            cesta.setCantidad(cantidad==null || cantidad==0 ? cesta.getCantidad() + 1 : cesta.getCantidad() + cantidad);
+            cesta.setCantidad(cantidad==null || cantidad==0 ? 1 : cantidad);
         }
         cestaRepository.save(cesta);
         return this.getCarritoCompra();
+    }
+
+    @Override
+    @Transactional
+    public void eliminarLibro(Long idLibro) {
+        CestaPk pk = new CestaPk();
+        pk.setIdUsuario(AuthenticationUtils.getIdUsuario());
+        pk.setIdLibro(idLibro);
+        cestaRepository.delete(entityManager.find(Cesta.class, pk));
+
     }
 }

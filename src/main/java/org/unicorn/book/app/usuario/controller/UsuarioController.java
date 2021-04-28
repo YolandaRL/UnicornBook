@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.unicorn.book.app.usuario.dto.CestaView;
+import org.unicorn.book.app.usuario.dto.CompraForm;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
@@ -22,6 +24,7 @@ import org.unicorn.book.app.usuario.service.UsuarioService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("usuario")
@@ -174,9 +177,20 @@ public class UsuarioController {
         return "redirect:/usuario/tarjetas";
     }
 
+    @GetMapping("/cesta/eliminar/{idLibro}")
+    public String eliminar(@PathVariable("idLibro") Long idLibro) {
+        cestaService.eliminarLibro(idLibro);
+        return "redirect:/usuario/carrito";
+    }
+
     @GetMapping("/carrito")
     public String getCarrito(ModelMap model) {
-        model.addAttribute("productos", cestaService.getCarritoCompra());
+            model.addAttribute("form", new CompraForm());
+            model.addAttribute("direcciones", usuarioService.getDirecciones());
+            model.addAttribute("tarjetas", usuarioService.getTarjetas());
+            List<CestaView> carrito = cestaService.getCarritoCompra();
+            model.addAttribute("productos", carrito);
+            model.addAttribute("totalCarrito", getTotalCarrito(carrito));
         return "usuario/mi-cesta/mi-cesta";
     }
 
@@ -184,6 +198,18 @@ public class UsuarioController {
     public String getCarritoSimplificado(ModelMap model) {
         model.addAttribute("productos", cestaService.getCarritoCompra());
         return "usuario/mi-cesta/mi-cesta-simplificado :: cesta-simplificada";
+    }
+
+    @GetMapping("/carrito/update/{idLibro}/{cantidad}")
+    public String actualizarCarrito1(ModelMap model, @PathVariable("idLibro") Long id,
+            @PathVariable(name = "cantidad") Integer cantidad) {
+        model.addAttribute("form", new CompraForm());
+        model.addAttribute("direcciones", usuarioService.getDirecciones());
+        model.addAttribute("tarjetas", usuarioService.getTarjetas());
+        List<CestaView> carrito = cestaService.getCarritoCompra();
+        model.addAttribute("productos", cestaService.addLibroCarritoCompra(id, cantidad));
+        model.addAttribute("totalCarrito", getTotalCarrito(carrito));
+        return "redirect:/usuario/carrito";
     }
 
     @PostMapping("/carrito/add")
@@ -202,5 +228,9 @@ public class UsuarioController {
     @GetMapping(value = "/comentarios")
     public String comentarios() {
         return "usuario/mis-comentarios";
+    }
+
+    private double getTotalCarrito(List<CestaView> cesta) {
+        return cesta.stream().mapToDouble(c -> c.getCantidad() * c.getLibroPrecio()).sum();
     }
 }
