@@ -1,11 +1,11 @@
 package org.unicorn.book.app.usuario.service;
 
+import org.unicorn.book.app.usuario.dto.CompraView;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
-import org.unicorn.book.app.usuario.model.Tarjeta;
 
 import java.util.List;
 
@@ -42,5 +42,7 @@ public interface UsuarioService {
     void altaOActualizarTarjeta(TarjetaForm form);
 
     void eliminarTarjeta(Long idTarjeta);
+
+    List<CompraView> getPedidos();
 
 }

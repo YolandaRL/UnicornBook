@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.thymeleaf.util.StringUtils;
 import org.unicorn.book.app.usuario.UsuarioMapper;
+import org.unicorn.book.app.usuario.dto.CompraView;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
@@ -203,6 +204,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public void eliminarTarjeta(Long idTarjeta) {
         entityManager.remove(entityManager.getReference(Tarjeta.class, idTarjeta));
+    }
+
+    @Override
+    public List<CompraView> getPedidos() {
+        return compraRepository.findAllByUsuarioId(AuthenticationUtils.getIdUsuario());
     }
 
     /**

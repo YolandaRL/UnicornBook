@@ -227,7 +227,8 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/pedidos")
-    public String pedidos() {
+    public String pedidos(ModelMap model) {
+        model.addAttribute("pedidos", usuarioService.getPedidos());
         return "usuario/mis-pedidos";
     }
 
