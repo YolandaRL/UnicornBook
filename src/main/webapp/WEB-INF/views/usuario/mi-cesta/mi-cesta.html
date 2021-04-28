@@ -31,7 +31,7 @@
                         <button class="nav-link" id="confirmacion-tab" data-bs-toggle="pill" data-bs-target="#confirmacion" type="button" role="tab" aria-controls="confirmacion" aria-selected="false">4 Confirmar</button>
                     </li>
                 </ul>
-                <form id="compra-form" th:action="@{/usuario/comprar}" method="post">
+                <form id="compra-form" method="post" th:action="@{/usuario/confirmar-pedido}" th:object="${compraForm}">
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="cesta" role="tabpanel" aria-labelledby="cesta-tab">
                             <div id="libros">
@@ -41,7 +41,8 @@
                                         <div class="card m-0 border-0">
                                             <div class="row g-0 pl-5 pr-5">
                                                 <div class="col-md-3 d-flex justify-content-center">
-                                                    <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
+                                                    <img alt="Portada"
+                                                         class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
                                                          style="height: 10vh; margin: auto" th:src="${p.libroLinkPortada}">
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
@@ -200,7 +201,8 @@
                                     <a class="btn btn-secondary avanzar-formulario" data-direction="#direccion-tab"><em class="fa fa-arrow-left"></em><span>Atrás</span></a>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
-                                    <a class="btn btn-primary"><em class="fa fa-check"></em><span> Confirmar compra </span></a>
+                                    <button class="btn btn-primary" type="submit"><em class="fa fa-check"></em><span> Confirmar compra </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

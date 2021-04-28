@@ -185,8 +185,8 @@ public class UsuarioController {
 
     @GetMapping("/carrito")
     public String getCarrito(ModelMap model) {
-            model.addAttribute("form", new CompraForm());
-            model.addAttribute("direcciones", usuarioService.getDirecciones());
+            model.addAttribute("compraForm", new CompraForm());
+        model.addAttribute("direcciones", usuarioService.getDirecciones());
             model.addAttribute("tarjetas", usuarioService.getTarjetas());
             List<CestaView> carrito = cestaService.getCarritoCompra();
             model.addAttribute("productos", carrito);
@@ -203,7 +203,7 @@ public class UsuarioController {
     @GetMapping("/carrito/update/{idLibro}/{cantidad}")
     public String actualizarCarrito1(ModelMap model, @PathVariable("idLibro") Long id,
             @PathVariable(name = "cantidad") Integer cantidad) {
-        model.addAttribute("form", new CompraForm());
+        model.addAttribute("compraForm", new CompraForm());
         model.addAttribute("direcciones", usuarioService.getDirecciones());
         model.addAttribute("tarjetas", usuarioService.getTarjetas());
         List<CestaView> carrito = cestaService.getCarritoCompra();
@@ -218,6 +218,12 @@ public class UsuarioController {
         model.addAttribute("productos", cestaService.addLibroCarritoCompra(id, cantidad));
         model.addAttribute("offcanvasCarrito", true);
         return "redirect:/libro/" + id;
+    }
+
+    @PostMapping("/confirmar-pedido")
+    public String confirmarPedido(@ModelAttribute("compraForm") CompraForm compraForm) {
+        cestaService.confirmarPedido(compraForm);
+        return "redirect:/usuario/pedidos";
     }
 
     @GetMapping(value = "/pedidos")

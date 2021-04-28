@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -28,10 +26,6 @@ public class Compra implements Serializable {
 
     @Column(name = "FECHA_COMPRA")
     private Date fechaCompra;
-
-    @Column(name = "HORA_COMPRA")
-    @Temporal(TemporalType.TIME)
-    private Date horaCompra;
 
     @Column(name = "FECHA_ENTREGA")
     private Date fechaEntrega;
@@ -73,14 +67,6 @@ public class Compra implements Serializable {
 
     public void setFechaCompra(Date fechaCompra) {
         this.fechaCompra = fechaCompra;
-    }
-
-    public Date getHoraCompra() {
-        return horaCompra;
-    }
-
-    public void setHoraCompra(Date horaCompra) {
-        this.horaCompra = horaCompra;
     }
 
     public Date getFechaEntrega() {

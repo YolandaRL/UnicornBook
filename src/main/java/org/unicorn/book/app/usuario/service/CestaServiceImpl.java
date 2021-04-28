@@ -2,15 +2,27 @@ package org.unicorn.book.app.usuario.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.unicorn.book.app.enums.ComponenteEnum;
 import org.unicorn.book.app.libro.model.Libro;
+import org.unicorn.book.app.respository.EstadoRepository;
 import org.unicorn.book.app.usuario.dto.CestaView;
+import org.unicorn.book.app.usuario.dto.CompraForm;
 import org.unicorn.book.app.usuario.model.Cesta;
 import org.unicorn.book.app.usuario.model.CestaPk;
+import org.unicorn.book.app.usuario.model.Compra;
+import org.unicorn.book.app.usuario.model.DetalleCompra;
+import org.unicorn.book.app.usuario.model.DetalleCompraPk;
+import org.unicorn.book.app.usuario.model.Direccion;
+import org.unicorn.book.app.usuario.model.Tarjeta;
+import org.unicorn.book.app.usuario.model.TipoEntrega;
 import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.CestaRepository;
+import org.unicorn.book.app.usuario.repository.CompraRepository;
+import org.unicorn.book.app.usuario.repository.DetalleCompraRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,10 +30,18 @@ import java.util.List;
 public class CestaServiceImpl implements CestaService {
 
     private final CestaRepository cestaRepository;
+    private final CompraRepository compraRepository;
+    private final DetalleCompraRepository detalleCompraRepository;
+    private final EstadoRepository estadoRepository;
     private final EntityManager entityManager;
 
-    public CestaServiceImpl(CestaRepository cestaRepository, EntityManager entityManager) {
+    public CestaServiceImpl(CestaRepository cestaRepository, CompraRepository compraRepository,
+            DetalleCompraRepository detalleCompraRepository, EstadoRepository estadoRepository,
+            EntityManager entityManager) {
         this.cestaRepository = cestaRepository;
+        this.compraRepository = compraRepository;
+        this.detalleCompraRepository = detalleCompraRepository;
+        this.estadoRepository = estadoRepository;
         this.entityManager = entityManager;
     }
 
@@ -65,5 +85,38 @@ public class CestaServiceImpl implements CestaService {
         pk.setIdLibro(idLibro);
         cestaRepository.delete(entityManager.find(Cesta.class, pk));
 
+    }
+
+    @Override
+    @Transactional
+    public void confirmarPedido(CompraForm form) {
+        List<Cesta> cesta = cestaRepository.findAllByUsuarioIdAndCantidadIsNotNull(AuthenticationUtils.getIdUsuario());
+
+        Compra compra = new Compra();
+        compra.setFechaCompra(new Date());
+        compra.setMetodoPago(1.0); //FIXME
+        compra.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
+        compra.setEstado(estadoRepository.findTopByComponenteId(ComponenteEnum.COMPRA.getId()));
+        compra.setTipoEntrega(entityManager.getReference(TipoEntrega.class, 1L)); // FIXME
+        compra.setDireccion(entityManager.getReference(Direccion.class, form.getIdDireccion()));
+        compra.setTarjeta(entityManager.getReference(Tarjeta.class, form.getIdTarjeta()));
+        compra = compraRepository.saveAndFlush(compra);
+
+        for (Cesta c : cesta) {
+            DetalleCompraPk pk = new DetalleCompraPk();
+            pk.setIdLibro(c.getLibro().getId());
+            pk.setIdCompra(compra.getId());
+            DetalleCompra dc = new DetalleCompra();
+            dc.setPk(pk);
+            dc.setLibro(c.getLibro());
+            dc.setCompra(compra);
+            dc.setCantidad(c.getCantidad());
+
+            Libro libro = c.getLibro();
+            libro.setStock(libro.getStock() - c.getCantidad());
+            entityManager.persist(libro);
+            detalleCompraRepository.save(dc);
+        }
+        cestaRepository.deleteAll(cesta);
     }
 }

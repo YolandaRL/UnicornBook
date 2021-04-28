@@ -11,4 +11,6 @@ import java.util.List;
 public interface CestaRepository extends JpaRepository<Cesta, Long> {
 
     List<CestaView> findAllByUsuarioId(Long id);
+
+    List<Cesta> findAllByUsuarioIdAndCantidadIsNotNull(Long id);
 }
