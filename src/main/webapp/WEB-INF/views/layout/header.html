@@ -3,8 +3,10 @@
 
     <!-- Toggler/collapsibe Button -->
     <div class="navbar-toggler container-fluid border-0">
-        <img class="collapse-nav-bar-icon" th:src="@{/resources/images/unicornbook_logo.png}" height="50vw"
-             style="display: none;"/>
+        <a th:href="@{/}">
+            <img class="collapse-nav-bar-icon" height="50vw" style="display: none;"
+                 th:src="@{/resources/images/unicornbook_logo.png}"/>
+        </a>
         <form class="collapse-nav-bar-form" method="get" style="display: none; width: 65%" th:action="@{/busquedas}"
               th:object="${filtro}">
             <div class="input-group">
@@ -46,7 +48,7 @@
                     </div>
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <a class="link-primary" th:href="@{/busquedas}" type="button">Búsqueda avanzada</a>
+                    <a class="link-secondary" th:href="@{/busquedas}" type="button">Búsqueda avanzada</a>
                 </div>
             </div>
         </form>
@@ -62,7 +64,8 @@
             <!-- Dropdown -->
             <th:block sec:authorize="isAuthenticated()">
                 <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                    <a aria-expanded="false" class="nav-link dropdown-toggle link-secondary" data-bs-toggle="dropdown"
+                       href="#"
                        id="navbarDropdown" role="button"
                        th:text="${#strings.toUpperCase(T(org.unicorn.book.autenticacion.AuthenticationUtils).getNomeCompreto())}">
                         Username
@@ -113,7 +116,9 @@
     <div class="container">
         <div class="banner-text">
             <div class="banner-heading text-center">
-                <img class="banner-heading-icon" th:src="@{/resources/images/unicornbook_titulo.png}">
+                <a th:href="@{/}">
+                    <img class="banner-heading-icon" th:src="@{/resources/images/unicornbook_titulo.png}">
+                </a>
             </div>
             <div class="banner-sub-heading text-center">
                 La plataforma de comercio online y comunidad lectora de las librerías independientes.
@@ -127,7 +132,7 @@
                 </div>
             </form>
             <p class="text-center mt-5">
-                <a class="link-primary" th:href="@{/busquedas}" type="button">Búsqueda avanzada</a>
+                <a class="link-secondary" th:href="@{/busquedas}" type="button">Búsqueda avanzada</a>
             </p>
         </div>
     </div>

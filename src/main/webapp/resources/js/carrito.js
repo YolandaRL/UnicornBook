@@ -1,15 +1,19 @@
 jQuery(function () {
 
-    $(document).on('click', 'a.actualizar-carrito', function () {
+    $(document).on('click', '.navigation-prevent', function (E) {
+        e.preventDefault();
+    });
+
+    $(document).on('click', 'button.actualizar-carrito', function () {
         showLoader();
         let context = $('select[name="cantidad"]');
-        location.href = CONTEXT_ROOT + 'usuario/carrito/update/' +$('option:selected', context).data('id-libro') + '/' + context.val();
+        location.href = CONTEXT_ROOT + 'usuario/carrito/update/' + $('option:selected', context).data('id-libro') + '/' + context.val();
     });
 
     $(document).on('change', 'select.actualizar-carrito', function () {
         showLoader();
         let context = $(this);
-        location.href = CONTEXT_ROOT + 'usuario/carrito/update/' +$('option:selected', context).data('id-libro') + '/' + context.val();
+        location.href = CONTEXT_ROOT + 'usuario/carrito/update/' + $('option:selected', context).data('id-libro') + '/' + context.val();
     });
 
     $(document).on('click', '.avanzar-formulario', function () {

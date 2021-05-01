@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="offcanvas-footer">
+            <div class="offcanvas-footer" th:unless="${#lists.isEmpty(productos)}">
                 <a class="btn btn-primary" th:href="@{/usuario/carrito}">Confirmar compra</a>
             </div>
         </div>

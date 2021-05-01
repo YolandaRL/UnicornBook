@@ -35,13 +35,11 @@ public interface LibroView {
 
     String getLinkPortada();
 
-    Long getAutorId();
+    AutorView getAutor();
 
-    String getAutorNombre();
+    EditorialView getEditorial();
 
-    String getEditorialNombre();
+    ColeccionView getColeccion();
 
-    String getColeccionNombre();
-
-    //List<TematicaView> getTematicas();
+    List<TematicaView> getTematicas();
 }

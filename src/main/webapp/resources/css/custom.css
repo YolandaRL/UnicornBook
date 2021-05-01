@@ -128,12 +128,24 @@ legend {
     box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
+.hover-black {
+    color: black !important;
+}
+
 .link-primary {
     color: #db7093 !important;
 }
 
 .link-primary:hover {
-    color: #d23b6d !important;
+    color: black !important;
+}
+
+.link-secondary {
+    color: white !important;
+}
+
+.link-secondary:hover {
+    color: black !important;
 }
 
 .simple-link {

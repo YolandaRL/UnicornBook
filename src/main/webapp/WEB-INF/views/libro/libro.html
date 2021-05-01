@@ -27,9 +27,17 @@
                     </ol>
                 </nav>
                 <div class="row">
-                    <div class="col-sm-3">
-                        <img alt="Portada" class="card-img- shadow-lg mt-0 mb-5 bg-dark rounded"
+                    <div class="col-sm-3 text-center">
+                        <img alt="Portada" class="card-img- shadow-lg mt-0 mb-2 bg-dark rounded"
                              style="height: 35vh; margin: auto" th:src="${libro.linkPortada}">
+                        <div class="row text-center">
+                            <th:block th:each="tematica, iter:${libro.tematicas}">
+                                <a class="simple-link" th:href="@{/libro/tematica/__${tematica.id}__}">
+                                    <h6 th:text="${tematica.nombre}"></h6>
+                                </a>
+                                <span th:if="${iter.index!=#lists.size(libro.tematicas)-1}">, </span>
+                            </th:block>
+                        </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="row">
@@ -38,8 +46,8 @@
                                 <h4><strong th:text="${libro.subtitulo}"></strong></h4>
                                 <h6>
                                     <strong>
-                                        <a class="link-primary" th:href="@{/autor/__${libro.autorId}__}">
-                                            <span th:text="${libro.autorNombre}"></span> <em class="fa fa-link"></em>
+                                        <a class="link-primary" th:href="@{/autor/__${libro.autor.id}__}">
+                                            <span th:text="${libro.autor.nombre}"></span> <em class="fa fa-link"></em>
                                         </a>
                                     </strong>
                                 </h6>
@@ -56,15 +64,9 @@
                         <div class="row">
                             <div class="col">
                                 <ul>
-                                    <li><strong>Colección: </strong><span th:text="${libro.coleccionNombre}"></span>
+                                    <li><strong>Colección: </strong><span th:text="${libro.coleccion.nombre}"></span>
                                     </li>
-                                    <!--<li><strong>Temática: </strong>
-                                        <th:block th:each="tematica, iter:${libro.tematicas}">
-                                            <span th:text="${tematica.nombre}"></span>
-                                            <span th:if="${iter.index!=#lists.size(libro.tematicas)-1}">, </span>
-                                        </th:block>
-                                    </li>-->
-                                    <li><strong>Editorial: </strong><span th:text="${libro.editorialNombre}"></span>
+                                    <li><strong>Editorial: </strong><span th:text="${libro.editorial.nombre}"></span>
                                     </li>
 
                                     <li><strong>Fecha disponibilidad: </strong><span
@@ -80,8 +82,7 @@
                                     <li><strong>Idioma: </strong><span th:text="${libro.idioma}"></span></li>
                                     <li><strong>Notas: </strong><span th:text="${libro.notas}"></span></li>
                                 </ul>
-                                <p th:text="${libro.isbn}"></p>
-                                <p th:text="${libro.stock}"></p>
+                                <p th:text="|ISBN: ${libro.isbn}|"></p>
                             </div>
                         </div>
                     </div>
@@ -91,29 +92,30 @@
                                 th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">
                                 Precio</h5>
                         </div>
-                        <div class="card-body h-50 d-flex align-items-start justify-content-center justify-content-center" th:with="conStock=${libro.stock != null && libro.stock > 0}">
-                            <div class="p-1">
-                                <div class="col-md-4 d-flex align-items-center justify-content-center">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Cantidad</label>
-                                        </div>
-                                        <select class="custom-select" name="cantidad" id="inputGroupSelect01">
-                                            <option th:each="i: ${#numbers.sequence(1, libro.stock)}" th:data-id-libro="${libro.id}" th:value="${i}" th:text="|x${i}|"></option>
-                                        </select>
-                                    </div>
+                        <div class="card-body h-50 " th:with="conStock=${libro.stock != null && libro.stock > 0}">
+                            <div class="row">
+                                <div class="col-4 text-center" th:unless="${conStock}">
+                                    <a class="btn btn-secondary"
+                                       th:href="@{/contacto?tipo=encargo&libro=__${libro.id}__}">
+                                        <span>Encargar</span>
+                                    </a>
                                 </div>
-                                <a class="btn btn-primary mr-5 actualizar-carrito" th:disabled="${!conStock}">
-                                    <em class="fa fa-shopping-basket"></em>
-                                    <span th:if="${conStock}">Añadir al carrito</span>
-                                    <span th:unless="${conStock}">Sin stock</span>
-                                </a>
-                            </div>
-                            <div class="p-1" th:unless="${conStock}">
-                                <a class="btn btn-secondary"
-                                   th:href="@{/contacto?tipo=encargo&libro=__${libro.id}__}">
-                                    <span>Encargar</span>
-                                </a>
+                                <div class="col-4 text-center" th:if="${conStock}">
+                                    <select aria-label="Floating label select example" class="form-select"
+                                            id="floatingSelect" name="cantidad">
+                                        <option th:data-id-libro="${libro.id}"
+                                                th:each="i, stat: ${#numbers.sequence(1, libro.stock)}"
+                                                th:selected="${stat.index==0}" th:text="|x${i}|"
+                                                th:value="${i}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-8 text-center">
+                                    <button class="btn btn-primary mr-5 actualizar-carrito" th:disabled="${!conStock}">
+                                        <em class="fa fa-shopping-basket"></em>
+                                        <span th:if="${conStock}">Añadir al carrito</span>
+                                        <span th:unless="${conStock}">Sin stock</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
