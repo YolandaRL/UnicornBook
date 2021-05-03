@@ -148,6 +148,10 @@ legend {
     color: black !important;
 }
 
+.fa-star {
+    color: #F3D22F;
+}
+
 .simple-link {
     color: #949393;
     text-decoration: none;

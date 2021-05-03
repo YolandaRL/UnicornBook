@@ -1,5 +1,6 @@
 package org.unicorn.book.app.libro.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.unicorn.book.app.libro.dto.LibroDto;
 import org.unicorn.book.app.libro.dto.MaestroView;
 import org.unicorn.book.app.libro.filter.BusquedaFilter;
 import org.unicorn.book.app.libro.service.LibroService;
@@ -60,7 +62,10 @@ public class BusquedaController {
             Integer page = filter.getPage() == null ? 0 : filter.getPage();
             pageable = PageRequest.of(page, 20, d, filter.getOrden());
         }
-        model.addAttribute("listadoLibros", libroService.findLibros(filter, pageable));
+        Page<LibroDto> libros = libroService.findLibros(filter, pageable);
+        model.addAttribute("listadoLibros", libros);
+        model.addAttribute("listComentarios",
+                libroService.getAllComentariosByIdLibros(libros.get().map(LibroDto::getId).toArray(Long[]::new)));
         model.addAttribute("filtro", filter);
         model.addAttribute("precioMinimo", libroService.getMinimoPrecio());
         model.addAttribute("precioMaximo", libroService.getMaximoPrecio());
@@ -71,6 +76,7 @@ public class BusquedaController {
     @GetMapping("/libro/{id}")
     public String get(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("libro", libroService.getLibro(id));
+        model.addAttribute("listComentarios", libroService.getAllComentariosByIdLibros(id));
         return "libro/libro";
     }
 

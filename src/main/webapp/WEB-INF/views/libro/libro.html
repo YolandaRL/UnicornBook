@@ -50,12 +50,12 @@
                                         </a>
                                     </strong>
                                 </h6>
-                                <div class="mb-2">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                <div class="mb-2"
+                                     th:with="estrellas=${#aggregates.sum(listComentarios.?[idLibro==__${libro.id}__].![estrellas])},
+                                    mediaEstrellas=${estrellas!=null?estrellas/listComentarios.?[idLibro==__${libro.id}__].size():0}">
+                                    <i class="fa-star" th:classappend="${i<=mediaEstrellas}?'fa' : 'far'"
+                                       th:each="i: ${#numbers.sequence(1, 5)}"></i>
+                                    <span th:text="|(${estrellas==null? 0 : mediaEstrellas})|"></span>
                                 </div>
                                 <h4 class="pt-3">Sinopsis:</h4>
                                 <p th:text="${libro.sinopsis}"></p>

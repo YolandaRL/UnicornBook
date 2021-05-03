@@ -3,6 +3,7 @@ package org.unicorn.book.app.libro.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.unicorn.book.app.libro.dto.AutorView;
+import org.unicorn.book.app.libro.dto.ComentarioDto;
 import org.unicorn.book.app.libro.dto.LibroDto;
 import org.unicorn.book.app.libro.dto.LibroView;
 import org.unicorn.book.app.libro.dto.MaestroView;
@@ -34,4 +35,5 @@ public interface LibroService {
 
     List<MaestroView> getAllEditoriales();
 
+    List<ComentarioDto> getAllComentariosByIdLibros(Long... idLibro);
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.unicorn.book.app.libro.dto.AutorView;
+import org.unicorn.book.app.libro.dto.ComentarioDto;
 import org.unicorn.book.app.libro.dto.LibroDto;
 import org.unicorn.book.app.libro.dto.LibroView;
 import org.unicorn.book.app.libro.dto.MaestroView;
@@ -20,6 +21,7 @@ import org.unicorn.book.app.libro.repository.TematicaRepository;
 import org.unicorn.book.app.libro.specifications.BusquedaSpecifications;
 import org.unicorn.book.app.usuario.repository.DetalleCompraRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -100,5 +102,23 @@ public class LibroServiceImpl implements LibroService {
     @Override
     public List<MaestroView> getAllEditoriales() {
         return editorialRepository.findAllEditoriales();
+    }
+
+    @Override
+    public List<ComentarioDto> getAllComentariosByIdLibros(Long... idLibro) {
+        List<ComentarioDto> comentarios = new ArrayList<>();
+        for (Long id : idLibro) {
+            detalleCompraRepository.findAllByLibroId(id).forEach(dt -> {
+                if (dt.getComentario() != null) {
+                    ComentarioDto comentarioDto = new ComentarioDto();
+                    comentarioDto.setId(dt.getComentario().getId());
+                    comentarioDto.setIdLibro(id);
+                    comentarioDto.setComentario(dt.getComentario().getTextoComentario());
+                    comentarioDto.setEstrellas(dt.getComentario().getEstrellas());
+                    comentarios.add(comentarioDto);
+                }
+            });
+        }
+        return comentarios;
     }
 }
