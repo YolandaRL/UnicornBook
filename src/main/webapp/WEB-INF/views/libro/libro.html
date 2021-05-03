@@ -32,7 +32,7 @@
                              style="height: 35vh; margin: auto" th:src="${libro.linkPortada}">
                         <div class="row text-center">
                             <div th:each="tematica, iter:${libro.tematicas}">
-                                <a class="simple-link" th:href="@{/libro/tematica/__${tematica.id}__}">
+                                <a class="simple-link" th:href="@{/busquedas?tematicas=__${tematica.id}__}">
                                     <h6 th:text="${tematica.nombre}"></h6>
                                 </a>
                             </div>
