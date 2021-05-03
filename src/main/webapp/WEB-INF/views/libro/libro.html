@@ -55,7 +55,7 @@
                                     mediaEstrellas=${estrellas!=null?estrellas/listComentarios.?[idLibro==__${libro.id}__].size():0}">
                                     <i class="fa-star" th:classappend="${i<=mediaEstrellas}?'fa' : 'far'"
                                        th:each="i: ${#numbers.sequence(1, 5)}"></i>
-                                    <span th:text="|(${estrellas==null? 0 : mediaEstrellas})|"></span>
+                                    <span th:text="|(${listComentarios.?[idLibro==__${libro.id}__].size()})|"></span>
                                 </div>
                                 <h4 class="pt-3">Sinopsis:</h4>
                                 <p th:text="${libro.sinopsis}"></p>
@@ -89,8 +89,12 @@
                         </div>
                         <div class="row">
                             <h4>Comentarios:</h4>
-                            <div class="row">
-                                hola
+                            <div class="row" th:each="comentario:${listComentarios.?[idLibro==__${libro.id}__]}">
+                                <div class="mb-2">
+                                    <i class="fa-star" th:classappend="${i<=comentario.estrellas}?'fa' : 'far'"
+                                       th:each="i: ${#numbers.sequence(1, 5)}"></i>
+                                </div>
+                                <p th:text="${comentario.comentario}"></p>
                             </div>
                         </div>
                     </div>

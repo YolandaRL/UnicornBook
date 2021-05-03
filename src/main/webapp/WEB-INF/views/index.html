@@ -88,7 +88,7 @@
                                     mediaEstrellas=${estrellas!=null?estrellas/listComentarios.?[idLibro==__${libro.id}__].size():0}">
                             <i class="fa-star" th:classappend="${i<=mediaEstrellas}?'fa' : 'far'"
                                th:each="i: ${#numbers.sequence(1, 5)}"></i>
-                            <span th:text="|(${estrellas==null? 0 : mediaEstrellas})|"></span>
+                            <span th:text="|(${listComentarios.?[idLibro==__${libro.id}__].size()})|"></span>
                         </div>
                         <h5 class="mb-0 text-primary text-center"
                             th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">Precio</h5>

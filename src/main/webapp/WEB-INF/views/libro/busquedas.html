@@ -288,7 +288,7 @@
                                     mediaEstrellas=${estrellas!=null?estrellas/listComentarios.?[idLibro==__${libro.id}__].size():0}">
                                                 <i class="fa-star" th:classappend="${i<=mediaEstrellas}?'fa' : 'far'"
                                                    th:each="i: ${#numbers.sequence(1, 5)}"></i>
-                                                <span th:text="|(${estrellas==null? 0 : mediaEstrellas})|"></span>
+                                                <span th:text="|(${listComentarios.?[idLibro==__${libro.id}__].size()})|"></span>
                                             </div>
                                             <p class="card-text"
                                                th:text="${#strings.length(libro.sipnosis)>200 ? #strings.substring(libro.sipnosis,0,200) + '...' : libro.sipnosis}"></p>
