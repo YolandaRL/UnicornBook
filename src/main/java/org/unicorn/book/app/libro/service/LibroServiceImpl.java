@@ -18,6 +18,7 @@ import org.unicorn.book.app.libro.repository.EditorialRepository;
 import org.unicorn.book.app.libro.repository.LibroRepository;
 import org.unicorn.book.app.libro.repository.TematicaRepository;
 import org.unicorn.book.app.libro.specifications.BusquedaSpecifications;
+import org.unicorn.book.app.usuario.repository.DetalleCompraRepository;
 
 import java.util.List;
 
@@ -32,15 +33,17 @@ public class LibroServiceImpl implements LibroService {
     private final TematicaRepository tematicaRepository;
     private final ColeccionRepository coleccionRepository;
     private final EditorialRepository editorialRepository;
+    private final DetalleCompraRepository detalleCompraRepository;
 
     public LibroServiceImpl(LibroRepository libroRepository, AutorRepository autorRepository,
             TematicaRepository tematicaRepository, ColeccionRepository coleccionRepository,
-            EditorialRepository editorialRepository) {
+            EditorialRepository editorialRepository, DetalleCompraRepository detalleCompraRepository) {
         this.libroRepository = libroRepository;
         this.autorRepository = autorRepository;
         this.tematicaRepository = tematicaRepository;
         this.coleccionRepository = coleccionRepository;
         this.editorialRepository = editorialRepository;
+        this.detalleCompraRepository = detalleCompraRepository;
     }
 
     @Override

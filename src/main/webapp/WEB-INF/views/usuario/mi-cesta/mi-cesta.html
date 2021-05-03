@@ -58,21 +58,24 @@
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                                     <div class="card-body">
-                                                        <h5 class="card-title" th:text="${p.libroTitulo}"></h5>
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <label class="input-group-text" for="inputGroupSelect01">Cantidad</label>
-                                                            </div>
-                                                            <select class="custom-select actualizar-carrito" name="cantidad" id="inputGroupSelect01">
-                                                                <option th:each="i: ${#numbers.sequence(1, p.libroStock)}" th:data-id-libro="${p.libroId}" th:value="${i}" th:text="|x${i}|"
-                                                                        th:selected="${p.cantidad==i}"></option>
+                                                        <a class="card-title simple-link"
+                                                           th:href="@{/libro/__${p.libroId}__}"><h5
+                                                                th:text="${p.libroTitulo}"></h5></a>
+                                                        <div class="col-lg-6 col-sm-12 col-md-12">
+                                                            <select aria-label="Cantidad de libros"
+                                                                    class="form-select actualizar-carrito"
+                                                                    id="cantidadLibro" name="cantidad">
+                                                                <option th:data-id-libro="${p.libroId}"
+                                                                        th:each="i, stat: ${#numbers.sequence(1, p.libroStock)}"
+                                                                        th:selected="${p.cantidad==i}" th:text="|x${i}|"
+                                                                        th:value="${i}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5 d-flex align-items-center justify-content-center">
                                                     <div class="card-body">
-                                                        <h4 class="mb-0 text-primary text-center"
+                                                        <h4 class="mb-0 text-center"
                                                             th:text="|${#numbers.formatDecimal(p.libroPrecio*p.cantidad, 0, 'POINT', 2, 'COMMA')} €|">
                                                             Precio</h4>
                                                         <p class="font-italic text-center" th:text="|(${#numbers.formatDecimal(p.libroPrecio, 0, 'POINT', 2, 'COMMA')}€ und.)|"></p>
@@ -94,8 +97,13 @@
                                 </div>
                             </div>
                             <div class="mt-5 row justify-content-center">
-                                <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-end">
-                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#direccion-tab"><span>Siguiente </span><em class="fa fa-arrow-right"></em></a>
+                                <div class="col-lg-3 col-md-3 col-sm-6 justify-content-start">
+                                    <a class="mt-3 text-danger" th:href="@{/usuario/cesta/vaciar}">Limpiar cesta</a>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
+                                    <a class="btn btn-secondary avanzar-formulario"
+                                       data-direction="#direccion-tab"><span>Siguiente </span><em
+                                            class="fa fa-arrow-right"></em></a>
                                 </div>
                             </div>
                         </div>

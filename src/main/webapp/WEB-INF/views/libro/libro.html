@@ -31,12 +31,11 @@
                         <img alt="Portada" class="card-img- shadow-lg mt-0 mb-2 bg-dark rounded"
                              style="height: 35vh; margin: auto" th:src="${libro.linkPortada}">
                         <div class="row text-center">
-                            <th:block th:each="tematica, iter:${libro.tematicas}">
+                            <div th:each="tematica, iter:${libro.tematicas}">
                                 <a class="simple-link" th:href="@{/libro/tematica/__${tematica.id}__}">
                                     <h6 th:text="${tematica.nombre}"></h6>
                                 </a>
-                                <span th:if="${iter.index!=#lists.size(libro.tematicas)-1}">, </span>
-                            </th:block>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -58,12 +57,16 @@
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                 </div>
+                                <h4 class="pt-3">Sinopsis:</h4>
                                 <p th:text="${libro.sinopsis}"></p>
                             </div>
                         </div>
                         <div class="row">
+                            <h4>Más información:</h4>
                             <div class="col">
                                 <ul>
+                                    <li><strong>ISBN: </strong><span th:text="${libro.isbn}"></span>
+                                    </li>
                                     <li><strong>Colección: </strong><span th:text="${libro.coleccion.nombre}"></span>
                                     </li>
                                     <li><strong>Editorial: </strong><span th:text="${libro.editorial.nombre}"></span>
@@ -82,15 +85,20 @@
                                     <li><strong>Idioma: </strong><span th:text="${libro.idioma}"></span></li>
                                     <li><strong>Notas: </strong><span th:text="${libro.notas}"></span></li>
                                 </ul>
-                                <p th:text="|ISBN: ${libro.isbn}|"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4>Comentarios:</h4>
+                            <div class="row">
+                                hola
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card-body h-50 d-flex align-items-end justify-content-center justify-content-center">
-                            <h5 class="mb-0 text-primary text-center"
+                            <h2 class="mb-0 text-center"
                                 th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">
-                                Precio</h5>
+                                Precio</h2>
                         </div>
                         <div class="card-body h-50 " th:with="conStock=${libro.stock != null && libro.stock > 0}">
                             <div class="row">

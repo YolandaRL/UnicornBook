@@ -16,6 +16,14 @@ jQuery(function () {
         monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
 
     });
+/*
+    $(document).on('show.bs.offcanvas', function () {
+        $('body').css('overflow', 'hidden');
+    });
+
+    $(document).on('hide.bs.offcanvas', function () {
+        $('body').css('overflow-y', 'scroll');
+    });*/
 
     $(document).on('submit', 'form', function () {
         showLoader();

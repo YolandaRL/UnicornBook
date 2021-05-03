@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/acceso", "/usuario/nuevo", "/busquedas", "/busqueda-avanzada", "/libro/**",
                         "/autor/**", "/contacto", "/contacto/consulta", "/contacto/encargo").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/client/**").hasRole("CLIENT").anyRequest()
-                .authenticated().and().formLogin().loginPage("/acceso").defaultSuccessUrl("/", true)
+                .authenticated().and().formLogin().loginPage("/acceso")
                 .failureUrl("/acceso?error")
                 //.defaultSuccessUrl("/dashboard").successHandler(successHandler)
                 .usernameParameter("username").passwordParameter("password").and().logout()

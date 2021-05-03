@@ -89,6 +89,13 @@ public class CestaServiceImpl implements CestaService {
 
     @Override
     @Transactional
+    public void vaciarCesta() {
+        cestaRepository.deleteAllByUsuarioId(AuthenticationUtils.getIdUsuario());
+
+    }
+
+    @Override
+    @Transactional
     public void confirmarPedido(CompraForm form) {
         List<Cesta> cesta = cestaRepository.findAllByUsuarioIdAndCantidadIsNotNull(AuthenticationUtils.getIdUsuario());
 

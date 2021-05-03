@@ -42,4 +42,8 @@ public interface LibroView {
     ColeccionView getColeccion();
 
     List<TematicaView> getTematicas();
+
+    List<ComentarioView> getComentarios();
+
+    void setComentarios(List<ComentarioView> comentarios);
 }

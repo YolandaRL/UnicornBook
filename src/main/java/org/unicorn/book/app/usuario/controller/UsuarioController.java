@@ -177,6 +177,12 @@ public class UsuarioController {
         return "redirect:/usuario/tarjetas";
     }
 
+    @GetMapping("/cesta/vaciar")
+    public String vaciar() {
+        cestaService.vaciarCesta();
+        return "redirect:/usuario/carrito";
+    }
+
     @GetMapping("/cesta/eliminar/{idLibro}")
     public String eliminar(@PathVariable("idLibro") Long idLibro) {
         cestaService.eliminarLibro(idLibro);
@@ -185,9 +191,9 @@ public class UsuarioController {
 
     @GetMapping("/carrito")
     public String getCarrito(ModelMap model) {
-            model.addAttribute("compraForm", new CompraForm());
+        model.addAttribute("compraForm", new CompraForm());
         model.addAttribute("direcciones", usuarioService.getDirecciones());
-            model.addAttribute("tarjetas", usuarioService.getTarjetas());
+        model.addAttribute("tarjetas", usuarioService.getTarjetas());
             List<CestaView> carrito = cestaService.getCarritoCompra();
             model.addAttribute("productos", carrito);
             model.addAttribute("totalCarrito", getTotalCarrito(carrito));
@@ -201,23 +207,25 @@ public class UsuarioController {
     }
 
     @GetMapping("/carrito/update/{idLibro}/{cantidad}")
-    public String actualizarCarrito1(ModelMap model, @PathVariable("idLibro") Long id,
-            @PathVariable(name = "cantidad") Integer cantidad) {
-        model.addAttribute("compraForm", new CompraForm());
-        model.addAttribute("direcciones", usuarioService.getDirecciones());
-        model.addAttribute("tarjetas", usuarioService.getTarjetas());
-        List<CestaView> carrito = cestaService.getCarritoCompra();
-        model.addAttribute("productos", cestaService.addLibroCarritoCompra(id, cantidad));
-        model.addAttribute("totalCarrito", getTotalCarrito(carrito));
-        return "redirect:/usuario/carrito";
+    public String actualizarCarrito1(RedirectAttributes ra,
+            @RequestParam(name = "showCestaSimplificado", required = false, defaultValue = "true") Boolean showCestaSimplificado,
+            @PathVariable("idLibro") Long id, @PathVariable(name = "cantidad") Integer cantidad,
+            HttpServletRequest request) {
+        final String referer = request.getHeader("referer");
+        cestaService.addLibroCarritoCompra(id, cantidad);
+        ra.addFlashAttribute("showCestaSimplificado", showCestaSimplificado);
+        ra.addFlashAttribute("productos", cestaService.getCarritoCompra());
+        return "redirect:" + referer;
     }
 
     @PostMapping("/carrito/add")
-    public String actualizarCarrito(ModelMap model, @RequestParam("idLibro") Long id,
-            @RequestParam(name = "cantidad", required = false) Integer cantidad) {
-        model.addAttribute("productos", cestaService.addLibroCarritoCompra(id, cantidad));
-        model.addAttribute("offcanvasCarrito", true);
-        return "redirect:/libro/" + id;
+    public String actualizarCarrito(RedirectAttributes ra, @RequestParam("idLibro") Long id,
+            @RequestParam(name = "cantidad", required = false) Integer cantidad, HttpServletRequest request) {
+        final String referer = request.getHeader("referer");
+        cestaService.addLibroCarritoCompra(id, cantidad);
+        ra.addFlashAttribute("showCestaSimplificado", true);
+        ra.addFlashAttribute("productos", cestaService.getCarritoCompra());
+        return "redirect:" + referer;
     }
 
     @PostMapping("/confirmar-pedido")
