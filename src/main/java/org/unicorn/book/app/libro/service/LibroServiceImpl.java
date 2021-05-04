@@ -20,6 +20,7 @@ import org.unicorn.book.app.libro.repository.LibroRepository;
 import org.unicorn.book.app.libro.repository.TematicaRepository;
 import org.unicorn.book.app.libro.specifications.BusquedaSpecifications;
 import org.unicorn.book.app.usuario.repository.DetalleCompraRepository;
+import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +116,9 @@ public class LibroServiceImpl implements LibroService {
                     comentarioDto.setIdLibro(id);
                     comentarioDto.setComentario(dt.getComentario().getTextoComentario());
                     comentarioDto.setEstrellas(dt.getComentario().getEstrellas());
+                    comentarioDto.setFecha(dt.getComentario().getFechaComentario());
+                    comentarioDto.setNombreUsuario(dt.getComentario().isAnonimo() ? "Anónimo" : dt.getCompra().getUsuario().getUsuario());
+                    comentarioDto.setEditable(dt.getCompra().getUsuario().getId().equals(AuthenticationUtils.getIdUsuario()));
                     comentarios.add(comentarioDto);
                 }
             });

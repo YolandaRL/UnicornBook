@@ -43,6 +43,9 @@ public class Comentario implements Serializable {
     @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
 
+    @Column(name = "ANONIMO")
+    private boolean anonimo;
+
     public Long getId() {
         return id;
     }
@@ -89,5 +92,13 @@ public class Comentario implements Serializable {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public boolean isAnonimo() {
+        return anonimo;
+    }
+
+    public void setAnonimo(boolean anonimo) {
+        this.anonimo = anonimo;
     }
 }

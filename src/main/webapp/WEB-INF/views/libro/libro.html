@@ -89,13 +89,40 @@
                         </div>
                         <div class="row">
                             <h4>Comentarios:</h4>
-                            <div class="row" th:each="comentario:${listComentarios.?[idLibro==__${libro.id}__]}">
-                                <div class="mb-2">
-                                    <i class="fa-star" th:classappend="${i<=comentario.estrellas}?'fa' : 'far'"
-                                       th:each="i: ${#numbers.sequence(1, 5)}"></i>
+                            <div class="row mt-2" th:each="comentario:${listComentarios.?[idLibro==__${libro.id}__]}">
+                                <div class="col-md-12">
+                                    <div class="card p-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="user d-flex flex-row align-items-center">
+                                                <img class="user-img rounded-circle mr-5" th:src="@{/resources/images/user.jpg}"
+                                                    width="30">
+                                                <span>
+                                                    <small class="font-weight-bold" th:text="${comentario.nombreUsuario}"></small>
+                                                    <i class="fa-star" th:classappend="${i<=comentario.estrellas}?'fa' : 'far'"
+                                                       th:each="i: ${#numbers.sequence(1, 5)}"></i>
+
+                                                </span>
+                                            </div>
+                                            <small th:text="${#dates.format(comentario.fecha, 'dd-MM-yyyy')}"></small>
+                                        </div>
+                                        <div class="d-flex mt-2 align-items-center">
+                                            <div class="px-4 col-12">
+                                                <small class="font-weight-bold" th:text="${comentario.comentario}"></small>
+                                                <form th:if="${comentario.editable}" th:action="@{/comentario/__${comentario.id}__/editar}" method="post" style="display: none">
+                                                    <textarea class="form-control" th:text="${comentario.comentario}" name="comentario"></textarea>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mt-2 justify-content-end align-items-end">
+                                            <div th:if="${comentario.editable}">
+                                                <a th:href="@{/usuario/comentario/__${comentario.id}__/editar}" class="simple-link">Editar</a>
+                                                <a th:href="@{/usuario/comentario/__${comentario.id}__/eliminar}" class="simple-link">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p th:text="${comentario.comentario}"></p>
                             </div>
+                            <small>Todos los comentarios son moderados y publicados en un plazo de 2 días laborables. Serás notificado una vez el proceso haya finalizado.</small>
                         </div>
                     </div>
                     <div class="col-md-3">
