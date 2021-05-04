@@ -152,6 +152,10 @@ legend {
     color: #F3D22F;
 }
 
+.puntuacion-form {
+    cursor: pointer;
+}
+
 .simple-link {
     color: #949393;
     text-decoration: none;

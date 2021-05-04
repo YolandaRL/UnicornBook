@@ -63,6 +63,17 @@ jQuery(function () {
     $(document).on('click', '.cesta', function () {
         $('#cesta-simplificada').load(CONTEXT_ROOT + 'usuario/carrito/get');
     });
+
+    $(document).on('click', '.puntuacion-form', function () {
+        let container = $(this).closest('div');
+        let puntuacion = $(this).data('puntuacion');
+        $('.computo-puntuacion', container).val(puntuacion);
+
+        let stars = $('.puntuacion-form', container).removeClass('fa').addClass('far');
+        for (let i = 0; i < puntuacion; i++) {
+            $(stars.get(i)).removeClass('far').addClass('fa');
+        }
+    });
 });
 
 function showLoader() {

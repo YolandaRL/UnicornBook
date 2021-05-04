@@ -114,11 +114,18 @@ public class LibroServiceImpl implements LibroService {
                     ComentarioDto comentarioDto = new ComentarioDto();
                     comentarioDto.setId(dt.getComentario().getId());
                     comentarioDto.setIdLibro(id);
+                    comentarioDto.setVisible(
+                            dt.getComentario().getEstado().getId().equals(3L) || dt.getCompra().getUsuario().getId()
+                                    .equals(AuthenticationUtils.getIdUsuario()));
+                    comentarioDto.setIdEstado(dt.getComentario().getEstado().getId());
+                    comentarioDto.setDescricionEstado(dt.getComentario().getEstado().getNombre());
                     comentarioDto.setComentario(dt.getComentario().getTextoComentario());
                     comentarioDto.setEstrellas(dt.getComentario().getEstrellas());
                     comentarioDto.setFecha(dt.getComentario().getFechaComentario());
-                    comentarioDto.setNombreUsuario(dt.getComentario().isAnonimo() ? "Anónimo" : dt.getCompra().getUsuario().getUsuario());
-                    comentarioDto.setEditable(dt.getCompra().getUsuario().getId().equals(AuthenticationUtils.getIdUsuario()));
+                    comentarioDto.setNombreUsuario(
+                            dt.getComentario().isAnonimo() ? "Anónimo" : dt.getCompra().getUsuario().getUsuario());
+                    comentarioDto.setEditable(
+                            dt.getCompra().getUsuario().getId().equals(AuthenticationUtils.getIdUsuario()));
                     comentarios.add(comentarioDto);
                 }
             });

@@ -9,6 +9,9 @@ public class ComentarioDto {
     private String comentario;
     private Date fecha;
     private String nombreUsuario;
+    private Long idEstado;
+    private String descricionEstado;
+    private boolean visible;
     private Integer estrellas;
     private boolean editable;
 
@@ -22,6 +25,30 @@ public class ComentarioDto {
 
     public Long getIdLibro() {
         return idLibro;
+    }
+
+    public Long getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public String getDescricionEstado() {
+        return descricionEstado;
+    }
+
+    public void setDescricionEstado(String descricionEstado) {
+        this.descricionEstado = descricionEstado;
     }
 
     public void setIdLibro(Long idLibro) {
