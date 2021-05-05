@@ -105,8 +105,6 @@
                                                        th:each="i: ${#numbers.sequence(1, 5)}"></i>
                                                 </span>
                                             </div>
-                                            <small th:if="${comentario.idEstado == 1 || comentario.idEstado == 2}"
-                                                   th:text="|(${#strings.capitalize(comentario.descricionEstado)})|"></small>
                                             <small th:text="${#dates.format(comentario.fecha, 'dd-MM-yyyy')}"></small>
                                         </div>
                                         <div class="d-flex mt-2 align-items-center">
