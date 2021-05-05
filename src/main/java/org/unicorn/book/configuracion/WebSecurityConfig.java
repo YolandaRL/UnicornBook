@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.unicorn.book.autenticacion.UserDetailsServiceImpl;
 
@@ -22,7 +23,7 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsServiceImpl UserDetailsServiceImpl;
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final DataSource dataSource;
 
     /**
@@ -32,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     public WebSecurityConfig(org.unicorn.book.autenticacion.UserDetailsServiceImpl userDetailsServiceImpl,
             DataSource dataSource) {
-        UserDetailsServiceImpl = userDetailsServiceImpl;
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.dataSource = dataSource;
     }
 
@@ -41,14 +42,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/acceso", "/usuario/nuevo", "/busquedas", "/busqueda-avanzada", "/libro/**",
                         "/autor/**", "/contacto", "/contacto/consulta", "/contacto/encargo").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/client/**").hasRole("CLIENT").anyRequest()
-                .authenticated().and().formLogin().loginPage("/acceso")
+                .antMatchers("/consola/**").hasRole("ADMIN").antMatchers("/client/**").hasRole("CLIENT").anyRequest()
+                .authenticated().and().formLogin().loginPage("/acceso").successHandler(authenticationSuccessHandler())
+
                 .failureUrl("/acceso?error")
                 //.defaultSuccessUrl("/dashboard").successHandler(successHandler)
                 .usernameParameter("username").passwordParameter("password").and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion")).logoutSuccessUrl("/").and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
 
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new UrlAuthenticationSuccessHandler();
     }
 
     @Override
@@ -59,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.userDetailsService(UserDetailsServiceImpl).and().jdbcAuthentication()
+        auth.userDetailsService(userDetailsServiceImpl).and().jdbcAuthentication()
                 .passwordEncoder(this.passworEnconder()).dataSource(dataSource)
                 .usersByUsernameQuery("SELECT USUARIO ,PASSWORD, ACTIVO FROM USUARIO WHERE USUARIO = ?")
                 .authoritiesByUsernameQuery(
