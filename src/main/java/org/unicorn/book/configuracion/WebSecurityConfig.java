@@ -39,17 +39,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+            .authorizeRequests()
                 .antMatchers("/", "/acceso", "/usuario/nuevo", "/busquedas", "/busqueda-avanzada", "/libro/**",
                         "/autor/**", "/contacto", "/contacto/consulta", "/contacto/encargo").permitAll()
-                .antMatchers("/consola/**").hasRole("ADMIN").antMatchers("/client/**").hasRole("CLIENT").anyRequest()
-                .authenticated().and().formLogin().loginPage("/acceso").successHandler(authenticationSuccessHandler())
-
+                .antMatchers("/consola/**").hasRole("ADMIN")
+                .antMatchers("/client/**").hasRole("CLIENT")
+                .anyRequest().authenticated()
+            .and()
+                .formLogin().loginPage("/acceso").successHandler(authenticationSuccessHandler())
                 .failureUrl("/acceso?error")
-                //.defaultSuccessUrl("/dashboard").successHandler(successHandler)
-                .usernameParameter("username").passwordParameter("password").and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion")).logoutSuccessUrl("/").and()
-                .exceptionHandling().accessDeniedPage("/access-denied");
+                .usernameParameter("username").passwordParameter("password")
+            .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion")).logoutSuccessUrl("/")
+            .and()
+                .exceptionHandling().accessDeniedPage("/acceso-denegado");
 
     }
 

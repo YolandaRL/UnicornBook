@@ -15,6 +15,7 @@ import org.unicorn.book.app.libro.dto.LibroDto;
 import org.unicorn.book.app.libro.dto.MaestroView;
 import org.unicorn.book.app.libro.filter.BusquedaFilter;
 import org.unicorn.book.app.libro.service.LibroService;
+import org.unicorn.book.app.usuario.dto.ComentarioForm;
 
 import java.util.List;
 
@@ -75,6 +76,7 @@ public class BusquedaController {
 
     @GetMapping("/libro/{id}")
     public String get(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("comentarioForm", new ComentarioForm());
         model.addAttribute("libro", libroService.getLibro(id));
         model.addAttribute("listComentarios", libroService.getAllComentariosByIdLibros(id));
         return "libro/libro";

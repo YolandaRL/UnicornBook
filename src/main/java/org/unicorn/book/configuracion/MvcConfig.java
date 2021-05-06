@@ -29,6 +29,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/acceso").setViewName("usuario/login");
+        registry.addViewController("/acceso-denegado").setViewName("error/403");
     }
 
     @Override
@@ -71,6 +72,7 @@ public class MvcConfig implements WebMvcConfigurer {
         viewResolver.setSuffix(".html");
         viewResolver.setTemplateMode("HTML");
         viewResolver.setCharacterEncoding("UTF-8");
+        viewResolver.setCacheable(true);
         return viewResolver;
     }
 }
