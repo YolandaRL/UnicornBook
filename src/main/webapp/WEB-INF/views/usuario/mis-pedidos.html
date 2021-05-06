@@ -9,6 +9,8 @@
 <body>
 <div id="links"></div>
 <div id="scripts">
+    <script th:src="@{/resources/js/pedido.js}"></script>
+
 </div>
 
 <div class="page-content" id="content">
@@ -22,13 +24,13 @@
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
+                        <th class="text-center" scope="col"></th>
                         <th class="text-center" scope="col">Nº pedido</th>
                         <th class="text-center" scope="col">Fecha compra</th>
                         <th class="text-center" scope="col">Direccion</th>
                         <th class="text-center" scope="col">Método pago</th>
                         <th class="text-center" scope="col">Estado</th>
                         <th class="text-center" scope="col">Fecha entrega</th>
-
                         <th class="text-center" scope="col">Acciones</th>
 
                     </tr>
@@ -37,20 +39,42 @@
                     <tr th:if="${#lists.isEmpty(pedidos)}">
                         <td class="text-center" colspan="8">Todavía no hay pedidos realizados</td>
                     </tr>
-                    <tr th:each="p:${pedidos}">
-                        <td class="text-center"><span th:text="${p.id}"></span></td>
-                        <td class="text-center"><span th:text="${#dates.format(p.fechaCompra, 'dd-MM-yyyy')}"></span>
-                        </td>
-                        <td class="text-center"><span th:text="${p.direccionTextoDireccion}"></span></td>
-                        <td class="text-center"><span th:text="${p.metodoPago}"></span></td>
-                        <td class="text-center"><span th:text="${p.estadoNombre}"></span></td>
-                        <td class="text-center"><span th:text="${#dates.format(p.fechaEntrega, 'dd-MM-yyyy')}"></span>
-                        </td>
+                    <th:block th:each="p:${pedidos}">
+                        <tr>
+                            <td class="text-center">
+                                <a class="btn-detalle-pedido" href="javascript:void(0)"
+                                   th:data-id="|detalle-pedido-${p.id}|">
+                                    <em class="fa fa-angle-down"></em>
+                                </a>
+                            </td>
+                            <td class="text-center"><span th:text="${p.id}"></span></td>
+                            <td class="text-center"><span
+                                    th:text="${#dates.format(p.fechaCompra, 'dd-MM-yyyy')}"></span>
+                            </td>
+                            <td class="text-center"><span th:text="${p.direccionTextoDireccion}"></span></td>
+                            <td class="text-center"><span th:text="${p.metodoPago}"></span></td>
+                            <td class="text-center"><span th:text="${p.estadoNombre}"></span></td>
+                            <td class="text-center"><span
+                                    th:text="${#dates.format(p.fechaEntrega, 'dd-MM-yyyy')}"></span>
+                            </td>
 
-                        <td class="text-center">
+                            <td class="text-center">
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                        <tr style="display: none" th:id="|detalle-pedido-${p.id}|">
+                            <td colspan="12">
+                                <div class="row border-bottom">
+                                    <div class="col-4 text-center"><strong>Cantidad</strong></div>
+                                    <div class="col-4 text-center"><strong>Libro</strong></div>
+                                </div>
+                                <div class="row" th:each="dp:${p.detalleCompraDtoList}">
+                                    <div class="col-4 text-center"><span th:text="|x${dp.cantidad}|"></span></div>
+                                    <div class="col-4 text-center"><span th:text="|${dp.nombreLibro}|"></span></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </th:block>
                     </tbody>
                 </table>
             </div>

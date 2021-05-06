@@ -7,18 +7,22 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.thymeleaf.util.StringUtils;
 import org.unicorn.book.app.usuario.UsuarioMapper;
-import org.unicorn.book.app.usuario.dto.CompraView;
+import org.unicorn.book.app.usuario.dto.CompraDto;
+import org.unicorn.book.app.usuario.dto.DetalleCompraDto;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
+import org.unicorn.book.app.usuario.model.Compra;
+import org.unicorn.book.app.usuario.model.DetalleCompra;
 import org.unicorn.book.app.usuario.model.Direccion;
 import org.unicorn.book.app.usuario.model.Rol;
 import org.unicorn.book.app.usuario.model.Tarjeta;
 import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.CompraRepository;
 import org.unicorn.book.app.usuario.repository.ConsultaRepository;
+import org.unicorn.book.app.usuario.repository.DetalleCompraRepository;
 import org.unicorn.book.app.usuario.repository.EncargoRepository;
 import org.unicorn.book.app.usuario.repository.UsuarioRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
@@ -39,20 +43,22 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private static final String ANONYMOUS_FICTITIOUS_USER = "ffef234b-0d70-49a4-abb9";
     private final CompraRepository compraRepository;
+    private final DetalleCompraRepository detalleCompraRepository;
     private final EncargoRepository encargoRepository;
     private final EntityManager entityManager;
     private final PasswordEncoder pass;
     private final ConsultaRepository consultaRepository;
 
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository, CompraRepository compraRepository,
-            EncargoRepository encargoRepository, ConsultaRepository consultaRepository, EntityManager entityManager,
-            PasswordEncoder pass) {
+            DetalleCompraRepository detalleCompraRepository, EncargoRepository encargoRepository,
+            EntityManager entityManager, PasswordEncoder pass, ConsultaRepository consultaRepository) {
         this.usuarioRepository = usuarioRepository;
         this.compraRepository = compraRepository;
+        this.detalleCompraRepository = detalleCompraRepository;
         this.encargoRepository = encargoRepository;
-        this.consultaRepository = consultaRepository;
         this.entityManager = entityManager;
         this.pass = pass;
+        this.consultaRepository = consultaRepository;
     }
 
     @Override
@@ -207,8 +213,30 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public List<CompraView> getPedidos() {
-        return compraRepository.findAllByUsuarioId(AuthenticationUtils.getIdUsuario());
+    public List<CompraDto> getPedidos() {
+        List<CompraDto> compraDtos = new ArrayList<>();
+        for (Compra compra : compraRepository.findAllByUsuarioId(AuthenticationUtils.getIdUsuario())) {
+            CompraDto compraDto = new CompraDto();
+            compraDto.setId(compra.getId());
+            compraDto.setFechaCompra(compra.getFechaCompra());
+            compraDto.setEstadoNombre(compra.getEstado().getNombre());
+            compraDto.setMetodoPago(null);
+            compraDto.setDireccionTextoDireccion(compra.getDireccion().getTextoDireccion());
+            compraDto.setFechaEntrega(compra.getFechaEntrega());
+            List<DetalleCompraDto> detalle = new ArrayList<>();
+            for (DetalleCompra detalleCompra : detalleCompraRepository.findAllByCompraId(compra.getId())) {
+                DetalleCompraDto detalleCompraDto = new DetalleCompraDto();
+                detalleCompraDto.setIdLibro(detalleCompra.getLibro().getId());
+                detalleCompraDto.setDescuento(detalleCompra.getPocentajeDescuento());
+                detalleCompraDto.setNombreLibro(detalleCompra.getLibro().getTitulo());
+                detalleCompraDto.setCantidad(detalleCompra.getCantidad());
+                detalle.add(detalleCompraDto);
+            }
+            compraDto.setDetalleCompraDtoList(detalle);
+
+            compraDtos.add(compraDto);
+        }
+        return compraDtos;
     }
 
     /**

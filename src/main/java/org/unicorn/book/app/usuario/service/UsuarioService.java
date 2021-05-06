@@ -1,6 +1,6 @@
 package org.unicorn.book.app.usuario.service;
 
-import org.unicorn.book.app.usuario.dto.CompraView;
+import org.unicorn.book.app.usuario.dto.CompraDto;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
 import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
@@ -43,6 +43,6 @@ public interface UsuarioService {
 
     void eliminarTarjeta(Long idTarjeta);
 
-    List<CompraView> getPedidos();
+    List<CompraDto> getPedidos();
 
 }
