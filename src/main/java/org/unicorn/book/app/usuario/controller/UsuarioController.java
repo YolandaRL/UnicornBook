@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.unicorn.book.app.usuario.dto.CestaView;
 import org.unicorn.book.app.usuario.dto.CompraForm;
 import org.unicorn.book.app.usuario.dto.DireccionForm;
+import org.unicorn.book.app.usuario.dto.TablaMaestraView;
 import org.unicorn.book.app.usuario.dto.TarjetaForm;
 import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
@@ -47,6 +48,11 @@ public class UsuarioController {
     @ModelAttribute(name = "usuarioForm")
     public UsuarioForm getRegistroForm() {
         return new UsuarioForm();
+    }
+
+    @ModelAttribute("tiposTarjeta")
+    public List<TablaMaestraView> tiposTarjeta() {
+        return cestaService.getTiposTarjeta();
     }
 
     @GetMapping(value = "/nuevo")

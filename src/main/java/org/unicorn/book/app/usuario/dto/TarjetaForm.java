@@ -3,6 +3,7 @@ package org.unicorn.book.app.usuario.dto;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class TarjetaForm {
 
@@ -12,8 +13,8 @@ public class TarjetaForm {
     @NotEmpty(message = "Campo obligatorio")
     @Length(min = 19, max = 19, message = "Campo obligatorio")
     private String numero;
-    @NotEmpty(message = "Campo obligatorio")
-    private String tipoTarjeta;
+    @NotNull(message = "Campo obligatorio")
+    private Long tipoTarjeta;
     @NotEmpty(message = "Campo obligatorio")
     @Length(min = 1, max = 2, message = "Campo obligatorio")
     private String mesCaducidad;
@@ -48,11 +49,11 @@ public class TarjetaForm {
         this.numero = numero;
     }
 
-    public String getTipoTarjeta() {
+    public Long getTipoTarjeta() {
         return tipoTarjeta;
     }
 
-    public void setTipoTarjeta(String tipoTarjeta) {
+    public void setTipoTarjeta(Long tipoTarjeta) {
         this.tipoTarjeta = tipoTarjeta;
     }
 

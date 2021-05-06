@@ -7,6 +7,7 @@ import org.unicorn.book.app.libro.model.Libro;
 import org.unicorn.book.app.respository.EstadoRepository;
 import org.unicorn.book.app.usuario.dto.CestaView;
 import org.unicorn.book.app.usuario.dto.CompraForm;
+import org.unicorn.book.app.usuario.dto.TablaMaestraView;
 import org.unicorn.book.app.usuario.model.Cesta;
 import org.unicorn.book.app.usuario.model.CestaPk;
 import org.unicorn.book.app.usuario.model.Compra;
@@ -19,6 +20,7 @@ import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.CestaRepository;
 import org.unicorn.book.app.usuario.repository.CompraRepository;
 import org.unicorn.book.app.usuario.repository.DetalleCompraRepository;
+import org.unicorn.book.app.usuario.repository.TipoTarjetaRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import javax.persistence.EntityManager;
@@ -33,15 +35,17 @@ public class CestaServiceImpl implements CestaService {
     private final CompraRepository compraRepository;
     private final DetalleCompraRepository detalleCompraRepository;
     private final EstadoRepository estadoRepository;
+    private final TipoTarjetaRepository tipoTarjetaRepository;
     private final EntityManager entityManager;
 
     public CestaServiceImpl(CestaRepository cestaRepository, CompraRepository compraRepository,
             DetalleCompraRepository detalleCompraRepository, EstadoRepository estadoRepository,
-            EntityManager entityManager) {
+            TipoTarjetaRepository tipoTarjetaRepository, EntityManager entityManager) {
         this.cestaRepository = cestaRepository;
         this.compraRepository = compraRepository;
         this.detalleCompraRepository = detalleCompraRepository;
         this.estadoRepository = estadoRepository;
+        this.tipoTarjetaRepository = tipoTarjetaRepository;
         this.entityManager = entityManager;
     }
 
@@ -125,5 +129,10 @@ public class CestaServiceImpl implements CestaService {
             detalleCompraRepository.save(dc);
         }
         cestaRepository.deleteAll(cesta);
+    }
+
+    @Override
+    public List<TablaMaestraView> getTiposTarjeta() {
+        return tipoTarjetaRepository.findAllByOrderByIdAsc();
     }
 }

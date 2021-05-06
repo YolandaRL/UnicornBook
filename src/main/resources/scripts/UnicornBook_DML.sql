@@ -52,5 +52,5 @@ VALUES ('ADMIN') ,
     ,
     ('INVITADO');
 
-$2a$10$SahsZm1o4Ig.fsyqNE/
-fquGcp1MK7NtryVgxkEAvmYeer9N6KQ5M6
+insert into TIPO_TARJETA (NOMBRE)
+VALUES ('VISA'), ('MASTERCARD');

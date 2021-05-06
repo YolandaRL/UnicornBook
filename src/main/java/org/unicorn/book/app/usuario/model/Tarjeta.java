@@ -1,7 +1,5 @@
 package org.unicorn.book.app.usuario.model;
 
-import org.unicorn.book.app.usuario.model.Usuario;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -30,8 +27,9 @@ public class Tarjeta implements Serializable {
     @Column(name = "NUMERO")
     private Long numero;
 
-    @Column(name = "TIPO_TARJETA")
-    private String tipoTarjeta;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_TIPO_TARJETA")
+    private TipoTarjeta tipoTarjeta;
 
     @Column(name = "MES_CADUCIDAD")
     private Integer mesCaducidad;
@@ -70,11 +68,11 @@ public class Tarjeta implements Serializable {
         this.numero = numero;
     }
 
-    public String getTipoTarjeta() {
+    public TipoTarjeta getTipoTarjeta() {
         return tipoTarjeta;
     }
 
-    public void setTipoTarjeta(String tipoTarjeta) {
+    public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
         this.tipoTarjeta = tipoTarjeta;
     }
 

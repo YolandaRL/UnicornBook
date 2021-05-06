@@ -24,7 +24,8 @@
                 <tr th:each="t:${tarjetas}">
                     <td class="text-center"><span th:text="${t.nombrePersonalizado}"></span></td>
                     <td class="text-center"><span th:text="${t.numero}"></span></td>
-                    <td class="text-center"><span th:text="${t.tipoTarjeta}"></span></td>
+                    <td class="text-center"><span
+                            th:text="${tiposTarjeta.?[id==__${t.tipoTarjeta}__][0].nombre}"></span></td>
                     <td class="text-center"><span
                             th:text="|${#numbers.formatInteger(t.mesCaducidad, 2)}/${#strings.substring(t.anoCaducidad, 2, 4)}|"></span>
                     </td>

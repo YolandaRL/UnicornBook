@@ -37,7 +37,9 @@ public interface UsuarioMapper {
     DireccionForm toDireccionForm(Direccion srd);
 
     @Mapping(target = "usuario", source = "")
+    @Mapping(target = "tipoTarjeta", ignore = true)
     Tarjeta toTarjeta(TarjetaForm src);
 
+    @Mapping(target = "tipoTarjeta", source = "tipoTarjeta.id")
     TarjetaForm toTarjetaForm(Tarjeta src);
 }

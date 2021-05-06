@@ -53,12 +53,13 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-12">
                                 <div class="form-floating mb-3 required">
-                                    <input aria-label="tipoTarjeta" class="form-control"
-                                           id="tipoTarjeta"
-                                           placeholder="Tipo"
-                                           th:classappend="${#fields.hasErrors('tipoTarjeta') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                                           th:field="*{tipoTarjeta}"
-                                           type="text"/>
+                                    <select class="form-control" id="tipoTarjeta"
+                                            th:classappend="${#fields.hasErrors('tipoTarjeta') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                            th:field="*{tipoTarjeta}">
+                                        <option value="-1">Seleccione una opción</option>
+                                        <option th:each="tipo:${tiposTarjeta}"
+                                                th:text="${tipo.nombre}" th:value="${tipo.id}"></option>
+                                    </select>
                                     <label for="tipoTarjeta">Tipo</label>
                                     <span class="text-danger" th:if="${#fields.hasErrors('tipoTarjeta')}"
                                           th:text="${#fields.errors('tipoTarjeta')[0]}"></span>

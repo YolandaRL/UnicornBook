@@ -19,6 +19,7 @@ import org.unicorn.book.app.usuario.model.DetalleCompra;
 import org.unicorn.book.app.usuario.model.Direccion;
 import org.unicorn.book.app.usuario.model.Rol;
 import org.unicorn.book.app.usuario.model.Tarjeta;
+import org.unicorn.book.app.usuario.model.TipoTarjeta;
 import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.CompraRepository;
 import org.unicorn.book.app.usuario.repository.ConsultaRepository;
@@ -193,7 +194,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (form.getId() == null) {
             tarjeta = new Tarjeta();
             tarjeta.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
-
         } else {
             tarjeta = entityManager.find(Tarjeta.class, form.getId());
         }
@@ -201,7 +201,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         tarjeta.setNumero(Long.parseLong(form.getNumero().replaceAll(" ", "")));
         tarjeta.setMesCaducidad(Integer.parseInt(form.getMesCaducidad()));
         tarjeta.setAnoCaducidad(Integer.parseInt(form.getAnoCaducidad()));
-        tarjeta.setTipoTarjeta(form.getTipoTarjeta());
+        tarjeta.setTipoTarjeta(entityManager.getReference(TipoTarjeta.class, form.getTipoTarjeta()));
         tarjeta.setCvv(Integer.parseInt(form.getCvv()));
         entityManager.persist(tarjeta);
     }
