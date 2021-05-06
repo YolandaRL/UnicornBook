@@ -9,6 +9,7 @@ import org.unicorn.book.app.libro.model.Libro;
 import org.unicorn.book.app.libro.repository.ComentarioRepository;
 import org.unicorn.book.app.model.Estado;
 import org.unicorn.book.app.usuario.dto.ComentarioForm;
+import org.unicorn.book.app.usuario.dto.ComentarioView;
 import org.unicorn.book.app.usuario.exception.LibroNoCompradoException;
 import org.unicorn.book.app.usuario.exception.LibroYaComentadoException;
 import org.unicorn.book.app.usuario.model.DetalleCompra;
@@ -18,6 +19,7 @@ import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -32,6 +34,11 @@ public class ComentarioServiceImpl implements ComentarioService {
         this.comentarioRepository = comentarioRepository;
         this.detalleCompraRepository = detalleCompraRepository;
         this.entityManager = entityManager;
+    }
+
+    @Override
+    public List<ComentarioView> getComentarios() {
+        return comentarioRepository.findAllByUsuarioId(AuthenticationUtils.getIdUsuario());
     }
 
     @Override

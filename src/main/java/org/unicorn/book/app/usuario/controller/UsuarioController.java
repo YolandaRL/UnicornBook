@@ -20,6 +20,7 @@ import org.unicorn.book.app.usuario.dto.UsuarioForm;
 import org.unicorn.book.app.usuario.exception.EmailDuplicatedException;
 import org.unicorn.book.app.usuario.exception.UsernameDuplicatedException;
 import org.unicorn.book.app.usuario.service.CestaService;
+import org.unicorn.book.app.usuario.service.ComentarioService;
 import org.unicorn.book.app.usuario.service.UsuarioService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,10 +35,13 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
     private final CestaService cestaService;
+    private final ComentarioService comentarioService;
 
-    public UsuarioController(UsuarioService usuarioService, CestaService cestaService) {
+    public UsuarioController(UsuarioService usuarioService, CestaService cestaService,
+            ComentarioService comentarioService) {
         this.usuarioService = usuarioService;
         this.cestaService = cestaService;
+        this.comentarioService = comentarioService;
     }
 
     @ModelAttribute(name = "usuarioForm")
@@ -241,7 +245,8 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/comentarios")
-    public String comentarios() {
+    public String comentarios(ModelMap model) {
+        model.addAttribute("comentarios", comentarioService.getComentarios());
         return "usuario/mis-comentarios";
     }
 
