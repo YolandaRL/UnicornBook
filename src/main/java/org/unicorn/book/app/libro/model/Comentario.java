@@ -1,18 +1,15 @@
 package org.unicorn.book.app.libro.model;
 
 import org.unicorn.book.app.model.Estado;
+import org.unicorn.book.app.usuario.model.Usuario;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,17 +18,19 @@ import java.util.Date;
 public class Comentario implements Serializable {
     private static final long serialVersionUID = 1650837254265550705L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @EmbeddedId
+    private ComentarioPk pk;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO", insertable = false, updatable = false)
+    private Usuario usuario;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_LIBRO", insertable = false, updatable = false)
+    private Libro libro;
 
     @Column(name = "FECHA_COMENTARIO")
     private Date fechaComentario;
-
-    @Column(name = "HORA_COMENTARIO")
-    @Temporal(TemporalType.TIME)
-    private Date horaComentario;
 
     @Column(name = "COMENTARIO")
     private String textoComentario;
@@ -46,12 +45,28 @@ public class Comentario implements Serializable {
     @Column(name = "ANONIMO")
     private boolean anonimo;
 
-    public Long getId() {
-        return id;
+    public ComentarioPk getPk() {
+        return pk;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPk(ComentarioPk pk) {
+        this.pk = pk;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public void setLibro(Libro libro) {
+        this.libro = libro;
     }
 
     public Date getFechaComentario() {
@@ -60,14 +75,6 @@ public class Comentario implements Serializable {
 
     public void setFechaComentario(Date fechaComentario) {
         this.fechaComentario = fechaComentario;
-    }
-
-    public Date getHoraComentario() {
-        return horaComentario;
-    }
-
-    public void setHoraComentario(Date horaComentario) {
-        this.horaComentario = horaComentario;
     }
 
     public String getTextoComentario() {

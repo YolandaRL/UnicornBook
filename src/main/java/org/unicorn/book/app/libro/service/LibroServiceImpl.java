@@ -15,11 +15,11 @@ import org.unicorn.book.app.libro.mapper.LibroMapper;
 import org.unicorn.book.app.libro.model.Libro;
 import org.unicorn.book.app.libro.repository.AutorRepository;
 import org.unicorn.book.app.libro.repository.ColeccionRepository;
+import org.unicorn.book.app.libro.repository.ComentarioRepository;
 import org.unicorn.book.app.libro.repository.EditorialRepository;
 import org.unicorn.book.app.libro.repository.LibroRepository;
 import org.unicorn.book.app.libro.repository.TematicaRepository;
 import org.unicorn.book.app.libro.specifications.BusquedaSpecifications;
-import org.unicorn.book.app.usuario.repository.DetalleCompraRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
 
 import java.util.ArrayList;
@@ -36,17 +36,17 @@ public class LibroServiceImpl implements LibroService {
     private final TematicaRepository tematicaRepository;
     private final ColeccionRepository coleccionRepository;
     private final EditorialRepository editorialRepository;
-    private final DetalleCompraRepository detalleCompraRepository;
+    private final ComentarioRepository comentarioRepository;
 
     public LibroServiceImpl(LibroRepository libroRepository, AutorRepository autorRepository,
             TematicaRepository tematicaRepository, ColeccionRepository coleccionRepository,
-            EditorialRepository editorialRepository, DetalleCompraRepository detalleCompraRepository) {
+            EditorialRepository editorialRepository, ComentarioRepository comentarioRepository) {
         this.libroRepository = libroRepository;
         this.autorRepository = autorRepository;
         this.tematicaRepository = tematicaRepository;
         this.coleccionRepository = coleccionRepository;
         this.editorialRepository = editorialRepository;
-        this.detalleCompraRepository = detalleCompraRepository;
+        this.comentarioRepository = comentarioRepository;
     }
 
     @Override
@@ -109,25 +109,19 @@ public class LibroServiceImpl implements LibroService {
     public List<ComentarioDto> getAllComentariosByIdLibros(Long... idLibro) {
         List<ComentarioDto> comentarios = new ArrayList<>();
         for (Long id : idLibro) {
-            detalleCompraRepository.findAllByLibroId(id).forEach(dt -> {
-                if (dt.getComentario() != null) {
-                    ComentarioDto comentarioDto = new ComentarioDto();
-                    comentarioDto.setId(dt.getComentario().getId());
-                    comentarioDto.setIdLibro(id);
-                    comentarioDto.setVisible(
-                            dt.getComentario().getEstado().getId().equals(3L) || dt.getCompra().getUsuario().getId()
-                                    .equals(AuthenticationUtils.getIdUsuario()));
-                    comentarioDto.setIdEstado(dt.getComentario().getEstado().getId());
-                    comentarioDto.setDescricionEstado(dt.getComentario().getEstado().getNombre());
-                    comentarioDto.setComentario(dt.getComentario().getTextoComentario());
-                    comentarioDto.setEstrellas(dt.getComentario().getEstrellas());
-                    comentarioDto.setFecha(dt.getComentario().getFechaComentario());
-                    comentarioDto.setNombreUsuario(
-                            dt.getComentario().isAnonimo() ? "Anónimo" : dt.getCompra().getUsuario().getUsuario());
-                    comentarioDto.setEditable(
-                            dt.getCompra().getUsuario().getId().equals(AuthenticationUtils.getIdUsuario()));
-                    comentarios.add(comentarioDto);
-                }
+            comentarioRepository.findAllByLibroId(id).forEach(dt -> {
+                ComentarioDto comentarioDto = new ComentarioDto();
+                comentarioDto.setIdLibro(dt.getLibro().getId());
+                comentarioDto.setVisible(dt.getEstado().getId().equals(3L) || dt.getUsuario().getId()
+                        .equals(AuthenticationUtils.getIdUsuario()));
+                comentarioDto.setIdEstado(dt.getEstado().getId());
+                comentarioDto.setDescricionEstado(dt.getEstado().getNombre());
+                comentarioDto.setComentario(dt.getTextoComentario());
+                comentarioDto.setEstrellas(dt.getEstrellas());
+                comentarioDto.setFecha(dt.getFechaComentario());
+                comentarioDto.setNombreUsuario(dt.isAnonimo() ? "Anónimo" : dt.getUsuario().getUsuario());
+                comentarioDto.setEditable(dt.getUsuario().getId().equals(AuthenticationUtils.getIdUsuario()));
+                comentarios.add(comentarioDto);
             });
         }
         return comentarios;

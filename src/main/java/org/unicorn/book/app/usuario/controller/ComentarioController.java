@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.unicorn.book.app.libro.service.LibroService;
 import org.unicorn.book.app.usuario.dto.ComentarioForm;
+import org.unicorn.book.app.usuario.exception.LibroNoCompradoException;
 import org.unicorn.book.app.usuario.exception.LibroYaComentadoException;
 import org.unicorn.book.app.usuario.service.ComentarioService;
 
@@ -30,9 +31,13 @@ public class ComentarioController {
         if (!result.hasErrors()) {
             try {
                 comentarioService.nuevoComentario(comentarioForm);
-                model.addAttribute("success", "Tu valoración del libro se ha publicado correctamente y el comentario adjunto a esta será moderado en un plazo de 1 a 2 días");
-            } catch(LibroYaComentadoException e) {
-                model.addAttribute("error", "Ya has dejado una valoración en este libro. Puedes editarla si lo deseas.");
+                model.addAttribute("success",
+                        "Tu valoración del libro se ha publicado correctamente y el comentario adjunto a esta será moderado en un plazo de 1 a 2 días");
+            } catch (LibroNoCompradoException e) {
+                model.addAttribute("error", "Para valorar este libro es necesario haberlo comprado previamente.");
+            } catch (LibroYaComentadoException e) {
+                model.addAttribute("error",
+                        "Ya has dejado una valoración en este libro. Puedes editarla si lo deseas.");
             }
         }
         model.addAttribute("listComentarios", libroService.getAllComentariosByIdLibros(comentarioForm.getIdLibro()));

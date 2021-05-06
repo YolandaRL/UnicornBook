@@ -1,6 +1,5 @@
 package org.unicorn.book.app.usuario.model;
 
-import org.unicorn.book.app.libro.model.Comentario;
 import org.unicorn.book.app.libro.model.Libro;
 
 import javax.persistence.Column;
@@ -33,10 +32,6 @@ public class DetalleCompra implements Serializable {
 
     @Column(name = "PORCENTAJE_DESCUENTO", columnDefinition="decimal", precision=18, scale=3)
     private Double pocentajeDescuento;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_COMENTARIO")
-    private Comentario comentario;
 
     public DetalleCompraPk getPk() {
         return pk;
@@ -76,13 +71,5 @@ public class DetalleCompra implements Serializable {
 
     public void setPocentajeDescuento(Double pocentajeDescuento) {
         this.pocentajeDescuento = pocentajeDescuento;
-    }
-
-    public Comentario getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(Comentario comentario) {
-        this.comentario = comentario;
     }
 }
