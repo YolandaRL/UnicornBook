@@ -21,4 +21,6 @@ public interface CestaService {
     void confirmarPedido(CompraForm form);
 
     List<TablaMaestraView> getTiposTarjeta();
+
+    List<TablaMaestraView> getTiposEntrega();
 }

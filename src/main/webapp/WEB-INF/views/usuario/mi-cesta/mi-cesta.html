@@ -109,12 +109,24 @@
                         </div>
                         <div class="tab-pane fade" id="direccion" role="tabpanel" aria-labelledby="direccion-tab">
                             <input type="hidden" name="idDireccion"/>
+                            <div class="row justify-content-center mb-5">
+                                <div class="col-lg-4 col-md-4 col-sm-8">
+                                    <div class="form-floating mb-3 required">
+                                        <select class="form-control" id="tipoEntrega" name="idTipoEntrega">
+                                            <option value="-1">Seleccione una opción</option>
+                                            <option th:each="i:${tiposEntrega}"
+                                                    th:text="${i.nombre}" th:value="${i.id}"></option>
+                                        </select>
+                                        <label for="tipoEntrega">Método de envío</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row justify-content-center mb-3">
                                 <div class="alert-not-null col-lg-6 col-md-6 col-sm-12 alert alert-danger" style="display: none">
                                     Es necesario indicar una dirección de envío para continuar
                                 </div>
                             </div>
-                            <div class="row justify-content-center mb-5">
+                            <div id="seleccion-direccion" class="row justify-content-center mb-5">
                                 <div class="col-lg-4 col-md-4 col-sm-8">
                                     <div class="form-floating mb-3 required">
                                         <select class="form-control" id="direcciones">

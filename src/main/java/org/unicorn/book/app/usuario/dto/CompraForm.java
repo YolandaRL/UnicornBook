@@ -3,6 +3,7 @@ package org.unicorn.book.app.usuario.dto;
 public class CompraForm {
 
     private Long idUsuario;
+    private Long idTipoEntrega;
     private Long idDireccion;
     private Long idTarjeta;
     private String cuponDescuento;
@@ -13,6 +14,14 @@ public class CompraForm {
 
     public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public Long getIdTipoEntrega() {
+        return idTipoEntrega;
+    }
+
+    public void setIdTipoEntrega(Long idTipoEntrega) {
+        this.idTipoEntrega = idTipoEntrega;
     }
 
     public Long getIdDireccion() {

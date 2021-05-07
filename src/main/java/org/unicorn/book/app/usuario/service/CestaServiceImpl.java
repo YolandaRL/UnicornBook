@@ -20,6 +20,7 @@ import org.unicorn.book.app.usuario.model.Usuario;
 import org.unicorn.book.app.usuario.repository.CestaRepository;
 import org.unicorn.book.app.usuario.repository.CompraRepository;
 import org.unicorn.book.app.usuario.repository.DetalleCompraRepository;
+import org.unicorn.book.app.usuario.repository.TipoEntregaRepository;
 import org.unicorn.book.app.usuario.repository.TipoTarjetaRepository;
 import org.unicorn.book.autenticacion.AuthenticationUtils;
 
@@ -36,16 +37,19 @@ public class CestaServiceImpl implements CestaService {
     private final DetalleCompraRepository detalleCompraRepository;
     private final EstadoRepository estadoRepository;
     private final TipoTarjetaRepository tipoTarjetaRepository;
+    private final TipoEntregaRepository tipoEntregaRepository;
     private final EntityManager entityManager;
 
     public CestaServiceImpl(CestaRepository cestaRepository, CompraRepository compraRepository,
             DetalleCompraRepository detalleCompraRepository, EstadoRepository estadoRepository,
-            TipoTarjetaRepository tipoTarjetaRepository, EntityManager entityManager) {
+            TipoTarjetaRepository tipoTarjetaRepository, TipoEntregaRepository tipoEntregaRepository,
+            EntityManager entityManager) {
         this.cestaRepository = cestaRepository;
         this.compraRepository = compraRepository;
         this.detalleCompraRepository = detalleCompraRepository;
         this.estadoRepository = estadoRepository;
         this.tipoTarjetaRepository = tipoTarjetaRepository;
+        this.tipoEntregaRepository = tipoEntregaRepository;
         this.entityManager = entityManager;
     }
 
@@ -105,11 +109,14 @@ public class CestaServiceImpl implements CestaService {
 
         Compra compra = new Compra();
         compra.setFechaCompra(new Date());
+        compra.setFechaEntrega(new Date(new Date().getTime() + 60000 * 24 * 15));
         compra.setMetodoPago(1.0); //FIXME
         compra.setUsuario(entityManager.getReference(Usuario.class, AuthenticationUtils.getIdUsuario()));
         compra.setEstado(estadoRepository.findTopByComponenteId(ComponenteEnum.COMPRA.getId()));
-        compra.setTipoEntrega(entityManager.getReference(TipoEntrega.class, 1L)); // FIXME
-        compra.setDireccion(entityManager.getReference(Direccion.class, form.getIdDireccion()));
+        compra.setTipoEntrega(entityManager.getReference(TipoEntrega.class, form.getIdTipoEntrega()));
+        if (form.getIdTipoEntrega().equals(2L)) {
+            compra.setDireccion(entityManager.getReference(Direccion.class, form.getIdDireccion()));
+        }
         compra.setTarjeta(entityManager.getReference(Tarjeta.class, form.getIdTarjeta()));
         compra = compraRepository.saveAndFlush(compra);
 
@@ -134,5 +141,10 @@ public class CestaServiceImpl implements CestaService {
     @Override
     public List<TablaMaestraView> getTiposTarjeta() {
         return tipoTarjetaRepository.findAllByOrderByIdAsc();
+    }
+
+    @Override
+    public List<TablaMaestraView> getTiposEntrega() {
+        return tipoEntregaRepository.findAllByOrderByIdAsc();
     }
 }

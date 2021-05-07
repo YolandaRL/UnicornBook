@@ -32,7 +32,7 @@ import java.util.List;
 @RequestMapping("usuario")
 public class UsuarioController {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(UsuarioController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioController.class);
 
     private final UsuarioService usuarioService;
     private final CestaService cestaService;
@@ -53,6 +53,11 @@ public class UsuarioController {
     @ModelAttribute("tiposTarjeta")
     public List<TablaMaestraView> tiposTarjeta() {
         return cestaService.getTiposTarjeta();
+    }
+
+    @ModelAttribute("tiposEntrega")
+    public List<TablaMaestraView> tiposEntrega() {
+        return cestaService.getTiposEntrega();
     }
 
     @GetMapping(value = "/nuevo")
