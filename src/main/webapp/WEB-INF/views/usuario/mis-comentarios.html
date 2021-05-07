@@ -37,8 +37,11 @@
                     </tr>
                     <th:block th:each="c:${comentarios}">
                         <tr>
-                            <td class="text-center"><span th:text="${c.libroTitulo}"></span></td>
-                            <td class="text-center"><span th:text="${c.textoComentario}"></span></td>
+                            <td class="text-center"><a class="title-link" th:href="@{/libro/__${c.libroId}__}" th:text="${c.libroTitulo}"></a></td>
+                            <td class="text-center">
+                                <span data-bs-toggle="popover" data-bs-trigger="hover" style="cursor: pointer;"
+                                      th:data-bs-content="${c.textoComentario}"
+                                      th:text="${#strings.abbreviate(c.textoComentario, 10)}"</span></td>
                             <td class="text-center">
                                 <div class="mb-2">
                                     <i class="fa-star" th:classappend="${i<=c.estrellas}?'fa' : 'far'"
