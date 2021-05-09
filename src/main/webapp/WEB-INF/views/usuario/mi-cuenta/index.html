@@ -49,8 +49,8 @@
         </div>
     </div>
     <div th:replace="usuario/modals/modal-confirmacion-baja"></div>
-    <div th:replace="usuario/modals/modal-direccion"></div>
-    <div th:replace="usuario/modals/modal-tarjeta"></div>
+    <div th:replace="usuario/modals/modal-direccion :: modal('btn-confirmar-direccion')"></div>
+    <div th:replace="usuario/modals/modal-tarjeta :: modal('btn-confirmar-tarjeta')"></div>
 </div>
 </body>
 </html>

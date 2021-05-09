@@ -1,20 +1,19 @@
 package org.unicorn.book.app.usuario.dto;
 
+import org.unicorn.book.app.validation.CustomScriptAssert;
+
+import javax.validation.constraints.NotNull;
+
+@CustomScriptAssert(lang = "javascript", script = "_this.idTipoEntrega==2?_this.idDireccion!=null:true", field = "idDireccion", message = "Campo oblicatorio")
 public class CompraForm {
 
-    private Long idUsuario;
+    @NotNull
     private Long idTipoEntrega;
     private Long idDireccion;
+    @NotNull
     private Long idTarjeta;
     private String cuponDescuento;
-
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+    private CompraStep siguientePasoSolicitado;
 
     public Long getIdTipoEntrega() {
         return idTipoEntrega;
@@ -46,5 +45,13 @@ public class CompraForm {
 
     public void setCuponDescuento(String cuponDescuento) {
         this.cuponDescuento = cuponDescuento;
+    }
+
+    public CompraStep getSiguientePasoSolicitado() {
+        return siguientePasoSolicitado;
+    }
+
+    public void setSiguientePasoSolicitado(CompraStep siguientePasoSolicitado) {
+        this.siguientePasoSolicitado = siguientePasoSolicitado;
     }
 }

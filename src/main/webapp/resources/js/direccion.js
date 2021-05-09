@@ -10,10 +10,32 @@ $(function () {
         if (id !== undefined) {
             params = '?id=' + id;
         }
-        $('#modalDireccion').load(CONTEXT_ROOT + 'usuario/direccion/getForm' + params,
+        $('#modalDireccionContainer').load(CONTEXT_ROOT + 'usuario/direccion/getForm' + params,
             function () {
                 $('#modalDireccion').modal('show');
             });
+    });
+
+    $(document).on('click', '#btn-confirmar-direccion-carrito', function () {
+        showLoader();
+        $.ajax({
+            url: CONTEXT_ROOT + 'usuario/direccion-carrito',
+            type: "POST",
+            data: $('#formulario-direccion').serialize(),
+            success: function (fragment) {
+
+                if (fragment.includes('alert-danger')) {
+                    $('#modalDireccionContainer').html(fragment);
+
+                } else {
+                    $('#direcciones').replaceWith(fragment);
+                    $('#modalDireccion').modal('hide');
+
+                }
+            }, complete: function () {
+                hideLoader();
+            }
+        });
     });
 
     $(document).on('click', '#btn-confirmar-direccion', function () {
@@ -25,7 +47,7 @@ $(function () {
             success: function (fragment) {
 
                 if (fragment.includes('alert-danger')) {
-                    $('#modalDireccion').html(fragment);
+                    $('#modalDireccionContainer').html(fragment);
 
                 } else {
                     $('#direcciones').html(fragment);

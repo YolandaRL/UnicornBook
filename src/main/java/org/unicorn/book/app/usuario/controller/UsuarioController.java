@@ -28,6 +28,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.unicorn.book.app.usuario.dto.CompraStep.CONFIRMACION;
+import static org.unicorn.book.app.usuario.dto.CompraStep.ENVIO;
+import static org.unicorn.book.app.usuario.dto.CompraStep.INICIO;
+import static org.unicorn.book.app.usuario.dto.CompraStep.PAGO;
+
 @Controller
 @RequestMapping("usuario")
 public class UsuarioController {
@@ -133,6 +138,19 @@ public class UsuarioController {
         return "usuario/modals/modal-direccion :: modalDireccion";
     }
 
+    @PostMapping(value = "/direccion-carrito")
+    public String actualizaCreaDireccionCarrito(@Valid @ModelAttribute("direccionForm") DireccionForm direccionForm,
+            BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            return "usuario/modals/modal-direccion :: modalDireccion";
+        }
+        model.addAttribute("error", false);
+        usuarioService.altaOActualizarDireccion(direccionForm);
+        model.addAttribute("direcciones", usuarioService.getDirecciones());
+        return "usuario/mi-cesta/mi-cesta :: direcciones";
+    }
+
     @PostMapping(value = "/direccion")
     public String actualizaCreaDireccion(@Valid @ModelAttribute("direccionForm") DireccionForm direccionForm,
             BindingResult result, ModelMap model) {
@@ -186,6 +204,20 @@ public class UsuarioController {
         return "usuario/mi-cuenta/mis-tarjetas :: tarjetas-table";
     }
 
+    @PostMapping(value = "/tarjeta-carrito")
+    public String actualizaCreaTarjetaCarrito(@Valid @ModelAttribute("tarjetaForm") TarjetaForm tarjetaForm,
+            BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            return "usuario/modals/modal-tarjeta :: modalTarjeta";
+        }
+        model.addAttribute("error", false);
+        usuarioService.altaOActualizarTarjeta(tarjetaForm);
+        model.addAttribute("tarjetas", usuarioService.getTarjetas());
+
+        return "usuario/mi-cesta/mi-cesta :: tarjetas";
+    }
+
     @GetMapping(value = "/tarjeta/{id}/eliminar")
     public String eliminarTarjeta(@PathVariable("id") Long idTarjeta) {
         usuarioService.eliminarTarjeta(idTarjeta);
@@ -209,9 +241,9 @@ public class UsuarioController {
         model.addAttribute("compraForm", new CompraForm());
         model.addAttribute("direcciones", usuarioService.getDirecciones());
         model.addAttribute("tarjetas", usuarioService.getTarjetas());
-            List<CestaView> carrito = cestaService.getCarritoCompra();
-            model.addAttribute("productos", carrito);
-            model.addAttribute("totalCarrito", getTotalCarrito(carrito));
+        List<CestaView> carrito = cestaService.getCarritoCompra();
+        model.addAttribute("productos", carrito);
+        model.addAttribute("totalCarrito", getTotalCarrito(carrito));
         return "usuario/mi-cesta/mi-cesta";
     }
 
@@ -244,9 +276,21 @@ public class UsuarioController {
     }
 
     @PostMapping("/confirmar-pedido")
-    public String confirmarPedido(@ModelAttribute("compraForm") CompraForm compraForm) {
+    public String confirmarPedido(@Valid @ModelAttribute("compraForm") CompraForm compraForm) {
         cestaService.confirmarPedido(compraForm);
         return "redirect:/usuario/pedidos";
+    }
+
+    @PostMapping("/cesta/siguiente-paso")
+    public String cestaSiguientePaso(@Valid @ModelAttribute("compraForm") CompraForm compraForm, BindingResult result,
+            ModelMap model) {
+        this.evaluaNextStep(compraForm, result, model);
+        model.addAttribute("direcciones", usuarioService.getDirecciones());
+        model.addAttribute("tarjetas", usuarioService.getTarjetas());
+        List<CestaView> carrito = cestaService.getCarritoCompra();
+        model.addAttribute("productos", carrito);
+        model.addAttribute("totalCarrito", getTotalCarrito(carrito));
+        return "usuario/mi-cesta/mi-cesta :: carrito";
     }
 
     @GetMapping(value = "/pedidos")
@@ -263,5 +307,39 @@ public class UsuarioController {
 
     private double getTotalCarrito(List<CestaView> cesta) {
         return cesta.stream().mapToDouble(c -> c.getCantidad() * c.getLibroPrecio()).sum();
+    }
+
+    private void evaluaNextStep(CompraForm form, BindingResult result, ModelMap model) {
+        switch (form.getSiguientePasoSolicitado()) {
+        case INICIO:
+            model.addAttribute("SIGUIENTE_PASO", INICIO.name());
+            break;
+        case ENVIO:
+            model.addAttribute("SIGUIENTE_PASO", ENVIO.name());
+            break;
+        case PAGO:
+            if (result.hasFieldErrors("idTipoEntrega")) {
+                model.addAttribute("SIGUIENTE_PASO", ENVIO.name());
+                model.addAttribute("error", "Es necesario un tipo de entrega");
+            } else if (!result.hasFieldErrors("idTipoEntrega") && result.hasFieldErrors("idDireccion")) {
+                model.addAttribute("SIGUIENTE_PASO", ENVIO.name());
+                model.addAttribute("error",
+                        "Es obligatorio indicar una dirección de envio cuando el tipo de entrega es postal");
+            } else {
+                model.addAttribute("SIGUIENTE_PASO", PAGO.name());
+            }
+            break;
+        case CONFIRMACION:
+            if (result.hasFieldErrors("idTarjeta")) {
+                model.addAttribute("SIGUIENTE_PASO", PAGO.name());
+                model.addAttribute("error", "Es obligatorio necesario indiciar una tarjeta para realizar el cobro");
+            } else {
+                model.addAttribute("SIGUIENTE_PASO", CONFIRMACION.name());
+            }
+            break;
+        default:
+            model.addAttribute("SIGUIENTE_PASO", INICIO.name());
+            break;
+        }
     }
 }

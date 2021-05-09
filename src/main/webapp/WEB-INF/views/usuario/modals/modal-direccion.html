@@ -1,17 +1,17 @@
 <div aria-hidden="true" aria-labelledby="labelModalDireccion" class="modal" id="modalDireccion" role="dialog"
+     th:fragment="modal(idConfirmacion)"
      tabindex="-1" xmlns:th="http://www.thymeleaf.org">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" th:fragment="modalDireccion">
-        <div class="modal-content" th:if="${direccionForm}">
-
-            <form id="formulario-direccion" method="post" th:action="@{/usuario/direccion}"
-                  th:object="${direccionForm}">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="labelModalDireccion">Dirección</h5>
-                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                        <em class="fa fa-times"></em>
-                    </button>
-                </div>
-                <div class="modal-body">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelModalDireccion">Dirección</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <em class="fa fa-times"></em>
+                </button>
+            </div>
+            <div class="modal-body" id="modalDireccionContainer">
+                <form id="formulario-direccion" method="post" th:action="@{/usuario/direccion}"
+                      th:fragment="modalDireccion" th:if="${direccionForm}" th:object="${direccionForm}">
                     <th:block th:if="${error}">
                         <div class="alert alert-danger">
                             Error validando el formulario
@@ -143,12 +143,13 @@
                             </div>
                         </div>
                     </fieldset>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Cerrar</button>
-                    <button class="btn btn-primary" id="btn-confirmar-direccion" type="button">Guardar cambios</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cerrar</button>
+                <button class="btn btn-primary" th:id="${idConfirmacion}" type="button">Guardar cambios</button>
+            </div>
         </div>
+
     </div>
 </div>

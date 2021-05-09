@@ -34,12 +34,33 @@ $(function () {
         let id = $(this).data('id');
         let params = '';
         if (id !== undefined) {
-            params = '?id=' + id;
+            params = '&id=' + id;
         }
-        $('#modalTarjeta').load(CONTEXT_ROOT + 'usuario/tarjeta/getForm' + params,
+        $('#modalTarjetContainer').load(CONTEXT_ROOT + 'usuario/tarjeta/getForm' + params,
             function () {
                 $('#modalTarjeta').modal('show');
             });
+    });
+
+    $(document).on('click', '#btn-confirmar-tarjeta-carrito', function () {
+        showLoader();
+        $.ajax({
+            url: CONTEXT_ROOT + 'usuario/tarjeta-carrito',
+            type: "POST",
+            data: $('#formulario-tarjeta').serialize(),
+            success: function (fragment) {
+
+                if (fragment.includes('alert-danger')) {
+                    $('#modalTarjetContainer').html(fragment);
+
+                } else {
+                    $('#tarjetas').replaceWith(fragment);
+                    $('#modalTarjeta').modal('hide');
+                }
+            }, complete: function () {
+                hideLoader();
+            }
+        });
     });
 
     $(document).on('click', '#btn-confirmar-tarjeta', function () {
@@ -51,12 +72,11 @@ $(function () {
             success: function (fragment) {
 
                 if (fragment.includes('alert-danger')) {
-                    $('#modalTarjeta').html(fragment);
+                    $('#modalTarjetContainer').html(fragment);
 
                 } else {
                     $('#tarjetas').html(fragment);
                     $('#modalTarjeta').modal('hide');
-
                 }
             }, complete: function () {
                 hideLoader();

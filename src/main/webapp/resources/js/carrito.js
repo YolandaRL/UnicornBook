@@ -6,7 +6,7 @@ jQuery(function () {
         bsOffcanvas.toggle();
     }
 
-    $(document).on('click', '.navigation-prevent', function (E) {
+    $(document).on('click', '.navigation-prevent', function (e) {
         e.preventDefault();
     });
 
@@ -21,44 +21,54 @@ jQuery(function () {
         let context = $(this);
         location.href = CONTEXT_ROOT + 'usuario/carrito/update/' + $('option:selected', context).data('id-libro') + '/' + context.val() +
             '?showCestaSimplificado=false';
-        ;
     });
 
     $(document).on('click', '.avanzar-formulario', function () {
-        let alert = $('.alert-not-null', $(this).closest('.tab-pane'));
-        alert.hide();
-
-        if ($(this).data('prev-action') === 'validate') {
-            let input = $('input[name="'+ $(this).data('not-null') +'"]').val();
-            if (input === undefined || input === '') {
-                alert.show();
-                return;
+        showLoader();
+        $('#siguientePasoSolicitado').val($(this).data('direction'));
+        $.ajax({
+            url: CONTEXT_ROOT + 'usuario/cesta/siguiente-paso',
+            type: "POST",
+            data: $('#compra-form').serialize(),
+            success: function (fragment) {
+                $('#carrito-container').html(fragment);
+            }, complete: function () {
+                hideLoader();
             }
-        }
+        });
 
-        $($(this).data('direction')).tab('show');
     });
 
-    $(document).on('change', '#direcciones', function() {
-        $('.detalle-direcciones').addClass('d-none');
-        $($('option:selected', this).data('id')).removeClass('d-none');
-        $('input[name="idDireccion"]').val($('option:selected', this).val());
+    $(document).on('change', '#tipoEntrega', function () {
+        $('#direcciones').prop('disabled', $(this).val() !== '2');
+    });
+
+    $(document).on('change', '#direcciones', function () {
+        let detalle = $('#detalle-direccion');
+        let val = $(this).val();
+        if (val !== undefined && val !== '') {
+            detalle.removeClass('d-none');
+            let seleccion = $('option:selected', this);
+            $('#direccion-nombre').text(seleccion.data('nombre'));
+            $('#direccion-destinatario').text(seleccion.data('destinatario'));
+            $('#direccion-texto').text(seleccion.data('texto'));
+
+        } else {
+            detalle.addClass('d-none');
+        }
     });
 
     $(document).on('change', '#tarjetas', function() {
-        $('input[name="idTarjeta"]').val($('option:selected', this).val());
-    });
-
-    $(document).on('shown.bs.tab', function (e) {
-        $('select.actualizar-carrito').prop('disabled', false).css({background: '#FFFFFF'});
-        $('.cesta-eliminar-libro').show();
-
-        if($(e.target).data('bs-target') === '#confirmacion') {
-            $('#resumen-direccion').html($('#direccion-' + $('input[name="idDireccion"]').val()).html());
-            $('#resumen-pago').html($('option:selected', '#tarjetas').text());
-            $('#resumen-libros').html($('#libros').html());
-            $('select.actualizar-carrito').prop('disabled', true).css({background: '#E9ECEF'});
-            $('.cesta-eliminar-libro').hide();
+        let detalle = $('#detalle-tarjeta');
+        let val = $(this).val();
+        if (val !== undefined && val !== '') {
+            detalle.removeClass('d-none');
+            let seleccion = $('option:selected', this);
+            $('#tarjeta-nombre').text(seleccion.data('nombre'));
+            $('#tarjeta-numero').text(seleccion.data('numero'));
+            $('#tarjeta-caducidad').text(seleccion.data('caducidad'));
+        } else {
+            detalle.addClass('d-none');
         }
     });
 });

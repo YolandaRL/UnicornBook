@@ -14,37 +14,47 @@
 </div>
 
 <div class="page-content" id="content">
-    <div class="container">
-        <div class="justify-content-center">
+    <div class="container" id="carrito-container">
+        <div class="justify-content-center" th:fragment="carrito">
             <div th:if="${#lists.isEmpty(productos)}" class="text-center">
                 <h3>Todavía no has añadido libros a tu cesta</h3>
             </div>
             <div th:unless="${#lists.isEmpty(productos)}">
                 <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <span aria-controls="cesta" aria-selected="true" class="navigation-prevent nav-link active"
+                        <span aria-controls="cesta" class="navigation-prevent nav-link"
+                              th:aria-selected="${SIGUIENTE_PASO==null || SIGUIENTE_PASO=='INICIO'}"
+                              th:classappend="${SIGUIENTE_PASO==null || SIGUIENTE_PASO=='INICIO'} ? 'active'"
                               data-bs-target="#cesta"
                               data-toggle="tab" id="cesta-tab" role="tab">1 Productos</span>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <span aria-controls="direccion" aria-selected="false" class="navigation-prevent nav-link"
+                        <span aria-controls="direccion" class="navigation-prevent nav-link"
+                              th:aria-selected="${SIGUIENTE_PASO=='ENVIO'}"
+                              th:classappend="${SIGUIENTE_PASO=='ENVIO'} ? 'active'"
                               data-bs-target="#direccion"
                               data-toggle="tab" id="direccion-tab" role="tab">2 Envío</span>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <span aria-controls="pago" aria-selected="false" class="navigation-prevent nav-link"
+                        <span aria-controls="pago" class="navigation-prevent nav-link"
+                              th:aria-selected="${SIGUIENTE_PASO=='PAGO'}"
+                              th:classappend="${SIGUIENTE_PASO=='PAGO'} ? 'active'"
                               data-bs-target="#pago"
                               data-toggle="tab" id="pago-tab" role="tab">3 Pago</span>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <span aria-controls="confirmacion" aria-selected="false" class="navigation-prevent nav-link"
+                        <span aria-controls="confirmacion" class="navigation-prevent nav-link"
+                              th:aria-selected="${SIGUIENTE_PASO=='CONFIRMACION'}"
+                              th:classappend="${SIGUIENTE_PASO=='CONFIRMACION'} ? 'active'"
                               data-bs-target="#confirmacion"
                               data-toggle="tab" id="confirmacion-tab" role="tab">4 Confirmar</span>
                     </li>
                 </ul>
                 <form id="compra-form" method="post" th:action="@{/usuario/confirmar-pedido}" th:object="${compraForm}">
+                    <input id="siguientePasoSolicitado" th:field="*{siguientePasoSolicitado}" type="hidden"/>
                     <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="cesta" role="tabpanel" aria-labelledby="cesta-tab">
+                        <div aria-labelledby="cesta-tab" class="tab-pane fade" id="cesta" role="tabpanel"
+                             th:classappend="${SIGUIENTE_PASO==null || SIGUIENTE_PASO=='INICIO'} ? 'show active'">
                             <div id="libros">
                                 <div class="row justify-content-center" th:each="p:${productos}">
                                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -54,7 +64,8 @@
                                                 <div class="col-md-3 d-flex justify-content-center">
                                                     <img alt="Portada"
                                                          class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
-                                                         style="height: 10vh; margin: auto" th:src="${p.libroLinkPortada}">
+                                                         style="height: 10vh; margin: auto"
+                                                         th:src="${p.libroLinkPortada}">
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                                     <div class="card-body">
@@ -101,126 +112,219 @@
                                     <a class="mt-3 text-danger" th:href="@{/usuario/cesta/vaciar}">Limpiar cesta</a>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
-                                    <a class="btn btn-secondary avanzar-formulario"
-                                       data-direction="#direccion-tab"><span>Siguiente </span><em
-                                            class="fa fa-arrow-right"></em></a>
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="ENVIO">
+                                        <span>Siguiente </span>
+                                        <em class="fa fa-arrow-right"></em>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="direccion" role="tabpanel" aria-labelledby="direccion-tab">
-                            <input type="hidden" name="idDireccion"/>
+                        <div aria-labelledby="direccion-tab" class="tab-pane fade" id="direccion" role="tabpanel"
+                             th:classappend="${SIGUIENTE_PASO=='ENVIO'} ? 'show active'">
+                            <div class="row justify-content-center mb-3">
+                                <div class="alert-not-null col-lg-6 col-md-6 col-sm-12 alert alert-danger"
+                                     th:if="${error}">
+                                    <span th:text="${error}"></span>
+                                </div>
+                            </div>
                             <div class="row justify-content-center mb-5">
-                                <div class="col-lg-4 col-md-4 col-sm-8">
+                                <div class="col-lg-2 col-md-2 col-sm-6">
                                     <div class="form-floating mb-3 required">
-                                        <select class="form-control" id="tipoEntrega" name="idTipoEntrega">
-                                            <option value="-1">Seleccione una opción</option>
+                                        <select class="form-control" id="tipoEntrega" th:field="*{idTipoEntrega}">
+                                            <option value="">Seleccione una opción</option>
                                             <option th:each="i:${tiposEntrega}"
                                                     th:text="${i.nombre}" th:value="${i.id}"></option>
                                         </select>
                                         <label for="tipoEntrega">Método de envío</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row justify-content-center mb-3">
-                                <div class="alert-not-null col-lg-6 col-md-6 col-sm-12 alert alert-danger" style="display: none">
-                                    Es necesario indicar una dirección de envío para continuar
-                                </div>
-                            </div>
-                            <div id="seleccion-direccion" class="row justify-content-center mb-5">
-                                <div class="col-lg-4 col-md-4 col-sm-8">
+                                <div class="col-lg-2 col-md-2 col-sm-6">
                                     <div class="form-floating mb-3 required">
-                                        <select class="form-control" id="direcciones">
-                                            <option value="-1">Seleccione una opción</option>
+                                        <select class="form-control" id="direcciones" name="idDireccion"
+                                                th:disabled="${compraForm!=null&&(compraForm.idTipoEntrega==null||compraForm.idTipoEntrega==1)}"
+                                                th:fragment="direcciones">
+                                            <option value="">Seleccione una opción</option>
                                             <option th:each="i:${direcciones}"
-                                                    th:text="${i.nombrePersonalizado}" th:value="${i.id}" th:data-id="|#direccion-${i.id}|"></option>
+                                                    th:data-destinatario="|${i.nombre} ${i.apellido1} ${i.apellido2}|"
+                                                    th:data-nombre="${i.nombrePersonalizado}"
+                                                    th:data-texto="|${i.direccion}, ${i.codigoPostal}, ${i.provincia}, ${i.pais}|"
+                                                    th:selected="${compraForm!=null && compraForm.idDireccion == i.id}"
+                                                    th:text="${i.nombrePersonalizado}"
+                                                    th:value="${i.id}">
+                                            </option>
                                         </select>
                                         <label for="direcciones">Direcciones</label>
                                     </div>
                                 </div>
-                                <div class="col-lg-2 col-md-2 col-sm-4">
+                                <div class="col-lg-2 col-md-2 col-sm-2">
                                     <button class="mt-1 btn btn-primary text-center btn-open-modal-direcciones"
+                                            data-id-confirmacion="btn-confirmar-direccion-carrito"
                                             type="button">
                                         <em class="fa fa-plus"></em>
                                         <span> Nueva direccion</span>
                                     </button>
                                 </div>
                             </div>
-                            <div th:id="|direccion-${i.id}|" class="detalle-direcciones d-none" th:each="i:${direcciones}">
+                            <div class="d-none" id="detalle-direccion">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <strong><em class="fa fa-hashtag"></em><span th:text="${i.nombrePersonalizado}"></span></strong>
+                                        <strong><em class="fa fa-hashtag"></em><span
+                                                id="direccion-nombre"></span></strong>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <span>Destinatario: </span><strong><span th:text="|${i.nombre} ${i.apellido1} ${i.apellido2}|"></span></strong>
+                                        <span>Destinatario: </span><strong><span
+                                            id="direccion-destinatario"></span></strong>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <span>Direccion: </span><strong><span th:text="|${i.direccion}, ${i.codigoPostal}, ${i.provincia}, ${i.pais}|"></span></strong>
+                                        <span>Direccion: </span><strong><span id="direccion-texto"></span></strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-5 row justify-content-center">
                                 <div class="col-lg-3 col-md-3 col-sm-6 justify-content-start">
-                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#cesta-tab"><em class="fa fa-arrow-left"></em> <span>Atrás</span></a>
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="INICIO">
+                                        <em class="fa fa-arrow-left"></em>
+                                        <span>Atrás</span>
+                                    </a>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
-                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#pago-tab" data-prev-action="validate" data-not-null="idDireccion"><span>Siguiente </span><em class="fa fa-arrow-right"></em></a>
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="PAGO">
+                                        <span>Siguiente </span>
+                                        <em class="fa fa-arrow-right"></em>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="pago" role="tabpanel" aria-labelledby="pago-tab">
-                            <input type="hidden" name="idTarjeta"/>
+                        <div aria-labelledby="pago-tab" class="tab-pane fade" id="pago" role="tabpanel"
+                             th:classappend="${SIGUIENTE_PASO=='PAGO'} ? 'show active'">
                             <div class="row justify-content-center mb-3">
-                                <div class="alert-not-null col-lg-6 col-md-6 col-sm-12 alert alert-danger" style="display: none">
-                                    Es necesario indicar una tarjeta de pago para continuar
+                                <div class="alert-not-null col-lg-6 col-md-6 col-sm-12 alert alert-danger"
+                                     th:if="${error}">
+                                    <span th:text="${error}"></span>
                                 </div>
                             </div>
                             <div class="row justify-content-center mb-5">
                                 <div class="col-lg-4 col-md-4 col-sm-8">
                                     <div class="form-floating mb-3 required">
-                                        <select class="form-control" id="tarjetas">
-                                            <option value="-1">Seleccione una opción</option>
-                                            <option th:each="i:${tarjetas}"
-                                                    th:text="'**** **** **** ' + ${#strings.substring(i.numero, 15, 19)}" th:value="${i.id}"></option>
+                                        <select class="form-control" id="tarjetas" name="idTarjeta"
+                                                th:fragment="tarjetas">
+                                            <option value="">Seleccione una opción</option>
+                                            <option th:data-caducidad="|${t.mesCaducidad}/${t.anoCaducidad}|"
+                                                    th:data-nombre="${t.nombrePersonalizado}"
+                                                    th:data-numero="'**** **** **** ' + ${#strings.substring(t.numero, 15, 19)}"
+                                                    th:each="t:${tarjetas}"
+                                                    th:selected="${compraForm!=null && compraForm.idTarjeta == t.id}"
+                                                    th:text="'**** **** **** ' + ${#strings.substring(t.numero, 15, 19)}"
+                                                    th:value="${t.id}">
+                                            </option>
                                         </select>
                                         <label for="tarjetas">Tarjetas</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-4">
                                     <button class="mt-1 btn btn-primary text-center btn-open-modal-tarjetas"
-                                            type="button">
+                                            data-id-confirmacion="btn-confirmar-tarjeta-carrito" type="button">
                                         <em class="fa fa-plus"></em>
                                         <span> Nueva tarjeta</span>
                                     </button>
                                 </div>
                             </div>
+                            <div class="d-none" id="detalle-tarjeta">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <strong><em class="fa fa-hashtag"></em><span
+                                                id="tarjeta-nombre"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Número: </span><strong><span id="tarjeta-numero"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Caducidad: </span><strong><span id="tarjeta-caducidad"></span></strong>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="mt-5 row justify-content-center">
                                 <div class="col-lg-3 col-md-3 col-sm-6 justify-content-start">
-                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#direccion-tab"><em class="fa fa-arrow-left"></em> <span>Atrás</span></a>
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="ENVIO">
+                                        <em class="fa fa-arrow-left"></em>
+                                        <span>Atrás</span>
+                                    </a>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
-                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#confirmacion-tab" data-prev-action="validate" data-not-null="idTarjeta"><span>Siguiente </span><em class="fa fa-arrow-right"></em></a>
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="CONFIRMACION">
+                                        <span>Siguiente </span>
+                                        <em class="fa fa-arrow-right"></em>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="confirmacion" role="tabpanel" aria-labelledby="confirmacion-tab">
+                        <div aria-labelledby="confirmacion-tab" class="tab-pane fade" id="confirmacion" role="tabpanel"
+                             th:classappend="${SIGUIENTE_PASO=='CONFIRMACION'} ? 'show active'">
+
                             <div class="row justify-content-center">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <h4>Datos de entrega</h4>
                                 </div>
                             </div>
-                            <div id="resumen-direccion"></div>
+                            <div id="resumen-direccion"
+                                 th:if="${compraForm.idDireccion != '' && compraForm.idDireccion != null}"
+                                 th:with="i=${direcciones.?[id==__${compraForm.idDireccion}__][0]}">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <strong><em class="fa fa-hashtag"></em><span
+                                                th:text="${i.nombrePersonalizado}"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Destinatario: </span><strong><span
+                                            th:text="|${i.nombre} ${i.apellido1} ${i.apellido2}|"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Direccion: </span><strong><span
+                                            th:text="|${i.direccion}, ${i.codigoPostal}, ${i.provincia}, ${i.pais}|"></span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center" th:if="${compraForm.idTipoEntrega == 1}">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <strong><em class="fa fa-hashtag"></em>Recogida en tienda</strong>
+                                </div>
+                            </div>
                             <div class="mt-3 row justify-content-center">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <h4>Datos de pago</h4>
                                 </div>
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div id="resumen-pago"></div>
+                            <div id="resumen-pago" th:if="${compraForm.idTarjeta != '' && compraForm.idTarjeta != null}"
+                                 th:with="t=${tarjetas.?[id==__${compraForm.idTarjeta}__][0]}">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <strong><em class="fa fa-hashtag"></em><span
+                                                th:text="${t.nombrePersonalizado}"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Número: </span><strong><span
+                                            th:text="'**** **** **** ' + ${#strings.substring(t.numero, 15, 19)}"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Caducidad: </span><strong><span
+                                            th:text="|${t.mesCaducidad}/${t.anoCaducidad}|"></span></strong>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mt-3 row justify-content-center">
@@ -228,14 +332,67 @@
                                     <h4>Libros</h4>
                                 </div>
                             </div>
-                            <div id="resumen-libros"></div>
+                            <div id="resumen-libros">
+                                <div class="row justify-content-center" th:each="p:${productos}">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+
+                                        <div class="card m-0 border-0">
+                                            <div class="row g-0 pl-5 pr-5">
+                                                <div class="col-md-3 d-flex justify-content-center">
+                                                    <img alt="Portada"
+                                                         class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
+                                                         style="height: 10vh; margin: auto"
+                                                         th:src="${p.libroLinkPortada}">
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                                    <div class="card-body">
+                                                        <a class="card-title simple-link"
+                                                           th:href="@{/libro/__${p.libroId}__}"><h5
+                                                                th:text="${p.libroTitulo}"></h5></a>
+                                                        <div class="col-lg-6 col-sm-12 col-md-12">
+                                                            <select aria-label="Cantidad de libros"
+                                                                    class="form-select actualizar-carrito"
+                                                                    disabled>
+                                                                <option th:data-id-libro="${p.libroId}"
+                                                                        th:each="i, stat: ${#numbers.sequence(1, p.libroStock)}"
+                                                                        th:selected="${p.cantidad==i}" th:text="|x${i}|"
+                                                                        th:value="${i}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5 d-flex align-items-center justify-content-center">
+                                                    <div class="card-body">
+                                                        <h4 class="mb-0 text-center"
+                                                            th:text="|${#numbers.formatDecimal(p.libroPrecio*p.cantidad, 0, 'POINT', 2, 'COMMA')} €|">
+                                                            Precio</h4>
+                                                        <p class="font-italic text-center"
+                                                           th:text="|(${#numbers.formatDecimal(p.libroPrecio, 0, 'POINT', 2, 'COMMA')}€ und.)|"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="d-flex justify-content-end">
+                                            <h3 class="card-title text-right"
+                                                th:text="|Total: ${#numbers.formatDecimal(totalCarrito, 0, 'POINT', 2, 'COMMA')} €|"></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="mt-5 row justify-content-center">
                                 <div class="col-lg-3 col-md-3 col-sm-6 justify-content-start">
-                                    <a class="btn btn-secondary avanzar-formulario" data-direction="#pago-tab"><em
-                                            class="fa fa-arrow-left"></em><span>Atrás</span></a>
+                                    <a class="btn btn-secondary avanzar-formulario" data-direction="PAGO">
+                                        <em class="fa fa-arrow-left"></em>
+                                        <span>Atrás</span>
+                                    </a>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-end">
-                                    <button class="btn btn-primary" type="submit"><em class="fa fa-check"></em><span> Confirmar compra </span>
+                                    <button class="btn btn-primary" type="submit">
+                                        <em class="fa fa-check"></em><span> Confirmar compra </span>
                                     </button>
                                 </div>
                             </div>
@@ -245,8 +402,8 @@
             </div>
         </div>
     </div>
-    <div th:replace="usuario/modals/modal-direccion"></div>
-    <div th:replace="usuario/modals/modal-tarjeta"></div>
+    <div th:replace="usuario/modals/modal-direccion :: modal('btn-confirmar-direccion-carrito')"></div>
+    <div th:replace="usuario/modals/modal-tarjeta :: modal('btn-confirmar-tarjeta-carrito')"></div>
 </div>
 </body>
 </html>
