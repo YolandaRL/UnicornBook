@@ -1,5 +1,6 @@
 package org.unicorn.book.configuracion;
 
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -8,6 +9,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,9 +49,9 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
     }
 
     protected String determineTargetUrl(final Authentication authentication, HttpSession session) {
-
+        final String url = String.valueOf(session.getAttribute(OLD_REQUEST_URI));
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("ROLE_CLIENTE", String.valueOf(session.getAttribute(OLD_REQUEST_URI)));
+        roleTargetUrlMap.put("ROLE_CLIENTE", ObjectUtils.isEmpty(url) ? Strings.EMPTY : url);
         roleTargetUrlMap.put("ROLE_ADMIN", "/consola");
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
