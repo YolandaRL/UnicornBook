@@ -6,19 +6,19 @@
   feather.replace()
 
   // Graphs
-  var ctx = document.getElementById('myChart')
+  var ctx = document.getElementById('chart-ventas')
   // eslint-disable-next-line no-unused-vars
   var myChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
+        'Lunes',
+        'Martes',
+        'Miércoles',
+        'Jueves',
+        'Viernes',
+        'Sábado',
+        'Domingo'
       ],
       datasets: [{
         data: [
