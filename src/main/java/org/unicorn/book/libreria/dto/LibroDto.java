@@ -1,5 +1,7 @@
 package org.unicorn.book.libreria.dto;
 
+import java.util.Date;
+
 public class LibroDto {
 
     private Long id;
@@ -11,6 +13,8 @@ public class LibroDto {
     private String autor;
     private Float precio;
     private Integer stock;
+    private Boolean visible;
+    private Date fechaDisponible;
     private String linkPortada;
 
     public Long getId() {
@@ -75,6 +79,22 @@ public class LibroDto {
 
     public void setPrecio(Float precio) {
         this.precio = precio;
+    }
+
+    public Date getFechaDisponible() {
+        return fechaDisponible;
+    }
+
+    public void setFechaDisponible(Date fechaDisponible) {
+        this.fechaDisponible = fechaDisponible;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public String getLinkPortada() {

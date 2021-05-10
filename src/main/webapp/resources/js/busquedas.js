@@ -102,7 +102,8 @@ function updateValuesInputs() {
 }
 
 function submitFilter() {
-    location.href = CONTEXT_ROOT + 'busquedas?' + $('form#advanced-search').serialize().replaceAll('%2C', ',');
+    let form = $('form#advanced-search')
+    location.href = form.attr('action') + '?' + form.serialize().replaceAll('%2C', ',');
 }
 
 function changeTextClasificacion() {

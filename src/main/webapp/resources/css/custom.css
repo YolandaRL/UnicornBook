@@ -1,4 +1,13 @@
+.tr-ok td span, .tr-ok td a {
+    color: #2f2f2f;
+}
+
+.tr-danger td span, .tr-danger td a {
+    color: red;
+}
+
 .page-content {
+
     margin-top: 5em;
     margin-bottom: 2em;
 }

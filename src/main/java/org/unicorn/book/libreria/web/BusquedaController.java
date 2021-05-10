@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.unicorn.book.libreria.dto.LibroDto;
 import org.unicorn.book.libreria.dto.MaestroView;
-import org.unicorn.book.libreria.filter.BusquedaFilter;
+import org.unicorn.book.libreria.filter.LibroFilter;
 import org.unicorn.book.libreria.service.LibroService;
 import org.unicorn.book.usuario.dto.ComentarioForm;
 
@@ -29,8 +29,8 @@ public class BusquedaController {
     }
 
     @ModelAttribute("filtro")
-    public BusquedaFilter filtro() {
-        return new BusquedaFilter();
+    public LibroFilter filtro() {
+        return new LibroFilter();
     }
 
     @ModelAttribute("listAutores")
@@ -54,7 +54,7 @@ public class BusquedaController {
     }
 
     @GetMapping("/busquedas")
-    public String busquedaSimple(ModelMap model, @ModelAttribute("filtro") BusquedaFilter filter,
+    public String busquedaSimple(ModelMap model, @ModelAttribute("filtro") LibroFilter filter,
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
         if (!StringUtils.isEmpty(filter.getOrden())) {
             Sort.Direction d = StringUtils.isEmpty(filter.getDireccion()) || filter.getDireccion().equals("asc") ?

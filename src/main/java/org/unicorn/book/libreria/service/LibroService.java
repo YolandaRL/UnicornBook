@@ -7,13 +7,13 @@ import org.unicorn.book.libreria.dto.ComentarioDto;
 import org.unicorn.book.libreria.dto.LibroDto;
 import org.unicorn.book.libreria.dto.LibroView;
 import org.unicorn.book.libreria.dto.MaestroView;
-import org.unicorn.book.libreria.filter.BusquedaFilter;
+import org.unicorn.book.libreria.filter.LibroFilter;
 
 import java.util.List;
 
 public interface LibroService {
 
-    Page<LibroDto> findLibros(BusquedaFilter filtro, Pageable pageable);
+    Page<LibroDto> findLibros(LibroFilter filtro, Pageable pageable);
 
     LibroView getLibro(Long id);
 

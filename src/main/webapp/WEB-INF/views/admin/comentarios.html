@@ -10,6 +10,7 @@
 <body>
 <div id="links"></div>
 <div id="scripts">
+    <script th:src="@{/resources/js/busquedas.js}"></script>
     <script th:src="@{/resources/js/admin/comentarios.js}"></script>
 </div>
 
@@ -65,8 +66,7 @@
                 </div>
             </div>
         </div>
-    </form>
-    <!-- FIN FILTRO -->
+
 
     <!-- RESULTADOS -->
     <div class="table-responsive">
@@ -149,7 +149,9 @@
             </li>
         </ul>
     </nav>
-    <!-- FIN : BARRA DE NAVEGACIÓN -->
+        <!-- FIN : BARRA DE NAVEGACIÓN -->
+    </form>
+    <!-- FIN FILTRO -->
 </main>
 </body>
 </html>

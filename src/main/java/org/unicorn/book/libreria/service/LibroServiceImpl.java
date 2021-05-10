@@ -11,7 +11,7 @@ import org.unicorn.book.libreria.dto.ComentarioDto;
 import org.unicorn.book.libreria.dto.LibroDto;
 import org.unicorn.book.libreria.dto.LibroView;
 import org.unicorn.book.libreria.dto.MaestroView;
-import org.unicorn.book.libreria.filter.BusquedaFilter;
+import org.unicorn.book.libreria.filter.LibroFilter;
 import org.unicorn.book.libreria.mapper.LibroMapper;
 import org.unicorn.book.libreria.model.Libro;
 import org.unicorn.book.libreria.repository.AutorRepository;
@@ -50,7 +50,7 @@ public class LibroServiceImpl implements LibroService {
     }
 
     @Override
-    public Page<LibroDto> findLibros(BusquedaFilter filtro, Pageable pageable) {
+    public Page<LibroDto> findLibros(LibroFilter filtro, Pageable pageable) {
         Page<Libro> libros = libroRepository.findAll(new BusquedaSpecifications(filtro), pageable);
         return libros.map(MAPPER::libroToDTO);
     }

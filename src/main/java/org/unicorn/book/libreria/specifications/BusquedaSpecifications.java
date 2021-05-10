@@ -2,7 +2,7 @@ package org.unicorn.book.libreria.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.ObjectUtils;
-import org.unicorn.book.libreria.filter.BusquedaFilter;
+import org.unicorn.book.libreria.filter.LibroFilter;
 import org.unicorn.book.libreria.model.Libro;
 import org.unicorn.book.libreria.model.LibroAutor;
 import org.unicorn.book.libreria.model.LibroColeccion;
@@ -21,10 +21,10 @@ import java.util.List;
 public class BusquedaSpecifications implements Specification<Libro> {
 
     public static final String PERCENT = "%";
-    private final BusquedaFilter filter;
+    private final LibroFilter filter;
     private final List<Predicate> predicates = new ArrayList<>();
 
-    public BusquedaSpecifications(BusquedaFilter filter) {
+    public BusquedaSpecifications(LibroFilter filter) {
         this.filter = filter;
     }
 

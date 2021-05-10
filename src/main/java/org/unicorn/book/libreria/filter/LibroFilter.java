@@ -3,7 +3,7 @@ package org.unicorn.book.libreria.filter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusquedaFilter {
+public class LibroFilter {
 
     private String termino;
     private List<Long> tematicas;
@@ -11,6 +11,8 @@ public class BusquedaFilter {
     private List<Long> autores;
     private List<Long> editoriales;
     private String precio;
+    private Boolean stock;
+    private Boolean visible;
     private String orden;
     private String direccion;
     private Integer page;

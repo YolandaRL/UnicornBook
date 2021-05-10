@@ -72,10 +72,15 @@
     <img th:src="@{/resources/images/unicornbook_titulo.png}" height="40em" alt="Unicorn Book"/>
     <em class="fa fa-cog"></em>
   </a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+          aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <input aria-label="Buscar" class="form-control form-control-dark w-100" placeholder="Buscar" type="text">
+  <form class="w-100" method="get" th:action="@{/consola/productos}">
+    <input aria-label="Buscar" class="form-control form-control-dark w-100" name="termino" placeholder="Buscar"
+           type="text">
+  </form>
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
       <a class="nav-link" th:href="@{/cerrar-sesion}">Cerrar sesión</a>
@@ -97,10 +102,26 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" th:classappend="${activePage == 'consola-productos'} ? 'active'"
-               th:href="@{/consola/productos}">
+               aria-controls="sub-menu-productos"
+               aria-expanded="false" data-bs-toggle="collapse" href="#sub-menu-productos" role="button">
               <em class="fa fa-book"></em>
               Productos
+              <em class="fa"
+                  th:classappend="${activePage == 'consola-productos'} ? 'fa-angle-down' : 'fa-angle-up'"></em>
             </a>
+            <div class="collapse" id="sub-menu-productos" style="padding-left:10% !important;"
+                 th:classappend="${activePage == 'consola-productos'} ? 'show'">
+              <ul class="border-start border-secondary nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" th:classappend="${activeSubPage == 'consola-productos-consultas'} ? 'active'"
+                     th:href="@{/consola/productos}">Consulta</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" th:classappend="${activeSubPage == 'consola-productos-edicion'} ? 'active'"
+                     th:href="@{/consola/productos/edicion}">Edición</a>
+                </li>
+              </ul>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:classappend="${activePage == 'consola-comentarios'} ? 'active'"

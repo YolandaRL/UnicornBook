@@ -1,7 +1,23 @@
 jQuery(function () {
 
+    /*
+    if ($(window).innerHeight() >= $(document).innerHeight()) {
+        $('#footer').addClass('fixed-bottom');
+    } else {
+        $('#footer').removeClass('fixed-bottom');
+    }
+
+    window.addEventListener('resize', function(event){
+        if ($(window).innerHeight() >= $(document).innerHeight()) {
+            $('#footer').addClass('fixed-bottom');
+        } else {
+            $('#footer').removeClass('fixed-bottom');
+        }
+    });
+    */
+
     $('[data-bs-toggle="popover"]').popover({trigger: "hover"});
-    
+
     $('.date-picker').datepicker({
         dateFormat: "dd-mm-yy",
         autoSize: true,

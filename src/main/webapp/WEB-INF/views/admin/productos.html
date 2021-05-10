@@ -9,13 +9,325 @@
 
 <body>
 <div id="links"></div>
-<div id="scripts"></div>
+<div id="scripts">
+    <script th:src="@{/resources/js/rango.js}"></script>
+    <script th:src="@{/resources/js/busquedas.js}"></script>
+    <script th:src="@{/resources/js/admin/libros.js}"></script>
+</div>
 
 <main id="content" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Productos</h1>
     </div>
-    <p>En construcción</p>
+
+    <form id="advanced-search" method="get" th:action="@{/consola/productos}" th:object="${filtro}">
+        <div class="container" th:if="${!#strings.isEmpty(filtro.termino)}">
+            <div class="row text-center mb-5">
+                <h6>Los resultados de tu búsqueda de:</h6>
+                <h3><strong>"<span th:text="${filtro.termino}"></span>"</strong>
+                </h3>
+                <hr class="legend-separator">
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12 m-0">
+                <input name="termino" th:disabled="${filtro.termino == '' || filtro.termino == null}"
+                       th:value="${filtro.termino}"
+                       type="hidden"/>
+                <div class="dropdown d-flex justify-content-start">
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownTematicas"
+                                th:classappend="${!#lists.isEmpty(filtro.tematicas)} ? 'items-selected'" type="button">
+                            Temáticas
+                        </button>
+                        <input class="form-value" disabled name="tematicas" type="hidden"/>
+                        <div aria-labelledby="dropdownTematicas" class="dropdown-menu-advanced-search dropdown-menu p-0"
+                             style="width: 10vw">
+                            <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <p style="font-size: 1em"><span class="countSelections"
+                                                                        th:text="${#lists.size(filtro.tematicas)}">0</span>
+                                            seleccionados
+                                        </p>
+                                    </div>
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <button class="btn btn-outline-dark seleccion-global" type="button">TODO
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="nameSelections" style="font-size: 0.75em">
+                                </p>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div class="dropdown-item mb-2"
+                                 th:classappend="${#lists.contains(filtro.tematicas, tematica.id)} ? 'active'"
+                                 th:each="tematica:${listTematicas}">
+                                <input class="d-none simulate-value"
+                                       th:checked="${#lists.contains(filtro.tematicas, tematica.id)}"
+                                       th:value="${tematica.id}" type="checkbox"/>
+                                <span class="name" th:text="${tematica.nombre}"></span><span
+                                    th:text="| (${tematica.ocurrencias})|"></span>
+                                <em class="float-end mt-1 fa fa-times d-none"></em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownAutores"
+                                th:classappend="${!#lists.isEmpty(filtro.autores)} ? 'items-selected'" type="button">
+                            Autores
+                        </button>
+                        <input class="form-value" disabled name="autores" type="hidden"/>
+                        <div aria-labelledby="dropdownAutores" class="dropdown-menu-advanced-search dropdown-menu p-0"
+                             style="width: 10vw">
+                            <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <p style="font-size: 1em"><span class="countSelections"
+                                                                        th:text="${#lists.size(filtro.autores)}">0</span>
+                                            seleccionados
+                                        </p>
+                                    </div>
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <button class="btn btn-outline-dark seleccion-global" type="button">TODO
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="nameSelections" style="font-size: 0.75em"></p>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div class="dropdown-item  mb-2"
+                                 th:classappend="${#lists.contains(filtro.autores, autor.id)} ? 'active'"
+                                 th:each="autor:${listAutores}">
+                                <input class="d-none simulate-value"
+                                       th:checked="${#lists.contains(filtro.autores, autor.id)}" th:value="${autor.id}"
+                                       type="checkbox"/>
+                                <span class="name" th:text="${autor.nombre}"></span><span
+                                    th:text="| (${autor.ocurrencias})|"></span>
+                                <em class="float-end mt-1 fa fa-times d-none"></em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownColecciones"
+                                th:classappend="${!#lists.isEmpty(filtro.colecciones)} ? 'items-selected'"
+                                type="button">
+                            Colecciones
+                        </button>
+                        <input class="form-value" disabled name="colecciones" type="hidden"/>
+                        <div aria-labelledby="dropdownColecciones"
+                             class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
+                            <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <p style="font-size: 1em"><span class="countSelections"
+                                                                        th:text="${#lists.size(filtro.colecciones)}">0</span>
+                                            seleccionados
+                                        </p>
+                                    </div>
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <button class="btn btn-outline-dark seleccion-global" type="button">TODO
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="nameSelections" style="font-size: 0.75em"></p>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div class="dropdown-item mb-2"
+                                 th:classappend="${#lists.contains(filtro.colecciones, coleccion.id)} ? 'active'"
+                                 th:each="coleccion:${listColecciones}">
+                                <input class="d-none simulate-value"
+                                       th:checked="${#lists.contains(filtro.colecciones, coleccion.id)}"
+                                       th:value="${coleccion.id}"
+                                       type="checkbox"/>
+                                <span class="name" th:text="${coleccion.nombre}"></span><span
+                                    th:text="| (${coleccion.ocurrencias})|"></span>
+                                <em class="float-end mt-1 fa fa-times d-none"></em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownEditoriales"
+                                th:classappend="${!#lists.isEmpty(filtro.editoriales)} ? 'items-selected'"
+                                type="button">
+                            Editoriales
+                        </button>
+                        <input class="form-value" disabled name="editoriales" type="hidden"/>
+                        <div aria-labelledby="dropdownEditoriales"
+                             class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
+                            <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <p style="font-size: 1em"><span class="countSelections"
+                                                                        th:text="${#lists.size(filtro.editoriales)}">0</span>
+                                            seleccionados
+                                        </p>
+                                    </div>
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <button class="btn btn-outline-dark seleccion-global" type="button">TODO
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="nameSelections" style="font-size: 0.75em"></p>
+                            </div>
+                            <div class="dropdown-divider m-0"></div>
+                            <div class="dropdown-item mb-2"
+                                 th:classappend="${#lists.contains(filtro.editoriales, editorial.id)} ? 'active'"
+                                 th:each="editorial:${listEditoriales}">
+                                <input class="d-none simulate-value"
+                                       th:checked="${#lists.contains(filtro.editoriales, editorial.id)}"
+                                       th:value="${editorial.id}"
+                                       type="checkbox"/>
+                                <span class="name" th:text="${editorial.nombre}"></span><span
+                                    th:text="| (${editorial.ocurrencias})|"></span>
+                                <em class="float-end mt-1 fa fa-times d-none"></em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 mr-3 dropdown-advanced-search">
+                        <button aria-expanded="false" class="btn dropdown-toggle dropdown-toggle-advanced-search w-90"
+                                data-bs-toggle="dropdown"
+                                id="dropdownPrecio"
+                                th:classappend="${(filtro.precio!=null&&filtro.precio!='') && filtro.precio!=precioMinimo+'-'+precioMaximo} ? 'items-selected'"
+                                type="button">
+                            Precio
+                        </button>
+                        <input name="precio"
+                               th:disabled="${(filtro.precio==undefined||filtro.precio=='')||filtro.precio==precioMinimo+'-'+precioMaximo}"
+                               th:value="${filtro.precio}" type="hidden"/>
+                        <input id="precioMinimo" th:value="${precioMinimo}" type="hidden"/>
+                        <input id="precioMaximo" th:value="${precioMaximo}" type="hidden"/>
+                        <div aria-labelledby="dropdownPrecio"
+                             class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
+                            <div class="slider-range w-100 p-5">
+                                <p class="w-100 mb-3 text-center" id="amount" style="font-weight:bold;"></p>
+                                <div class="slider-range" id="range-advanced-search"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12">
+                        <div class="dropdown d-flex justify-content-end" id="clasificacion">
+                            <button aria-expanded="false" class="btn btn-secondary dropdown-toggle"
+                                    data-bs-toggle="dropdown"
+                                    id="dropdownMenuButton1" type="button">
+                                <em class="fa fa-sort"></em> <span id="text-clasificacion">Clasificación</span>
+                            </button>
+
+                            <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
+                                <input name="orden" th:disabled="${filtro.orden == null || filtro.orden == ''}"
+                                       th:value="${filtro.orden}" type="hidden"/>
+                                <input name="direccion"
+                                       th:disabled="${filtro.direccion == null || filtro.direccion == ''}"
+                                       th:value="${filtro.direccion}" type="hidden"/>
+                                <li>
+                                    <a class="dropdown-item clasificacion-link" data-direccion="asc"
+                                       data-orden="fechaDisponible"
+                                       th:classappend="${filtro.orden=='fechaDisponible'}?'active'">Novedades</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item clasificacion-link" data-direccion="asc" data-orden="precio"
+                                       th:classappend="${filtro.orden=='precio'&&filtro.direccion=='asc'}?'active'">Precio
+                                        ascendente</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item clasificacion-link" data-direccion="desc"
+                                       data-orden="precio"
+                                       th:classappend="${filtro.orden=='precio'&&filtro.direccion=='desc'}?'active'">Precio
+                                        descendente</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- RESULTADOS -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-sm">
+                <thead>
+                <tr>
+                    <th class="text-center" scope="col">ISBN</th>
+                    <th class="text-center" scope="col">TÍTULO</th>
+                    <th class="text-center" scope="col">AUTOR</th>
+                    <th class="text-center" scope="col">EDITORIAL</th>
+                    <th class="text-center" scope="col">PRECIO</th>
+                    <th class="text-center" scope="col">STOCK</th>
+                    <th class="text-center" scope="col">VISIBLE</th>
+                    <th class="text-center" scope="col">FECHA DISPONIBILIDAD</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="7" th:if="${listadoLibros.totalPages==0}">
+                        No se han encontrado libros
+                    </td>
+                </tr>
+                <tr th:classappend="${libro.stock == 0} ? 'tr-danger' : 'tr-ok'" th:each="libro:${listadoLibros}">
+                    <th:block th:fragment="comentario">
+                        <td class="text-center">
+                            <span th:text="${libro.isbn}"></span>
+                        </td>
+                        <td class="text-center">
+                            <a class="simple-link" th:href="@{/libro/__${libro.id}__}"
+                               th:text="${libro.titulo}"></a>
+                        </td>
+                        <td class="text-center">
+                            <span th:text="${libro.autor}"></span>
+                        </td>
+                        <td class="text-center">
+                            <span th:text="${libro.editorial}"></span>
+                        </td>
+                        <td class="text-center">
+                            <span th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|"></span>
+                        </td>
+                        <td class="text-center">
+                            <span th:text="|x${libro.stock}|"></span>
+                        </td>
+                        <td class="text-center">
+                            <span th:text="${libro.visible==true}?'Sí':'No'"></span>
+                        </td>
+                        <td class="text-center">
+                            <span th:text="${#dates.format(libro.fechaDisponible, 'dd-MM-yyyy')}"></span>
+                        </td>
+                    </th:block>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- FIN RESULTADOS -->
+
+        <!-- BARRA DE NAVEGACIÓN -->
+        <nav aria-label="Page navigation example" class="bg-transparent mt-5"
+             th:if="${listadoLibros.totalPages!=0}">
+            <ul class="pagination justify-content-start">
+                <li class="page-item" th:classappend="${listadoLibros.first} ? 'disabled' : ''">
+                    <input disabled name="page" th:value="${listadoLibros.number-1}" type="hidden"/>
+                    <a aria-disabled="true" class="page-link" tabindex="-1"><</a>
+                </li>
+                <li class="page-item" th:classappend="${listadoLibros.number==i}?'active':''"
+                    th:each="i:${#numbers.sequence(0, listadoLibros.totalPages - 1)}">
+                    <input disabled name="page" th:value="${i}" type="hidden"/>
+                    <a class="page-link" th:text="${i+1}"></a>
+                </li>
+                <li class="page-item" th:classappend="${listadoLibros.last} ? 'disabled' : ''">
+                    <input disabled name="page" th:value="${listadoLibros.number+1}" type="hidden"/>
+                    <a class="page-link">></a>
+                </li>
+            </ul>
+        </nav>
+        <!-- FIN BARRA DE NAVEGACIÓN -->
+    </form>
 </main>
 </body>
 </html>
