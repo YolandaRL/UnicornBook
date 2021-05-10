@@ -13,6 +13,9 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.unicorn.book.configuracion.converter.StringToCompraStepConverter;
+import org.unicorn.book.configuracion.converter.StringToTipoOperacionConverter;
+import org.unicorn.book.configuracion.handlers.RequestHandler;
 
 /**
  *
@@ -46,7 +49,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Bean
     public HandlerInterceptor requestInterceptor() {
-        return new RequestInterceptor();
+        return new RequestHandler();
     }
 
     @Bean
