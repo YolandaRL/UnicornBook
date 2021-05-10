@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.unicorn.book.libreria.dto.LibroDto;
 import org.unicorn.book.libreria.dto.MaestroView;
 import org.unicorn.book.libreria.filter.LibroFilter;
@@ -90,5 +91,12 @@ public class ProductosController {
         model.addAttribute("precioMaximo", libroService.getMaximoPrecio());
         model.addAttribute("activeSubPage", "consola-productos-consultas");
         return "/admin/productos";
+    }
+
+    @GetMapping("/edicion")
+    public String getConsolaProductosEdicionView(ModelMap model,
+            @RequestParam(value = "idLibro", required = false) Long idLibro) {
+        model.addAttribute("activeSubPage", "consola-productos-edicion");
+        return "/admin/new-edit-producto";
     }
 }
