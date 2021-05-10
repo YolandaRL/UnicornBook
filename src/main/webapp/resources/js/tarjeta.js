@@ -34,7 +34,7 @@ $(function () {
         let id = $(this).data('id');
         let params = '';
         if (id !== undefined) {
-            params = '&id=' + id;
+            params = '?id=' + id;
         }
         $('#modalTarjetContainer').load(CONTEXT_ROOT + 'usuario/tarjeta/getForm' + params,
             function () {

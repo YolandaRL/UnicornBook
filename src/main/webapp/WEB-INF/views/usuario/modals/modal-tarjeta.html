@@ -74,7 +74,7 @@
                                 <div class="form-floating mb-3 required">
                                     <input aria-label="mesCaducidad" class="form-control"
                                            id="mesCaducidad"
-                                           placeholder="Mes caducidad"
+                                           placeholder="MM"
                                            th:classappend="${#fields.hasErrors('mesCaducidad') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                            max="12" maxlength="2" min="1" minlength="1" th:field="*{mesCaducidad}"
                                            type="number"/>
@@ -87,7 +87,7 @@
                                 <div class="form-floating mb-3 required">
                                     <input aria-label="anoCaducidad" class="form-control"
                                            id="anoCaducidad"
-                                           max="2100" min="2021" placeholder="Año caducidad"
+                                           max="99" min="21" placeholder="AA"
                                            th:classappend="${#fields.hasErrors('anoCaducidad') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                            th:field="*{anoCaducidad}"
                                            type="number"/>
