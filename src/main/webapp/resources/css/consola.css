@@ -73,19 +73,19 @@ body {
   padding-top: .75rem;
   padding-bottom: .75rem;
   font-size: 1rem;
-  background-color: #d73a68;
+  background-color: palevioletred;
   box-shadow: inset -1px 0 0 rgba(215, 58, 104, .25);
 }
 
 .navbar-dark {
-  background-color: #d73a68 !important;
+  background-color: palevioletred !important;
   box-shadow: inset -1px 0 0 rgba(215, 58, 104, .25);
 }
 
 .navbar .navbar-toggler {
   top: .25rem;
   right: 1rem;
-  background-color: #d73a68;
+  background-color: palevioletred;
   box-shadow: inset -1px 0 0 rgba(215, 58, 104, .25);
 }
 
