@@ -75,7 +75,7 @@
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <input aria-label="Buscar" class="form-control form-control-dark w-100" placeholder="Buscar" type="text">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
       <a class="nav-link" th:href="@{/cerrar-sesion}">Cerrar sesión</a>
@@ -89,33 +89,38 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" th:href="@{/consola}" th:classappend="${activePage == 'consola-index'} ? 'active'">
+            <a class="nav-link" aria-current="page" th:href="@{/consola}"
+               th:classappend="${activePage == 'consola-index'} ? 'active'">
               <em class="fa fa-terminal"></em>
               Consola
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/consola/pedidos}" th:classappend="${activePage == 'consola-pedidos'} ? 'active'">
-              <em class="fa fa-file"></em>
-              Pedidos
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/consola/productos}" th:classappend="${activePage == 'consola-productos'} ? 'active'">
+            <a class="nav-link" th:classappend="${activePage == 'consola-productos'} ? 'active'"
+               th:href="@{/consola/productos}">
               <em class="fa fa-book"></em>
               Productos
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/consola/clientes}" th:classappend="${activePage == 'consola-clientes'} ? 'active'">
-              <em class="fa fa-users"></em>
-              Clientes
+            <a class="nav-link" th:classappend="${activePage == 'consola-comentarios'} ? 'active'"
+               th:href="@{/consola/comentarios}">
+              <em class="fa fa-comments"></em>
+              Comentarios
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/consola/comentarios}" th:classappend="${activePage == 'consola-comentarios'} ? 'active'">
-              <em class="fa fa-comments"></em>
-              Comentarios
+            <a class="nav-link" th:href="@{/consola/pedidos}"
+               th:classappend="${activePage == 'consola-pedidos'} ? 'active'">
+              <em class="fa fa-file"></em>
+              Pedidos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/consola/clientes}"
+               th:classappend="${activePage == 'consola-clientes'} ? 'active'">
+              <em class="fa fa-users"></em>
+              Clientes
             </a>
           </li>
         </ul>
