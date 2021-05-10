@@ -19,8 +19,8 @@ $(function () {
     });
 
     $(document).on('input', '#anoCaducidad', function (e) {
-        if ($(this).val().length >= 4) {
-            e.target.value = e.target.value.substring(0, 4);
+        if ($(this).val().length >= 2) {
+            e.target.value = e.target.value.substring(0, 2);
         }
     });
 

@@ -19,7 +19,7 @@ public class TarjetaForm {
     @Length(min = 1, max = 2, message = "Campo obligatorio")
     private String mesCaducidad;
     @NotEmpty(message = "Campo obligatorio")
-    @Length(min = 4, max = 4, message = "Campo obligatorio")
+    @Length(min = 2, max = 2, message = "Campo obligatorio")
     private String anoCaducidad;
     @NotEmpty(message = "Campo obligatorio")
     @Length(min = 2, max = 3, message = "Campo obligatorio")
