@@ -40,8 +40,8 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToEnumConverter());
-        registry.addConverter(new StringToEnum2Converter());
+        registry.addConverter(new StringToTipoOperacionConverter());
+        registry.addConverter(new StringToCompraStepConverter());
     }
 
     @Bean
