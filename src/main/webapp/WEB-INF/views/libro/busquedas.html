@@ -304,14 +304,12 @@
                                         <div class="card-body h-50 d-flex align-items-start justify-content-center justify-content-center"
                                             th:with="conStock=${libro.stock != null && libro.stock > 0}">
                                             <div class="p-1">
-                                                <form id="addLibroCarrito" th:action="@{/usuario/carrito/add}" method="post">
-                                                    <input type="hidden" name="idLibro" th:value="${libro.id}"/>
-                                                    <button type="submit" class="btn btn-primary mr-5" th:disabled="${!conStock}">
-                                                        <em class="fa fa-shopping-basket"></em>
-                                                        <span th:if="${conStock}">Añadir al carrito</span>
-                                                        <span th:unless="${conStock}">Sin stock</span>
-                                                    </button>
-                                                </form>
+                                                <a class="btn btn-primary mr-5" th:disabled="${!conStock}"
+                                                   th:href="@{usuario/carrito/update/__${libro.id}__/1}">
+                                                    <em class="fa fa-shopping-basket"></em>
+                                                    <span th:if="${conStock}">Añadir al carrito</span>
+                                                    <span th:unless="${conStock}">Sin stock</span>
+                                                </a>
                                             </div>
                                             <div class="p-1" th:unless="${conStock}">
                                                 <a class="btn btn-secondary"
