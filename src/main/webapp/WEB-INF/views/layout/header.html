@@ -53,6 +53,12 @@
             </div>
         </form>
         <ul class="navbar-nav ms-auto">
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="nav-item">
+                <a class="nav-link link-secondary" style="background: transparent;"  th:href="@{/consola}">
+                    <em class="fa fa-cog" style="color:white"></em>
+                    Consola
+                </a>
+            </li>
             <li sec:authorize="!isAuthenticated()" class="nav-item">
                 <a class="nav-link btn btn-secondary m-3" style="background: transparent" th:href="@{/login}">INICIAR
                     SESIÓN</a>
