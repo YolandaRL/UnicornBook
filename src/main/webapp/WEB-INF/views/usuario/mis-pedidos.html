@@ -28,7 +28,6 @@
                         <th class="text-center" scope="col">Nº pedido</th>
                         <th class="text-center" scope="col">Fecha compra</th>
                         <th class="text-center" scope="col">Direccion</th>
-                        <th class="text-center" scope="col">Método pago</th>
                         <th class="text-center" scope="col">Estado</th>
                         <th class="text-center" scope="col">Fecha entrega</th>
                         <th class="text-center" scope="col">Acciones</th>
@@ -52,7 +51,6 @@
                                     th:text="${#dates.format(p.fechaCompra, 'dd-MM-yyyy')}"></span>
                             </td>
                             <td class="text-center"><span th:text="${p.direccionTextoDireccion}"></span></td>
-                            <td class="text-center"><span th:text="${p.metodoPago}"></span></td>
                             <td class="text-center"><span th:text="${p.estadoNombre}"></span></td>
                             <td class="text-center"><span
                                     th:text="${#dates.format(p.fechaEntrega, 'dd-MM-yyyy')}"></span>
