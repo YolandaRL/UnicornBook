@@ -13,6 +13,8 @@ public interface ComentarioService {
 
     void nuevoComentario(ComentarioForm comentarioForm) throws LibroYaComentadoException, LibroNoCompradoException;
 
+    ComentarioForm getComentarioForm(Long idLibro);
+
     void editarComentario(ComentarioForm comentarioForm);
 
     void eliminarComentario(Long idLibro);

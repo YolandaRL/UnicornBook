@@ -1,0 +1,63 @@
+<div aria-hidden="true" aria-labelledby="labelModalComentario" class="modal" id="modalComentario" role="dialog"
+     tabindex="-1" xmlns:th="http://www.thymeleaf.org">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelModalComentario">Comentario</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <em class="fa fa-times"></em>
+                </button>
+            </div>
+            <input id="type" type="hidden"/>
+            <div class="modal-body" id="form-comentario-edicion">
+                <form id="comentarioForm" method="post" th:action="@{/usuario/comentario}" th:fragment="comentario-form"
+                      th:object="${comentarioForm}">
+                    <input name="idLibro" th:value="${comentarioForm.idLibro}" type="hidden"/>
+                    <div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('estrellas')}">
+                        <span th:text="${#fields.errors('estrellas')[0]}"></span>
+                    </div>
+                    <div class="alert alert-danger mt-3" th:if="${error}">
+                        <span th:text="${error}"></span>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 form-floating">
+                            <textarea class="form-control" id="comentario" th:field="*{comentario}"></textarea>
+                            <label for="comentario">Comentario</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-row align-items-center">
+                            <input class="computo-puntuacion" th:field="*{estrellas}" type="hidden"/>
+                            <i class=" fa-star puntuacion-form" data-puntuacion="1"
+                               th:classappend="${comentarioForm.estrellas>=1} ? 'fa' : 'far'"></i>
+                            <i class=" fa-star puntuacion-form" data-puntuacion="2"
+                               th:classappend="${comentarioForm.estrellas>=2} ? 'fa' : 'far'"></i>
+                            <i class=" fa-star puntuacion-form" data-puntuacion="3"
+                               th:classappend="${comentarioForm.estrellas>=3} ? 'fa' : 'far'"></i>
+                            <i class=" fa-star puntuacion-form" data-puntuacion="4"
+                               th:classappend="${comentarioForm.estrellas>=4} ? 'fa' : 'far'"></i>
+                            <i class=" fa-star puntuacion-form" data-puntuacion="5"
+                               th:classappend="${comentarioForm.estrellas==5} ? 'fa' : 'far'"></i>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="flexSwitchCheckDefault" name="anonimo"
+                                   th:checked="${comentarioForm.anonimo!=null && comentarioForm.anonimo==true}"
+                                   type="checkbox">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">¿Valoración
+                                anónima?</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cerrar</button>
+                <button class="btn btn-primary" id="btn-confirmar-comentario-modal" type="button">Guardar cambios
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

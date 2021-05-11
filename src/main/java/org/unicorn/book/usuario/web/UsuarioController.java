@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.unicorn.book.usuario.dto.CestaView;
+import org.unicorn.book.usuario.dto.ComentarioForm;
 import org.unicorn.book.usuario.dto.CompraForm;
 import org.unicorn.book.usuario.dto.DireccionForm;
 import org.unicorn.book.usuario.dto.TablaMaestraView;
@@ -53,6 +54,11 @@ public class UsuarioController {
     @ModelAttribute(name = "usuarioForm")
     public UsuarioForm getRegistroForm() {
         return new UsuarioForm();
+    }
+
+    @ModelAttribute("comentarioForm")
+    public ComentarioForm getComentarioForm() {
+        return new ComentarioForm();
     }
 
     @ModelAttribute("tiposTarjeta")

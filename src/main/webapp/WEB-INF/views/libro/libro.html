@@ -87,9 +87,10 @@
                             </div>
                         </div>
                         <div id="comentarioFormContainer" class="row">
-                            <div th:fragment="comentario-form">
+                            <div th:fragment="comentarios">
                                 <h4>Comentarios:</h4>
-                                <div class="row mt-2" th:each="comentario:${listComentarios.?[idLibro==__${libro!=null?libro.id:comentarioForm.idLibro}__]}">
+                                <div class="row mt-2"
+                                     th:each="comentario:${listComentarios.?[idLibro==__${libro!=null?libro.id:comentarioForm.idLibro}__]}">
                                     <div class="col-md-12">
                                         <div class="card p-3">
                                             <div class="d-flex justify-content-between align-items-center">
@@ -111,16 +112,14 @@
                                                 <div class="px-4 col-12">
                                                     <small class="font-weight-bold" th:if="${comentario.visible}"
                                                            th:text="${comentario.comentario}"></small>
-                                                    <form th:if="${comentario.editable}" th:action="@{/comentario/__${comentario.id}__/editar}" method="post" style="display: none">
-                                                        <textarea class="form-control" th:text="${comentario.comentario}" name="comentario"></textarea>
-                                                    </form>
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-2 justify-content-end align-items-end">
                                                 <div th:if="${comentario.editable}">
-                                                    <a th:href="@{/usuario/comentario/__${comentario.id}__/editar}"
-                                                       class="simple-link">Editar</a>
-                                                    <a th:href="@{/usuario/comentario/__${comentario.id}__/eliminar}"
+                                                    <a class="editar-comentario simple-link"
+                                                       th:data-id-libro="${comentario.idLibro}"
+                                                       th:data-type="DESDE_LIBRO">Editar</a>
+                                                    <a th:href="@{/usuario/comentario/__${comentario.idLibro}__/eliminar?type=DESDE_LIBRO}"
                                                        class="simple-link">Eliminar</a>
                                                 </div>
                                             </div>
@@ -128,14 +127,16 @@
                                     </div>
                                 </div>
                                 <div class="row mb-5" sec:authorize="isAuthenticated()">
-                                    <form id="comentarioForm" method="post" th:action="@{/usuario/comentario}" th:object="${comentarioForm}">
-                                        <input type="hidden" name="idLibro" th:value="${libro!=null?libro.id:comentarioForm.idLibro}"/>
+                                    <form id="comentarioForm" method="post" th:action="@{/usuario/comentario}"
+                                          th:fragment="comentario-form" th:object="${comentarioForm}">
+                                        <input type="hidden" name="idLibro"
+                                               th:value="${libro!=null?libro.id:comentarioForm.idLibro}"/>
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 Tu valoración:
                                             </div>
                                         </div>
-                                        <div class="alert alert-success mt-3"  th:if="${success}">
+                                        <div class="alert alert-success mt-3" th:if="${success}">
                                             <span th:text="${success}"></span>
                                         </div>
                                         <div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('estrellas')}">
@@ -220,6 +221,7 @@
             </div>
         </div>
     </div>
+    <div th:replace="/usuario/modals/modal-comentario"></div>
 </div>
 </body>
 </html>

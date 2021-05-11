@@ -63,12 +63,26 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
+    public ComentarioForm getComentarioForm(Long idLibro) {
+        Comentario comentario = comentarioRepository
+                .getFirstByLibroIdAndUsuarioId(idLibro, AutenticacionUtils.getIdUsuario());
+        ComentarioForm form = new ComentarioForm();
+        form.setComentario(comentario.getTextoComentario());
+        form.setAnonimo(comentario.isAnonimo());
+        form.setEstrellas(comentario.getEstrellas());
+        form.setIdLibro(comentario.getLibro().getId());
+        return form;
+    }
+
+    @Override
+    @Transactional
     public void editarComentario(ComentarioForm comentarioForm) {
         Comentario comentario = comentarioRepository
                 .getFirstByLibroIdAndUsuarioId(comentarioForm.getIdLibro(), AutenticacionUtils.getIdUsuario());
         comentario.setTextoComentario(comentarioForm.getComentario());
         comentario.setEstrellas(comentarioForm.getEstrellas());
         comentario.setEstado(entityManager.getReference(Estado.class, 1L));
+        comentario.setAnonimo(Boolean.TRUE.equals(comentarioForm.getAnonimo()));
         comentarioRepository.save(comentario);
     }
 
