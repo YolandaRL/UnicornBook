@@ -10,6 +10,7 @@ public class CompraDto {
     private String direccionTextoDireccion;
     private Float metodoPago;
     private String estadoNombre;
+    private Long estadoId;
     private Date fechaEntrega;
     private List<DetalleCompraDto> detalleCompraDtoList;
 
@@ -51,6 +52,14 @@ public class CompraDto {
 
     public void setEstadoNombre(String estadoNombre) {
         this.estadoNombre = estadoNombre;
+    }
+
+    public Long getEstadoId() {
+        return estadoId;
+    }
+
+    public void setEstadoId(Long estadoId) {
+        this.estadoId = estadoId;
     }
 
     public Date getFechaEntrega() {

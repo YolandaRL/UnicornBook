@@ -222,6 +222,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             compraDto.setId(compra.getId());
             compraDto.setFechaCompra(compra.getFechaCompra());
             compraDto.setEstadoNombre(compra.getEstado().getNombre());
+            compraDto.setEstadoId(compra.getEstado().getId());
             compraDto.setMetodoPago(null);
             compraDto.setDireccionTextoDireccion(compra.getDireccion().getTextoDireccion());
             compraDto.setFechaEntrega(compra.getFechaEntrega());

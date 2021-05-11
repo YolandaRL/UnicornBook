@@ -55,8 +55,12 @@
                             <td class="text-center"><span
                                     th:text="${#dates.format(p.fechaEntrega, 'dd-MM-yyyy')}"></span>
                             </td>
-
                             <td class="text-center">
+                                <a class="simple-link" href="#cancelacion-pedido-dummy"
+                                   th:if="${p.estadoId==4 || p.estadoId==6}">Cancelar</a>
+                                <a class="simple-link" href="#devolucion-pedido-dummy"
+                                   th:if="${p.estadoId==7 || p.estadoId==5}">Devolver</a>
+                                <span th:if="${p.estadoId==8}">No hay acciones disponibles</span>
 
                             </td>
                         </tr>
