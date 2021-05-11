@@ -20,6 +20,8 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
 
     LibroView findLibroById(Long id);
 
+    Libro getByIsbn(Long isbn);
+
     List<LibroView> findTop3ByVisibleIsTrueOrderByFechaDisponibleDesc();
 
     List<LibroView> findTop10ByVisibleIsTrueOrderByFechaDisponibleDesc();

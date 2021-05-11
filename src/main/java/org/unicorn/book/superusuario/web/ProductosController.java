@@ -14,16 +14,21 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.unicorn.book.libreria.dto.LibroDto;
 import org.unicorn.book.libreria.dto.MaestroView;
 import org.unicorn.book.libreria.filter.LibroFilter;
 import org.unicorn.book.libreria.service.LibroService;
 import org.unicorn.book.superusuario.dto.ProductoForm;
+import org.unicorn.book.superusuario.exception.ISBNDuplicadoException;
+import org.unicorn.book.superusuario.exception.ProductoAsociadoCarritoException;
+import org.unicorn.book.superusuario.exception.ProductoAsociadoCompraException;
 import org.unicorn.book.superusuario.service.ProductosService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.unicorn.book.superusuario.web.ConsolaController.ACTIVE_PAGE;
@@ -96,23 +101,52 @@ public class ProductosController {
         return "/admin/productos";
     }
 
-    @GetMapping("/edicion")
+    @GetMapping(value = { "/edicion", "/edicion/{idLibro}" })
     public String getConsolaProductosEdicionView(ModelMap model,
-            @RequestParam(value = "idLibro", required = false) Long idLibro) {
+            @PathVariable(name = "idLibro", required = false) Long idLibro) {
         LOGGER.info("Accediendo a la vista de alta, baja y edición de la administración de productos");
         model.addAttribute("activeSubPage", "consola-productos-edicion");
         model.addAttribute("productoForm", productosService.getFormularioEdicion(idLibro));
         return "/admin/new-edit-producto";
     }
 
+    @GetMapping("/eliminar/{idLibro}")
+    public String getConsolaProductosEliminarView(ModelMap model, @PathVariable("idLibro") Long idLibro,
+            RedirectAttributes ra) {
+        LOGGER.info("Petición de eliminación completa de producto");
+        ra.addFlashAttribute("activeSubPage", "consola-productos-edicion");
+        try {
+            productosService.eliminarLibro(idLibro);
+            ra.addFlashAttribute("exito", "El libro se ha eliminado correctamente");
+            return "redirect:/consola/productos/edicion";
+
+        } catch (ProductoAsociadoCarritoException e) {
+            ra.addFlashAttribute("error",
+                    "El producto que intenta eliminar está en la cesta de la compra de un usuario");
+
+        } catch (ProductoAsociadoCompraException e) {
+            ra.addFlashAttribute("error",
+                    "El producto que intenta eliminar está asociado a compras de usuario. Puede deshabilitar su visualización haciendolo no visible");
+        }
+        return "redirect:/consola/productos/edicion/" + idLibro;
+    }
+
     @PostMapping("/edicion")
-    public String postConsolaProductosEdicionView(@ModelAttribute("productoForm") ProductoForm productoForm,
-            BindingResult result, ModelMap model) {
+    public String postConsolaProductosEdicionView(@Valid @ModelAttribute("productoForm") ProductoForm productoForm,
+            BindingResult result, ModelMap model, RedirectAttributes ra) {
         LOGGER.info("Petición de guardado de un producto");
         model.addAttribute("activeSubPage", "consola-productos-edicion");
-        if (!result.hasErrors()) {
+        if (result.hasErrors()) {
+            model.addAttribute("error", "Complete los campos obligatorios marcados en el formulacio");
+        } else {
             LOGGER.warn("Error validando del formulario del producto, se devuelve el formulario con los errores");
-            model.addAttribute("productoForm", productosService.saveUpdateLibro(productoForm));
+            try {
+                productoForm = productosService.saveUpdateLibro(productoForm);
+                ra.addFlashAttribute("exito", "El libro se ha guardado correctamente");
+                return "redirect:/consola/productos/edicion/" + productoForm.getId();
+            } catch (ISBNDuplicadoException e) {
+                model.addAttribute("error", "El ISBN indicado ya está asociado a otro producto");
+            }
         }
         return "/admin/new-edit-producto";
     }

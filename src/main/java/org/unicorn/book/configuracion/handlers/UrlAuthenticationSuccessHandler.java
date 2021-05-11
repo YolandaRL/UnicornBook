@@ -52,7 +52,7 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
         final String url = String.valueOf(session.getAttribute(OLD_REQUEST_URI));
         Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("ROLE_CLIENTE", ObjectUtils.isEmpty(url) || "null".equals(url) ? Strings.EMPTY : url);
-        roleTargetUrlMap.put("ROLE_ADMIN", "/consola");
+        roleTargetUrlMap.put("ROLE_ADMIN", ObjectUtils.isEmpty(url) || "null".equals(url) ? "/consola" : url);
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {

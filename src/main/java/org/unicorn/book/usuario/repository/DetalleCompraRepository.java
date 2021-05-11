@@ -15,4 +15,6 @@ public interface DetalleCompraRepository extends JpaRepository<DetalleCompra, Lo
     List<DetalleCompra> findAllByCompraId(Long id);
 
     List<DetalleCompra> findAllByCompraFechaCompraBetween(Date fechaDesde, Date fechaHasta);
+
+    Integer countByLibroId(Long id);
 }

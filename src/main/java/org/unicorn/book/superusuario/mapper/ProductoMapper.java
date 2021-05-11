@@ -12,11 +12,12 @@ import java.util.ArrayList;
 @Mapper
 public interface ProductoMapper {
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "autor", ignore = true)
     @Mapping(target = "coleccion", ignore = true)
     @Mapping(target = "editorial", ignore = true)
     @Mapping(target = "tematicas", ignore = true)
-    Libro toLibro(ProductoForm src);
+    void updateLibro(@MappingTarget Libro target, ProductoForm src);
 
     @Mapping(target = "autor", source = "autor.id")
     @Mapping(target = "coleccion", source = "coleccion.id")

@@ -1,6 +1,9 @@
 package org.unicorn.book.superusuario.service;
 
 import org.unicorn.book.superusuario.dto.ProductoForm;
+import org.unicorn.book.superusuario.exception.ISBNDuplicadoException;
+import org.unicorn.book.superusuario.exception.ProductoAsociadoCarritoException;
+import org.unicorn.book.superusuario.exception.ProductoAsociadoCompraException;
 
 /**
  * Define las operaciones disponibles que tiene el administrador sobre productos
@@ -21,12 +24,12 @@ public interface ProductosService {
      * @param form el formulario con los cambios a persistir {@link ProductoForm}
      * @return el formulario del producto actualizado {@link ProductoForm}
      */
-    ProductoForm saveUpdateLibro(ProductoForm form);
+    ProductoForm saveUpdateLibro(ProductoForm form) throws ISBNDuplicadoException;
 
     /**
      * Hace un borrado lógico de un libro en la base de datos. De esta forma las referencias en compras antiguas nos e perderán
      *
      * @param idProducto el ID del libro {@link Long}
      */
-    void eliminarLibro(Long idProducto);
+    void eliminarLibro(Long idProducto) throws ProductoAsociadoCarritoException, ProductoAsociadoCompraException;
 }

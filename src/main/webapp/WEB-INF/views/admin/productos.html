@@ -264,7 +264,7 @@
                     <th class="text-center" scope="col">STOCK</th>
                     <th class="text-center" scope="col">VISIBLE</th>
                     <th class="text-center" scope="col">FECHA DISPONIBILIDAD</th>
-
+                    <th class="text-center" scope="col">ACCIONES</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -299,6 +299,10 @@
                         </td>
                         <td class="text-center">
                             <span th:text="${#dates.format(libro.fechaDisponible, 'dd-MM-yyyy')}"></span>
+                        </td>
+                        <td class="text-center">
+                            <a class="a-link-icon fa fa-pencil-alt"
+                               th:href="@{/consola/productos/edicion/__${libro.id}__}"></a>
                         </td>
                     </th:block>
                 </tr>

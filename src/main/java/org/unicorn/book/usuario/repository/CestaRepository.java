@@ -15,4 +15,6 @@ public interface CestaRepository extends JpaRepository<Cesta, Long> {
     void deleteAllByUsuarioId(Long id);
 
     List<Cesta> findAllByUsuarioIdAndCantidadIsNotNull(Long id);
+
+    Integer countByLibroId(Long id);
 }

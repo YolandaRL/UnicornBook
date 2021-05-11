@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,15 +25,13 @@ public class ProductoForm implements Serializable {
     private Date fechaEdicion;
     @NotNull
     private Date fechaDisponible;
-    @NotNull
-    private Boolean visible;
+    private boolean visible;
     private String idioma;
     private String notas;
     @NotNull
     private Integer stock;
     @NotNull
     private Float precio;
-    @NotEmpty
     private String linkPortada;
     @NotNull
     private Long editorial;
@@ -124,11 +123,11 @@ public class ProductoForm implements Serializable {
         this.fechaDisponible = fechaDisponible;
     }
 
-    public Boolean getVisible() {
+    public boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(Boolean visible) {
+    public void setVisible(boolean visible) {
         this.visible = visible;
     }
 
@@ -197,7 +196,7 @@ public class ProductoForm implements Serializable {
     }
 
     public List<Long> getTematicas() {
-        return tematicas;
+        return tematicas == null ? new ArrayList<>() : tematicas;
     }
 
     public void setTematicas(List<Long> tematicas) {

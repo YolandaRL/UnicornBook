@@ -17,6 +17,298 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Alta, baja o edición de libros</h1>
     </div>
+    <div class="row" th:if="${exito}">
+        <div class="col-12 alert alert-success"><span th:text="${exito}"></span></div>
+    </div>
+    <div class="row" th:if="${error}">
+        <div class="col-12 alert alert-danger"><span th:text="${error}"></span></div>
+    </div>
+    <form method="post" th:action="@{/consola/productos/edicion}" th:object="${productoForm}">
+        <fieldset>
+            <div class="row">
+                <div class="col-sm-2 pl-3 pt-0 pb-3 justify-content-center">
+                    <img alt="Foto de la portada del libro" class="shadow-lg bg-white rounded"
+                         style="height: 25vh; margin: auto" th:src="${productoForm.linkPortada}">
+                </div>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 required">
+                                <input aria-label="id" class="form-control"
+                                       id="id"
+                                       placeholder="Identificador en el sistema"
+                                       readonly
+                                       th:classappend="${#fields.hasErrors('id') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{id}"
+                                       type="text"/>
+                                <label for="id">ID interno</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('id')}"
+                                      th:text="${#fields.errors('id')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 required">
+                                <input aria-label="isbn" class="form-control"
+                                       id="isbn"
+                                       placeholder="ISBN"
+                                       th:classappend="${#fields.hasErrors('isbn') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{isbn}"
+                                       type="text"/>
+                                <label for="id">ISBN</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('isbn')}"
+                                      th:text="${#fields.errors('isbn')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-floating mb-3 required">
+                                <input aria-label="precio" class="form-control"
+                                       id="precio"
+                                       placeholder="Precio"
+                                       th:classappend="${#fields.hasErrors('precio') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{precio}"
+                                       type="text"/>
+                                <label for="precio">Precio</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('precio')}"
+                                      th:text="${#fields.errors('precio')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="form-floating mb-3 required">
+                                <input aria-label="stock" class="form-control"
+                                       id="stock"
+                                       placeholder="Stock"
+                                       th:classappend="${#fields.hasErrors('stock') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                       th:field="*{stock}"
+                                       type="text"/>
+                                <label for="stock">Stock</label>
+                                <span class="text-danger" th:if="${#fields.hasErrors('stock')}"
+                                      th:text="${#fields.errors('stock')[0]}"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-md-2 col-sm-12">
+                            <div class="form-check form-switch mt-3  justify-content-center">
+                                <input class="form-check-input" id="libroActivo" name="visible"
+                                       th:checked="${productoForm.visible}" type="checkbox">
+                                <label class="form-check-label" for="libroActivo">Visible</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span>Temáticas</span>
+                                </div>
+                                <div class="co-sm-9">
+                                    <span class="text-danger" th:if="${#fields.hasErrors('tematicas')}"
+                                          th:text="${#fields.errors('tematicas')[0]}"></span>
+                                    <div class="form-check" th:each="t:${listTematicas}">
+                                        <input class="form-check-input" id="tematica" name="tematicas"
+                                               th:checked="${#lists.contains(productoForm.tematicas, t.id)}"
+                                               th:value="${t.id}" type="checkbox">
+                                        <label class="form-check-label" for="tematica" th:text="${t.nombre}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating mb-3 inner-addon right-addon required">
+                                        <select aria-label="autor" class="form-control" id="autor"
+                                                th:classappend="${#fields.hasErrors('autor') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                                th:field="*{autor}">
+                                            <option value="">Seleccione una opción</option>
+                                            <option th:each="t:${listAutores}" th:text="${t.nombre}"
+                                                    th:value="${t.id}"></option>
+                                        </select>
+                                        <label for="autor">Autor</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('autor')}"
+                                              th:text="${#fields.errors('autor')[0]}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating mb-3 inner-addon right-addon required">
+                                        <select aria-label="editorial" class="form-control" id="editorial"
+                                                th:classappend="${#fields.hasErrors('editorial') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                                th:field="*{editorial}">
+                                            <option value="">Seleccione una opción</option>
+                                            <option th:each="t:${listEditoriales}" th:text="${t.nombre}"
+                                                    th:value="${t.id}"></option>
+                                        </select>
+                                        <label for="editorial">Editorial</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('editorial')}"
+                                              th:text="${#fields.errors('editorial')[0]}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating mb-3 inner-addon right-addon required">
+                                        <select aria-label="coleccion" class="form-control" id="coleccion"
+                                                th:classappend="${#fields.hasErrors('coleccion') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                                th:field="*{coleccion}">
+                                            <option value="">Seleccione una opción</option>
+                                            <option th:each="t:${listColecciones}" th:text="${t.nombre}"
+                                                    th:value="${t.id}"></option>
+                                        </select>
+                                        <label for="coleccion">Colección</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('coleccion')}"
+                                              th:text="${#fields.errors('coleccion')[0]}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating inner-addon right-addon mb-3">
+                                        <input class="form-control date-picker" id="fechaPublicacion"
+                                               th:classappend="${#fields.hasErrors('fechaPublicacion') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                               th:field="*{fechaPublicacion}"
+                                               type="text">
+                                        <em class="fa fa-calendar-alt"></em>
+                                        <label for="fechaPublicacion">Fecha publicación</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('fechaPublicacion')}"
+                                              th:text="${#fields.errors('fechaPublicacion')[0]}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating inner-addon right-addon mb-3">
+                                        <input class="form-control date-picker" id="fechaDisponible"
+                                               th:classappend="${#fields.hasErrors('fechaDisponible') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                               th:field="*{fechaDisponible}"
+                                               type="text">
+                                        <em class="fa fa-calendar-alt"></em>
+                                        <label for="fechaDisponible">Fecha disponibilidad</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('fechaDisponible')}"
+                                              th:text="${#fields.errors('fechaDisponible')[0]}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating inner-addon right-addon mb-3">
+                                        <input class="form-control date-picker" id="fechaEdicion"
+                                               readonly
+                                               th:classappend="${#fields.hasErrors('fechaEdicion') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                               th:field="*{fechaEdicion}"
+                                               type="text">
+                                        <em class="fa fa-calendar-alt"></em>
+                                        <label for="fechaEdicion">Fecha edición</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('fechaEdicion')}"
+                                              th:text="${#fields.errors('fechaEdicion')[0]}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating mb-3 required">
+                                        <input aria-label="idioma" class="form-control"
+                                               id="idioma"
+                                               placeholder="Idioma"
+                                               th:classappend="${#fields.hasErrors('idioma') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                               th:field="*{idioma}"
+                                               type="text"/>
+                                        <label for="idioma">Idioma</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('idioma')}"
+                                              th:text="${#fields.errors('idioma')[0]}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating mb-3 required">
+                                        <input aria-label="paginas" class="form-control"
+                                               id="paginas"
+                                               placeholder="Páginas"
+                                               th:classappend="${#fields.hasErrors('paginas') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                               th:field="*{paginas}"
+                                               type="text"/>
+                                        <label for="paginas">Páginas</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('paginas')}"
+                                              th:text="${#fields.errors('paginas')[0]}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-floating mb-3 required">
+                                        <input aria-label="formato" class="form-control"
+                                               id="formato"
+                                               placeholder="Formato"
+                                               th:classappend="${#fields.hasErrors('formato') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                               th:field="*{formato}"
+                                               type="text"/>
+                                        <label for="formato">Formato</label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('formato')}"
+                                              th:text="${#fields.errors('formato')[0]}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-floating mb-3 required">
+                        <input aria-label="isbn" class="form-control"
+                               id="titulo"
+                               placeholder="Título"
+                               th:classappend="${#fields.hasErrors('titulo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                               th:field="*{titulo}"
+                               type="text"/>
+                        <label for="titulo">Título</label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('titulo')}"
+                              th:text="${#fields.errors('titulo')[0]}"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-floating mb-3 required">
+                        <input aria-label="subtitulo" class="form-control"
+                               id="subtitulo"
+                               placeholder="Subtítulo"
+                               th:classappend="${#fields.hasErrors('subtitulo') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                               th:field="*{subtitulo}"
+                               type="text"/>
+                        <label for="subtitulo">Subtítulo</label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('subtitulo')}"
+                              th:text="${#fields.errors('subtitulo')[0]}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-12">
+                    <div class="form-floating mb-3 inner-addon right-addon required">
+                                <textarea aria-label="sipnosis" class="form-control" id="sipnosis"
+                                          placeholder="Sipnosis"
+                                          rows="10" style="height: 200px"
+                                          th:classappend="${#fields.hasErrors('sinopsis') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                          th:field="*{sinopsis}" type="text"></textarea>
+                        <label for="sipnosis">Sipnosis</label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('sinopsis')}"
+                              th:text="${#fields.errors('sinopsis')[0]}"></span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="form-floating mb-3 inner-addon right-addon required">
+                                <textarea aria-label="notas" class="form-control" id="notas"
+                                          placeholder="Notas"
+                                          rows="10" style="height: 200px"
+                                          th:classappend="${#fields.hasErrors('notas') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
+                                          th:field="*{notas}" type="text"></textarea>
+                        <label for="sipnosis">Notas</label>
+                        <span class="text-danger" th:if="${#fields.hasErrors('notas')}"
+                              th:text="${#fields.errors('notas')[0]}"></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="d-flex flex-row-reverse bd-highlight">
+            <div class="p-2">
+                <button class="btn btn-success evt-loader p-2" type="submit">Guardar</button>
+            </div>
+            <div class="p-2" th:if="${productoForm.id}">
+                <a class="btn btn-danger evt-loader p-2" th:href="@{/consola/productos/edicion/__${productoForm.id}__}"
+                   type="button">Cancelar</a>
+            </div>
+            <div class="p-2" th:if="${productoForm.id}">
+                <a class="text-danger evt-loader p-2" th:href="@{/consola/productos/eliminar/__${productoForm.id}__}"
+                   type="button">Eliminar</a>
+            </div>
+        </div>
+    </form>
 </main>
 </body>
 </html>
