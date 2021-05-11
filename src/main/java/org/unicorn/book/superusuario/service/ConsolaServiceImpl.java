@@ -31,6 +31,7 @@ public class ConsolaServiceImpl implements ConsolaService {
 
     /**
      * Constructor
+     *
      * @param detalleCompraRepository el repositorio de los detalles de compras {@link DetalleCompraRepository}
      */
     public ConsolaServiceImpl(DetalleCompraRepository detalleCompraRepository) {
@@ -49,10 +50,11 @@ public class ConsolaServiceImpl implements ConsolaService {
 
         for (int i = 0; i <= 30; i++) {
             Date fechaDesde = new GregorianCalendar(anoActual, mesActual, diaActual - i, 0, 0).getTime();
-            Date fechaHasta = new GregorianCalendar(anoActual, mesActual, diaActual - i, 23,59).getTime();
+            Date fechaHasta = new GregorianCalendar(anoActual, mesActual, diaActual - i, 23, 59).getTime();
 
             int ingresos = 0;
-            List<DetalleCompra> compras = detalleCompraRepository.findAllByCompraFechaCompraBetween(fechaDesde,fechaHasta);
+            List<DetalleCompra> compras = detalleCompraRepository
+                    .findAllByCompraFechaCompraBetween(fechaDesde, fechaHasta);
             if (compras != null) {
                 for (DetalleCompra compra : compras) {
                     ingresos = ingresos + compra.getCantidad() * Math.round(compra.getLibro().getPrecio());
@@ -61,10 +63,9 @@ public class ConsolaServiceImpl implements ConsolaService {
             mapa.put(fechaDesde, ingresos);
         }
         try {
-            return new ObjectMapper().writeValueAsString(mapa.entrySet().stream()
-                    .sorted(Map.Entry.comparingByKey())
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                            (oldValue, newValue) -> oldValue, LinkedHashMap::new)));
+            return new ObjectMapper().writeValueAsString(mapa.entrySet().stream().sorted(Map.Entry.comparingByKey())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
+                            LinkedHashMap::new)));
         } catch (JsonProcessingException e) {
             LOGGER.error("Erro convirtiendo el mapa con las estadisticas de ingresos a JSON", e);
             return "{}";

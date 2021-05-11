@@ -3,7 +3,6 @@ package org.unicorn.book.configuracion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -15,6 +14,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.unicorn.book.configuracion.converter.StringToCompraStepConverter;
 import org.unicorn.book.configuracion.converter.StringToTipoOperacionConverter;
+import org.unicorn.book.configuracion.handlers.LogTimesInterceptor;
 import org.unicorn.book.configuracion.handlers.RequestHandler;
 
 /**
@@ -26,7 +26,8 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(requestInterceptor());
+        registry.addInterceptor(new LogTimesInterceptor());
+        registry.addInterceptor(new RequestHandler());
     }
 
     @Override
@@ -45,11 +46,6 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToTipoOperacionConverter());
         registry.addConverter(new StringToCompraStepConverter());
-    }
-
-    @Bean
-    public HandlerInterceptor requestInterceptor() {
-        return new RequestHandler();
     }
 
     @Bean

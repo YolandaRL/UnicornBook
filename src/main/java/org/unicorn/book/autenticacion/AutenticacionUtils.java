@@ -50,7 +50,6 @@ public class AutenticacionUtils {
     }
 
     /**
-     *
      * @return
      */
     public static String getNomeCompreto() {

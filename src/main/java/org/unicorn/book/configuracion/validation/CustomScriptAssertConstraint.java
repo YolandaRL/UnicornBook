@@ -60,8 +60,7 @@ public class CustomScriptAssertConstraint implements ConstraintValidator<CustomS
 
     }
 
-    private void validateParameters(
-            CustomScriptAssert constraintAnnotation) {
+    private void validateParameters(CustomScriptAssert constraintAnnotation) {
         Contracts.assertNotEmpty(constraintAnnotation.script(), Messages.MESSAGES.parameterMustNotBeEmpty("script"));
         Contracts.assertNotEmpty(constraintAnnotation.lang(), Messages.MESSAGES.parameterMustNotBeEmpty("lang"));
         Contracts.assertNotEmpty(constraintAnnotation.alias(), Messages.MESSAGES.parameterMustNotBeEmpty("alias"));

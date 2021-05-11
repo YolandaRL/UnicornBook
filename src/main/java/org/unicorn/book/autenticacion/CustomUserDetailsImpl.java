@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class CustomUserDetailsImpl extends User {
     private Long id;
-    private String usuario;
+    private final String usuario;
     private String email;
     private String dni;
     private String nombre;

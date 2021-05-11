@@ -27,6 +27,10 @@ public class ComentarioDto {
         return idLibro;
     }
 
+    public void setIdLibro(Long idLibro) {
+        this.idLibro = idLibro;
+    }
+
     public Long getIdEstado() {
         return idEstado;
     }
@@ -49,10 +53,6 @@ public class ComentarioDto {
 
     public void setDescricionEstado(String descricionEstado) {
         this.descricionEstado = descricionEstado;
-    }
-
-    public void setIdLibro(Long idLibro) {
-        this.idLibro = idLibro;
     }
 
     public String getComentario() {

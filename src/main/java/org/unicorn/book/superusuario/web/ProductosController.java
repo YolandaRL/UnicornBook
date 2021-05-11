@@ -11,14 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.unicorn.book.libreria.dto.LibroDto;
 import org.unicorn.book.libreria.dto.MaestroView;
 import org.unicorn.book.libreria.filter.LibroFilter;
 import org.unicorn.book.libreria.service.LibroService;
+import org.unicorn.book.superusuario.dto.ProductoForm;
 import org.unicorn.book.superusuario.service.ProductosService;
 
 import java.util.List;
@@ -96,7 +99,21 @@ public class ProductosController {
     @GetMapping("/edicion")
     public String getConsolaProductosEdicionView(ModelMap model,
             @RequestParam(value = "idLibro", required = false) Long idLibro) {
+        LOGGER.info("Accediendo a la vista de alta, baja y edición de la administración de productos");
         model.addAttribute("activeSubPage", "consola-productos-edicion");
+        model.addAttribute("productoForm", productosService.getFormularioEdicion(idLibro));
+        return "/admin/new-edit-producto";
+    }
+
+    @PostMapping("/edicion")
+    public String postConsolaProductosEdicionView(@ModelAttribute("productoForm") ProductoForm productoForm,
+            BindingResult result, ModelMap model) {
+        LOGGER.info("Petición de guardado de un producto");
+        model.addAttribute("activeSubPage", "consola-productos-edicion");
+        if (!result.hasErrors()) {
+            LOGGER.warn("Error validando del formulario del producto, se devuelve el formulario con los errores");
+            model.addAttribute("productoForm", productosService.saveUpdateLibro(productoForm));
+        }
         return "/admin/new-edit-producto";
     }
 }

@@ -41,8 +41,8 @@ import java.util.UUID;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private static final UsuarioMapper MAPPER = Mappers.getMapper(UsuarioMapper.class);
-    private final UsuarioRepository usuarioRepository;
     private static final String ANONYMOUS_FICTITIOUS_USER = "ffef234b-0d70-49a4-abb9";
+    private final UsuarioRepository usuarioRepository;
     private final CompraRepository compraRepository;
     private final DetalleCompraRepository detalleCompraRepository;
     private final EncargoRepository encargoRepository;
@@ -103,7 +103,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public UsuarioForm actualizarUsuario(UsuarioForm usuarioForm) {
         Usuario usuario = usuarioRepository.getOne(usuarioForm.getId());
-        if (!StringUtils.isEmpty(usuarioForm.getContrasena()) && usuarioForm.getContrasena().equals(usuarioForm.getRepetirContrasena())) {
+        if (!StringUtils.isEmpty(usuarioForm.getContrasena()) && usuarioForm.getContrasena()
+                .equals(usuarioForm.getRepetirContrasena())) {
             usuario.setPassword(pass.encode(usuarioForm.getContrasena()));
         }
 
@@ -124,7 +125,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public List<DireccionForm> getDirecciones() {
-        List<Direccion> direccions = entityManager.find(Usuario.class, AutenticacionUtils.getIdUsuario()).getDirecciones();
+        List<Direccion> direccions = entityManager.find(Usuario.class, AutenticacionUtils.getIdUsuario())
+                .getDirecciones();
         List<DireccionForm> direccionForms = new ArrayList<>();
         direccions.forEach(d -> {
             direccionForms.add(MAPPER.toDireccionForm(d));

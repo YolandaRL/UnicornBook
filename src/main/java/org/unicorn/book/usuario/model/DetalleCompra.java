@@ -30,7 +30,7 @@ public class DetalleCompra implements Serializable {
     @Column(name = "CANTIDAD")
     private Integer cantidad;
 
-    @Column(name = "PORCENTAJE_DESCUENTO", columnDefinition="decimal", precision=18, scale=3)
+    @Column(name = "PORCENTAJE_DESCUENTO", columnDefinition = "decimal", precision = 18, scale = 3)
     private Double pocentajeDescuento;
 
     public DetalleCompraPk getPk() {

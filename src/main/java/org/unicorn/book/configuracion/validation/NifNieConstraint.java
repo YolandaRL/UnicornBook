@@ -35,7 +35,8 @@ public class NifNieConstraint implements ConstraintValidator<NifNie, String> {
         if (m.matches()) {
             String letra = m.group(2);
             String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-            int dni = StringUtils.isEmpty(modificadorNie) ? Integer.parseInt(m.group(1)) :
+            int dni = StringUtils.isEmpty(modificadorNie) ?
+                    Integer.parseInt(m.group(1)) :
                     Integer.parseInt(modificadorNie.concat(m.group(1)));
             dni = dni % 23;
             String reference = letras.substring(dni, dni + 1);

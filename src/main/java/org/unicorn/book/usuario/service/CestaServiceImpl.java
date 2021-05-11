@@ -77,9 +77,9 @@ public class CestaServiceImpl implements CestaService {
             cesta.setLibro(entityManager.getReference(Libro.class, idLibro));
             cesta.setUsuario(entityManager.getReference(Usuario.class, AutenticacionUtils.getIdUsuario()));
             cesta.setPk(pk);
-            cesta.setCantidad(cantidad==null || cantidad==0 ? 1 : cantidad);
+            cesta.setCantidad(cantidad == null || cantidad == 0 ? 1 : cantidad);
         } else {
-            cesta.setCantidad(cantidad==null || cantidad==0 ? 1 : cantidad);
+            cesta.setCantidad(cantidad == null || cantidad == 0 ? 1 : cantidad);
         }
         cestaRepository.save(cesta);
         return this.getCarritoCompra();
