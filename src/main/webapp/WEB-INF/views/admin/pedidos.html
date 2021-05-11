@@ -9,13 +9,83 @@
 
 <body>
 <div id="links"></div>
-<div id="scripts"></div>
+<div id="scripts">
+    <script th:src="@{/resources/js/busquedas.js}"></script>
+</div>
 
 <main id="content" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Pedidos</h1>
     </div>
-    <p>En construcción</p>
+    <!-- RESULTADOS -->
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Libro</th>
+                <th class="text-center" scope="col">Fecha</th>
+                <th class="text-center" scope="col">Cantidad</th>
+                <th class="text-center" scope="col">Decuento</th>
+                <th class="text-center" scope="col">Tipo de entrega</th>
+                <th class="text-center" scope="col">Dirección</th>
+                <th class="text-center" scope="col">Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="7" th:if="${listadoPedidos.totalPages==0}">
+                    Todavía no se han generado pedidos
+                </td>
+            </tr>
+            <tr th:each="pedido:${listadoPedidos}">
+                <td class="text-center">
+                    <a class="simple-link" th:href="@{/libro/__${pedido.libroId}__}"
+                       th:text="${pedido.libroNombre}"></a>
+                </td>
+                <td class="text-center">
+                    <span th:text="${#dates.format(pedido.fecha, 'dd-MM-yyyy')}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${pedido.cantidad}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${pedido.descuento}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${pedido.tipoEntrega}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${pedido.direccion}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${pedido.estado}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- FIN RESULTADOS -->
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav aria-label="Page navigation example" class="bg-transparent mt-5"
+         th:if="${listadoPedidos.totalPages!=0}">
+        <ul class="pagination justify-content-start">
+            <li class="page-item" th:classappend="${listadoPedidos.first} ? 'disabled' : ''">
+                <input disabled name="page" th:value="${listadoPedidos.number-1}" type="hidden"/>
+                <a aria-disabled="true" class="page-link" tabindex="-1"><</a>
+            </li>
+            <li class="page-item" th:classappend="${listadoPedidos.number==i}?'active':''"
+                th:each="i:${#numbers.sequence(0, listadoPedidos.totalPages - 1)}">
+                <input disabled name="page" th:value="${i}" type="hidden"/>
+                <a class="page-link" th:text="${i+1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${listadoPedidos.last} ? 'disabled' : ''">
+                <input disabled name="page" th:value="${listadoPedidos.number+1}" type="hidden"/>
+                <a class="page-link">></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- FIN : BARRA DE NAVEGACIÓN -->
 </main>
 </body>
 </html>

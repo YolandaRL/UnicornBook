@@ -1,14 +1,11 @@
-package org.unicorn.book.autenticacion;
+package org.unicorn.book.superusuario.dto;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-
-import java.util.Collection;
 import java.util.Date;
 
-public class CustomUserDetailsImpl extends User {
-    private final String usuario;
+public class ClienteDTO {
+
     private Long id;
+    private String usuario;
     private String email;
     private String dni;
     private String nombre;
@@ -17,11 +14,7 @@ public class CustomUserDetailsImpl extends User {
     private Long telefono1;
     private Long telefono2;
     private Date fechaNacimiento;
-
-    public CustomUserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
-        this.usuario = username;
-    }
+    private String roles;
 
     public Long getId() {
         return id;
@@ -29,6 +22,14 @@ public class CustomUserDetailsImpl extends User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getEmail() {
@@ -93,5 +94,13 @@ public class CustomUserDetailsImpl extends User {
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }

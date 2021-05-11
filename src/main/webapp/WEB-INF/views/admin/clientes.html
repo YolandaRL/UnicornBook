@@ -9,13 +9,86 @@
 
 <body>
 <div id="links"></div>
-<div id="scripts"></div>
+<div id="scripts">
+    <script th:src="@{/resources/js/busquedas.js}"></script>
+</div>
 
 <main id="content" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Clientes</h1>
     </div>
-    <p>En construcción</p>
+    <!-- RESULTADOS -->
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Nombre de usuario</th>
+                <th class="text-center" scope="col">Nombre</th>
+                <th class="text-center" scope="col">DNI</th>
+                <th class="text-center" scope="col">Correo</th>
+                <th class="text-center" scope="col">Teléfono primario</th>
+                <th class="text-center" scope="col">Teléfono secundario</th>
+                <th class="text-center" scope="col">Fecha de nacimiento</th>
+                <th class="text-center" scope="col">Permisos</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="7" th:if="${listadoClientes.totalPages==0}">
+                    Todavía no se han registrado usuarios
+                </td>
+            </tr>
+            <tr th:each="cliente:${listadoClientes}">
+                <td class="text-center">
+                    <span th:text="${cliente.usuario}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="|${cliente.nombre} ${cliente.apellido1} ${cliente.apellido2}|"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${cliente.dni}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${cliente.email}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${cliente.telefono1}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${cliente.telefono2}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${#dates.format(cliente.fechaNacimiento, 'dd-MM-yyyy')}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${cliente.roles}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- FIN RESULTADOS -->
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav aria-label="Page navigation example" class="bg-transparent mt-5"
+         th:if="${listadoClientes.totalPages!=0}">
+        <ul class="pagination justify-content-start">
+            <li class="page-item" th:classappend="${listadoClientes.first} ? 'disabled' : ''">
+                <input disabled name="page" th:value="${listadoClientes.number-1}" type="hidden"/>
+                <a aria-disabled="true" class="page-link" tabindex="-1"><</a>
+            </li>
+            <li class="page-item" th:classappend="${listadoClientes.number==i}?'active':''"
+                th:each="i:${#numbers.sequence(0, listadoClientes.totalPages - 1)}">
+                <input disabled name="page" th:value="${i}" type="hidden"/>
+                <a class="page-link" th:text="${i+1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${listadoClientes.last} ? 'disabled' : ''">
+                <input disabled name="page" th:value="${listadoClientes.number+1}" type="hidden"/>
+                <a class="page-link">></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- FIN : BARRA DE NAVEGACIÓN -->
 </main>
 </body>
 </html>

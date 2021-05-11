@@ -11,10 +11,7 @@ import org.unicorn.book.libreria.model.Coleccion;
 import org.unicorn.book.libreria.model.Editorial;
 import org.unicorn.book.libreria.model.Libro;
 import org.unicorn.book.libreria.model.Tematica;
-import org.unicorn.book.libreria.repository.LibroAutorRepository;
-import org.unicorn.book.libreria.repository.LibroColeccionRepository;
 import org.unicorn.book.libreria.repository.LibroRepository;
-import org.unicorn.book.libreria.repository.LibroTematicaRepository;
 import org.unicorn.book.superusuario.dto.ProductoForm;
 import org.unicorn.book.superusuario.exception.ISBNDuplicadoException;
 import org.unicorn.book.superusuario.exception.ProductoAsociadoCarritoException;
@@ -38,30 +35,19 @@ public class ProductosServiceImpl implements ProductosService {
     private static final ProductoMapper MAPPER = Mappers.getMapper(ProductoMapper.class);
 
     private final LibroRepository libroRepository;
-    private final LibroAutorRepository libroAutorRepository;
-    private final LibroColeccionRepository libroColeccionRepository;
-    private final LibroTematicaRepository libroTematicaRepository;
     private final DetalleCompraRepository detalleCompraRepository;
     private final CestaRepository cestaRepository;
     private final EntityManager entityManager;
 
     /**
-     * @param libroRepository          el repositorio de libros {@link LibroRepository}
-     * @param libroAutorRepository     el respositorio que relaciona un libro con su autor {@link LibroAutorRepository}
-     * @param libroColeccionRepository el repositorio que relaciona un libro en una coleccion {@link LibroColeccionRepository}
-     * @param libroTematicaRepository  el repositorio que relaciona un libro con varias tematicas {@link LibroTematicaRepository}
-     * @param detalleCompraRepository  el repositorio del detalle de una compra {@link DetalleCompraRepository}
-     * @param cestaRepository          el repositorio del carrito de la compra {@link CestaRepository}
-     * @param entityManager            el manejador generico de entidades {@link EntityManager}
+     * @param libroRepository         el repositorio de libros {@link LibroRepository}
+     * @param detalleCompraRepository el repositorio del detalle de una compra {@link DetalleCompraRepository}
+     * @param cestaRepository         el repositorio del carrito de la compra {@link CestaRepository}
+     * @param entityManager           el manejador generico de entidades {@link EntityManager}
      */
-    public ProductosServiceImpl(LibroRepository libroRepository, LibroAutorRepository libroAutorRepository,
-            LibroColeccionRepository libroColeccionRepository, LibroTematicaRepository libroTematicaRepository,
-            DetalleCompraRepository detalleCompraRepository, CestaRepository cestaRepository,
-            EntityManager entityManager) {
+    public ProductosServiceImpl(LibroRepository libroRepository, DetalleCompraRepository detalleCompraRepository,
+            CestaRepository cestaRepository, EntityManager entityManager) {
         this.libroRepository = libroRepository;
-        this.libroAutorRepository = libroAutorRepository;
-        this.libroColeccionRepository = libroColeccionRepository;
-        this.libroTematicaRepository = libroTematicaRepository;
         this.detalleCompraRepository = detalleCompraRepository;
         this.cestaRepository = cestaRepository;
         this.entityManager = entityManager;
