@@ -77,6 +77,9 @@ public class ProductosServiceImpl implements ProductosService {
             libro.setFechaEdicion(new Date());
         }
         MAPPER.updateLibro(libro, form);
+        libro.setLinkPortada(form.getLinkPortada() != null ?
+                form.getLinkPortada() :
+                "https://www.acfisedelcentro.com/assets/img/productos/laminas/default-image.jpg");
         libro.setAutor(entityManager.getReference(Autor.class, form.getAutor()));
         libro.setColeccion(entityManager.getReference(Coleccion.class, form.getColeccion()));
         libro.setEditorial(entityManager.getReference(Editorial.class, form.getEditorial()));
