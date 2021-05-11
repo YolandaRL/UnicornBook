@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.unicorn.book.libreria.dto.LibroDto;
 import org.unicorn.book.libreria.dto.MaestroView;
 import org.unicorn.book.libreria.filter.LibroFilter;
@@ -75,7 +76,11 @@ public class BusquedaController {
     }
 
     @GetMapping("/libro/{id}")
-    public String get(@PathVariable("id") Long id, ModelMap model) {
+    public String get(@PathVariable("id") Long id, @RequestParam(name = "section", required = false) String section,
+            ModelMap model) {
+        if ("comentarios".equals(section)) {
+            model.addAttribute("scrollToComentarios", true);
+        }
         model.addAttribute("comentarioForm", new ComentarioForm());
         model.addAttribute("libro", libroService.getLibro(id));
         model.addAttribute("listComentarios", libroService.getAllComentariosByIdLibros(id));

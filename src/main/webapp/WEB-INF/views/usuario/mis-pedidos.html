@@ -29,6 +29,7 @@
                         <th class="text-center" scope="col">Fecha compra</th>
                         <th class="text-center" scope="col">Direccion</th>
                         <th class="text-center" scope="col">Estado</th>
+                        <th class="text-center" scope="col">Valor</th>
                         <th class="text-center" scope="col">Fecha entrega</th>
                         <th class="text-center" scope="col">Acciones</th>
 
@@ -55,6 +56,9 @@
                             <td class="text-center"><span
                                     th:text="${#dates.format(p.fechaEntrega, 'dd-MM-yyyy')}"></span>
                             </td>
+                            <td class="text-center"><span
+                                    th:text="|${#numbers.formatDecimal(p.costeCompra, 0, 'POINT', 2, 'COMMA')}€|"></span>
+                            </td>
                             <td class="text-center">
                                 <a class="simple-link" href="#cancelacion-pedido-dummy"
                                    th:if="${p.estadoId==4 || p.estadoId==6}">Cancelar</a>
@@ -67,12 +71,21 @@
                         <tr style="display: none" th:id="|detalle-pedido-${p.id}|">
                             <td colspan="12">
                                 <div class="row border-bottom">
-                                    <div class="col-4 text-center"><strong>Cantidad</strong></div>
                                     <div class="col-4 text-center"><strong>Libro</strong></div>
+                                    <div class="col-2 text-center"><strong>Cantidad</strong></div>
+                                    <div class="col-2 text-center"><strong>Coste total</strong></div>
+                                    <div class="col-4 text-center"></div>
                                 </div>
                                 <div class="row" th:each="dp:${p.detalleCompraDtoList}">
-                                    <div class="col-4 text-center"><span th:text="|x${dp.cantidad}|"></span></div>
                                     <div class="col-4 text-center"><span th:text="|${dp.nombreLibro}|"></span></div>
+                                    <div class="col-2 text-center"><span th:text="|x${dp.cantidad}|"></span></div>
+                                    <div class="col-2 text-center"><span
+                                            th:text="|${#numbers.formatDecimal(dp.cantidad*dp.precio, 0, 'POINT', 2, 'COMMA')} (${#numbers.formatDecimal(dp.precio, 0, 'POINT', 2, 'COMMA')} € und.)|"></span>
+                                    </div>
+                                    <div class="col-2 text-center">
+                                        <a class="a-link-icon"
+                                           th:href="@{/libro/__${dp.idLibro}__?section=comentarios}">Da tu opinion</a>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

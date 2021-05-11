@@ -1,4 +1,8 @@
 $(function () {
+
+    if ($('#scrollToComentarios').val() === 'true') {
+        $('#comentarioForm')[0].scrollIntoView(true);
+    }
     $(document).on('click', '#btn-confirmar-comentario', function () {
         showLoader();
         let form = $('#comentarioForm');

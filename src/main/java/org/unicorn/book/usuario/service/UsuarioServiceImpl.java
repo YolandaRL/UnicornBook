@@ -229,16 +229,19 @@ public class UsuarioServiceImpl implements UsuarioService {
             }
             compraDto.setFechaEntrega(compra.getFechaEntrega());
             List<DetalleCompraDto> detalle = new ArrayList<>();
+            float costeCompra = 0;
             for (DetalleCompra detalleCompra : detalleCompraRepository.findAllByCompraId(compra.getId())) {
                 DetalleCompraDto detalleCompraDto = new DetalleCompraDto();
+                detalleCompraDto.setPrecio(detalleCompra.getLibro().getPrecio());
                 detalleCompraDto.setIdLibro(detalleCompra.getLibro().getId());
                 detalleCompraDto.setDescuento(detalleCompra.getPocentajeDescuento());
                 detalleCompraDto.setNombreLibro(detalleCompra.getLibro().getTitulo());
                 detalleCompraDto.setCantidad(detalleCompra.getCantidad());
                 detalle.add(detalleCompraDto);
+                costeCompra = costeCompra + detalleCompra.getLibro().getPrecio() * detalleCompra.getCantidad();
             }
             compraDto.setDetalleCompraDtoList(detalle);
-
+            compraDto.setCosteCompra(costeCompra);
             compraDtos.add(compraDto);
         }
         return compraDtos;

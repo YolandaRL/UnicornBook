@@ -5,6 +5,7 @@ public class DetalleCompraDto {
     private Long idLibro;
     private String nombreLibro;
     private Integer cantidad;
+    private Float precio;
     private Double descuento;
 
     public Long getIdLibro() {
@@ -29,6 +30,14 @@ public class DetalleCompraDto {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Float precio) {
+        this.precio = precio;
     }
 
     public Double getDescuento() {
