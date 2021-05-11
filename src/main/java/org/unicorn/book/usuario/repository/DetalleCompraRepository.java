@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.unicorn.book.usuario.model.DetalleCompra;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -12,4 +13,6 @@ public interface DetalleCompraRepository extends JpaRepository<DetalleCompra, Lo
     DetalleCompra getFirstByCompraUsuarioIdAndLibroId(Long idUsuario, Long idLibro);
 
     List<DetalleCompra> findAllByCompraId(Long id);
+
+    List<DetalleCompra> findAllByCompraFechaCompraBetween(Date fechaDesde, Date fechaHasta);
 }

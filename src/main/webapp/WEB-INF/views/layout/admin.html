@@ -73,7 +73,7 @@
     <em class="fa fa-cog"></em>
   </a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
-          data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+          data-bs-target="#menu-consola" aria-controls="menu-consola" aria-expanded="false"
           aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -90,55 +90,55 @@
 
 <div class="container-fluid">
   <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <nav id="menu-consola" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" th:href="@{/consola}"
+            <a class="nav-link evt-loader" aria-current="page" th:href="@{/consola}"
                th:classappend="${activePage == 'consola-index'} ? 'active'">
               <em class="fa fa-terminal"></em>
               Consola
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:classappend="${activePage == 'consola-productos'} ? 'active'"
+            <a class="nav-link status-sub-menu-btn" th:classappend="${activePage == 'consola-productos'} ? 'active'"
                aria-controls="sub-menu-productos"
                aria-expanded="false" data-bs-toggle="collapse" href="#sub-menu-productos" role="button">
               <em class="fa fa-book"></em>
               Productos
-              <em class="fa"
+              <em class="status-sub-menu-icon fa"
                   th:classappend="${activePage == 'consola-productos'} ? 'fa-angle-down' : 'fa-angle-up'"></em>
             </a>
             <div class="collapse" id="sub-menu-productos" style="padding-left:10% !important;"
                  th:classappend="${activePage == 'consola-productos'} ? 'show'">
               <ul class="border-start border-secondary nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link" th:classappend="${activeSubPage == 'consola-productos-consultas'} ? 'active'"
+                  <a class="nav-link evt-loader" th:classappend="${activeSubPage == 'consola-productos-consultas'} ? 'active'"
                      th:href="@{/consola/productos}">Consulta</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" th:classappend="${activeSubPage == 'consola-productos-edicion'} ? 'active'"
+                  <a class="nav-link evt-loader" th:classappend="${activeSubPage == 'consola-productos-edicion'} ? 'active'"
                      th:href="@{/consola/productos/edicion}">Edición</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:classappend="${activePage == 'consola-comentarios'} ? 'active'"
+            <a class="nav-link evt-loader" th:classappend="${activePage == 'consola-comentarios'} ? 'active'"
                th:href="@{/consola/comentarios}">
               <em class="fa fa-comments"></em>
               Comentarios
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/consola/pedidos}"
+            <a class="nav-link evt-loader" th:href="@{/consola/pedidos}"
                th:classappend="${activePage == 'consola-pedidos'} ? 'active'">
               <em class="fa fa-file"></em>
               Pedidos
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/consola/clientes}"
+            <a class="nav-link evt-loader" th:href="@{/consola/clientes}"
                th:classappend="${activePage == 'consola-clientes'} ? 'active'">
               <em class="fa fa-users"></em>
               Clientes

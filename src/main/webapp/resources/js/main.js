@@ -1,5 +1,14 @@
 jQuery(function () {
+    $(document).on('click', '.evt-loader, a.page-link', function () { showLoader(); });
 
+    $(document).on('click', '.status-sub-menu-btn', function () {
+        let icon = $('.status-sub-menu-icon', this);
+        if (icon.hasClass('fa-angle-down')) {
+            icon.removeClass('fa-angle-down').addClass('fa-angle-up');
+        } else {
+            icon.removeClass('fa-angle-up').addClass('fa-angle-down');
+        }
+    });
     /*
     if ($(window).innerHeight() >= $(document).innerHeight()) {
         $('#footer').addClass('fixed-bottom');

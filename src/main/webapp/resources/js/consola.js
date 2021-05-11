@@ -1,35 +1,19 @@
-/* globals Chart:false, feather:false */
+jQuery(function() {
+  let ctx = $('#chart-ventas');
+  let dias = [];
+  let ingresos = [];
+  $.each(ctx.data('value'), function(key, value){
+    let fecha = key.toString().split('T')[0].split('-');
+    dias.push(fecha[2] + '-' + fecha[1] + '-' + fecha[0]);
+    ingresos.push(value);
+  });
 
-(function () {
-  'use strict'
-
-  feather.replace()
-
-  // Graphs
-  var ctx = document.getElementById('chart-ventas')
-  // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
+  let myChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: [
-        'Lunes',
-        'Martes',
-        'Miércoles',
-        'Jueves',
-        'Viernes',
-        'Sábado',
-        'Domingo'
-      ],
+      labels: dias,
       datasets: [{
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
-        ],
+        data: ingresos,
         lineTension: 0,
         backgroundColor: 'transparent',
         borderColor: '#007bff',
@@ -49,5 +33,5 @@
         display: false
       }
     }
-  })
-})()
+  });
+});

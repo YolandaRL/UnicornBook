@@ -35,6 +35,7 @@ public class ConsolaController {
     @GetMapping
     public String getConsolaView(ModelMap model) {
         LOGGER.info("Accediendo a la vista principal de administración");
+        model.addAttribute("estadisticasVentas", consolaService.getGraficaPedidos());
         return "/admin/index";
     }
 }
