@@ -33,8 +33,8 @@ public class EncargoForm {
 
     private String notas;
 
-    @NotNull(message = "Campo obligatorio")
-    private Long isbn;
+    @NotEmpty(message = "Campo obligatorio")
+    private String isbn;
 
     @NotNull(message = "Campo obligatorio")
     private Integer cantidad;
@@ -123,11 +123,11 @@ public class EncargoForm {
         this.tipoEntragaId = tipoEntragaId;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
