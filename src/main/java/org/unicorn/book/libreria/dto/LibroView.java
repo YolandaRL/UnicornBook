@@ -7,7 +7,7 @@ public interface LibroView {
 
     Long getId();
 
-    Long getIsbn();
+    String getIsbn();
 
     String getTitulo();
 

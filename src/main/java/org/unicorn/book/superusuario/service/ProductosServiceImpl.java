@@ -113,7 +113,7 @@ public class ProductosServiceImpl implements ProductosService {
      * @param isbn el ISBN con el cual validar que no exista {@link Long}
      * @throws ISBNDuplicadoException error validando
      */
-    private void checkIsbNuevoLibro(Long isbn) throws ISBNDuplicadoException {
+    private void checkIsbNuevoLibro(String isbn) throws ISBNDuplicadoException {
         Libro libro = libroRepository.getByIsbn(isbn);
         if (!ObjectUtils.isEmpty(libro)) {
             throw new ISBNDuplicadoException("Ya existe un libro con el ISBN indicado");

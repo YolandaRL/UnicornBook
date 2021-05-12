@@ -5,7 +5,7 @@ import java.util.Date;
 public class LibroDto {
 
     private Long id;
-    private Long isbn;
+    private String isbn;
     private String titulo;
     private String subtitulo;
     private String sipnosis;
@@ -25,11 +25,11 @@ public class LibroDto {
         this.id = id;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 

@@ -12,8 +12,8 @@ public class ProductoForm implements Serializable {
     private static final long serialVersionUID = 5570741305754421682L;
 
     private Long id;
-    @NotNull
-    private Long isbn;
+    @NotEmpty
+    private String isbn;
     @NotEmpty
     private String titulo;
     private String subtitulo;
@@ -51,11 +51,11 @@ public class ProductoForm implements Serializable {
         this.id = id;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 

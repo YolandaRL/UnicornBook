@@ -26,7 +26,7 @@ public class Libro implements Serializable {
     private Long id;
 
     @Column(name = "ISBN")
-    private Long isbn;
+    private String isbn;
 
     @Column(name = "TITULO")
     private String titulo;
@@ -94,11 +94,11 @@ public class Libro implements Serializable {
         this.id = id;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
