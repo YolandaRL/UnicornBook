@@ -16,7 +16,7 @@ import java.util.List;
 public interface LibroRepository extends JpaRepository<Libro, Long> {
 
     @Query("SELECT l.id FROM Libro l WHERE l.isbn = :isbn AND l.stock IS NOT NULL AND l.stock > 0")
-    Long libroConStockByIsbn(@Param("isbn") Long isbn);
+    Long libroConStockByIsbn(@Param("isbn") String isbn);
 
     LibroView findLibroById(Long id);
 
