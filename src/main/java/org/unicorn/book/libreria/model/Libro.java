@@ -67,7 +67,7 @@ public class Libro implements Serializable {
     @Column(name = "PRECIO")
     private Float precio;
 
-    @Column(name = "LINK_PORTADA")
+    @Column(name = "UUID_PORTADA")
     private String linkPortada;
 
     @ManyToOne(fetch = FetchType.EAGER)
