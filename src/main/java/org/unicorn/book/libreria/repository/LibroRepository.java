@@ -24,6 +24,12 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
 
     List<LibroView> findTop3ByVisibleIsTrueOrderByFechaDisponibleDesc();
 
+    @Query("SELECT dt.libro.id AS id, dt.libro.titulo AS titulo, dt.libro.subtitulo AS subtitulo, dt.libro.precio AS precio," +
+            "dt.libro.linkPortada AS linkPortada, dt.libro.autor AS autor " +
+            "FROM DetalleCompra dt " +
+            "GROUP BY dt.libro " +
+            "HAVING COUNT (dt)  > 1 " +
+            "ORDER BY dt.compra.fechaCompra DESC")
     List<LibroView> findTop10ByVisibleIsTrueOrderByFechaDisponibleDesc();
 
     Page<Libro> findAll(Specification<Libro> specification, Pageable pageable);
