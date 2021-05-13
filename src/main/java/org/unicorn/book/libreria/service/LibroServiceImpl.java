@@ -24,6 +24,7 @@ import org.unicorn.book.libreria.specifications.BusquedaSpecifications;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -67,7 +68,8 @@ public class LibroServiceImpl implements LibroService {
 
     @Override
     public List<LibroView> getMuestraLibros() {
-        return libroRepository.findTop10ByVisibleIsTrueOrderByFechaDisponibleDesc();
+        return libroRepository.findTop10ByVisibleIsTrueOrderByFechaDisponibleDesc().stream().limit(10).collect(
+                Collectors.toList());
     }
 
     @Override
