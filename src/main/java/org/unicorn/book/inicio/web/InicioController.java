@@ -1,6 +1,8 @@
 package org.unicorn.book.inicio.web;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +22,14 @@ import java.util.List;
 public class InicioController {
 
     private final LibroService libroService;
+    @Value("${dir.images}")
+    private String dirImages;
 
     public InicioController(LibroService libroService) {
         this.libroService = libroService;
     }
 
+    @Transactional
     @GetMapping("/")
     public String getPortada(ModelMap model, HttpSession request) {
         List<LibroView> muestras = libroService.getMuestraLibros();
@@ -38,7 +43,7 @@ public class InicioController {
     @GetMapping("/image/{fileName}")
     public void getImagePortada(@PathVariable("fileName") String fileName, HttpServletResponse response)
             throws IOException {
-        File initialFile = new File("/Users/pablo/Desktop/unicornbook_images/" + fileName + ".gif");
+        File initialFile = new File(dirImages + fileName);
         InputStream targetStream = new FileInputStream(initialFile);
         StreamUtils.copy(targetStream, response.getOutputStream());
     }
