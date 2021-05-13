@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.unicorn.book.libreria.dto.AutorView;
 import org.unicorn.book.libreria.dto.LibroDto;
+import org.unicorn.book.libreria.dto.LibroView;
 import org.unicorn.book.libreria.dto.MaestroView;
 import org.unicorn.book.libreria.filter.LibroFilter;
 import org.unicorn.book.libreria.service.LibroService;
@@ -89,7 +91,10 @@ public class BusquedaController {
 
     @GetMapping("/autor/{id}")
     private String getLibro(@PathVariable("id") Long id, ModelMap model) {
+        AutorView autor = libroService.getAutor(id);
         model.addAttribute("autor", libroService.getAutor(id));
+        model.addAttribute("listComentarios", libroService
+                .getAllComentariosByIdLibros(autor.getLibros().stream().map(LibroView::getId).toArray(Long[]::new)));
         return "libro/autor";
     }
 

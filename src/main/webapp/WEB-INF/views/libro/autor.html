@@ -53,13 +53,12 @@
                             <div class="card-body">
                                 <h5 class="card-title text-center" th:text="${libro.titulo}"></h5>
                                 <p class="card-text text-center" th:text="${libro.subtitulo}">Autor</p>
-                                <p class="text-center" th:text="${libro.isbn}"></p>
-                                <div class="mb-2 text-center">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                <div class="mb-2 text-center"
+                                     th:with="estrellas=${#aggregates.sum(listComentarios.?[idLibro==__${libro.id}__].![estrellas])},
+                                    mediaEstrellas=${estrellas!=null?estrellas/listComentarios.?[idLibro==__${libro.id}__].size():0}">
+                                    <i class="fa-star" th:classappend="${i<=mediaEstrellas}?'fa' : 'far'"
+                                       th:each="i: ${#numbers.sequence(1, 5)}"></i>
+                                    <span th:text="|(${listComentarios.?[idLibro==__${libro.id}__].size()})|"></span>
                                 </div>
                                 <h5 class="mb-0 text-primary text-center"
                                     th:text="|${#numbers.formatDecimal(libro.precio, 0, 'POINT', 2, 'COMMA')} €|">
