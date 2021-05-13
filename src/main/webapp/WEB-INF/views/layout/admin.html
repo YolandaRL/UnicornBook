@@ -115,12 +115,50 @@
                  th:classappend="${activePage == 'consola-productos'} ? 'show'">
               <ul class="border-start border-secondary nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link evt-loader" th:classappend="${activeSubPage == 'consola-productos-consultas'} ? 'active'"
+                  <a class="nav-link evt-loader"
+                     th:classappend="${activeSubPage == 'consola-productos-consultas'} ? 'active'"
                      th:href="@{/consola/productos}">Consulta</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link evt-loader" th:classappend="${activeSubPage == 'consola-productos-edicion'} ? 'active'"
+                  <a class="nav-link evt-loader"
+                     th:classappend="${activeSubPage == 'consola-productos-edicion'} ? 'active'"
                      th:href="@{/consola/productos/edicion}">Edición</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a aria-controls="sub-menu-maestros" aria-expanded="false"
+               class="nav-link status-sub-menu-btn"
+               data-bs-toggle="collapse" href="#sub-menu-maestros" role="button"
+               th:classappend="${activePage == 'consola-maestros'} ? 'active'">
+              <em class="fa fa-archive"></em>
+              Gestión de maestros
+              <em class="status-sub-menu-icon fa"
+                  th:classappend="${activePage == 'consola-maestros'} ? 'fa-angle-down' : 'fa-angle-up'"></em>
+            </a>
+            <div class="collapse" id="sub-menu-maestros" style="padding-left:10% !important;"
+                 th:classappend="${activePage == 'consola-maestros'} ? 'show'">
+              <ul class="border-start border-secondary nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link evt-loader"
+                     th:classappend="${activeSubPage == 'consola-maestros-autores'} ? 'active'"
+                     th:href="@{/consola/maestros/autores}">Autores</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link evt-loader"
+                     th:classappend="${activeSubPage == 'consola-maestros-colecciones'} ? 'active'"
+                     th:href="@{/consola/maestros/colecciones}">Colecciones</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link evt-loader"
+                     th:classappend="${activeSubPage == 'consola-maestros-tematicas'} ? 'active'"
+                     th:href="@{/consola/maestros/tematicas}">Temáticas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link evt-loader"
+                     th:classappend="${activeSubPage == 'consola-maestros-editoriales'} ? 'active'"
+                     th:href="@{/consola/maestros/editoriales}">Editoriales</a>
                 </li>
               </ul>
             </div>
@@ -144,6 +182,13 @@
                th:classappend="${activePage == 'consola-clientes'} ? 'active'">
               <em class="fa fa-users"></em>
               Clientes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link evt-loader" th:classappend="${activePage == 'consola-consultas-encargos'} ? 'active'"
+               th:href="@{/consola/consultas-encargos}">
+              <em class="fa fa-question"></em>
+              Consultas y encargos
             </a>
           </li>
         </ul>

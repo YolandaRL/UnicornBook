@@ -13,7 +13,8 @@ public class RequestHandler implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         final String requestUri = request.getRequestURI();
-        if (!requestUri.startsWith("/resources") && !requestUri.equals("/acceso")) {
+        if ((!requestUri.startsWith("/image") && !requestUri.startsWith("/resources")) && !requestUri
+                .equals("/acceso")) {
             request.getSession().setAttribute(OLD_REQUEST_URI, request.getRequestURI());
         }
         return true;
