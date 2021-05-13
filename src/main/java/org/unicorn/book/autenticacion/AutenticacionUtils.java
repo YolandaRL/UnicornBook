@@ -1,19 +1,23 @@
 package org.unicorn.book.autenticacion;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.client.HttpClientErrorException;
 import org.unicorn.book.usuario.model.Rol;
 import org.unicorn.book.usuario.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class AutenticacionUtils {
 
+    /**
+     * Constructor
+     */
     public AutenticacionUtils() {
     }
 
@@ -23,14 +27,14 @@ public class AutenticacionUtils {
      * El proceso de autenticación consiste en crear el objeto personalizado de detalles de usuario <p>CustomUserDetails.class</p>
      * y añadirlo al contexto de seguridad de scring.
      *
-     * @param username
-     * @param roles
+     * @param usuario el usuario {@link Usuario}
+     * @param roles   los roles a asignar {@link List<Rol>}
      */
     public static void login(Usuario usuario, List<Rol> roles) {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         roles.forEach(rol -> authorities.add(rol::getNombre));
-        CustomUserDetailsImpl details = new CustomUserDetailsImpl(usuario.getUsuario(), "******", authorities);
+        CustomUserDetailsDTO details = new CustomUserDetailsDTO(usuario.getUsuario(), "******", authorities);
         details.setId(usuario.getId());
         details.setNombre(usuario.getNombre());
         details.setApellido1(usuario.getApellido1());
@@ -40,41 +44,32 @@ public class AutenticacionUtils {
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
+    /**
+     * Obtiene el ID en base de datos del usuario loggeado
+     *
+     * @return el ID del usuario {@link Long}
+     */
     public static Long getIdUsuario() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof CustomUserDetailsImpl) {
-            CustomUserDetailsImpl userDetails = (CustomUserDetailsImpl) authentication.getPrincipal();
+        if (authentication.getPrincipal() instanceof CustomUserDetailsDTO) {
+            CustomUserDetailsDTO userDetails = (CustomUserDetailsDTO) authentication.getPrincipal();
             return userDetails.getId();
         }
         return null;
     }
 
     /**
-     * @return
+     * Obtiene el nombre completo del usuario loggeado
+     *
+     * @return el nombre  y apellidos del usuario {@link String}
      */
     public static String getNomeCompreto() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof CustomUserDetailsImpl) {
-            CustomUserDetailsImpl userDetails = (CustomUserDetailsImpl) authentication.getPrincipal();
+        if (authentication.getPrincipal() instanceof CustomUserDetailsDTO) {
+            CustomUserDetailsDTO userDetails = (CustomUserDetailsDTO) authentication.getPrincipal();
             return String.format("%s %s %s", userDetails.getNombre(), userDetails.getApellido1(),
                     userDetails.getApellido2());
         }
         return null;
-    }
-
-    public static void isSameUserLogged(String username) {
-        boolean isSameUser = false;
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof CustomUserDetailsImpl) {
-            CustomUserDetailsImpl userDetails = (CustomUserDetailsImpl) authentication.getPrincipal();
-            if (username.equals(userDetails.getUsername())) {
-                isSameUser = true;
-            }
-        }
-
-        if (!isSameUser) {
-            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED,
-                    "El usuario no tiene permisos para acceder a este recurso");
-        }
     }
 }

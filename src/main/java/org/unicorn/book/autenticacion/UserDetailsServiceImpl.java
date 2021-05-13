@@ -13,11 +13,20 @@ import org.unicorn.book.usuario.repository.UsuarioRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementa las operaciones definidas en el servicio de detalles de usuario definido por spring.
+ * Sirve para cargar los datos del usuario que acaba de iniciar sesión en el objeto personalizado de usuario
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
 
+    /**
+     * Constructor
+     *
+     * @param usuarioRepository el repositorio de usuarios {@link UsuarioRepository}
+     */
     public UserDetailsServiceImpl(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
@@ -35,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             String value = ("ROLE_" + role.getNombre()).toUpperCase();
             authorities.add(new SimpleGrantedAuthority(value));
         }
-        CustomUserDetailsImpl us = new CustomUserDetailsImpl(u.getUsuario(), u.getPassword(), authorities);
+        CustomUserDetailsDTO us = new CustomUserDetailsDTO(u.getUsuario(), u.getPassword(), authorities);
         us.setId(u.getId());
         us.setEmail(u.getEmail());
         us.setDni(u.getDni());

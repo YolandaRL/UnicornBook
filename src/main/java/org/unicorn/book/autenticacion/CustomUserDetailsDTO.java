@@ -6,7 +6,10 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 import java.util.Date;
 
-public class CustomUserDetailsImpl extends User {
+/**
+ * Representa los datos de un usuario
+ */
+public class CustomUserDetailsDTO extends User {
     private final String usuario;
     private Long id;
     private String email;
@@ -18,7 +21,7 @@ public class CustomUserDetailsImpl extends User {
     private Long telefono2;
     private Date fechaNacimiento;
 
-    public CustomUserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserDetailsDTO(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.usuario = username;
     }
