@@ -32,7 +32,7 @@
                          style="width: 100%; margin: auto" th:if="${productoForm.linkPortada == null}">
                     <img alt="Foto de la portada del libro" class="shadow-lg bg-white rounded"
                          th:if="${productoForm.linkPortada != null}"
-                         style="height: 25vh; margin: auto" th:src="${productoForm.linkPortada}">
+                         style="height: 25vh; margin: auto" th:src="@{'/image/' + ${productoForm.linkPortada}}">
                 </div>
                 <div class="col-sm-10">
                     <div class="row">

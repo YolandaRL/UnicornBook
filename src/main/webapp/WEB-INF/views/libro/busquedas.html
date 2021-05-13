@@ -277,7 +277,8 @@
                                 <div class="row g-0 pl-5 pr-5">
                                     <div class="col-md-3 d-flex justify-content-center">
                                         <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
-                                             style="height: 25vh; margin: auto" th:src="${libro.linkPortada}">
+                                             style="height: 25vh; margin: auto"
+                                             th:src="@{'/image/' + ${libro.linkPortada}}">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card-body">

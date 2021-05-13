@@ -46,7 +46,7 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-lg-3 col-md-3 col-sm-12">
                             <img alt="..." class="row d-block" style="height: 35vh;
-   margin: auto" th:src="${libro.linkPortada}">
+   margin: auto" th:src="@{'/image/' + ${libro.linkPortada}}">
                         </div>
                         <div class="col-lg-9 col-md-9 col-md-12">
                             <h5 th:text="${libro.titulo}"></h5>
@@ -79,7 +79,7 @@
                 <div class="card text-center border-0 h-100 card-link"
                      th:onclick="|location.href='@{/libro/__${libro.id}__}'|">
                     <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
-                         style="height: 25vh; margin: auto" th:src="${libro.linkPortada}">
+                         style="height: 25vh; margin: auto" th:src="@{'/image/' + ${libro.linkPortada}}">
                     <div class="card-body">
                         <h5 class="card-title text-center" th:text="${libro.titulo}"></h5>
                         <p class="card-text text-center" th:text="${libro.autor.nombre}">Autor</p>
