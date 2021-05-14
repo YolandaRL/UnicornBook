@@ -19,7 +19,8 @@
                         <div class="row g-0 pl-5 pr-5">
                             <div class="col-md-3 d-flex justify-content-center">
                                 <img alt="Portada" class="card-img- shadow-lg mt-5 mb-5 bg-white rounded"
-                                     style="height: 10vh; margin: auto" th:src="@{'/image/' + ${p.libroLinkPortada}}">
+                                     style="height: 10vh; margin: auto"
+                                     th:src="@{|/resources/portadas/__${p.libroLinkPortada}__|}">
                             </div>
                             <div class="col-md-6">
                                 <div class="card-body">

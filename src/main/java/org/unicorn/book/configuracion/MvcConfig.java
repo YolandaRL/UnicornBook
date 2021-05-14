@@ -1,5 +1,6 @@
 package org.unicorn.book.configuracion;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -25,6 +26,9 @@ import org.unicorn.book.configuracion.handlers.RequestHandler;
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
 
+    @Value("${external_resources_path}")
+    private String externalResourcesPath;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LogTimesInterceptor());
@@ -40,7 +44,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**", "/manifest.json")
-                .addResourceLocations("/resources/", "/manifest.json");
+                .addResourceLocations("/resources/", "/manifest.json", String.format("file:%s", externalResourcesPath));
     }
 
     @Override
