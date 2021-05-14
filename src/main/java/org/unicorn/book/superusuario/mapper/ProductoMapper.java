@@ -23,6 +23,7 @@ public interface ProductoMapper {
     @Mapping(target = "autor", source = "autor.id")
     @Mapping(target = "coleccion", source = "coleccion.id")
     @Mapping(target = "editorial", source = "editorial.id")
+    @Mapping(target = "imagenForm.nombre", source = "linkPortada")
     @Mapping(target = "tematicas", ignore = true)
     ProductoForm toProductoForm(Libro src);
 

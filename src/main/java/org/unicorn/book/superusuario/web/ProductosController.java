@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.unicorn.book.aplicacion.service.ImagenService;
 import org.unicorn.book.libreria.dto.LibroDto;
 import org.unicorn.book.libreria.dto.MaestroView;
 import org.unicorn.book.libreria.filter.LibroFilter;
@@ -40,16 +41,20 @@ public class ProductosController {
 
     private final LibroService libroService;
     private final ProductosService productosService;
+    private final ImagenService imagenService;
 
     /**
      * Constructor
      *
      * @param libroService     servicio de libros {@link LibroService}
      * @param productosService servicio de productos {@link ProductosService}
+     * @param imagenService    servicio de imagenes {@link ImagenService}
      */
-    public ProductosController(LibroService libroService, ProductosService productosService) {
+    public ProductosController(LibroService libroService, ProductosService productosService,
+            ImagenService imagenService) {
         this.libroService = libroService;
         this.productosService = productosService;
+        this.imagenService = imagenService;
     }
 
     @ModelAttribute(name = ACTIVE_PAGE)
@@ -148,7 +153,7 @@ public class ProductosController {
                 model.addAttribute("error", "El ISBN indicado ya está asociado a otro producto");
             }
         }
-        productosService.cargarPrevisualizacionPortada(productoForm);
+        imagenService.cargarDataBase64(productoForm.getImagenForm());
         return "/admin/new-edit-producto";
     }
 }

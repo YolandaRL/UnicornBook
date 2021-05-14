@@ -29,11 +29,13 @@
             <div class="row">
                 <div class="col-sm-2 pl-3 pt-0 pb-3 d-flex justify-content-center align-items-center">
                     <div class="contenedor-imagen">
-                        <input th:disabled="${productoForm.portada == null}" th:field="*{linkPortada}" type="hidden"/>
-                        <input style="display: none" th:field="*{portada}" type="file"/>
+                        <input style="display: none" th:field="*{imagenForm.imagen}" type="file"/>
+                        <input th:field="*{imagenForm.nombre}" type="hidden"/>
+                        <input th:field="*{imagenForm.dataBase64}" type="hidden"/>
+                        <input th:field="*{imagenForm.extension}" type="hidden"/>
                         <img alt="Foto de la portada del libro" class="imagen-cargada shadow-lg bg-white rounded"
                              style="height: 25vh; margin: auto"
-                             th:attr="src=${productoForm.portada != null} ? ${productoForm.linkPortada} : '/resources/portadas/' + ${productoForm.linkPortada}">
+                             th:attr="src=${productoForm.imagenForm.dataBase64 != null && productoForm.imagenForm.dataBase64 != ''} ? ${productoForm.imagenForm.dataBase64} : '/resources/portadas/' + ${productoForm.imagenForm.nombre}">
                         <a class="btn-nueva-imagen d-flex justify-content-center align-items-center"
                            style="cursor: pointer; text-decoration: none">
                             <em class="fa fa-plus-circle" style="font-size: 4em; color: black"></em>

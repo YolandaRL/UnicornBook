@@ -1,6 +1,6 @@
 package org.unicorn.book.superusuario.dto;
 
-import org.springframework.web.multipart.MultipartFile;
+import org.unicorn.book.aplicacion.dto.ImagenForm;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -34,8 +34,7 @@ public class ProductoForm implements Serializable {
     private Integer stock;
     @NotNull
     private Float precio;
-    private String linkPortada;
-    private transient MultipartFile portada;
+    private ImagenForm imagenForm;
     @NotNull
     private Long editorial;
     @NotNull
@@ -45,6 +44,10 @@ public class ProductoForm implements Serializable {
     @NotNull
     @Size(min = 1)
     private List<Long> tematicas;
+
+    public ProductoForm() {
+        this.imagenForm = new ImagenForm();
+    }
 
     public Long getId() {
         return id;
@@ -166,20 +169,12 @@ public class ProductoForm implements Serializable {
         this.precio = precio;
     }
 
-    public String getLinkPortada() {
-        return linkPortada;
+    public ImagenForm getImagenForm() {
+        return imagenForm;
     }
 
-    public void setLinkPortada(String linkPortada) {
-        this.linkPortada = linkPortada;
-    }
-
-    public MultipartFile getPortada() {
-        return portada;
-    }
-
-    public void setPortada(MultipartFile portada) {
-        this.portada = portada;
+    public void setImagenForm(ImagenForm imagenForm) {
+        this.imagenForm = imagenForm;
     }
 
     public Long getEditorial() {
