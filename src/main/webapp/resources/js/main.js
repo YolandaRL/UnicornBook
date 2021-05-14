@@ -1,5 +1,15 @@
 jQuery(function () {
-    $(document).on('click', '.evt-loader, a.page-link', function () { showLoader(); });
+    $('img').each(function () {
+        if (!this.complete
+            || typeof this.naturalWidth == "undefined"
+            || this.naturalWidth === 0) {
+            this.src = "/resources/images/default-image.png";
+        }
+    });
+
+    $(document).on('click', '.evt-loader, a.page-link', function () {
+        showLoader();
+    });
 
     $(document).on('click', '.status-sub-menu-btn', function () {
         let icon = $('.status-sub-menu-icon', this);

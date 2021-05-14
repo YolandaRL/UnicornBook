@@ -1,13 +1,11 @@
 package org.unicorn.book.inicio.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.unicorn.book.libreria.dto.LibroView;
 import org.unicorn.book.libreria.service.LibroService;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -19,9 +17,8 @@ public class InicioController {
         this.libroService = libroService;
     }
 
-    @Transactional
     @GetMapping("/")
-    public String getPortada(ModelMap model, HttpSession request) {
+    public String getPortada(ModelMap model) {
         List<LibroView> muestras = libroService.getMuestraLibros();
         model.addAttribute("listNovedades", libroService.getNovedades());
         model.addAttribute("listMuestreo", muestras);

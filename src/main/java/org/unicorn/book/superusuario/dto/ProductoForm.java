@@ -1,5 +1,7 @@
 package org.unicorn.book.superusuario.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,6 +35,7 @@ public class ProductoForm implements Serializable {
     @NotNull
     private Float precio;
     private String linkPortada;
+    private transient MultipartFile portada;
     @NotNull
     private Long editorial;
     @NotNull
@@ -169,6 +172,14 @@ public class ProductoForm implements Serializable {
 
     public void setLinkPortada(String linkPortada) {
         this.linkPortada = linkPortada;
+    }
+
+    public MultipartFile getPortada() {
+        return portada;
+    }
+
+    public void setPortada(MultipartFile portada) {
+        this.portada = portada;
     }
 
     public Long getEditorial() {

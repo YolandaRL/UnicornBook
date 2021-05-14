@@ -5,7 +5,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import org.thymeleaf.util.StringUtils;
 import org.unicorn.book.autenticacion.AutenticacionUtils;
 import org.unicorn.book.usuario.dto.CompraDto;
 import org.unicorn.book.usuario.dto.DetalleCompraDto;
@@ -103,7 +102,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public UsuarioForm actualizarUsuario(UsuarioForm usuarioForm) {
         Usuario usuario = usuarioRepository.getOne(usuarioForm.getId());
-        if (!StringUtils.isEmpty(usuarioForm.getContrasena()) && usuarioForm.getContrasena()
+        if (!ObjectUtils.isEmpty(usuarioForm.getContrasena()) && usuarioForm.getContrasena()
                 .equals(usuarioForm.getRepetirContrasena())) {
             usuario.setPassword(pass.encode(usuarioForm.getContrasena()));
         }

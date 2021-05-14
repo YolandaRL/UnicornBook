@@ -17,6 +17,7 @@ public interface ProductoMapper {
     @Mapping(target = "coleccion", ignore = true)
     @Mapping(target = "editorial", ignore = true)
     @Mapping(target = "tematicas", ignore = true)
+    @Mapping(target = "linkPortada", ignore = true)
     void updateLibro(@MappingTarget Libro target, ProductoForm src);
 
     @Mapping(target = "autor", source = "autor.id")

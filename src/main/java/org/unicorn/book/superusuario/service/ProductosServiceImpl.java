@@ -19,10 +19,22 @@ import org.unicorn.book.superusuario.exception.ProductoAsociadoCompraException;
 import org.unicorn.book.superusuario.mapper.ProductoMapper;
 import org.unicorn.book.usuario.repository.CestaRepository;
 import org.unicorn.book.usuario.repository.DetalleCompraRepository;
+import sun.misc.BASE64Encoder;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Implementa las operaciones disponibles que tiene el administrador sobre productos
@@ -77,9 +89,6 @@ public class ProductosServiceImpl implements ProductosService {
             libro.setFechaEdicion(new Date());
         }
         MAPPER.updateLibro(libro, form);
-        libro.setLinkPortada(form.getLinkPortada() != null ?
-                form.getLinkPortada() :
-                "https://www.acfisedelcentro.com/assets/img/productos/laminas/default-image.jpg");
         libro.setAutor(entityManager.getReference(Autor.class, form.getAutor()));
         libro.setColeccion(entityManager.getReference(Coleccion.class, form.getColeccion()));
         libro.setEditorial(entityManager.getReference(Editorial.class, form.getEditorial()));
@@ -94,8 +103,9 @@ public class ProductosServiceImpl implements ProductosService {
                 libro.getTematicas().add(entityManager.getReference(Tematica.class, tematica));
             }
         }
-
-        return MAPPER.toProductoForm(libroRepository.saveAndFlush(libro));
+        this.saveUpdatePortada(libro, form);
+        libro = libroRepository.saveAndFlush(libro);
+        return MAPPER.toProductoForm(libro);
     }
 
     @Override
@@ -105,6 +115,79 @@ public class ProductosServiceImpl implements ProductosService {
         this.checkLibroBorrable(idProducto);
         Libro libro = libroRepository.getOne(idProducto);
         libroRepository.delete(libro);
+    }
+
+    @Override
+    public void cargarPrevisualizacionPortada(ProductoForm form) {
+        if (!form.getPortada().isEmpty() || (!ObjectUtils.isEmpty(form.getLinkPortada()) && form.getLinkPortada()
+                .startsWith("data:image"))) {
+            try {
+                BASE64Encoder base64Encoder = new BASE64Encoder();
+
+                BufferedImage photo = ImageIO.read(new ByteArrayInputStream(form.getPortada().getBytes()));
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+                ImageIO.write(photo, "gif", byteArrayOutputStream);
+                form.setLinkPortada(
+                        "data:image/gif;base64," + base64Encoder.encode(byteArrayOutputStream.toByteArray()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * @param libro
+     * @param form
+     */
+    private void saveUpdatePortada(Libro libro, ProductoForm form) {
+        String originalPortada = libro.getLinkPortada();
+        if (!form.getPortada().isEmpty()) {
+            String uuid = UUID.randomUUID().toString();
+            String fileName = uuid + ".gif";
+            libro.setLinkPortada(fileName);
+            Path filepath = Paths
+                    .get(String.format("%s/portadas/%s/", System.getProperty("app_resources_path"), fileName));
+
+            try (OutputStream os = Files.newOutputStream(filepath)) {
+                os.write(form.getPortada().getBytes());
+                os.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (!ObjectUtils.isEmpty(originalPortada)) {
+                Path fileToDeletePath = Paths.get(String
+                        .format("%s/portadas/%s", System.getProperty("app_resources_path"), originalPortada));
+                try {
+                    Files.delete(fileToDeletePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (!ObjectUtils.isEmpty(form.getLinkPortada()) && form.getLinkPortada().startsWith("data:image")) {
+            String uuid = UUID.randomUUID().toString();
+            String fileName = uuid + ".gif";
+            libro.setLinkPortada(fileName);
+            Path filepath = Paths
+                    .get(String.format("%s/portadas/%s/", System.getProperty("app_resources_path"), fileName));
+
+            try (OutputStream os = Files.newOutputStream(filepath)) {
+                os.write(DatatypeConverter.parseBase64Binary(form.getLinkPortada().split(",")[1]));
+                os.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (!ObjectUtils.isEmpty(originalPortada)) {
+                Path fileToDeletePath = Paths.get(String
+                        .format("%s/portadas/%s", System.getProperty("app_resources_path"), originalPortada));
+                try {
+                    Files.delete(fileToDeletePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**

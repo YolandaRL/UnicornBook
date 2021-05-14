@@ -23,17 +23,22 @@
     <div class="row" th:if="${error}">
         <div class="col-12 alert alert-danger"><span th:text="${error}"></span></div>
     </div>
-    <form method="post" th:action="@{/consola/productos/edicion}" th:object="${productoForm}">
+    <form enctype="multipart/form-data" method="post" th:action="@{/consola/productos/edicion}"
+          th:object="${productoForm}">
         <fieldset>
             <div class="row">
-                <div class="col-sm-2 pl-3 pt-0 pb-3 justify-content-center">
-                    <img alt="Foto de la portada del libro" class="shadow-lg bg-white rounded"
-                         src="https://www.acfisedelcentro.com/assets/img/productos/laminas/default-image.jpg"
-                         style="width: 100%; margin: auto" th:if="${productoForm.linkPortada == null}">
-                    <img alt="Foto de la portada del libro" class="shadow-lg bg-white rounded"
-                         th:if="${productoForm.linkPortada != null}"
-                         style="height: 25vh; margin: auto"
-                         th:src="@{|/resources/portadas/__${productoForm.linkPortada}__|}">
+                <div class="col-sm-2 pl-3 pt-0 pb-3 d-flex justify-content-center align-items-center">
+                    <div class="contenedor-imagen">
+                        <input th:disabled="${productoForm.portada == null}" th:field="*{linkPortada}" type="hidden"/>
+                        <input style="display: none" th:field="*{portada}" type="file"/>
+                        <img alt="Foto de la portada del libro" class="imagen-cargada shadow-lg bg-white rounded"
+                             style="height: 25vh; margin: auto"
+                             th:attr="src=${productoForm.portada != null} ? ${productoForm.linkPortada} : '/resources/portadas/' + ${productoForm.linkPortada}">
+                        <a class="btn-nueva-imagen d-flex justify-content-center align-items-center"
+                           style="cursor: pointer; text-decoration: none">
+                            <em class="fa fa-plus-circle" style="font-size: 4em; color: black"></em>
+                        </a>
+                    </div>
                 </div>
                 <div class="col-sm-10">
                     <div class="row">

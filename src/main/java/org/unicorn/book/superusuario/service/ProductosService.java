@@ -32,4 +32,6 @@ public interface ProductosService {
      * @param idProducto el ID del libro {@link Long}
      */
     void eliminarLibro(Long idProducto) throws ProductoAsociadoCarritoException, ProductoAsociadoCompraException;
+
+    void cargarPrevisualizacionPortada(ProductoForm form);
 }

@@ -148,6 +148,7 @@ public class ProductosController {
                 model.addAttribute("error", "El ISBN indicado ya está asociado a otro producto");
             }
         }
+        productosService.cargarPrevisualizacionPortada(productoForm);
         return "/admin/new-edit-producto";
     }
 }

@@ -386,3 +386,25 @@ hr.legend-separator {
 
 }
 */
+
+.contenedor-imagen {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.imagen-cargada {
+    position: relative;
+    top: 0;
+    left: 0;
+
+}
+
+.btn-nueva-imagen {
+    background: rgba(255, 255, 255, 0.47);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
