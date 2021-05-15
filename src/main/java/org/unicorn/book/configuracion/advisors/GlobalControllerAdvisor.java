@@ -16,12 +16,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Clase para incorporar atributos en el modelo o hacer conversiones automaticas de parámetros
+ * provinientes de peticiones http
+ */
 @ControllerAdvice
 public class GlobalControllerAdvisor {
 
     private final CestaService cestaService;
     private final EstadoRepository estadoRepository;
 
+    /**
+     * Constructor
+     *
+     * @param cestaService     el servicio de cesta {@link CestaService}
+     * @param estadoRepository el repositorio de estados {@link EstadoRepository}
+     */
     public GlobalControllerAdvisor(CestaService cestaService, EstadoRepository estadoRepository) {
         this.cestaService = cestaService;
         this.estadoRepository = estadoRepository;

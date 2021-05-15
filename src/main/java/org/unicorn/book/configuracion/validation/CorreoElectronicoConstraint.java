@@ -4,6 +4,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Valid;
 
+/**
+ * Constraint par ala validación de correos electrónicos
+ */
 public class CorreoElectronicoConstraint implements ConstraintValidator<CorreoElectronico, String> {
 
     @Override

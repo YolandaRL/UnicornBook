@@ -19,7 +19,7 @@ import org.unicorn.book.configuracion.handlers.LogTimesInterceptor;
 import org.unicorn.book.configuracion.handlers.RequestHandler;
 
 /**
- *
+ * Configura direcctorios, interceptor, convertidores y otros para la interectuación de la vista con el contralador
  */
 @Configuration
 @EnableWebMvc

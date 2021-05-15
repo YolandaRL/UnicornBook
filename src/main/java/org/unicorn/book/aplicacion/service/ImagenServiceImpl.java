@@ -1,9 +1,12 @@
 package org.unicorn.book.aplicacion.service;
 
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.unicorn.book.aplicacion.dto.ImagenForm;
+import org.unicorn.book.configuracion.handlers.LogTimesInterceptor;
 import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
@@ -23,6 +26,13 @@ import java.util.UUID;
  */
 @Service
 public class ImagenServiceImpl implements ImagenService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogTimesInterceptor.class);
+
+    /**
+     * Constructor
+     */
+    public ImagenServiceImpl() {
+    }
 
     @Override
     public void cargarDataBase64(ImagenForm imagenForm) {
@@ -39,7 +49,7 @@ public class ImagenServiceImpl implements ImagenService {
                             base64Encoder.encode(baos.toByteArray())));
                     imagenForm.setExtension(extension);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error("Error obteniendo los bytes de la imagen cargada", e);
                 }
             }
         }
@@ -54,7 +64,7 @@ public class ImagenServiceImpl implements ImagenService {
             try {
                 this.createImagenAndDeleteLast(imagenForm.getImagen().getBytes(), fileName, imagenForm.getNombre());
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error("Error obteniendo los bytes de la imagen cargada", e);
             }
         } else if (!ObjectUtils.isEmpty(imagenForm.getDataBase64())) {
             fileName = String.format("%s.%s", getUuid(), imagenForm.getExtension());
@@ -73,7 +83,8 @@ public class ImagenServiceImpl implements ImagenService {
             try {
                 Files.delete(fileToDeletePath);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error("Error eliminando la imagen", e);
+
             }
         }
     }
@@ -92,7 +103,7 @@ public class ImagenServiceImpl implements ImagenService {
             os.flush();
             this.deleteImagen(lastFileName);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Error obteniendo los bytes de la imagen cargada", e);
         }
     }
 

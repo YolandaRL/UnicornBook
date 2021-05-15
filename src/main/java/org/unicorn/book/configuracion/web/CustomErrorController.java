@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Redirige a la página de error correspondiente a partir del estado de la petición
+ */
 @Controller
 public class CustomErrorController implements ErrorController {
 

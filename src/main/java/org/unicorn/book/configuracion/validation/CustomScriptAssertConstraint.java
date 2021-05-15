@@ -10,15 +10,20 @@ import javax.script.ScriptException;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Valida una expresión en formato javascript
+ */
 @Component
 public class CustomScriptAssertConstraint implements ConstraintValidator<CustomScriptAssert, Object> {
-    //private static final Log LOGGER = LoggerFactory.make();
     private String script;
     private String languageName;
     private String alias;
     private String field;
     private String message;
 
+    /**
+     * Constructor
+     */
     public CustomScriptAssertConstraint() {
         //N/A
     }
@@ -33,6 +38,13 @@ public class CustomScriptAssertConstraint implements ConstraintValidator<CustomS
         this.message = customScriptAssert.message();
     }
 
+    /**
+     * Realiza la validación
+     *
+     * @param value                      el valor a validar {@link Object}
+     * @param constraintValidatorContext {@link ConstraintValidatorContext}
+     * @return el resutlado
+     */
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
         constraintValidatorContext.disableDefaultConstraintViolation();
         constraintValidatorContext.buildConstraintViolationWithTemplate(message).addNode(field)
@@ -45,21 +57,23 @@ public class CustomScriptAssertConstraint implements ConstraintValidator<CustomS
             evaluationResult = engine.eval(this.script);
         } catch (ScriptException var6) {
             return false;
-            //throw LOGGER.getErrorDuringScriptExecutionException(this.script, var6);
         }
 
         if (evaluationResult == null) {
             return false;
-            //throw LOGGER.getScriptMustReturnTrueOrFalseException(this.script);
         } else if (!(evaluationResult instanceof Boolean)) {
             return false;
-            //throw LOGGER.getScriptMustReturnTrueOrFalseException(this.script, evaluationResult,evaluationResult.getClass().getCanonicalName());
         } else {
             return Boolean.TRUE.equals(evaluationResult);
         }
 
     }
 
+    /**
+     * Valida que los parametros obligatorios estén informados
+     *
+     * @param constraintAnnotation las constraint {@link CustomScriptAssert}
+     */
     private void validateParameters(CustomScriptAssert constraintAnnotation) {
         Contracts.assertNotEmpty(constraintAnnotation.script(), Messages.MESSAGES.parameterMustNotBeEmpty("script"));
         Contracts.assertNotEmpty(constraintAnnotation.lang(), Messages.MESSAGES.parameterMustNotBeEmpty("lang"));

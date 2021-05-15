@@ -18,7 +18,7 @@ public class InicioController {
     }
 
     @GetMapping("/")
-    public String getPortada(ModelMap model) {
+    public String paginaInicial(ModelMap model) {
         List<LibroView> muestras = libroService.getMuestraLibros();
         model.addAttribute("listNovedades", libroService.getNovedades());
         model.addAttribute("listMuestreo", muestras);

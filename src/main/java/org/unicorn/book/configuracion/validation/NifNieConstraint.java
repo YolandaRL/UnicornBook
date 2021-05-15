@@ -8,6 +8,9 @@ import javax.validation.Valid;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Constraint par ala validación de correos electrónicos
+ */
 public class NifNieConstraint implements ConstraintValidator<NifNie, String> {
 
     @Override
@@ -15,6 +18,13 @@ public class NifNieConstraint implements ConstraintValidator<NifNie, String> {
         // Non fai nada
     }
 
+    /**
+     * Determina si es un nif o nie y lo valida si un dni es valido
+     *
+     * @param nifnie            el dni {@link String}
+     * @param constraintContext el validador de contexto {@link ConstraintValidatorContext}
+     * @return el resultado de la operación
+     */
     public boolean isValid(String nifnie, ConstraintValidatorContext constraintContext) {
         if (!StringUtils.isEmpty(nifnie)) {
             nifnie = nifnie.toUpperCase();
@@ -29,6 +39,13 @@ public class NifNieConstraint implements ConstraintValidator<NifNie, String> {
         return true;
     }
 
+    /**
+     * Valida el nif
+     *
+     * @param nif            el dni {@link String}
+     * @param modificadorNie la letra que modificar al inicio de la cadena para convertirlo en nif @{link String}
+     * @return el resultado de la operación
+     */
     private boolean validate(String nif, String modificadorNie) {
         Pattern nifPattern = Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKE])");
         Matcher m = nifPattern.matcher(nif);

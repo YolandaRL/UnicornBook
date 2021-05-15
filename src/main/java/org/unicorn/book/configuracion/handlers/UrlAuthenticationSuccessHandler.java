@@ -21,6 +21,9 @@ import java.util.Map;
 
 import static org.unicorn.book.configuracion.handlers.RequestHandler.OLD_REQUEST_URI;
 
+/**
+ * Clase para redirigir automaticante al usuario tras iniciar sesión a la página que había solicitado previamente
+ */
 public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UrlAuthenticationSuccessHandler.class);
@@ -31,23 +34,37 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException {
 
-        handle(request, response, authentication);
-        clearAuthenticationAttributes(request);
+        this.handle(request, response, authentication);
+        this.clearAuthenticationAttributes(request);
     }
 
+    /**
+     * Envía la redirección a la página solicitada previamente
+     *
+     * @param request        la petición {@link HttpServletRequest}
+     * @param response       la respuesta {@link HttpServletResponse}
+     * @param authentication la autenticación del usuario {@link Authentication}
+     * @throws IOException error
+     */
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException {
 
-        String targetUrl = determineTargetUrl(authentication, request.getSession());
+        String targetUrl = this.determineTargetUrl(authentication, request.getSession());
 
         if (response.isCommitted()) {
-            LOGGER.debug("Response has already been committed. Unable to redirect to {}", targetUrl);
             return;
         }
 
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
+    /**
+     * Determina en función de los roles del usuario a donde se le debe redirigir tras iniciar sesión
+     *
+     * @param authentication la autenticación del usuario {@link Authentication}
+     * @param session        la sesión del usuario {@link HttpSession}
+     * @return la url a donde redirigir {@link String}
+     */
     protected String determineTargetUrl(final Authentication authentication, HttpSession session) {
         final String url = String.valueOf(session.getAttribute(OLD_REQUEST_URI));
         Map<String, String> roleTargetUrlMap = new HashMap<>();
@@ -66,6 +83,11 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
         throw new IllegalStateException();
     }
 
+    /**
+     * Elimina los atributos de la sesión
+     *
+     * @param request la petición {@link      * @param authentication la autenticación del usuario {@link Authentication}}
+     */
     protected void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {

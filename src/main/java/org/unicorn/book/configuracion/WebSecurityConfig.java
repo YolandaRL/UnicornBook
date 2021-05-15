@@ -18,7 +18,7 @@ import org.unicorn.book.configuracion.handlers.UrlAuthenticationSuccessHandler;
 import javax.sql.DataSource;
 
 /**
- *
+ * Configura la seguridad de la web
  */
 @Configuration
 @EnableWebSecurity

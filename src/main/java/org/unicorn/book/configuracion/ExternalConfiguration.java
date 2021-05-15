@@ -11,6 +11,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Carga el archivo de propiedades antes de desplegar la aplicación. Si no existe en el directorio externo se
+ * carga el de por defecto
+ */
 @Configuration
 public class ExternalConfiguration {
 
@@ -22,8 +26,7 @@ public class ExternalConfiguration {
         try (InputStream in = new FileInputStream(propetiesFile)) {
             LOGGER.info("Cargando propiedades externas desde {}: {}", propetiesFile, in.hashCode());
         } catch (IOException e) {
-            LOGGER.warn(
-                    "Cargando fichero por defecto de propiedades classpath:/application.properties. " + "Esto puede ser un problema con la conexión a la base de datos",
+            LOGGER.warn("Cargando fichero por defecto de propiedades classpath:/application.properties. " + "Esto puede ser un problema con la conexión a la base de datos",
                     e);
         }
 
@@ -32,9 +35,5 @@ public class ExternalConfiguration {
         properties.setIgnoreResourceNotFound(true);
         properties.setLocalOverride(true);
         return properties;
-    }
-
-    private void cargaLogConfig(String path) {
-
     }
 }

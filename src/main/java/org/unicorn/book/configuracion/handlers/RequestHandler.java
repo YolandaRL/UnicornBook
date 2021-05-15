@@ -5,16 +5,17 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Intercepta las peticiones para almacenar en la sesión del usuario el recurso solicitado
+ */
 public class RequestHandler implements HandlerInterceptor {
 
     public static final String OLD_REQUEST_URI = "requestUri";
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         final String requestUri = request.getRequestURI();
-        if ((!requestUri.startsWith("/image") && !requestUri.startsWith("/resources")) && !requestUri
-                .equals("/acceso")) {
+        if ((!requestUri.startsWith("/image") && !requestUri.startsWith("/resources")) && !requestUri.equals("/acceso")) {
             request.getSession().setAttribute(OLD_REQUEST_URI, request.getRequestURI());
         }
         return true;
