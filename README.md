@@ -52,7 +52,7 @@ unicornbook@local:~/UnicornBook ⇒  mvn clean package
 
 ## Despliegue
 
-- Tras compilar el proyecto y antes de arrancar este abrá que configurar la VM del entorno, estas se contruyen a partir
+- Tras compilar el proyecto y antes de arrancar este habrá que configurar la VM del entorno, estas se contruyen a partir
   de las rutas de nuestros directorios locales:
   ```sh
   -Dapp_config_path=ABSOLUTE_PATH/unicornbook-deploy/config
