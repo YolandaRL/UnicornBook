@@ -13,12 +13,19 @@ $(function () {
     });
 
     $(document).on('input', '#mesCaducidad', function (e) {
-        if ($(this).val().length >= 2) {
-            e.target.value = e.target.value.substring(0, 2);
+        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '');
+        if (parseInt($(this).val()) < 0 || parseInt($(this).val()) > 12) {
+            $(this).val($(this).val().substr(0, $(this).val().length - 1));
         }
+
+        if ($(this).val().length >= 2) {
+            e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').substring(0, 2);
+        }
+
     });
 
     $(document).on('input', '#anoCaducidad', function (e) {
+        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '');
         if ($(this).val().length >= 2) {
             e.target.value = e.target.value.substring(0, 2);
         }
