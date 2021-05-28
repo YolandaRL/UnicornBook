@@ -51,27 +51,61 @@ INSERT INTO TARJETA (NOMBRE_PERSONALIZADO, NUMERO, MES_CADUCIDAD, ANO_CADUCIDAD,
 INSERT INTO TARJETA (NOMBRE_PERSONALIZADO, NUMERO, MES_CADUCIDAD, ANO_CADUCIDAD, CVV, ID_USUARIO, ID_TIPO_TARJETA) VALUES ('Principal', 4240073204672074, 11, 22, 482, 11, 1);
 
 -- EDITORIAL
-INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION) VALUES ('Planeta', 'Avenida Diagonal, 662 -664', 'Barcelona', 'Barcelona', 934928000, null, 'www.planeta.es', 'Edición de libros de texto de fondo general.');
-INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION) VALUES ('ACEN', 'Avenida Montereal, 6', 'Pontevedra', 'Pontevedra', 795148020, null, 'www.acen.es', 'Edición de libros de todo tipo.');
-INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION) VALUES ('Alianza', 'Calle juan Ignacio luca de tena, 15', 'Madrid', 'Madrid', 913938888, 913938800, 'www.alianzaeditorial.es', 'Edición de libros de todo tipo.');
-INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION) VALUES ('Alfaguara', 'Calle Isabel II, 8', 'Sevilla', 'Sevilla', null, null, 'www.alfaguara.es', 'Edición de libros de texto de fondo general.');
-INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION) VALUES ('Áltera Ediciones', 'Rúa Buenos Airea, 66', 'A Coruña', 'A Coruña', null, null, 'www.altera-ediciones.es', 'Edición de libros de todo tipo.');
-INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION) VALUES ('Ediciones Alfar', 'Calle Aranjuez, 1', 'Madrid', 'Madrid', null, null, 'www.ediciones-alfar.es', 'Edición de libros de texto de fondo general.');
+INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION)
+VALUES ('Planeta', 'Avenida Diagonal, 662 -664', 'Barcelona', 'Barcelona', 934928000, null, 'www.planeta.es',
+        'Edición de libros de texto de fondo general.');
+INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION)
+VALUES ('ACEN', 'Avenida Montereal, 6', 'Pontevedra', 'Pontevedra', 795148020, null, 'www.acen.es',
+        'Edición de libros de todo tipo.');
+INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION)
+VALUES ('Alianza', 'Calle juan Ignacio luca de tena, 15', 'Madrid', 'Madrid', 913938888, 913938800,
+        'www.alianzaeditorial.es', 'Edición de libros de todo tipo.');
+INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION)
+VALUES ('Alfaguara', 'Calle Isabel II, 8', 'Sevilla', 'Sevilla', null, null, 'www.alfaguara.es',
+        'Edición de libros de texto de fondo general.');
+INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION)
+VALUES ('Áltera Ediciones', 'Rúa Buenos Airea, 66', 'A Coruña', 'A Coruña', null, null, 'www.altera-ediciones.es',
+        'Edición de libros de todo tipo.');
+INSERT INTO EDITORIAL (NOMBRE, DIRECCION, PROVINCIA, CCAA, TELEFONO1, TELEFONO2, ENLACE_WEB, DESCRIPCION)
+VALUES ('Ediciones Alfar', 'Calle Aranjuez, 1', 'Madrid', 'Madrid', null, null, 'www.ediciones-alfar.es',
+        'Edición de libros de texto de fondo general.');
 
 -- AUTOR
-INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO) VALUES ('Arturo Pérez Reberte', '', '', 'Arturo Pérez-Reverte Gutiérrez es un escritor y periodista español, miembro de la Real Academia Española desde 2003. Antiguo corresponsal de RTVE y reportero destacado en diversos conflictos armados y guerras, es el autor, entre otras, de la saga Las aventuras del capitán Alatriste y la trilogía de Falcó.', 'https://image.flaticon.com/icons/png/512/21/21104.png');
-INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO) VALUES ('María Dueñas', '', '', 'María Dueñas Vinuesa es una escritora española. Saltó a la fama en 2009 con El tiempo entre costuras, su primera novela, que se convirtió en una de las obras más vendidas de la literatura española en los últimos años y ha sido traducida a más de veinticinco idiomas.​', 'https://image.flaticon.com/icons/png/512/21/21104.png');
-INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO) VALUES ('Almudena Grandas', '', '', 'Almudena Grandes Hernández es una escritora española, columnista habitual del diario El País, y contertulia en la sección Hoy por hoy de Cadena SER.', 'https://image.flaticon.com/icons/png/512/21/21104.png');
-INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO) VALUES ('Javier Castillo', '', '', 'Javier Castillo es un escritor español.', 'https://image.flaticon.com/icons/png/512/21/21104.png');
-INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO) VALUES ('Mario Vargas LLosa', '', '', 'Jorge Mario Pedro Vargas Llosa, i marqués de Vargas Llosa, ​​ conocido como Mario Vargas Llosa, es un escritor peruano que cuenta también con la nacionalidad española desde 1993.', 'https://image.flaticon.com/icons/png/512/21/21104.png');
-INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO) VALUES ('Javier Sierra', '', '', 'Javier Sierra Albert es un escritor y periodista español. Premio Planeta de novela 2017 por El fuego invisible, es el único escritor español en el Top Ten de la lista de los más vendidos de Estados Unidos, elaborada por The New York Times. Lo consiguió en abril de 2006​con La cena secreta, alcanzando el número 6.', 'https://image.flaticon.com/icons/png/512/21/21104.png');
-INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO) VALUES ('Anónimo', '', '', '', 'https://image.flaticon.com/icons/png/512/21/21104.png');
+INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO)
+VALUES ('Arturo Pérez Reverte', '', '',
+        'Arturo Pérez-Reverte Gutiérrez es un escritor y periodista español, miembro de la Real Academia Española desde 2003. Antiguo corresponsal de RTVE y reportero destacado en diversos conflictos armados y guerras, es el autor, entre otras, de la saga Las aventuras del capitán Alatriste y la trilogía de Falcó.',
+        'https://image.flaticon.com/icons/png/512/21/21104.png');
+INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO)
+VALUES ('María Dueñas', '', '',
+        'María Dueñas Vinuesa es una escritora española. Saltó a la fama en 2009 con El tiempo entre costuras, su primera novela, que se convirtió en una de las obras más vendidas de la literatura española en los últimos años y ha sido traducida a más de veinticinco idiomas.​',
+        'https://image.flaticon.com/icons/png/512/21/21104.png');
+INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO)
+VALUES ('Almudena Grandes', '', '',
+        'Almudena Grandes Hernández es una escritora española, columnista habitual del diario El País, y contertulia en la sección Hoy por hoy de Cadena SER.',
+        'https://image.flaticon.com/icons/png/512/21/21104.png');
+INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO)
+VALUES ('Javier Castillo', '', '', 'Javier Castillo es un escritor español.',
+        'https://image.flaticon.com/icons/png/512/21/21104.png');
+INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO)
+VALUES ('Mario Vargas LLosa', '', '',
+        'Jorge Mario Pedro Vargas Llosa, i marqués de Vargas Llosa, ​​ conocido como Mario Vargas Llosa, es un escritor peruano que cuenta también con la nacionalidad española desde 1993.',
+        'https://image.flaticon.com/icons/png/512/21/21104.png');
+INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO)
+VALUES ('Javier Sierra', '', '',
+        'Javier Sierra Albert es un escritor y periodista español. Premio Planeta de novela 2017 por El fuego invisible, es el único escritor español en el Top Ten de la lista de los más vendidos de Estados Unidos, elaborada por The New York Times. Lo consiguió en abril de 2006​con La cena secreta, alcanzando el número 6.',
+        'https://image.flaticon.com/icons/png/512/21/21104.png');
+INSERT INTO AUTOR (NOMBRE, APELLIDO1, APELLIDO2, BIOGRAFIA, LINK_FOTO)
+VALUES ('Anónimo', '', '', '', 'https://image.flaticon.com/icons/png/512/21/21104.png');
 
 -- TEMATICA
-INSERT INTO TEMATICA (NOMBRE, DESCRIPCION) VALUES ('Terror', 'Terror');
-INSERT INTO TEMATICA (NOMBRE, DESCRIPCION) VALUES ('Comedia', 'Comedia');
-INSERT INTO TEMATICA (NOMBRE, DESCRIPCION) VALUES ('Suspense', 'Suspense');
-INSERT INTO TEMATICA (NOMBRE, DESCRIPCION) VALUES ('Ciencia ficción', 'Ciencia ficción');
+INSERT INTO TEMATICA (NOMBRE, DESCRIPCION)
+VALUES ('Terror', 'Terror');
+INSERT INTO TEMATICA (NOMBRE, DESCRIPCION)
+VALUES ('Comedia', 'Comedia');
+INSERT INTO TEMATICA (NOMBRE, DESCRIPCION)
+VALUES ('Suspense', 'Suspense');
+INSERT INTO TEMATICA (NOMBRE, DESCRIPCION)
+VALUES ('Ciencia ficción', 'Ciencia ficción');
 INSERT INTO TEMATICA (NOMBRE, DESCRIPCION) VALUES ('Infantil', 'Infantil');
 INSERT INTO TEMATICA (NOMBRE, DESCRIPCION) VALUES ('Acción', 'Acción');
 INSERT INTO TEMATICA (NOMBRE, DESCRIPCION) VALUES ('Aventuras', 'Aventuras');
