@@ -167,26 +167,261 @@ INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PU
 INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-9181-807-6', 'Mi dulce niña (AdN)', '', 'Una cabaña sin ventanas en medio del bosque. La vida de Lena y sus dos hijos sigue reglas estrictas: los horarios para comer, ir al baño o estudiar se respetan a rajatabla. El oxígeno les llega a través de un «aparato de circulación». El padre provee a la familia de alimentos, los protege de los peligros del mundo exterior, se ocupa de que sus hijos siempre tengan una madre. Pero un día consiguen escapar... y es entonces cuando empieza la verdadera pesadilla. Porque todo parece indicar que el secuestrador quiere recuperar lo es suyo. En un thriller tan emocionalmente impactante como profundamente conmovedor, Romy Hausmann va desplegando línea a línea el panorama de un horror que sobrepasa toda capacidad de imaginación.', 243, 'Papel', STR_TO_DATE('06-10-2020', '%d-%m-%Y'), STR_TO_DATE('26-11-2019', '%d-%m-%Y'), STR_TO_DATE('02-06-2019', '%d-%m-%Y'), 1, 'Castellano', 8, 56, 'https://static.cegal.es/imagenes/marcadas/9788491/978849181807.gif', 5);
 INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-206-7429-2', 'El lobo estepario', '', 'Encrucijada de todas las obsesiones e intuiciones de Hermann Hesse (1877-1962) y exponente de su singular talento para el relato, El lobo estepario se inscribe dentro del empeño, patente a lo largo de toda su obra, por iluminar la zona oscura de la condición humana a fin de poner al descubierto su carga trágica y su incierto destino. Ser solitario e incomunicado, extraño y extrañado, Harry Haller, protagonista de esta emblemática novela, ha acabado convirtiéndose en un arquetipo literario en el que se reconocen quienes padecen los efectos deshumanizadores de una sociedad que no conoce la solidaridad y propicia el aislamiento.', 384, 'Papel', STR_TO_DATE('21-01-2020', '%d-%m-%Y'), STR_TO_DATE('05-01-2021', '%d-%m-%Y'), STR_TO_DATE('07-12-2020', '%d-%m-%Y'), 1, 'Castellano', 4, 26, 'https://static.cegal.es/imagenes/marcadas/9788420/978842067429.gif', 6);
 INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-263-7', 'Freddie Mercury', '', 'Una cabaña sin ventanas en medio del bosque. La vida de Lena y sus dos hijos sigue reglas estrictas: los horarios para comer, ir al baño o estudiar se respetan a rajatabla. El oxígeno les llega a través de un «aparato de circulación». El padre provee a la familia de alimentos, los protege de los peligros del mundo exterior, se ocupa de que sus hijos siempre tengan una madre. Pero un día consiguen escapar... y es entonces cuando empieza la verdadera pesadilla. Porque todo parece indicar que el secuestrador quiere recuperar lo es suyo. En un thriller tan emocionalmente impactante como profundamente conmovedor, Romy Hausmann va desplegando línea a línea el panorama de un horror que sobrepasa toda capacidad de imaginación.', 469, 'Papel', STR_TO_DATE('29-05-2019', '%d-%m-%Y'), STR_TO_DATE('13-05-2021', '%d-%m-%Y'), STR_TO_DATE('30-03-2021', '%d-%m-%Y'), 1, 'Castellano', 33, 38, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362263.gif', 1);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-266-8', 'Hero: David Bowie', '', 'Mundialmente aclamado como el artista más innovador de su generación, David Bowie destacó como músico y compositor, pero también mostró su talento como pintor, actor y productor. Lesley-Ann Jones lo conoció desde su infancia, en la pequeña localidad de Bromley, al sur de Londres. Ya entonces era un joven desesperado por expresar su talento, frustrado por un entorno que lo ahogaba y determinado a conseguir el reconocimiento y la fortuna que sin duda merecía. Con el trasfondo de la evolución del pop y del rock en los últimos cincuenta años, y a través de entrevistas con amigos íntimos y con colaboradores que lo trataron a lo largo de su carrera, y que nunca antes habían contado sus experiencias personales, la autora nos ofrece una biografía única que refleja al mismo tiempo la vida pública y privada de un artista que marcó una época.', 165, 'Papel', STR_TO_DATE('26-11-2019', '%d-%m-%Y'), STR_TO_DATE('09-02-2021', '%d-%m-%Y'), STR_TO_DATE('24-10-2019', '%d-%m-%Y'), 1, 'Castellano', 2, 44, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362266.gif', 4);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-264-4', 'Lou Reed: Su vida', '', 'Lou Reed componía canciones sobre las drogas, la sordidez, la sexualidad transgresora, las prostitutas honorables y los buscavidas de tres al cuarto. También compuso algunas de las canciones de amor más conmovedoras de su época, desde "Pale Blue Eyes" hasta "Perfect Day". Arrancó desde el punto donde lo había dejado el rock. Antes de él, el rock tenía que ver con la diversión. Después de él, el rock fue literario, sombrío, y por encima de todo inquietantemente sincero. Siempre una generación por delante, nunca recibió lo que se merecía hasta cuando era ya demasiado tarde. La historia de Lou Reed está llena de esas contradicciones.', 383, 'Papel', STR_TO_DATE('01-06-2020', '%d-%m-%Y'), STR_TO_DATE('28-06-2019', '%d-%m-%Y'), STR_TO_DATE('25-11-2019', '%d-%m-%Y'), 1, 'Castellano', 3, 10, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362264.gif', 4);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-265-1', 'Prince. El reino púrpura', '', 'Prince fue un icono universal. Un creador que definió una era musical y transformó el aspecto de la cultura popular para siempre. Este libro ofrece una perspectiva de la vida de Prince, sin tabúes ni concesiones, como nunca se había hecho antes. Desde su traumática infancia, en la que buscó en la música de manera obsesiva una vía de escape a la infelicidad, hasta su ascenso al estrellato, pasando por un sinfín de rivalidades profesionales y, también, varios matrimonios fallidos. Y todo ello sin olvidar el fino análisis de sus renovados proyectos musicales a través de comentarios del propio Prince, de sus músicos y de quienes lo conocieron en primera persona.', 69, 'Papel', STR_TO_DATE('05-07-2019', '%d-%m-%Y'), STR_TO_DATE('08-11-2019', '%d-%m-%Y'), STR_TO_DATE('13-08-2020', '%d-%m-%Y'), 1, 'Castellano', 4, 76, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362265.gif', 4);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-9181-681-2', 'El naufragio de las civilizaciones', '', 'Cuando los espectaculares avances tecnológicos de nuestros días nos han facilitado el acceso al conocimiento como nunca hasta ahora, que vivamos más y mejor, que el "tercer mundo" se desarrolle..., cuando por primera vez se podría conducir a la humanidad hacia una era de libertad y progreso, el mundo parece ir en dirección opuesta, hacia la destrucción de todo lo conseguido. ¿Cómo hemos llegado hasta aquí? Hace unos años, Amin Maalouf nos hablaba de que "nuestras civilizaciones se agotan" en "El desajuste del mundo" y en "Identidades asesinas", y aportaba las razones: la desconfianza hacia el "Otro", la xenofobia, la intolerancia política y religiosa, el populismo, el individualismo y la insolidaridad del nacionalismo, el racismo... Hoy en día ya nos habla directamente de "naufragio inminente". No hay añoranza de un pasado mejor en sus palabras, solo le preocupa el futuro de esta "época desconcertante", el porvenir de las nuevas generaciones, que pueda desaparecer lo que ha dado sentido a la aventura humana. Tampoco se deja llevar por el pesimismo ni quiere predicar el desaliento, solo hace una llamada lúcida a la responsabilidad colectiva, dejando entreabierta la puerta de la esperanza a que el mundo vuelva a orientarse, ya que como escribió en su novela "Los desorientados": "Más vale equivocarse en la esperanza que acertar en la desesperación".', 131, 'Papel', STR_TO_DATE('03-09-2020', '%d-%m-%Y'), STR_TO_DATE('07-04-2021', '%d-%m-%Y'), STR_TO_DATE('24-05-2019', '%d-%m-%Y'), 1, 'Castellano', 1, 70, 'https://static.cegal.es/imagenes/marcadas/9788491/978849181681.gif', 4);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-100-5', '1080 recetas de cocina', '', '"1080 recetas de cocina" es un clásico por excelencia, y hoy podemos decir que, gracias a él, más de cinco millones de personas han aprendido, al margen de modas más o menos pasajeras, los secretos de la cocina y el bien comer. Reconocido por los grandes', 246, 'Papel', STR_TO_DATE('14-10-2021', '%d-%m-%Y'), STR_TO_DATE('22-09-2019', '%d-%m-%Y'), STR_TO_DATE('17-03-2021', '%d-%m-%Y'), 1, 'Castellano', 8, 99, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362100.gif', 4);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-206-7415-5', 'Mi familia y otros animales', '', 'Gerald Durrell combina en sus libros el retrato de gentes y lugares, la autobiografía y un insuperable sentido del humor. Mi familia y otros animales es sin duda su obra más conocida y celebrada. Primera parte de su divertida trilogía de Corfú, que prosigue con Bichos y demás parientes y El jardín de los dioses, la obra nos presenta una ágil y graciosa galería de personajes, como Larry -Lawrence Durrell, el futuro autor del «Cuarteto de Alejandría»- y sus estrafalarias amistades, mamá Durrell y su inagotable sentido común, o Spiro, el corfuano angloparlante, junto con toda una serie de animales retratados como sólo puede hacerlo quien a lo largo de toda una vida los ha considerado con inteligencia y ternura.', 212, 'Papel', STR_TO_DATE('01-03-2020', '%d-%m-%Y'), STR_TO_DATE('06-11-2019', '%d-%m-%Y'), STR_TO_DATE('29-04-2020', '%d-%m-%Y'), 1, 'Castellano', 0, 46, 'https://static.cegal.es/imagenes/marcadas/9788420/978842067415.gif', 1);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-059-6', 'El cerebro', '', 'EL CEREBRO presenta al lector, de manera inteligente y asequible, y también con mucho humor pero sin caer en la divulgación trivial, todos los aspectos relacionados con el cerebro humano: percepción, inteligencia, consciencia, pensamiento, memoria, aprendizaje, creatividad, voluntad, sociabilidad, sueño, recuperación. Este conjunto de temas es tratado de manera amena mediante ejemplos, actividades, infografías y esquemas. Al finalizar cada bloque se ofrecen experimentos ingeniosos y fascinantes que ayudan al lector a poner en práctica cómo funciona el cerebro, el dispositivo de procesamiento de información más complejo del universo. Divulgación científica de calidad de la mano de New Scientist, el semanario sobre temas científicos más vendido en el mundo, que acompaña al lector en un viaje a través de toda la variedad de peculiaridades del cerebro humano.', 297, 'Papel', STR_TO_DATE('07-07-2021', '%d-%m-%Y'), STR_TO_DATE('30-05-2021', '%d-%m-%Y'), STR_TO_DATE('07-01-2020', '%d-%m-%Y'), 1, 'Castellano', 20, 77, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362059.gif', 2);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-239-2', 'Algo de feminismo y otros escritos combativos', '', 'Conocida durante mucho tiempo principalmente como la introductora de la corriente naturalista en España por medio de sus novelas "Los Pazos de Ulloa" y "La madre naturaleza", Emilia Pardo Bazán (1851-1921) fue una mujer a la vanguardia de su época, beligerante defensora del valor de la mujer. «La clave de nuestra regeneración -declaraba en 1914, hace más de un siglo, a El Caballero Audaz- está en la mujer, en su instrucción, en su personalidad, en su conciencia. España se explica por la situación de sus mujeres, por el sarracenismo de sus hombres». La presente selección reúne los textos principales en que la autora dio a conocer sus ideas y su parecer acerca de la situación subalterna de la mujer en España, valorándola como una de las grandes rémoras del país. Por desgracia, sus textos no son hoy material de museo, sino que, leyendo entre líneas y siendo conscientes de los mecanismos de la sociedad actual, en muchos sentidos siguen teniendo plena vigencia. Selección e introducción de Marisa Sotelo Vázquez', 94, 'Papel', STR_TO_DATE('15-12-2020', '%d-%m-%Y'), STR_TO_DATE('11-08-2019', '%d-%m-%Y'), STR_TO_DATE('07-08-2020', '%d-%m-%Y'), 1, 'Castellano', 4, 92, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362239.gif', 3);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-169-2', 'El Horla. Cuentos fantásticos y de horror', '', 'Si bien fueron sus espléndidas novelas, como "Bel Ami" o "Fuerte como la muerte", las que valieron en su día a Guy de Maupassant (1850-1893) fama y dinero, no es menos cierto que su regular labor como cuentista en publicaciones de la época ha aportado no poco a consolidar su renombre en tiempos posteriores. "El Horla: Cuentos fantásticos y de horror" agrupa los mejores de sus relatos entre los que se podría decir concebidos para provocar una desazón en el lector. Sea su ingrediente principal el misterio, la locura, lo irracional, el miedo o la obsesión de la soledad, o bien el sexo, la violencia y la sangre, propia o ajena, todos ellos giran, en suma, en torno a un incidente de carácter extraordinario por inexplicable o anómalo, por arrebatado o por atroz. Traducción de Esther Benítez', 176, 'Papel', STR_TO_DATE('22-08-2021', '%d-%m-%Y'), STR_TO_DATE('06-08-2019', '%d-%m-%Y'), STR_TO_DATE('12-07-2019', '%d-%m-%Y'), 1, 'Castellano', 2, 71, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362169.gif', 4);
-INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION, FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA, ID_EDITORIAL) VALUE ('978-84-1362-305-4', 'La búsqueda del Santo Grial', '', 'Obra perteneciente al ciclo de leyendas artúricas conocido como la Vulgata, en La búsqueda del Santo Grial ciento cincuenta caballeros de la Mesa Redonda parten de Camelot dispuestos a arrostrar todo tipo de peligros con tal de recuperar el cáliz llevado a Inglaterra por los descendientes de José de Arimatea y conservado en el castillo de Corbenic. De ellos, sin embargo, sólo tres -Boores, Perceval y Galaz- conseguirán coronar la aventura, y de éstos sólo uno, Galaz, modelo de caballero en quien el ascetismo y la castidad se funden con la ayuda divina, llegará a conocer los secretos del Santo Grial.', 248, 'Papel', STR_TO_DATE('24-07-2021', '%d-%m-%Y'), STR_TO_DATE('21-09-2019', '%d-%m-%Y'), STR_TO_DATE('29-06-2020', '%d-%m-%Y'), 1, 'Castellano', 1, 67, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362305.gif', 5);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-1362-266-8', 'Hero: David Bowie', '',
+                                        'Mundialmente aclamado como el artista más innovador de su generación, David Bowie destacó como músico y compositor, pero también mostró su talento como pintor, actor y productor. Lesley-Ann Jones lo conoció desde su infancia, en la pequeña localidad de Bromley, al sur de Londres. Ya entonces era un joven desesperado por expresar su talento, frustrado por un entorno que lo ahogaba y determinado a conseguir el reconocimiento y la fortuna que sin duda merecía. Con el trasfondo de la evolución del pop y del rock en los últimos cincuenta años, y a través de entrevistas con amigos íntimos y con colaboradores que lo trataron a lo largo de su carrera, y que nunca antes habían contado sus experiencias personales, la autora nos ofrece una biografía única que refleja al mismo tiempo la vida pública y privada de un artista que marcó una época.',
+                                        165, 'Papel', STR_TO_DATE('26-11-2019',
+                                        '%d-%m-%Y'), STR_TO_DATE('09-02-2021', '%d-%m-%Y'), STR_TO_DATE('24-10-2019', '%d-%m-%Y'), 1, 'Castellano', 2, 44, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362266.gif', 4);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-1362-264-4', 'Lou Reed: Su vida', '',
+                                        'Lou Reed componía canciones sobre las drogas, la sordidez, la sexualidad transgresora, las prostitutas honorables y los buscavidas de tres al cuarto. También compuso algunas de las canciones de amor más conmovedoras de su época, desde "Pale Blue Eyes" hasta "Perfect Day". Arrancó desde el punto donde lo había dejado el rock. Antes de él, el rock tenía que ver con la diversión. Después de él, el rock fue literario, sombrío, y por encima de todo inquietantemente sincero. Siempre una generación por delante, nunca recibió lo que se merecía hasta cuando era ya demasiado tarde. La historia de Lou Reed está llena de esas contradicciones.',
+                                        383, 'Papel', STR_TO_DATE('01-06-2020',
+                                        '%d-%m-%Y'), STR_TO_DATE('28-06-2019', '%d-%m-%Y'), STR_TO_DATE('25-11-2019', '%d-%m-%Y'), 1, 'Castellano', 3, 10, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362264.gif', 4);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-1362-265-1', 'Prince. El reino púrpura', '',
+                                        'Prince fue un icono universal. Un creador que definió una era musical y transformó el aspecto de la cultura popular para siempre. Este libro ofrece una perspectiva de la vida de Prince, sin tabúes ni concesiones, como nunca se había hecho antes. Desde su traumática infancia, en la que buscó en la música de manera obsesiva una vía de escape a la infelicidad, hasta su ascenso al estrellato, pasando por un sinfín de rivalidades profesionales y, también, varios matrimonios fallidos. Y todo ello sin olvidar el fino análisis de sus renovados proyectos musicales a través de comentarios del propio Prince, de sus músicos y de quienes lo conocieron en primera persona.',
+                                        69, 'Papel', STR_TO_DATE('05-07-2019',
+                                        '%d-%m-%Y'), STR_TO_DATE('08-11-2019', '%d-%m-%Y'), STR_TO_DATE('13-08-2020', '%d-%m-%Y'), 1, 'Castellano', 4, 76, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362265.gif', 4);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-9181-681-2', 'El naufragio de las civilizaciones', '',
+                                        'Cuando los espectaculares avances tecnológicos de nuestros días nos han facilitado el acceso al conocimiento como nunca hasta ahora, que vivamos más y mejor, que el "tercer mundo" se desarrolle..., cuando por primera vez se podría conducir a la humanidad hacia una era de libertad y progreso, el mundo parece ir en dirección opuesta, hacia la destrucción de todo lo conseguido. ¿Cómo hemos llegado hasta aquí? Hace unos años, Amin Maalouf nos hablaba de que "nuestras civilizaciones se agotan" en "El desajuste del mundo" y en "Identidades asesinas", y aportaba las razones: la desconfianza hacia el "Otro", la xenofobia, la intolerancia política y religiosa, el populismo, el individualismo y la insolidaridad del nacionalismo, el racismo... Hoy en día ya nos habla directamente de "naufragio inminente". No hay añoranza de un pasado mejor en sus palabras, solo le preocupa el futuro de esta "época desconcertante", el porvenir de las nuevas generaciones, que pueda desaparecer lo que ha dado sentido a la aventura humana. Tampoco se deja llevar por el pesimismo ni quiere predicar el desaliento, solo hace una llamada lúcida a la responsabilidad colectiva, dejando entreabierta la puerta de la esperanza a que el mundo vuelva a orientarse, ya que como escribió en su novela "Los desorientados": "Más vale equivocarse en la esperanza que acertar en la desesperación".',
+                                        131, 'Papel', STR_TO_DATE('03-09-2020',
+                                        '%d-%m-%Y'), STR_TO_DATE('07-04-2021', '%d-%m-%Y'), STR_TO_DATE('24-05-2019', '%d-%m-%Y'), 1, 'Castellano', 1, 70, 'https://static.cegal.es/imagenes/marcadas/9788491/978849181681.gif', 4);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-1362-100-5', '1080 recetas de cocina', '',
+                                        '"1080 recetas de cocina" es un clásico por excelencia, y hoy podemos decir que, gracias a él, más de cinco millones de personas han aprendido, al margen de modas más o menos pasajeras, los secretos de la cocina y el bien comer. Reconocido por los grandes',
+                                        246, 'Papel', STR_TO_DATE('14-10-2021',
+                                        '%d-%m-%Y'), STR_TO_DATE('22-09-2019', '%d-%m-%Y'), STR_TO_DATE('17-03-2021', '%d-%m-%Y'), 1, 'Castellano', 8, 99, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362100.gif', 4);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-206-7415-5', 'Mi familia y otros animales', '',
+                                        'Gerald Durrell combina en sus libros el retrato de gentes y lugares, la autobiografía y un insuperable sentido del humor. Mi familia y otros animales es sin duda su obra más conocida y celebrada. Primera parte de su divertida trilogía de Corfú, que prosigue con Bichos y demás parientes y El jardín de los dioses, la obra nos presenta una ágil y graciosa galería de personajes, como Larry -Lawrence Durrell, el futuro autor del «Cuarteto de Alejandría»- y sus estrafalarias amistades, mamá Durrell y su inagotable sentido común, o Spiro, el corfuano angloparlante, junto con toda una serie de animales retratados como sólo puede hacerlo quien a lo largo de toda una vida los ha considerado con inteligencia y ternura.',
+                                        212, 'Papel', STR_TO_DATE('01-03-2020',
+                                        '%d-%m-%Y'), STR_TO_DATE('06-11-2019', '%d-%m-%Y'), STR_TO_DATE('29-04-2020', '%d-%m-%Y'), 1, 'Castellano', 0, 46, 'https://static.cegal.es/imagenes/marcadas/9788420/978842067415.gif', 1);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-1362-059-6', 'El cerebro', '',
+                                        'EL CEREBRO presenta al lector, de manera inteligente y asequible, y también con mucho humor pero sin caer en la divulgación trivial, todos los aspectos relacionados con el cerebro humano: percepción, inteligencia, consciencia, pensamiento, memoria, aprendizaje, creatividad, voluntad, sociabilidad, sueño, recuperación. Este conjunto de temas es tratado de manera amena mediante ejemplos, actividades, infografías y esquemas. Al finalizar cada bloque se ofrecen experimentos ingeniosos y fascinantes que ayudan al lector a poner en práctica cómo funciona el cerebro, el dispositivo de procesamiento de información más complejo del universo. Divulgación científica de calidad de la mano de New Scientist, el semanario sobre temas científicos más vendido en el mundo, que acompaña al lector en un viaje a través de toda la variedad de peculiaridades del cerebro humano.',
+                                        297, 'Papel', STR_TO_DATE('07-07-2021',
+                                        '%d-%m-%Y'), STR_TO_DATE('30-05-2021', '%d-%m-%Y'), STR_TO_DATE('07-01-2020', '%d-%m-%Y'), 1, 'Castellano', 20, 77, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362059.gif', 2);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-1362-239-2', 'Algo de feminismo y otros escritos combativos', '',
+                                        'Conocida durante mucho tiempo principalmente como la introductora de la corriente naturalista en España por medio de sus novelas "Los Pazos de Ulloa" y "La madre naturaleza", Emilia Pardo Bazán (1851-1921) fue una mujer a la vanguardia de su época, beligerante defensora del valor de la mujer. «La clave de nuestra regeneración -declaraba en 1914, hace más de un siglo, a El Caballero Audaz- está en la mujer, en su instrucción, en su personalidad, en su conciencia. España se explica por la situación de sus mujeres, por el sarracenismo de sus hombres». La presente selección reúne los textos principales en que la autora dio a conocer sus ideas y su parecer acerca de la situación subalterna de la mujer en España, valorándola como una de las grandes rémoras del país. Por desgracia, sus textos no son hoy material de museo, sino que, leyendo entre líneas y siendo conscientes de los mecanismos de la sociedad actual, en muchos sentidos siguen teniendo plena vigencia. Selección e introducción de Marisa Sotelo Vázquez',
+                                        94, 'Papel', STR_TO_DATE('15-12-2020',
+                                        '%d-%m-%Y'), STR_TO_DATE('11-08-2019', '%d-%m-%Y'), STR_TO_DATE('07-08-2020', '%d-%m-%Y'), 1, 'Castellano', 4, 92, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362239.gif', 3);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-1362-169-2', 'El Horla. Cuentos fantásticos y de horror', '',
+                                        'Si bien fueron sus espléndidas novelas, como "Bel Ami" o "Fuerte como la muerte", las que valieron en su día a Guy de Maupassant (1850-1893) fama y dinero, no es menos cierto que su regular labor como cuentista en publicaciones de la época ha aportado no poco a consolidar su renombre en tiempos posteriores. "El Horla: Cuentos fantásticos y de horror" agrupa los mejores de sus relatos entre los que se podría decir concebidos para provocar una desazón en el lector. Sea su ingrediente principal el misterio, la locura, lo irracional, el miedo o la obsesión de la soledad, o bien el sexo, la violencia y la sangre, propia o ajena, todos ellos giran, en suma, en torno a un incidente de carácter extraordinario por inexplicable o anómalo, por arrebatado o por atroz. Traducción de Esther Benítez',
+                                        176, 'Papel', STR_TO_DATE('22-08-2021',
+                                        '%d-%m-%Y'), STR_TO_DATE('06-08-2019', '%d-%m-%Y'), STR_TO_DATE('12-07-2019', '%d-%m-%Y'), 1, 'Castellano', 2, 71, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362169.gif', 4);
+INSERT INTO LIBRO (ISBN, TITULO, SUBTITULO, SINOPSIS, PAGINAS, FORMATO, FECHA_PUBLICACION, FECHA_EDICION,
+                   FECHA_DISPONIBLE, VISIBLE, IDIOMA, STOCK, PRECIO, NOMBRE_PORTADA,
+                   ID_EDITORIAL) VALUE ('978-84-1362-305-4', 'La búsqueda del Santo Grial', '',
+                                        'Obra perteneciente al ciclo de leyendas artúricas conocido como la Vulgata, en La búsqueda del Santo Grial ciento cincuenta caballeros de la Mesa Redonda parten de Camelot dispuestos a arrostrar todo tipo de peligros con tal de recuperar el cáliz llevado a Inglaterra por los descendientes de José de Arimatea y conservado en el castillo de Corbenic. De ellos, sin embargo, sólo tres -Boores, Perceval y Galaz- conseguirán coronar la aventura, y de éstos sólo uno, Galaz, modelo de caballero en quien el ascetismo y la castidad se funden con la ayuda divina, llegará a conocer los secretos del Santo Grial.',
+                                        248, 'Papel', STR_TO_DATE('24-07-2021',
+                                        '%d-%m-%Y'), STR_TO_DATE('21-09-2019', '%d-%m-%Y'), STR_TO_DATE('29-06-2020', '%d-%m-%Y'), 1, 'Castellano', 1, 67, 'https://static.cegal.es/imagenes/marcadas/9788413/978841362305.gif', 5);
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '7eae4fdd-fd5a-4a7e-8587-a5ab8b8dc201.gif'
+WHERE ISBN = '978-84-08-24066-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '62446626-809c-4747-9a48-eac50b5f785c.gif'
+WHERE ISBN = '978-84-08-23551-4';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '81105a1e-a558-40b1-83a6-8907ffa0b645.gif'
+WHERE ISBN = '978-84-08-23500-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '64a6831d-a658-45bd-b132-5c49b4fa25ed.gif'
+WHERE ISBN = '978-84-08-23552-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'e8804f94-bfde-4d00-bf89-31864a5eaba8.gif'
+WHERE ISBN = '978-84-08-22469-3';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'b32adcf5-618c-4c8d-9aa4-e59692f6cc0a.gif'
+WHERE ISBN = '978-84-08-23910-9';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'c8463fb5-8b73-42cb-8f21-709dc83cb841.gif'
+WHERE ISBN = '978-84-08-24071-6';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'c9becd34-1175-448e-a5b3-a2e6b6ff01e8.gif'
+WHERE ISBN = '978-84-1341-512-3';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'f00d7182-335c-4f3c-95e3-3e12b500971a.gif'
+WHERE ISBN = '978-84-08-23455-5';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'e7a9ad88-5d27-432c-86a0-b997cee8e6e3.gif'
+WHERE ISBN = '978-84-08-24228-4';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '6c16f0b1-efd0-4ba3-ac61-fb5eed0a9d63.gif'
+WHERE ISBN = '978-84-08-22983-4';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '26a91dd2-ec59-4f0e-b941-eb86a9a2072b.gif'
+WHERE ISBN = '978-84-08-24226-0';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'd96ff536-da15-474f-9b17-efd30faab887.gif'
+WHERE ISBN = '978-84-08-24133-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'ea941392-9be0-4ffa-adf3-b6aea0c5113f.gif'
+WHERE ISBN = '978-84-08-24216-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '303a1270-8718-48e2-9d4f-47c66532114e.gif'
+WHERE ISBN = '978-84-08-24010-5';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '3608ab16-d744-4b45-85f9-356a6c983928.gif'
+WHERE ISBN = '978-84-08-24124-9';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '3ba2399e-b95a-44f7-ae4f-d895f3832bbd.gif'
+WHERE ISBN = '978-84-08-24227-7';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'da5889bb-97af-4d3f-bb08-df854e683ae4.gif'
+WHERE ISBN = '978-84-08-24123-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'c6219484-91f9-46c1-868b-cd0c92f2e79b.gif'
+WHERE ISBN = '978-84-1362-249-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'bf6f865a-2126-412c-b55b-ceee4822f53c.gif'
+WHERE ISBN = '978-84-9142-439-0';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'a7787039-c3ed-4cfd-9144-433e8465cff8.gif'
+WHERE ISBN = '978-84-7898-701-6';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '2342f8b8-3394-4d1a-9451-afe7bb8fc6c9.gif'
+WHERE ISBN = '978-84-9142-458-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '26e3602a-a7dd-49a8-89da-bb5f2f1d8ffa.gif'
+WHERE ISBN = '978-84-7898-538-8';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'cd22e1f3-4192-4504-9ab0-dfae16b218f1.gif'
+WHERE ISBN = '978-84-7898-803-7';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'fe57688c-1d92-408c-a2d0-e62b9579f8d5.gif'
+WHERE ISBN = '978-84-7898-629-3';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '0ecb1be8-edaa-4250-b725-110f34776d95.gif'
+WHERE ISBN = '978-84-9142-292-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'bcf72ecf-a407-40a9-9e75-6ebc0871da56.gif'
+WHERE ISBN = '978-84-7898-541-8';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '0ae22a09-6523-4b1b-98ad-5e338a482e00.gif'
+WHERE ISBN = '978-84-9181-995-0';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'e16d27cd-9650-4fcb-875e-c59f48861433.gif'
+WHERE ISBN = '978-84-1362-121-0';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'fc1fa9d8-3249-4646-8101-f4dca67201e7.gif'
+WHERE ISBN = '978-84-206-7420-9';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '88a417ee-6016-4a93-965f-33eef9309c8f.gif'
+WHERE ISBN = '978-84-1362-213-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '2462394a-95a8-46c7-8d03-150a95242edd.gif'
+WHERE ISBN = '978-84-206-7417-9';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '912844a6-e17f-47ea-8bf5-01a8423433fc.gif'
+WHERE ISBN = '978-84-1362-202-6';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '3f618413-eb87-4c4b-bd9c-49c3394f4082.gif'
+WHERE ISBN = '978-84-1362-215-6';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'c10072aa-0858-4748-a51d-f57d4a58e56f.gif'
+WHERE ISBN = '978-84-1362-219-4';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '1ded475e-701a-4af1-a9f5-451a0f075dde.gif'
+WHERE ISBN = '978-84-1362-204-0';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'f99d8a59-2d66-45e2-a2af-aa36d3a7f9df.gif'
+WHERE ISBN = '978-84-1362-221-7';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'baa42dab-63ff-41ee-8d9f-4b1a61b11c7b.gif'
+WHERE ISBN = '978-84-1362-167-8';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'a9877dcb-6bff-4bb2-b797-983a6d61ee3f.gif'
+WHERE ISBN = '978-84-1362-057-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '0193a6dd-e079-45e5-b1e5-3089d35964b7.gif'
+WHERE ISBN = '978-84-1362-223-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '75f86445-31a7-4dd4-9a82-20e605033a8c.gif'
+WHERE ISBN = '978-84-206-5136-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'bd678e31-3220-4209-8ba5-b839f4b3a7de.gif'
+WHERE ISBN = '978-84-1362-227-9';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '2fca78dc-2802-4fe8-9057-a34f1f7e81df.gif'
+WHERE ISBN = '978-84-1362-233-0';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '1bd4c2ac-ad84-4a7e-b412-7e16b312c085.gif'
+WHERE ISBN = '978-84-1362-225-5';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '663a6c87-bb59-49e7-969c-e68240bacffa.gif'
+WHERE ISBN = '978-84-9181-551-8';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '8d621a4a-c88b-45ab-95d5-940ea2a730f1.gif'
+WHERE ISBN = '978-84-1362-327-6';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '2ebfc7b4-9b3e-41cd-8585-5278a03c2a04.gif'
+WHERE ISBN = '978-84-9181-807-6';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'f6e411c2-567f-4444-b972-05a6c07c4277.gif'
+WHERE ISBN = '978-84-206-7429-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'c6084153-cf20-4352-a734-065b12571688.gif'
+WHERE ISBN = '978-84-1362-263-7';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'c7e8dac3-e2ab-48a6-864f-64b9f8e55dea.gif'
+WHERE ISBN = '978-84-1362-266-8';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'acdebbbc-c9a2-45fa-b4f8-d81295c1697b.gif'
+WHERE ISBN = '978-84-1362-264-4';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'e49c81f9-6e95-4045-8e52-3e7e2628a30f.gif'
+WHERE ISBN = '978-84-1362-265-1';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '456689a0-da93-41b9-8737-6ce4c7091477.gif'
+WHERE ISBN = '978-84-9181-681-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '74ceb2b0-fffb-4523-b798-2a3879007468.gif'
+WHERE ISBN = '978-84-1362-100-5';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '97da1272-fa9f-4d84-a03b-42213a4ba2bd.gif'
+WHERE ISBN = '978-84-206-7415-5';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'c7cd4cbb-7e9b-4058-8d50-20a43cbd12ed.gif'
+WHERE ISBN = '978-84-1362-059-6';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = '9699d1d0-5148-449c-baae-652e9173e796.gif'
+WHERE ISBN = '978-84-1362-239-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'cfc2e58f-faf7-4363-8c27-88fe86982b5e.gif'
+WHERE ISBN = '978-84-1362-169-2';
+UPDATE LIBRO
+SET NOMBRE_PORTADA = 'f6b6b20d-91ed-4722-952e-1c60fe3c7e3e.gif'
+WHERE ISBN = '978-84-1362-305-4';
 
 -- LIBRO_AUTOR
-INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (1, 1);
-INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (2, 2);
-INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (3, 3);
-INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (4, 4);
-INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (5, 5);
-INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (6, 1);
-INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (7, 2);
-INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (8, 3);
+INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR)
+VALUES (1, 1);
+INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR)
+VALUES (2, 2);
+INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR)
+VALUES (3, 3);
+INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR)
+VALUES (4, 4);
+INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR)
+VALUES (5, 5);
+INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR)
+VALUES (6, 1);
+INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR)
+VALUES (7, 2);
+INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR)
+VALUES (8, 3);
 INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (9, 4);
 INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (10, 5);
 INSERT INTO LIBRO_AUTOR (ID_LIBRO, ID_AUTOR) VALUES (11, 6);
