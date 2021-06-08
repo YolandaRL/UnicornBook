@@ -20,6 +20,7 @@ import org.unicorn.book.libreria.filter.LibroFilter;
 import org.unicorn.book.libreria.service.LibroService;
 import org.unicorn.book.usuario.dto.ComentarioForm;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -79,19 +80,37 @@ public class BusquedaController {
 
     @GetMapping("/libro/{id}")
     public String get(@PathVariable("id") Long id, @RequestParam(name = "section", required = false) String section,
-            ModelMap model) {
+            ModelMap model, HttpServletRequest request) {
+        final String referer = request.getHeader("referer");
+        if (referer != null && referer.contains("busquedas")) {
+            request.getSession().setAttribute("referer", referer);
+            model.addAttribute("referer", referer);
+        } else {
+            request.getSession().removeAttribute("referer");
+
+        }
         if ("comentarios".equals(section)) {
             model.addAttribute("scrollToComentarios", true);
         }
         model.addAttribute("comentarioForm", new ComentarioForm());
-        model.addAttribute("libro", libroService.getLibro(id));
+        LibroView libro = libroService.getLibro(id);
+        request.getSession().setAttribute("libroId", libro.getId());
+        request.getSession().setAttribute("tituloLibro", libro.getTitulo());
+        model.addAttribute("libro", libro);
         model.addAttribute("listComentarios", libroService.getAllComentariosByIdLibros(id));
         return "libro/libro";
     }
 
     @GetMapping("/autor/{id}")
-    private String getLibro(@PathVariable("id") Long id, ModelMap model) {
+    private String getLibro(@PathVariable("id") Long id, ModelMap model, HttpServletRequest request) {
         AutorView autor = libroService.getAutor(id);
+        if (request.getSession().getAttribute("libroId") != null) {
+            model.addAttribute("libroId", request.getSession().getAttribute("libroId"));
+            model.addAttribute("tituloLibro", request.getSession().getAttribute("tituloLibro"));
+        }
+        if (request.getSession().getAttribute("referer") != null) {
+            model.addAttribute("referer", request.getSession().getAttribute("referer"));
+        }
         model.addAttribute("autor", libroService.getAutor(id));
         model.addAttribute("listComentarios", libroService
                 .getAllComentariosByIdLibros(autor.getLibros().stream().map(LibroView::getId).toArray(Long[]::new)));

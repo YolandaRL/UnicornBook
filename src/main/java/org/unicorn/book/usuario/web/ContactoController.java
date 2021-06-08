@@ -75,7 +75,7 @@ public class ContactoController {
     public String nuevoEncargo(@Valid @ModelAttribute("encargoForm") EncargoForm encargoForm, BindingResult result,
             ModelMap model, RedirectAttributes ra) {
         if (result.hasErrors()) {
-            ra.addFlashAttribute("error", true);
+            ra.addFlashAttribute("error", "Corrija los errores marcados en el formulario");
             ra.addFlashAttribute("tipoOperacion", TipoOperacion.ENCARGO.getId());
             ra.addFlashAttribute("encargoForm", encargoForm);
             ra.addFlashAttribute("org.springframework.validation.BindingResult.encargoForm", result);
@@ -111,7 +111,7 @@ public class ContactoController {
             ModelMap model, RedirectAttributes ra) {
 
         if (result.hasErrors()) {
-            ra.addFlashAttribute("error", true);
+            ra.addFlashAttribute("error", "Corrija los errores marcados en el formulario");
             ra.addFlashAttribute("tipoOperacion", TipoOperacion.CONSULTA.getId());
             ra.addFlashAttribute("consultaForm", consultaForm);
             ra.addFlashAttribute("org.springframework.validation.BindingResult.consultaForm", result);

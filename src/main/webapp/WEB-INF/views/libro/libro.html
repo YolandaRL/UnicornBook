@@ -21,6 +21,9 @@
                      style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;); background: transparent;">
                     <ol class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item"><a class="simple-link" th:href="@{/}">Inicio</a></li>
+                        <li class="breadcrumb-item" th:if="${referer!=null}">
+                            <a class="simple-link" th:href="${referer}">Búsqueda avanzada</a>
+                        </li>
                         <li aria-current="page" class="breadcrumb-item active"><a class="simple-link"
                                                                                   th:href="@{/libro/__${libro.id}__}"
                                                                                   th:text="${libro.titulo}"></a></li>
@@ -200,7 +203,7 @@
                                         <span>Encargar</span>
                                     </a>
                                 </div>
-                                <div class="col-4 text-center" th:if="${conStock}">
+                                <div class="col-6 text-center" th:if="${conStock}">
                                     <select aria-label="Floating label select example" class="form-select"
                                             id="floatingSelect" name="cantidad">
                                         <option th:data-id-libro="${libro.id}"
@@ -209,7 +212,7 @@
                                                 th:value="${i}"></option>
                                     </select>
                                 </div>
-                                <div class="col-8 text-center">
+                                <div class="col-6 text-center">
                                     <button class="btn btn-primary mr-5 actualizar-carrito" th:disabled="${!conStock}">
                                         <em class="fa fa-shopping-basket"></em>
                                         <span th:if="${conStock}">Añadir al carrito</span>

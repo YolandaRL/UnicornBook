@@ -99,7 +99,7 @@
                                            placeholder="Código postal"
                                            th:classappend="${#fields.hasErrors('codigoPostal') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                            th:field="*{codigoPostal}"
-                                           type="text"/>
+                                           type="number"/>
                                     <label for="codigoPostal">Código postal</label>
                                     <span class="text-danger" th:if="${#fields.hasErrors('codigoPostal')}"
                                           th:text="${#fields.errors('codigoPostal')[0]}"></span>

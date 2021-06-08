@@ -11,18 +11,18 @@ public class TarjetaForm {
     @NotEmpty(message = "Campo obligatorio")
     private String nombrePersonalizado;
     @NotEmpty(message = "Campo obligatorio")
-    @Length(min = 19, max = 19, message = "Campo obligatorio")
+    @Length(min = 19, max = 19, message = "El número de tarjeta debe ser de 16 dígitos numéricos")
     private String numero;
     @NotNull(message = "Campo obligatorio")
     private Long tipoTarjeta;
     @NotEmpty(message = "Campo obligatorio")
-    @Length(min = 1, max = 2, message = "Campo obligatorio")
+    @Length(min = 1, max = 2, message = "El mes debe ser de 2 dígitos")
     private String mesCaducidad;
     @NotEmpty(message = "Campo obligatorio")
-    @Length(min = 2, max = 2, message = "Campo obligatorio")
+    @Length(min = 1, max = 2, message = "El año deben ser los 2 últimos dígitos")
     private String anoCaducidad;
     @NotEmpty(message = "Campo obligatorio")
-    @Length(min = 2, max = 3, message = "Campo obligatorio")
+    @Length(min = 2, max = 3, message = "El CVV debe ser de 3 dígitos numéricos")
     private String cvv;
 
     public Long getId() {

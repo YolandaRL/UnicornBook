@@ -89,7 +89,7 @@
                         <input aria-label="telefono1" class="form-control" id="telefono1"
                                placeholder="Teléfono"
                                th:classappend="${#fields.hasErrors('telefono1') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                               th:field="*{telefono1}" type="text"/>
+                               th:field="*{telefono1}" type="number"/>
                         <em class="fa fa-phone"></em>
                         <label for="telefono1">Teléfono</label>
                         <span class="text-danger" th:if="${#fields.hasErrors('telefono1')}"
@@ -101,7 +101,7 @@
                         <input aria-label="telefono2" class="form-control" id="telefono2"
                                placeholder="Teléfono alternativo"
                                th:classappend="${#fields.hasErrors('telefono2') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
-                               th:field="*{telefono2}" type="text"/>
+                               th:field="*{telefono2}" type="number"/>
                         <em class="fa fa-phone"></em>
                         <label for="telefono2">Teléfono alternativo</label>
                         <span class="text-danger" th:if="${#fields.hasErrors('telefono2')}"

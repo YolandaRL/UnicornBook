@@ -36,8 +36,8 @@
                         <a class="a-link-icon fa fa-pencil-alt btn-open-modal-tarjetas"
                            data-id-confirmacion="btn-confirmar-tarjeta" th:data-id="${t.id}">
                         </a>
-                        <a class="a-link-icon fa fa-trash-alt" id="eliminar-tarjeta"
-                           th:href="@{/usuario/tarjeta/__${t.id}__/eliminar}">
+                        <a class="a-link-icon fa fa-trash-alt generic-eliminar"
+                           th:data-action="|/usuario/tarjeta/${t.id}/eliminar|">
                         </a>
                     </td>
                 </tr>

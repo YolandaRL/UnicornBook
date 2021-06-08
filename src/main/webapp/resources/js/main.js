@@ -1,4 +1,9 @@
 jQuery(function () {
+    $(document).on('input', 'input[type="number"]', function (e) {
+        e.target.value = e.target.value.replace('e', '');
+        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+    });
+
     $('img').each(function () {
         if (!this.complete
             || typeof this.naturalWidth == "undefined"
@@ -108,6 +113,12 @@ jQuery(function () {
         for (let i = 0; i < puntuacion; i++) {
             $(stars.get(i)).removeClass('far').addClass('fa');
         }
+    });
+
+    $(document).on('click', '.generic-eliminar', function () {
+        let modal = $('#modalEliminar');
+        $('.btn-confirmar-eliminacion', modal).attr('href', $(this).data('action'));
+        modal.modal('show');
     });
 });
 

@@ -54,14 +54,16 @@
                              style="width: 10vw">
                             <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
                                 <div class="row">
-                                    <div class="col-8">
-                                        <p style="font-size: 1em"><span class="countSelections"
-                                                                        th:text="${#lists.size(filtro.tematicas)}">0</span>
+                                    <div class="col-6">
+                                        <p class="mt-3" style="font-size: 1em"><span class="countSelections"
+                                                                                     th:text="${#lists.size(filtro.tematicas)}">0</span>
                                             seleccionados
                                         </p>
                                     </div>
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <button class="btn btn-outline-dark seleccion-global" type="button">TODO
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <button class="btn btn-outline-dark btn-sm seleccion-global" type="button">
+                                            <span th:if="${#lists.size(filtro.tematicas)==0}">Seleccionar todo</span>
+                                            <span th:if="${#lists.size(filtro.tematicas)>0}">Deseleccionar todo</span>
                                         </button>
                                     </div>
                                 </div>
@@ -75,7 +77,9 @@
                                 <input class="d-none simulate-value"
                                        th:checked="${#lists.contains(filtro.tematicas, tematica.id)}"
                                        th:value="${tematica.id}" type="checkbox"/>
-                                <!--<span class="name" th:text="${tematica.nombre}"></span><span
+                                <span class="name" th:text="${tematica.nombre}"></span>
+                                <!--
+                                    <span
                                     th:text="| (${tematica.ocurrencias})|"></span>-->
                                 <em class="float-end mt-1 fa fa-times d-none"></em>
                             </div>
@@ -93,14 +97,16 @@
                              style="width: 10vw">
                             <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
                                 <div class="row">
-                                    <div class="col-8">
-                                        <p style="font-size: 1em"><span class="countSelections"
-                                                                        th:text="${#lists.size(filtro.autores)}">0</span>
+                                    <div class="col-6">
+                                        <p class="mt-3" style="font-size: 1em"><span class="countSelections"
+                                                                                     th:text="${#lists.size(filtro.autores)}">0</span>
                                             seleccionados
                                         </p>
                                     </div>
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <button class="btn btn-outline-dark seleccion-global" type="button">TODO
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <button class="btn btn-outline-dark btn-sm seleccion-global" type="button">
+                                            <span th:if="${#lists.size(filtro.autores)==0}">Seleccionar todo</span>
+                                            <span th:if="${#lists.size(filtro.autores)>0}">Deseleccionar todo</span>
                                         </button>
                                     </div>
                                 </div>
@@ -113,7 +119,8 @@
                                 <input class="d-none simulate-value"
                                        th:checked="${#lists.contains(filtro.autores, autor.id)}" th:value="${autor.id}"
                                        type="checkbox"/>
-                                <!--<span class="name" th:text="${autor.nombre}"></span><span
+                                <span class="name" th:text="${autor.nombre}"></span>
+                                <!--<span
                                     th:text="| (${autor.ocurrencias})|"></span>-->
                                 <em class="float-end mt-1 fa fa-times d-none"></em>
                             </div>
@@ -132,14 +139,16 @@
                              class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
                             <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
                                 <div class="row">
-                                    <div class="col-8">
-                                        <p style="font-size: 1em"><span class="countSelections"
-                                                                        th:text="${#lists.size(filtro.colecciones)}">0</span>
+                                    <div class="col-6">
+                                        <p class="mt-3" style="font-size: 1em"><span class="countSelections"
+                                                                                     th:text="${#lists.size(filtro.colecciones)}">0</span>
                                             seleccionados
                                         </p>
                                     </div>
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <button class="btn btn-outline-dark seleccion-global" type="button">TODO
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <button class="btn btn-outline-dark btn-sm seleccion-global" type="button">
+                                            <span th:if="${#lists.size(filtro.colecciones)==0}">Seleccionar todo</span>
+                                            <span th:if="${#lists.size(filtro.colecciones)>0}">Deseleccionar todo</span>
                                         </button>
                                     </div>
                                 </div>
@@ -153,7 +162,7 @@
                                        th:checked="${#lists.contains(filtro.colecciones, coleccion.id)}"
                                        th:value="${coleccion.id}"
                                        type="checkbox"/>
-                                <!--<span class="name" th:text="${coleccion.nombre}"></span><span
+                                <span class="name" th:text="${coleccion.nombre}"></span><!--<span
                                     th:text="| (${coleccion.ocurrencias})|"></span>-->
                                 <em class="float-end mt-1 fa fa-times d-none"></em>
                             </div>
@@ -172,14 +181,16 @@
                              class="dropdown-menu-advanced-search dropdown-menu p-0" style="width: 10vw">
                             <div class="dropdown-item-text border-bottom-1 bg-light pl-1 pt-3">
                                 <div class="row">
-                                    <div class="col-8">
-                                        <p style="font-size: 1em"><span class="countSelections"
-                                                                        th:text="${#lists.size(filtro.editoriales)}">0</span>
+                                    <div class="col-6">
+                                        <p class="mt-3" style="font-size: 1em"><span class="countSelections"
+                                                                                     th:text="${#lists.size(filtro.editoriales)}">0</span>
                                             seleccionados
                                         </p>
                                     </div>
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <button class="btn btn-outline-dark seleccion-global" type="button">TODO
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <button class="btn btn-outline-dark btn-sm seleccion-global" type="button">
+                                            <span th:if="${#lists.size(filtro.editoriales)==0}">Seleccionar todo</span>
+                                            <span th:if="${#lists.size(filtro.editoriales)>0}">Deseleccionar todo</span>
                                         </button>
                                     </div>
                                 </div>
@@ -193,7 +204,7 @@
                                        th:checked="${#lists.contains(filtro.editoriales, editorial.id)}"
                                        th:value="${editorial.id}"
                                        type="checkbox"/>
-                                <!--<span class="name" th:text="${editorial.nombre}"></span><span
+                                <span class="name" th:text="${editorial.nombre}"></span><!--<span
                                     th:text="| (${editorial.ocurrencias})|"></span>-->
                                 <em class="float-end mt-1 fa fa-times d-none"></em>
                             </div>

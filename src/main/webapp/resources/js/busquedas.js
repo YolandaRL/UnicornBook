@@ -46,14 +46,15 @@ jQuery(function () {
         let context = $(this).closest('.dropdown-advanced-search');
         let activos = $('.dropdown-item.active', context);
         let inputs = $('input', context);
+
         if ((activos.length !== undefined && activos.length > 0)
             && $('.dropdown-item', context).length === activos.length) {
-            $(this).text('TODO');
+            $(this).val('Seleccionar todo');
             activos.removeClass('active');
             $('button', context).removeClass('active');
             inputs.prop('checked', false);
         } else {
-            $(this).text('BORRAR');
+            $(this).val('Deshacer seleccion');
             $('.dropdown-item', context).each(function () {
                 $(this).addClass('active');
                 $('button', context).addClass('active');
