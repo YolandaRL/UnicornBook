@@ -1,7 +1,7 @@
 jQuery(function () {
     $(document).on('input', 'input[type="number"]', function (e) {
         e.target.value = e.target.value.replace('e', '');
-        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '');
     });
 
     $('img').each(function () {

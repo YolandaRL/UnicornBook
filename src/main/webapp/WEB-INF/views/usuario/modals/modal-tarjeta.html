@@ -103,7 +103,7 @@
                                            max="999" min="000" placeholder="CVE"
                                            th:classappend="${#fields.hasErrors('cvv') ? 'is-invalid' : (#fields.hasErrors('*') ? 'is-valid': '')}"
                                            th:field="*{cvv}"
-                                           type="text"/>
+                                           type="number"/>
                                     <label for="cvv">CVV</label>
                                     <span class="text-danger" th:if="${#fields.hasErrors('cvv')}"
                                           th:text="${#fields.errors('cvv')[0]}"></span>
