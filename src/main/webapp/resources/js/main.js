@@ -1,7 +1,12 @@
 jQuery(function () {
     $(document).on('input', 'input[type="number"]', function (e) {
+        let max = $(this).attr('max');
         e.target.value = e.target.value.replace('e', '');
         e.target.value = e.target.value.replace(/[^\dA-Z]/g, '');
+
+        if ($(this).val() > parseInt(max)) {
+            $(this).val($(this).val().replace(/.$/, ''));
+        }
     });
 
     $('img').each(function () {
