@@ -6,7 +6,7 @@ public interface EncargoView {
 
     Long getId();
 
-    Long getIsbn();
+    String getIsbn();
 
     Integer getCantidad();
 

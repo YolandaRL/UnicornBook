@@ -103,7 +103,7 @@ public class UsuarioController {
         usuarioService.bajaUsuario();
         ra.addFlashAttribute("msgToastSuccess", "Su cuenta ha sido eliminado correctamente");
         httpServletRequest.getSession().invalidate();
-        return "redirect:/cerrar-sesison";
+        return "redirect:/cerrar-sesion";
     }
 
     @GetMapping(value = "/perfil")
