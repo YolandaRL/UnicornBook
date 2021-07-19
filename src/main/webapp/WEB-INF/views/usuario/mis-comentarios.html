@@ -72,8 +72,9 @@
                                             th:text="${#dates.format(c.fechaComentario, 'dd-MM-yyyy')}"></span></td>
                                     <td class="text-center"><span th:text="${c.estadoNombre}"></span></td>
                                     <td class="text-center">
-                                        <a class="a-link-icon fa fa-trash-alt"
-                                           th:href="@{/usuario/comentario/__${c.libroId}__/eliminar?type=DESDE_COMENTARIOS}"></a>
+                                        <a class="generic-eliminar a-link-icon fa fa-trash-alt"
+                                           th:data-action="'/usuario/comentario/' + ${c.libroId} + '/eliminar?type=DESDE_COMENTARIOS'"
+                                        ></a>
                                         <a class="editar-comentario a-link-icon fa fa-pencil-alt"
                                            th:data-id-libro="${c.libroId}"
                                            th:data-type="DESDE_COMENTARIOS"></a>
@@ -89,4 +90,6 @@
 
     </div>
     <div th:replace="/usuario/modals/modal-comentario"></div>
+    <div th:replace="usuario/modals/modal-generic-eliminar"></div>
+
 </div>

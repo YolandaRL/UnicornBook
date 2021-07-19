@@ -124,8 +124,9 @@
                                                     <a class="editar-comentario simple-link"
                                                        th:data-id-libro="${comentario.idLibro}"
                                                        th:data-type="DESDE_LIBRO">Editar</a>
-                                                    <a th:href="@{/usuario/comentario/__${comentario.idLibro}__/eliminar?type=DESDE_LIBRO}"
-                                                       class="simple-link">Eliminar</a>
+                                                    <a class="generic-eliminar simple-link"
+                                                       th:data-action="'/usuario/comentario/' + ${comentario.idLibro} + '/eliminar?type=DESDE_LIBRO'"
+                                                    >Eliminar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -227,6 +228,8 @@
         </div>
     </div>
     <div th:replace="/usuario/modals/modal-comentario"></div>
+    <div th:replace="usuario/modals/modal-generic-eliminar"></div>
+
 </div>
 </body>
 </html>

@@ -2,7 +2,7 @@ package org.unicorn.book.usuario.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.unicorn.book.aplicacion.enums.ComponenteEnum;
+import org.unicorn.book.aplicacion.model.Estado;
 import org.unicorn.book.aplicacion.respository.EstadoRepository;
 import org.unicorn.book.autenticacion.AutenticacionUtils;
 import org.unicorn.book.libreria.model.Libro;
@@ -112,7 +112,7 @@ public class CestaServiceImpl implements CestaService {
         compra.setFechaEntrega(new Date(new Date().getTime() + 60000 * 24 * 15));
         compra.setMetodoPago(1.0); //FIXME
         compra.setUsuario(entityManager.getReference(Usuario.class, AutenticacionUtils.getIdUsuario()));
-        compra.setEstado(estadoRepository.findTopByComponenteId(ComponenteEnum.COMPRA.getId()));
+        compra.setEstado(entityManager.getReference(Estado.class, 16L));
         compra.setTipoEntrega(entityManager.getReference(TipoEntrega.class, form.getIdTipoEntrega()));
         if (form.getIdTipoEntrega().equals(2L)) {
             compra.setDireccion(entityManager.getReference(Direccion.class, form.getIdDireccion()));
